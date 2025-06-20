@@ -1,0 +1,48 @@
+{
+  "name": "happy-birthday-website",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "test": "vitest",
+    "typecheck": "tsc --noEmit",
+    "format": "prettier --write .",
+    "prepare": "husky install"
+  },
+  "dependencies": {
+    "@react-three/drei": "^10.3.0",
+    "@react-three/fiber": "^9.1.2",
+    "@supabase/supabase-js": "^2.50.0",
+    "next": "15.3.4",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "swiper": "^11.2.8",
+    "zustand": "^5.0.5"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx}": "eslint --fix",
+    "*.{css,md,json}": "prettier --write"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "@testing-library/jest-dom": "^6.0.0",
+    "@testing-library/react": "^15.0.0-alpha.1",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "autoprefixer": "^10.4.16",
+    "eslint": "^9",
+    "eslint-config-next": "15.3.4",
+    "husky": "^9.0.11",
+    "jsdom": "^22.1.0",
+    "lint-staged": "^15.2.2",
+    "prettier": "^3.2.5",
+    "tailwindcss": "^4",
+    "typescript": "^5",
+    "vite-tsconfig-paths": "^4.2.0",
+    "vitest": "^3.2.4"
+  }
+}
