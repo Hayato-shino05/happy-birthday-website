@@ -1,32 +1,162 @@
 /* Mobile Optimization Styles */
-/* These styles are specifically for mobile devices to ensure a better user experience */
+/* Comprehensive mobile styles with performance optimizations and modern UI practices */
 
-/* Apply styles for screens smaller than 768px */
+/* Video Background Optimization for Mobile */
+.video-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.video-background video {
+    position: absolute;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+}
+
+@media (max-aspect-ratio: 16/9) {
+    /* Portrait mode (taller than wide) - Maintain 16:9 aspect ratio */
+    .video-background video {
+        width: 100%;
+        height: auto;
+        top: 50%;
+        transform: translateX(-50%) translateY(-50%);
+    }
+    
+    /* Add padding on top and bottom using background color instead of black */
+    .video-background::before,
+    .video-background::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        width: 100%;
+        background: #F3E5D8; /* Default background color from base.css */
+        background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23998e86' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        z-index: 1;
+    }
+    
+    /* Calculate height of padding areas dynamically based on viewport dimensions */
+    .video-background::before {
+        top: 0;
+        height: calc((100vh - (100vw * 9/16)) / 2);
+    }
+    
+    .video-background::after {
+        bottom: 0;
+        height: calc((100vh - (100vw * 9/16)) / 2);
+    }
+    
+    /* Theme-specific background colors for the padding areas */
+    body.spring .video-background::before,
+    body.spring .video-background::after {
+        background-color: #F8DDE4;
+        background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23E91E63' fill-opacity='0.15'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    
+    body.summer .video-background::before,
+    body.summer .video-background::after {
+        background-color: #FFE0B2;
+        background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23FFD12E' fill-opacity='0.15'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    
+    body.autumn .video-background::before,
+    body.autumn .video-background::after {
+        background-color: #F5CBA7;
+        background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23E2571E' fill-opacity='0.15'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    
+    body.winter .video-background::before,
+    body.winter .video-background::after {
+        background-color: #D1E9F6;
+        background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%230079B0' fill-opacity='0.15'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    
+    body.christmas .video-background::before,
+    body.christmas .video-background::after {
+        background-color: #EF9A9A;
+        background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23D32F2F' fill-opacity='0.15'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    
+    body.tet .video-background::before,
+    body.tet .video-background::after {
+        background-color: #FFD54F;
+        background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23E91E63' fill-opacity='0.15'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    
+    body.halloween .video-background::before,
+    body.halloween .video-background::after {
+        background-color: #4A148C;
+        background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23FF5722' fill-opacity='0.15'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+}
+
+@media (min-aspect-ratio: 16/9) {
+    /* Landscape mode (wider than tall) */
+    .video-background video {
+        width: auto;
+        height: 100%;
+    }
+}
+
+/* Base Mobile Styles - Apply to all mobile devices */
 @media screen and (max-width: 768px) {
+    /* Global optimizations */
+    * {
+        -webkit-tap-highlight-color: transparent; /* Remove tap highlight on iOS */
+        touch-action: manipulation; /* Optimize for touch */
+    }
+
     /* General layout adjustments */
     body {
-        font-size: 14px; /* Smaller font size for better readability on mobile */
+        font-size: 14px;
         padding: 0;
         margin: 0;
         overflow-x: hidden;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    /* Video background adjustments for mobile */
+    .video-background video {
+        object-position: center;
+    }
+
+    /* For vertical videos on mobile - maintain 16:9 aspect ratio */
+    body.mobile-vertical-video .video-background video {
+        object-fit: contain;
+        width: 100%;
+        height: auto;
     }
 
     .container {
         padding: 15px 10px;
-        max-width: 100%; /* Ensure container uses full width */
+        max-width: 100%;
+        box-sizing: border-box;
     }
 
     h1 {
-        font-size: 2.2em; /* Smaller heading for mobile */
+        font-size: 2.2em;
         margin-bottom: 15px;
+        line-height: 1.2;
     }
 
     /* Countdown adjustments */
     .countdown {
         font-size: 1.1em;
-        padding: 10px;
+        padding: 12px;
         margin: 15px 0;
-        max-width: 100%; /* Full width for countdown */
+        max-width: 100%;
+        box-sizing: border-box;
     }
 
     .countdown h1 {
@@ -36,6 +166,8 @@
 
     .countdown .time {
         gap: 10px;
+        flex-wrap: wrap;
+        justify-content: center;
     }
 
     .countdown .time span {
@@ -49,152 +181,161 @@
         width: 220px;
         height: 220px;
         margin: 30px auto 15px;
+        transform: none !important; /* Prevent animation jank */
     }
 
-    /* Buttons */
-    .feature-button, #blowButton, #micPermissionBtn {
-        padding: 8px 15px;
+    /* Buttons - Larger touch targets */
+    .feature-button, #blowButton, #micPermissionBtn, .game-button {
+        padding: 10px 15px;
         font-size: 0.9em;
-        margin: 5px;
+        margin: 6px;
+        min-height: 44px; /* Minimum touch target size */
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
     }
 
     /* Music player */
     .music-player {
-        padding: 5px 10px;
+        padding: 8px 10px;
         bottom: 10px;
-        width: 90%;
+        width: calc(100% - 20px);
+        max-width: 400px;
         box-sizing: border-box;
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
     }
 
     .music-control {
-        width: 30px;
-        height: 30px;
+        width: 36px;
+        height: 36px;
+        min-width: 36px; /* Ensure minimum touch target */
     }
 
     .song-title {
         font-size: 0.9em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 150px;
     }
 
     /* Games container */
     .games-container {
-        bottom: 60px;
+        bottom: 70px;
         left: 0;
         width: 100%;
         justify-content: center;
-        padding: 5px;
-    }
-
-    .game-button {
-        padding: 6px 12px;
-        font-size: 0.8em;
-        margin: 3px;
+        padding: 8px 5px;
+        display: flex;
+        flex-wrap: wrap;
     }
 
     /* Social share buttons */
     .social-share {
-        right: 5px;
+        right: 8px;
         top: auto;
         bottom: 100px;
         transform: none;
-        gap: 5px;
+        gap: 8px;
     }
 
     .share-button {
-        width: 35px;
-        height: 35px;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     /* Custom message container */
     .custom-message-container {
-        top: 5px;
-        right: 5px;
-        gap: 5px;
+        top: 8px;
+        right: 8px;
+        gap: 8px;
         max-width: 180px;
     }
 
     /* Album and Memory Wall */
     .memory-wall {
-        width: 98%;
-        height: 85%;
-        padding: 10px;
+        width: 95%;
+        height: 90%;
+        padding: 15px;
+        box-sizing: border-box;
     }
 
     .photo-gallery {
-        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-        gap: 8px;
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+        gap: 10px;
         padding: 10px;
     }
 
-    /* Bulletin board modal */
-    .bulletin-board-modal .modal-content {
+    .photo-item {
+        aspect-ratio: 1;
+    }
+
+    /* Modal improvements */
+    .bulletin-board-modal .modal-content,
+    .virtual-gift-modal .modal-content,
+    .virtual-gifts-modal .modal-content,
+    .custom-message-modal .modal-content {
         width: 95%;
-        max-width: 320px;
-        max-height: 80vh;
-        padding: 10px;
+        max-width: 350px;
+        max-height: 85vh;
+        padding: 15px;
+        box-sizing: border-box;
+        border-radius: 8px;
     }
 
-    .bulletin-posts {
-        max-height: 300px;
-        padding: 5px;
+    .bulletin-posts,
+    .gift-list,
+    .virtual-gifts-list {
+        max-height: 350px;
+        padding: 10px;
+        -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
     }
 
     .bulletin-post {
-        margin-bottom: 8px;
-        padding: 6px;
-        font-size: 0.85em;
-    }
-
-    .post-form input, .post-form textarea {
-        padding: 6px;
-        font-size: 0.85em;
-    }
-
-    .post-form textarea {
-        height: 70px;
-    }
-
-    .post-form button, .post-form .gift-select-btn {
-        padding: 6px 12px;
-        font-size: 0.85em;
-    }
-
-    /* Virtual gift modal */
-    .virtual-gift-modal .modal-content {
-        width: 95%;
-        max-width: 320px;
+        margin-bottom: 10px;
         padding: 10px;
+        font-size: 0.9em;
     }
 
-    .gift-list {
-        max-height: 300px;
-        padding: 5px;
+    /* Form elements */
+    .post-form input, 
+    .post-form textarea,
+    .reply-form input, 
+    .reply-form textarea,
+    .gift-form input {
+        padding: 10px;
+        font-size: 0.9em;
+        border-radius: 6px;
     }
 
-    .gift-item {
-        width: calc(50% - 8px);
-        padding: 6px;
-        font-size: 0.8em;
+    .post-form textarea,
+    .reply-form textarea {
+        height: 80px;
     }
 
     /* Puzzle game */
     #puzzleArea {
         width: 100%;
-        height: 200px;
-        margin: 10px auto;
+        height: 220px;
+        margin: 15px auto;
     }
 
     #piecesContainer {
         width: 100%;
         min-height: 80px;
         margin-top: 10px;
-        padding: 5px;
+        padding: 8px;
     }
 }
 
-/* Extra small screens */
+/* Medium-small screens */
 @media screen and (max-width: 480px) {
     body {
-        font-size: 12px;
+        font-size: 13px;
     }
 
     h1 {
@@ -202,116 +343,91 @@
     }
 
     .container {
-        padding: 10px 5px;
+        padding: 12px 8px;
     }
 
     .countdown {
-        font-size: 0.9em;
-        padding: 8px;
-        margin: 10px 0;
+        font-size: 1em;
+        padding: 10px;
     }
 
     .countdown h1 {
-        font-size: 1.5em;
-        margin-bottom: 10px;
+        font-size: 1.6em;
+        margin-bottom: 12px;
     }
 
     .countdown .time span {
-        min-width: 40px;
-        font-size: 1.2em;
+        min-width: 45px;
+        font-size: 1.3em;
         padding: 6px 10px;
     }
 
     .cake-container {
         width: 180px;
         height: 180px;
-        margin: 20px auto 10px;
-    }
-
-    .feature-button, #blowButton, #micPermissionBtn {
-        padding: 6px 10px;
-        font-size: 0.8em;
-        margin: 3px;
-    }
-
-    .music-player {
-        padding: 3px 5px;
-        bottom: 5px;
-    }
-
-    .music-control {
-        width: 25px;
-        height: 25px;
-    }
-
-    .song-title {
-        font-size: 0.8em;
-    }
-
-    .games-container {
-        bottom: 50px;
-        padding: 3px;
-    }
-
-    .game-button {
-        padding: 5px 10px;
-        font-size: 0.75em;
-    }
-
-    .social-share {
-        bottom: 80px;
-    }
-
-    .share-button {
-        width: 30px;
-        height: 30px;
-    }
-
-    .custom-message-container {
-        top: 3px;
-        right: 3px;
-        max-width: 160px;
+        margin: 20px auto 15px;
     }
 
     .photo-gallery {
-        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-        gap: 5px;
+        grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+        gap: 8px;
     }
 
-    .bulletin-board-modal .modal-content {
-        width: 98%;
-        max-width: 290px;
-        padding: 8px;
-    }
-
-    .bulletin-posts {
-        max-height: 250px;
-    }
-
-    .post-form textarea {
-        height: 60px;
-    }
-
-    /* Virtual gift modal */
-    .virtual-gift-modal .modal-content {
-        width: 98%;
-        max-width: 290px;
-        padding: 8px;
-    }
-
-    .gift-list {
-        max-height: 250px;
-    }
-
-    /* Virtual gifts view modal */
+    /* Modal adjustments */
+    .bulletin-board-modal .modal-content,
+    .virtual-gift-modal .modal-content,
     .virtual-gifts-modal .modal-content {
-        width: 98%;
-        max-width: 290px;
+        width: 95%;
+        max-width: 320px;
+        padding: 12px;
+    }
+
+    .bulletin-posts,
+    .gift-list,
+    .virtual-gifts-list {
+        max-height: 300px;
         padding: 8px;
     }
 
-    .virtual-gifts-list {
-        max-height: 250px;
+    .gift-item {
+        width: calc(50% - 10px);
+        padding: 8px;
+        font-size: 0.85em;
+    }
+}
+
+/* Extra small screens */
+@media screen and (max-width: 360px) {
+    body {
+        font-size: 12px;
+    }
+
+    h1 {
+        font-size: 1.6em;
+    }
+
+    .cake-container {
+        width: 160px;
+        height: 160px;
+        margin: 15px auto 10px;
+    }
+
+    .custom-message-container {
+        max-width: 150px;
+    }
+
+    .feature-button, 
+    #blowButton, 
+    #micPermissionBtn, 
+    .game-button {
+        padding: 8px 12px;
+        font-size: 0.8em;
+        margin: 4px;
+    }
+
+    .photo-gallery {
+        grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+        gap: 6px;
     }
 
     /* Puzzle game */
@@ -320,40 +436,102 @@
     }
 
     #piecesContainer {
-        min-height: 60px;
+        min-height: 70px;
+    }
+    
+    .music-player {
+        padding: 6px 8px;
+    }
+    
+    .music-control {
+        width: 32px;
+        height: 32px;
+        min-width: 32px;
+    }
+    
+    .song-title {
+        max-width: 120px;
     }
 }
 
-/* Very small screens */
-@media screen and (max-width: 320px) {
-    body {
-        font-size: 11px;
+/* Device orientation specific styles */
+@media screen and (orientation: portrait) {
+    /* Portrait mode - maintain 16:9 aspect ratio */
+    .video-background {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
-
-    h1 {
-        font-size: 1.5em;
+    
+    .video-background video {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16/9;
+        object-fit: contain;
+        max-height: 100%;
     }
-
-    .cake-container {
-        width: 150px;
-        height: 150px;
+    
+    /* Create letterbox effect with theme-matching background */
+    .video-background::before,
+    .video-background::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        width: 100%;
+        background: #F3E5D8; /* Default background color */
+        background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23998e86' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        z-index: 1;
     }
+}
 
+@media screen and (orientation: landscape) {
+    /* Landscape mode */
+    .video-background video {
+        width: 100%;
+        height: auto;
+        max-height: none;
+        object-fit: cover;
+    }
+}
+
+/* Device-specific optimizations */
+
+/* Fix for notched iPhones */
+@supports (padding: max(0px)) {
+    .music-player {
+        padding-bottom: max(10px, env(safe-area-inset-bottom));
+    }
+    
     .custom-message-container {
-        max-width: 140px;
+        padding-top: max(8px, env(safe-area-inset-top));
+        padding-right: max(8px, env(safe-area-inset-right));
     }
+}
 
-    .feature-button, #blowButton, #micPermissionBtn {
-        padding: 5px 8px;
-        font-size: 0.75em;
+/* Optimize for high pixel density screens */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .cake-container {
+        transform: translateZ(0);
+        backface-visibility: hidden;
     }
-
-    .photo-gallery {
-        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    
+    .photo-item img, 
+    .photo-item video {
+        will-change: transform;
     }
+}
 
-    /* Puzzle game */
-    #puzzleArea {
-        height: 150px;
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.001s !important;
+        transition-duration: 0.001s !important;
+    }
+    
+    .cake-container {
+        animation: none !important;
     }
 }

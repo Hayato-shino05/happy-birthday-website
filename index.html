@@ -74,6 +74,13 @@
     </style>
 </head>
 <body>
+    <!-- Video Background -->
+    <div class="video-background">
+        <video autoplay muted loop playsinline id="backgroundVideo">
+            <source src="video/spring.mp4" type="video/mp4">
+        </video>
+    </div>
+
     <!-- Photo Album Button -->
     <button class="feature-button" id="openAlbum">
         📸 Xem Album Kỷ niệm
@@ -254,5 +261,79 @@
       })
     </script>
     <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
+
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-config.js"></script>
+    
+    <!-- Utility Scripts -->
+    <script src="js/localStorage-utils.js"></script>
+    
+    <!-- Core Scripts -->
+    <script src="js/core.js"></script>
+    <script src="js/themes.js"></script>
+    <script src="js/features.js"></script>
+    <script src="js/album.js"></script>
+    <script src="js/community.js"></script>
+    
+    <!-- Script để thay đổi video background theo chủ đề -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Lấy video background
+        const backgroundVideo = document.getElementById('backgroundVideo');
+        
+        // Hàm thay đổi video theo chủ đề
+        function updateBackgroundVideo(theme) {
+            let videoSrc = '';
+            
+            // Chọn video phù hợp với chủ đề
+            switch(theme) {
+                case 'spring':
+                case 'hanami':
+                    videoSrc = 'video/spring.mp4';
+                    break;
+                case 'summer':
+                case 'obon':
+                    videoSrc = 'video/summer.mp4';
+                    break;
+                case 'autumn':
+                case 'tsukimi':
+                    videoSrc = 'video/autumn.mp4';
+                    break;
+                case 'winter':
+                    videoSrc = 'video/winter.mp4';
+                    break;
+                default:
+                    videoSrc = 'video/spring.mp4';
+            }
+            
+            // Cập nhật nguồn video
+            if (backgroundVideo.querySelector('source').src !== videoSrc) {
+                backgroundVideo.querySelector('source').src = videoSrc;
+                backgroundVideo.load();
+                backgroundVideo.play();
+            }
+        }
+        
+        // Lắng nghe sự kiện thay đổi chủ đề (nếu có)
+        document.addEventListener('themeChanged', function(e) {
+            updateBackgroundVideo(e.detail.theme);
+        });
+        
+        // Khởi tạo video ban đầu dựa trên class của body
+        const bodyClasses = document.body.classList;
+        let currentTheme = 'spring'; // Mặc định
+        
+        for (let i = 0; i < bodyClasses.length; i++) {
+            const cls = bodyClasses[i];
+            if (['spring', 'summer', 'autumn', 'winter', 'hanami', 'obon', 'tsukimi'].includes(cls)) {
+                currentTheme = cls;
+                break;
+            }
+        }
+        
+        updateBackgroundVideo(currentTheme);
+    });
+    </script>
 </body>
 </html>

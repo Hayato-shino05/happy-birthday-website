@@ -1,13 +1,18 @@
 // Hàm lấy tên người dùng đã lưu
 function getSavedUsername() {
-    return localStorage.getItem('birthdayChatUserName') || '';
+    return window.getLocalData ? window.getLocalData('birthdayChatUserName', '') : 
+           localStorage.getItem('birthdayChatUserName') || '';
 }
 
 // Hàm lưu tên người dùng
 function saveUsername(name) {
     if (name && name.trim() !== '') {
-        localStorage.setItem('birthdayChatUserName', name.trim());
-        return true;
+        if (window.setLocalData) {
+            return window.setLocalData('birthdayChatUserName', name.trim());
+        } else {
+            localStorage.setItem('birthdayChatUserName', name.trim());
+            return true;
+        }
     }
     return false;
 }

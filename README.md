@@ -87,6 +87,45 @@ npm run lint -- --fix
 npm run format
 ```
 
+## 📚 Tài Liệu 📚
+
+Dự án bao gồm các tài liệu sau để giúp bạn hiểu và sử dụng website:
+
+1. **Hướng dẫn người dùng**: [user-guide.md](user-guide.md)
+   - Hướng dẫn chi tiết cách sử dụng tất cả tính năng của website
+
+2. **Tài liệu kỹ thuật**: [technical-documentation.md](technical-documentation.md)
+   - Thông tin chi tiết về cấu trúc backend và cách triển khai
+
+3. **Phân tích cơ sở dữ liệu**: [database-analysis.md](database-analysis.md)
+   - Phân tích chi tiết về cấu trúc dữ liệu hiện tại
+
+4. **Chính sách bảo mật Storage**: [storage-policies.md](storage-policies.md)
+   - Mô tả các chính sách bảo mật cho Storage buckets
+
+5. **Kế hoạch nâng cấp**: [todo.md](todo.md)
+   - Kế hoạch chi tiết cho việc nâng cấp website
+
+## 🔒 Cải Tiến Mới 🔒
+
+Phiên bản mới nhất bao gồm các cải tiến sau:
+
+### Hiệu suất và Bảo mật
+- **Singleton Supabase Client**: Tối ưu hóa kết nối đến Supabase
+- **Caching System**: Giảm số lượng truy vấn và cải thiện thời gian phản hồi
+- **Error Handling**: Hệ thống xử lý lỗi tập trung và thông báo người dùng
+- **Mã hóa LocalStorage**: Bảo vệ dữ liệu người dùng được lưu trữ cục bộ
+
+### Quản lý Media
+- **Cấu trúc thư mục phân cấp**: Tổ chức file media theo người dùng/năm/tháng
+- **Giới hạn kích thước file**: Ngăn chặn việc tải lên file quá lớn
+- **Metadata phong phú**: Lưu trữ thông tin chi tiết về file media
+
+### Tối ưu hóa truy vấn
+- **Pagination**: Tải dữ liệu theo trang để cải thiện hiệu suất
+- **Truy vấn có chọn lọc**: Chỉ lấy các trường cần thiết thay vì select *
+- **Indexes**: Bổ sung các chỉ mục để tăng tốc truy vấn
+
 ## ⚙️ Tích Hợp Liên Tục (CI) ⚙️
 
 Repository sử dụng **GitHub Actions** để tự động chạy **ESLint** và **Prettier** trên mỗi lần push hoặc pull request. Kết quả kiểm tra sẽ được hiển thị trực tiếp trên PR dưới dạng dấu ✅ hoặc ❌.

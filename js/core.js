@@ -55,21 +55,11 @@ document.head.appendChild(style);
 // Tải danh sách sinh nhật từ Supabase
 async function loadBirthdays() {
     try {
-        // Kiểm tra xem đã có kết nối Supabase chưa
-        if (!supabase) {
-            console.error("Supabase chưa được khởi tạo");
-            return;
-        }
+        // Sử dụng hàm getBirthdays từ supabase-config.js
+        const data = await window.getBirthdays();
         
-        // Lấy dữ liệu từ bảng birthdays
-        const { data, error } = await supabase
-            .from('birthdays')
-            .select('*')
-            .order('month')
-            .order('day');
-            
-        if (error) {
-            console.error("Lỗi khi tải dữ liệu sinh nhật:", error);
+        if (!data || data.length === 0) {
+            console.warn("Không có dữ liệu sinh nhật nào được tìm thấy");
             return;
         }
         
@@ -88,11 +78,74 @@ async function loadBirthdays() {
         checkBirthdayAndInitialize();
     } catch (error) {
         console.error("Lỗi khi tải sinh nhật từ Supabase:", error);
+        // Hiển thị thông báo lỗi cho người dùng
+        showErrorMessage("Không thể tải dữ liệu sinh nhật. Vui lòng thử lại sau.");
     }
+}
+
+// Hiển thị thông báo lỗi
+function showErrorMessage(message) {
+    // Kiểm tra xem đã có thông báo lỗi chưa
+    let errorBox = document.getElementById('errorMessageBox');
+    
+    if (!errorBox) {
+        // Tạo phần tử thông báo lỗi
+        errorBox = document.createElement('div');
+        errorBox.id = 'errorMessageBox';
+        errorBox.style.position = 'fixed';
+        errorBox.style.top = '10px';
+        errorBox.style.left = '50%';
+        errorBox.style.transform = 'translateX(-50%)';
+        errorBox.style.backgroundColor = '#ffebee';
+        errorBox.style.color = '#c62828';
+        errorBox.style.padding = '10px 20px';
+        errorBox.style.borderRadius = '4px';
+        errorBox.style.boxShadow = '0 2px 5px rgba(0,0,0,0.2)';
+        errorBox.style.zIndex = '9999';
+        errorBox.style.display = 'flex';
+        errorBox.style.alignItems = 'center';
+        errorBox.style.justifyContent = 'space-between';
+        errorBox.style.maxWidth = '80%';
+        
+        document.body.appendChild(errorBox);
+    }
+    
+    // Cập nhật nội dung thông báo
+    errorBox.innerHTML = `
+        <span>${message}</span>
+        <button style="background: none; border: none; cursor: pointer; margin-left: 10px; font-weight: bold;" 
+                onclick="this.parentElement.style.display='none'">×</button>
+    `;
+    
+    // Hiển thị thông báo
+    errorBox.style.display = 'flex';
+    
+    // Tự động ẩn sau 5 giây
+    setTimeout(() => {
+        if (errorBox) errorBox.style.display = 'none';
+    }, 5000);
 }
 
 // Khởi tạo trang khi tài liệu sẵn sàng
 document.addEventListener('DOMContentLoaded', () => {
+    // Đăng ký xử lý lỗi toàn cục cho Supabase
+    if (window.registerErrorHandler) {
+        window.registerErrorHandler((operation, error) => {
+            console.warn(`Lỗi Supabase trong thao tác [${operation}]:`, error);
+            
+            // Hiển thị thông báo lỗi thân thiện cho người dùng
+            let userMessage = "Có lỗi xảy ra khi kết nối đến máy chủ.";
+            
+            if (error.message && error.message.includes('network')) {
+                userMessage = "Kiểm tra kết nối mạng của bạn và thử lại.";
+            } else if (error.code === 'PGRST301' || error.code === '401') {
+                userMessage = "Phiên làm việc đã hết hạn, vui lòng làm mới trang.";
+            }
+            
+            showErrorMessage(userMessage);
+        });
+    }
+    
     // Tải danh sách sinh nhật từ Supabase khi trang đã tải xong
     setTimeout(loadBirthdays, 1000); // Chờ 1 giây để đảm bảo Supabase đã được khởi tạo
 });
