@@ -2,7 +2,7 @@
 /* Comprehensive mobile styles with performance optimizations and modern UI practices */
 
 /* Video Background Optimization for Mobile */
-.video-background {
+video.video-background {
     position: fixed;
     top: 0;
     left: 0;
@@ -10,23 +10,12 @@
     height: 100%;
     z-index: -1;
     overflow: hidden;
-}
-
-.video-background video {
-    position: absolute;
-    min-width: 100%;
-    min-height: 100%;
-    width: auto;
-    height: auto;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     object-fit: cover;
 }
 
 @media (max-aspect-ratio: 16/9) {
     /* Portrait mode (taller than wide) - Maintain 16:9 aspect ratio */
-    .video-background video {
+    video.video-background {
         width: 100%;
         height: auto;
         top: 50%;
@@ -34,75 +23,95 @@
     }
     
     /* Add padding on top and bottom using background color instead of black */
-    .video-background::before,
-    .video-background::after {
+    body::before,
+    body::after {
         content: '';
         position: absolute;
         left: 0;
         width: 100%;
         background: #F3E5D8; /* Default background color from base.css */
         background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23998e86' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-        z-index: 1;
+        z-index: -1;
+        pointer-events: none;
     }
     
     /* Calculate height of padding areas dynamically based on viewport dimensions */
-    .video-background::before {
+    body::before {
         top: 0;
         height: calc((100vh - (100vw * 9/16)) / 2);
     }
     
-    .video-background::after {
+    body::after {
         bottom: 0;
         height: calc((100vh - (100vw * 9/16)) / 2);
     }
     
     /* Theme-specific background colors for the padding areas */
-    body.spring .video-background::before,
-    body.spring .video-background::after {
+    body.spring::before,
+    body.spring::after {
         background-color: #F8DDE4;
         background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23E91E63' fill-opacity='0.15'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
     }
     
-    body.summer .video-background::before,
-    body.summer .video-background::after {
+    body.summer::before,
+    body.summer::after {
         background-color: #FFE0B2;
         background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23FFD12E' fill-opacity='0.15'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
     }
     
-    body.autumn .video-background::before,
-    body.autumn .video-background::after {
+    body.autumn::before,
+    body.autumn::after {
         background-color: #F5CBA7;
         background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23E2571E' fill-opacity='0.15'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
     }
     
-    body.winter .video-background::before,
-    body.winter .video-background::after {
+    body.winter::before,
+    body.winter::after {
         background-color: #D1E9F6;
         background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%230079B0' fill-opacity='0.15'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
     }
     
-    body.christmas .video-background::before,
-    body.christmas .video-background::after {
+    body.christmas::before,
+    body.christmas::after {
         background-color: #EF9A9A;
         background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23D32F2F' fill-opacity='0.15'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
     }
     
-    body.tet .video-background::before,
-    body.tet .video-background::after {
+    body.tet::before,
+    body.tet::after {
         background-color: #FFD54F;
         background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23E91E63' fill-opacity='0.15'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
     }
     
-    body.halloween .video-background::before,
-    body.halloween .video-background::after {
+    body.halloween::before,
+    body.halloween::after {
         background-color: #4A148C;
         background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23FF5722' fill-opacity='0.15'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    
+    /* Festival themes */
+    body.hanami::before,
+    body.hanami::after {
+        background-color: #F8DDE4;
+        background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23E91E63' fill-opacity='0.15'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    
+    body.obon::before,
+    body.obon::after {
+        background-color: #FFE0B2;
+        background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23FFD12E' fill-opacity='0.15'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    
+    body.tsukimi::before,
+    body.tsukimi::after {
+        background-color: #F5CBA7;
+        background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23E2571E' fill-opacity='0.15'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
     }
 }
 
 @media (min-aspect-ratio: 16/9) {
     /* Landscape mode (wider than tall) */
-    .video-background video {
+    video.video-background {
         width: auto;
         height: 100%;
     }
@@ -127,15 +136,8 @@
     }
 
     /* Video background adjustments for mobile */
-    .video-background video {
+    video.video-background {
         object-position: center;
-    }
-
-    /* For vertical videos on mobile - maintain 16:9 aspect ratio */
-    body.mobile-vertical-video .video-background video {
-        object-fit: contain;
-        width: 100%;
-        height: auto;
     }
 
     .container {
@@ -457,39 +459,18 @@
 /* Device orientation specific styles */
 @media screen and (orientation: portrait) {
     /* Portrait mode - maintain 16:9 aspect ratio */
-    .video-background {
-        position: fixed;
-        width: 100%;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    
-    .video-background video {
+    video.video-background {
         width: 100%;
         height: auto;
         aspect-ratio: 16/9;
         object-fit: contain;
         max-height: 100%;
     }
-    
-    /* Create letterbox effect with theme-matching background */
-    .video-background::before,
-    .video-background::after {
-        content: '';
-        position: absolute;
-        left: 0;
-        width: 100%;
-        background: #F3E5D8; /* Default background color */
-        background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23998e86' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-        z-index: 1;
-    }
 }
 
 @media screen and (orientation: landscape) {
     /* Landscape mode */
-    .video-background video {
+    video.video-background {
         width: 100%;
         height: auto;
         max-height: none;
