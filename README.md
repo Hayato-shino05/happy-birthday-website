@@ -1,6 +1,8 @@
-# 🎂 Website Chúc Mừng Sinh Nhật - Niềm Vui Kết Nối
+#誕生日お祝いウェブサイト - 喜びのつながり
 
-> **Một website tương tác mã nguồn mở đầy sáng tạo** giúp bạn tổ chức, ghi nhớ và chia sẻ những khoảnh khắc sinh nhật đáng nhớ theo cách vui nhộn và độc đáo! Từ đếm ngược thời gian, bánh sinh nhật 3D có thể thổi nến, đến album ảnh/video, trò chơi nhỏ, trò chuyện cộng đồng và giao diện thay đổi theo mùa - tất cả tạo nên một trải nghiệm khó quên!
+> **創造性豊かなオープンソースのインタラクティブウェブサイト**で、友人たちの誕生日を楽しくユニークに組織、記憶、共有しましょう！カウントダウンから2Dケーキのろうそく吹き消し、アルバム、ミニゲーム、コミュニティチャット、季節ごとのインターフェースまで、忘れられない体験を提供します！
+
+[![English](https://img.shields.io/badge/lang-English-blue)](README.en.md)
 
 <p align="center">
   <img src="https://img.shields.io/badge/Made%20with-❤️-ff69b4" alt="Made with Love">
@@ -8,141 +10,133 @@
   <img src="https://img.shields.io/badge/Version-1.0-brightgreen" alt="Version 1.0">
 </p>
 
-## 🌟 Tính Năng Nổi Bật 🌟
+## 主な機能 
 
-| **Tính Năng**                     | **Mô Tả**                                                                 |
-|-----------------------------------|---------------------------------------------------------------------------|
-| 🎉 **Đếm Ngược Sinh Nhật**        | Hiển thị thời gian còn lại đến sinh nhật tiếp theo trong nhóm bạn bè.     |
-| 🎂 **Bánh Sinh Nhật Tương Tác**   | Bánh 3 tầng đẹp mắt với nến có thể thổi tắt bằng nút thổi nến.           |
-| 📸 **Album Kỷ Niệm**              | Xem, gắn thẻ, tìm kiếm và chia sẻ những khoảnh khắc đáng nhớ qua ảnh/video. |
-| 🎮 **Trò Chơi Tương Tác**         | Bao gồm Trí Nhớ, Ghép Hình, Đố Vui Sinh Nhật và Lịch Sinh Nhật.          |
-| 🎵 **Trình Phát Nhạc**            | Phát những bài hát sinh nhật vui tươi, tạo không khí lễ hội.             |
-| 🎭 **Giao Diện Theo Mùa**         | Tự động thay đổi theo mùa và lễ hội: Xuân/Hạ/Thu/Đông, Giáng Sinh, Tết, Halloween, Hanami... |
-| 💬 **Tính Năng Cộng Đồng**        | Gửi tin nhắn văn bản, âm thanh, video, tặng quà ảo và bảng tin chúc mừng. |
-| 📹 **Quay Video Lời Chúc**        | Quay và lưu trữ video lời chúc sinh nhật thông qua camera thiết bị.      |
-| 🎈 **Hiệu Ứng Tương Tác**         | Thổi nến, pháo hoa rực rỡ, bóng bay bay lượn tạo không khí sôi động.     |
-| 📱 **Chia Sẻ Mạng Xã Hội**        | Dễ dàng chia sẻ niềm vui lên Facebook, Twitter và Instagram.             |
-| 🌐 **Hỗ Trợ Đa Ngôn Ngữ**         | Giao diện hỗ trợ cả Tiếng Việt và Tiếng Anh, dễ dàng chuyển đổi.         |
+| **機能**                     | **説明**                                                                 |
+|------------------------------|--------------------------------------------------------------------------|
+| 🎉 **誕生日カウントダウン**   | 友人グループの次の誕生日までの残り時間を表示します。                     |
+| 🎂 **インタラクティブケーキ** | 美しい2Dケーキで、ろうそくを吹き消すボタン付き。                       |
+| 📸 **記念アルバム**          | 写真/ビデオの閲覧、タグ付け、検索、共有で思い出を管理します。             |
+| 🎮 **インタラクティブゲーム** | 記憶ゲームとパズルゲームを含みます。                                   |
+| 🎵 **音楽プレーヤー**         | 楽しい誕生日ソングを再生し、お祝いの雰囲気を演出します。                 |
+| 🎭 **季節ごとのインターフェース** | 春/夏/秋/冬、クリスマス、正月、ハロウィン、花見などに自動変更します。 |
+| 💬 **コミュニティ機能**      | テキスト、音声、ビデオメッセージ、仮想ギフト、祝福掲示板を提供します。   |
+| 📹 **ビデオメッセージ録画**  | デバイスカメラで誕生日お祝いビデオを録画・保存します。                   |
+| 🎈 **インタラクティブ効果**  | ろうそく吹き消し、花火、風船などの効果で活気を出します。                 |
+| 📱 **ソーシャル共有**        | 人気のソーシャルメディアへの簡単共有。                                 |
+| 🌐 **多言語サポート**        | 日本語と英語のインターフェースを切り替え可能。                       |
 
-## 💖 Lợi Ích Tuyệt Vời Từ Dự Án 💖
+##プロジェクトの素晴らしい利点 💖
 
-1. **Kết Nối Tình Bạn Bền Chặt**:
-   - Giúp bạn bè không bao giờ bỏ lỡ ngày sinh nhật của nhau.
-   - Tạo không gian chung để giao lưu và chia sẻ thường xuyên.
-   - Gắn kết mọi người qua các hoạt động tổ chức sinh nhật đầy ý nghĩa.
+1. **友情の絆を強める**:
+   - 友人の誕生日を決して忘れません。
+   - 共有スペースで交流と共有を促進します。
+   - 意味ある誕生日イベントで人々を結びつけます。
 
-2. **Lưu Giữ Kỷ Niệm Vĩnh Cửu**:
-   - Album kỹ thuật số lưu trữ ảnh và video những khoảnh khắc đẹp.
-   - Dễ dàng xem lại và chia sẻ kỷ niệm với bạn bè, gia đình.
-   - Xây dựng bộ sưu tập kỷ niệm chung của cả nhóm.
+2. **永遠の思い出を保存**:
+   - デジタルアルバムで美しい瞬間を写真とビデオで保存します。
+   - 友人や家族と簡単に振り返り共有します。
+   - グループの共有コレクションを構築します。
 
-3. **Giải Trí và Tương Tác Vui Vẻ**:
-   - Các trò chơi và hiệu ứng tương tác tạo không khí lễ hội sôi động.
-   - Tính năng quay video lời chúc giúp ghi lại khoảnh khắc đặc biệt.
-   - Hiệu ứng hình ảnh đẹp mắt làm tăng sự hứng thú cho người dùng.
+3. **楽しくインタラクティブなエンターテイメント**:
+   - ゲームと効果でお祝いの雰囲気を高めます。
+   - ビデオメッセージ機能で特別な瞬間を記録します。
+   - 視覚効果でユーザーの興味を引きます。
 
-4. **Tiện Ích Thực Tế Cho Cuộc Sống**:
-   - Đếm ngược tự động nhắc nhở ngày sinh nhật quan trọng.
-   - Chia sẻ niềm vui nhanh chóng lên mạng xã hội chỉ với một cú nhấp chuột.
-   - Giao diện thân thiện, dễ sử dụng cho mọi lứa tuổi.
+4. **実用的な利便性**:
+   - 自動カウントダウンで重要な日を思い出します。
+   - ワンクリックでソーシャルメディアに喜びを共有します。
+   - すべての年齢層に使いやすいインターフェース。
 
-5. **Xây Dựng Cộng Đồng Gắn Kết**:
-   - Tạo không gian chung để mọi người cùng tham gia và đóng góp.
-   - Khuyến khích sự tương tác tích cực giữa các thành viên.
-   - Tăng cường kết nối qua các tính năng cộng đồng như tin nhắn và quà tặng.
+5. **強固なコミュニティ構築**:
+   - 参加と貢献のための共有スペースを作成します。
+   - メンバー間の積極的な交流を奨励します。
+   - メッセージとギフト機能でつながりを強化します。
 
-## 🛠️ Công Nghệ Được Sử Dụng 🛠️
+##使用技術
 
-- **HTML5** & **CSS3**: Xây dựng giao diện đẹp mắt và tương thích.
-- **JavaScript (Thuần)**: Tạo các tính năng tương tác mượt mà.
-- **MediaDevices API**: Hỗ trợ tính năng quay video lời chúc thông qua camera.
-- **Canvas API**: Vẽ các hiệu ứng hình ảnh sống động.
-- **Local Storage**: Lưu trữ dữ liệu cục bộ tiện lợi.
+- **HTML5** & **CSS3**: 美しい互換性のあるインターフェースを構築。
+- **JavaScript (純粋)**: スムーズなインタラクティブ機能を作成。
+- **MediaDevices API**: ビデオメッセージ機能をサポート。
+- **LocalStorage**: ユーザー情報とアプリケーション状態を保存。
 - **Supabase (Backend as a Service)**:
-  - Cơ sở dữ liệu để quản lý thông tin sinh nhật và tin nhắn.
-  - Lưu trữ ảnh, video và các file đa phương tiện.
-  - Đăng ký theo thời gian thực cho các tính năng cộng đồng.
+  - 誕生日情報とメッセージを管理するデータベース。
+  - 写真、ビデオ、多メディアファイルのストレージ。
+  - コミュニティ機能のためのリアルタイム登録。
 
-## 🚀 Hướng Dẫn Bắt Đầu 🚀
+##開始ガイド
 
-1. **Tải Về Mã Nguồn**:
+1. **ソースコードをダウンロード**:
    ```bash
    git clone https://github.com/yourusername/happy-birthday-website.git
    ```
 
-2. **Mở Website**:
-   - Mở file `index.html` trong trình duyệt web của bạn.
+2. **Supabaseの設定**:
+   - [Supabase](https://supabase.io/)でアカウントとプロジェクトを作成。
+   - `js/supabase-config.js`ファイルに接続情報を更新:
+   ```javascript
+   const SUPABASE_URL = 'your-supabase-url';
+   const SUPABASE_KEY = 'your-supabase-key';
+   ```
 
-3. **Cấp Quyền Camera**:
-   - Cho phép sử dụng camera khi được yêu cầu để trải nghiệm tính năng quay video lời chúc.
+3. **データベースのセットアップ**:
+   - 必要なテーブルを作成: `birthdays`, `custom_messages`, `audio_messages`, `video_messages`。
+   - ストレージバケットを作成: `media`, `audio`, `video`。
 
-## 💻 Thiết Lập Phát Triển 💻
+4. **ウェブサイトを開く**:
+   - `index.html`ファイルをブラウザで開くか、シンプルなウェブサーバーを使用。
 
-```bash
-# Cài đặt các dependencies
-npm install
+##プロジェクト構造 💻
 
-# Kiểm tra và tự động sửa lỗi style
-npm run lint -- --fix
-npm run format
+```
+happy-birthday-website/
+  ├── assets/         # 画像と静的リソース
+  ├── css/            # CSSファイル
+  │   ├── base.css    # 基本CSS
+  │   ├── themes.css  # テーマ別CSS
+  │   └── ...
+  ├── js/             # JavaScriptファイル
+  │   ├── core.js     # コア機能
+  │   ├── album.js    # アルバム管理
+  │   ├── community.js # コミュニティ機能
+  │   ├── features.js # インタラクティブ機能
+  │   ├── themes.js   # テーマ管理
+  │   └── ...
+  ├── video/          # テーマ用背景ビデオ
+  └── index.html      # メインページ
 ```
 
-## ⚙️ Tích Hợp Liên Tục (CI) ⚙️
+##サポートブラウザ 
 
-Repository sử dụng **GitHub Actions** để tự động chạy **ESLint** và **Prettier** trên mỗi lần push hoặc pull request. Kết quả kiểm tra sẽ được hiển thị trực tiếp trên PR dưới dạng dấu ✅ hoặc ❌.
-
-## 🎨 Tùy Chỉnh Theo Ý Thích 🎨
-
-### **Thêm Ngày Sinh Nhật Mới**
-Chỉnh sửa cơ sở dữ liệu trên **Supabase** hoặc cập nhật mảng `birthdays` trong file `core.js`:
-```javascript
-{
-    name: "Tên Người",
-    month: 1-12,
-    day: 1-31
-}
-```
-
-### **Thêm Ảnh và Video Vào Album**
-- Sử dụng giao diện ứng dụng để tải ảnh và video lên trực tiếp, các file sẽ được lưu trữ trên **Supabase Storage**.
-- Hoặc, nếu bạn có quyền truy cập vào Supabase, có thể thêm file trực tiếp vào bucket `media` trên Supabase.
-
-## 🌐 Trình Duyệt Hỗ Trợ 🌐
-
-- **Google Chrome** (Khuyến nghị)
+- **Google Chrome** (推奨)
 - **Mozilla Firefox**
 - **Apple Safari**
 - **Microsoft Edge**
 
-## 🤝 Đóng Góp Ý Tưởng và Mã Nguồn 🤝
+##  貢献 
 
-Chúng tôi luôn chào đón mọi đóng góp để làm cho dự án ngày càng tốt hơn! Hãy làm theo các bước sau:
+プロジェクトをより良くするための貢献を歓迎します！以下のステップに従ってください:
 
-1. **Fork và Clone Repository**:
-   - Fork dự án và clone về máy của bạn.
+1. **リポジトリをForkとClone**:
+   - プロジェクトをForkし、ローカルにClone。
 
-2. **Tạo Nhánh Mới**:
+2. **新しいブランチを作成**:
    ```bash
-   git checkout -b feature/ten-tinh-nang
+   git checkout -b feature/機能名
    ```
 
-3. **Thực Hiện Thay Đổi**:
-   - Viết mã, sửa lỗi hoặc thêm tính năng mới.
-   - Đảm bảo chạy các lệnh kiểm tra mã nguồn:
-     ```bash
-     npm run lint -- --fix
-     npm run format
-     ```
+3. **変更を実施**:
+   - コードを書く、バグ修正、または新機能追加。
 
-4. **Commit và Push**:
-   - Commit các thay đổi và push lên repository của bạn.
-   - Mở một **Pull Request** với mô tả chi tiết về những gì bạn đã thực hiện.
+4. **CommitとPush**:
+   - 変更をCommitし、自分のリポジトリにPush。
+   - 詳細な説明付きで**Pull Request**を開く。
 
-> 💡 **Lưu ý**: Mọi ý tưởng, báo lỗi (issue) và pull request đều được hoan nghênh! Hãy cùng nhau xây dựng một cộng đồng sáng tạo và gắn kết!
+> 💡 **注意**: アイデア、バグ報告 (issue)、プルリクエストを歓迎します！一緒に創造的で結束したコミュニティを築きましょう！
 
-## 📜 Giấy Phép Dự Án 📜
+## ライセンス 
 
-Dự án này được phân phối dưới **Giấy Phép [MIT](LICENSE)** - tự do sử dụng, chỉnh sửa và chia sẻ.
+このプロジェクトは** [MIT](LICENSE) ライセンス**の下で配布 - 自由に使用、編集、共有可能です。
 
 <p align="center">
   <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT">
@@ -151,5 +145,5 @@ Dự án này được phân phối dưới **Giấy Phép [MIT](LICENSE)** - t�
 ---
 
 <p align="center">
-  <strong>Được tạo ra với ❤️ dành cho những ngày sinh nhật đặc biệt và những người bạn thân yêu!</strong>
+  <strong>特別な誕生日と大切な友人たちへ❤️で作成！</strong>
 </p>

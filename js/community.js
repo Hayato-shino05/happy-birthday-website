@@ -1561,7 +1561,7 @@ function openChatRoomModal(userName) {
         messageInput.style.color = '#2C1810';
         
         const sendBtn = document.createElement('button');
-        sendBtn.textContent = '📨';
+        sendBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i>';
         sendBtn.style.padding = '10px 15px';
         sendBtn.style.background = '#854D27';
         sendBtn.style.color = '#FFF9F3';
