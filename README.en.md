@@ -1,4 +1,4 @@
-#Birthday Celebration Website - Connections of Joy
+# Birthday Celebration Website - Connections of Joy
 
 > **A creative open-source interactive website** to organize, remember, and share friends' birthdays in a fun and unique way! From countdowns to blowing out candles on a 2D cake, albums, mini-games, community chat, and seasonal interfaces, it provides an unforgettable experience!
 
@@ -26,7 +26,7 @@
 | 📱 **Social Sharing**           | Easy sharing to popular social media platforms.                                 |
 | 🌐 **Multi-Language Support**   | Switchable interfaces in Japanese and English.                                  |
 
-##Project's Wonderful Benefits 💖
+## Project's Wonderful Benefits 💖
 
 1. **Strengthen Bonds of Friendship**:
    - Never forget a friend's birthday.
@@ -53,7 +53,7 @@
    - Encourages active interaction among members.
    - Strengthens connections with message and gift features.
 
-##Technologies Used
+## Technologies Used
 
 - **HTML5** & **CSS3**: Builds a beautiful and compatible interface.
 - **JavaScript (Pure)**: Creates smooth interactive features.
@@ -64,7 +64,7 @@
   - Storage for photos, videos, and multimedia files.
   - Real-time registration for community features.
 
-##Getting Started Guide
+## Getting Started Guide
 
 1. **Download the Source Code**:
    ```bash
@@ -86,7 +86,7 @@
 4. **Open the Website**:
    - Open the `index.html` file in your browser or use a simple web server.
 
-##Project Structure 💻
+## Project Structure 💻
 
 ```
 happy-birthday-website/
@@ -106,14 +106,14 @@ happy-birthday-website/
   └── index.html      # Main page
 ```
 
-##Supported Browsers
+## Supported Browsers
 
 - **Google Chrome** (Recommended)
 - **Mozilla Firefox**
 - **Apple Safari**
 - **Microsoft Edge**
 
-##Contributions
+## Contributions
 
 We welcome contributions to make the project even better! Please follow these steps:
 
@@ -134,7 +134,7 @@ We welcome contributions to make the project even better! Please follow these st
 
 > 💡 **Note**: Ideas, bug reports (issues), and pull requests are welcome! Let's build a creative and cohesive community together!
 
-##License
+## License
 
 This project is distributed under the **[MIT](LICENSE) License** - free to use, edit, and share.
 
