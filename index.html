@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hội Mẹ Bầu Đơn Thân</title>
+    <title>シングルマザーコミュニティー</title>
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/themes.css">
     <link rel="stylesheet" href="css/components.css">
@@ -74,81 +74,81 @@
     </style>
 </head>
 <body>
-    <!-- Photo Album Button -->
+    <!-- フォトアルバムボタン -->
     <button class="feature-button" id="openAlbum">
-        📸 Xem Album Kỷ niệm
+        📸 思い出アルバム
     </button>
 
-    <!-- Games Section -->
+    <!-- ゲームセクション -->
     <div class="games-container">
-        <button class="game-button" id="startMemoryGame">🎮 Trò chơi Trí nhớ</button>
-        <button class="game-button" id="startPuzzleGame">🧩 Ghép hình</button>
-        <button id="openCalendar" class="game-button">📅 Lịch sinh nhật</button>
-        <button id="startBirthdayQuiz" class="game-button">❓ đoán sinh nhật</button>
+        <button class="game-button" id="startMemoryGame">🎮 神経衰弱</button>
+        <button class="game-button" id="startPuzzleGame">🧩 パズル</button>
+        <button id="openCalendar" class="game-button">📅 誕生日カレンダー</button>
+        <button id="startBirthdayQuiz" class="game-button">❓ 誕生日クイズ</button>
     </div>
 
-    <!-- Language Selector -->
+    <!-- 言語選択 -->
     <div class="language-selector">
         <select id="languageSelect">
-            <option value="vi">Tiếng Việt</option>
+            <option value="ja">日本語</option>
             <option value="en">English</option>
         </select>
     </div>
 
-    <!-- Custom Message Button -->
+    <!-- メッセージボタン -->
     <div class="custom-message-container">
-        <button class="feature-button" id="customMessageBtn">✍️ Gửi Lời Chúc</button>
-        <button class="feature-button" id="bulletinBoardBtn">📋 Bảng Tin Chúc Mừng</button>
+        <button class="feature-button" id="customMessageBtn">✍️ お祝いメッセージ</button>
+        <button class="feature-button" id="bulletinBoardBtn">📋 お祝い掲示板</button>
     </div>
 
-    <!-- Bulletin Board Modal -->
+    <!-- 掲示板モーダル -->
     <div class="bulletin-board-modal" id="bulletinBoardModal">
         <div class="modal-content">
             <span class="close-btn" id="closeBulletinBoard">&times;</span>
-            <h2>Bảng Tin Chúc Mừng Sinh Nhật</h2>
+            <h2>お誕生日お祝い掲示板</h2>
             <div class="bulletin-posts" id="bulletinPosts"></div>
             <div class="post-form">
-                <button id="selectGiftBtn" class="gift-select-btn">🎁 Chọn Quà Tặng Ảo</button>
+                <button id="selectGiftBtn" class="gift-select-btn">🎁 バーチャルギフトを選ぶ</button>
                 <div id="selectedGiftDisplay" style="display: none; margin-top: 10px; color: #854D27;"></div>
-                <button id="submitPost">Gửi Quà Tặng</button>
+                <button id="submitPost">ギフトを送る</button>
             </div>
         </div>
     </div>
 
-    <!-- Virtual Gift Selection Modal -->
+    <!-- バーチャルギフト選択モーダル -->
     <div class="virtual-gift-modal" id="virtualGiftModal">
         <div class="modal-content">
             <span class="close-btn" id="closeVirtualGift">&times;</span>
-            <h2>Chọn Quà Tặng Ảo</h2>
+            <h2>バーチャルギフトを選択</h2>
             <div class="gift-list" id="giftList"></div>
-            <input type="text" id="giftSender" placeholder="Tên của bạn..." style="width: 100%; padding: 10px; margin: 15px 0; border: 2px solid #D4B08C;">
-            <button id="submitGift" style="padding: 10px 20px; background: #854D27; color: #FFF9F3; border: 2px solid #D4B08C; cursor: pointer; font-size: 1.1em;">Gửi Quà Tặng</button>
+            <input type="text" id="giftSender" placeholder="お名前..." style="width: 100%; padding: 10px; margin: 15px 0; border: 2px solid #D4B08C;">
+            <button id="submitGift" style="padding: 10px 20px; background: #854D27; color: #FFF9F3; border: 2px solid #D4B08C; cursor: pointer; font-size: 1.1em;">ギフトを送る</button>
         </div>
     </div>
 
-    <!-- Custom Message Modal -->
+    <!-- メッセージ入力モーダル -->
     <div class="custom-message-modal" id="customMessageModal">
         <div class="modal-content">
             <span class="close-btn" id="closeCustomMessage">&times;</span>
-            <h2>Nhập Lời Chúc Sinh Nhật</h2>
-            <textarea id="customMessageInput" placeholder="Nhập lời chúc của bạn tại đây..." maxlength="200"></textarea>
-            <button id="submitCustomMessage">Gửi Lời Chúc</button>
+            <h2>お誕生日メッセージを入力</h2>
+            <textarea id="customMessageInput" placeholder="メッセージを入力してください..." maxlength="200"></textarea>
+            <button id="submitCustomMessage">メッセージを送る</button>
         </div>
     </div>
 
-    <!-- Music Player -->
+    <!-- ミュージックプレイヤー -->
     <div class="music-player">
         <button class="music-control" id="playMusic">▶️</button>
-        <span class="song-title">Happy Birthday Song</span>
+        <span class="song-title">ハッピーバースデーソング</span>
     </div>
 
-    <!-- Memory Wall Modal -->
+    <!-- メモリーウォールモーダル -->
     <div class="memory-wall" id="memoryWall">
         <div class="album-controls">
             <div class="search-box">
-                <input type="text" id="searchTags" placeholder="Tìm kiếm theo thẻ...">
+                <input type="text" id="searchTags" placeholder="タグで検索...">
             </div>
-            <button id="slideshowBtn" class="feature-button">▶️ Xem Slideshow</button>
+            <button id="slideshowBtn" class="feature-button">▶️ スライドショー</button>
         </div>
         <div class="photo-gallery" id="photoGallery"></div>
         <div class="swiper-container" id="slideshowContainer">
@@ -157,7 +157,7 @@
             <div class="swiper-button-prev"></div>
             <div class="swiper-pagination"></div>
             <div class="slideshow-controls">
-                <button id="closeSlideshow">Đóng Slideshow</button>
+                <button id="closeSlideshow">スライドショーを閉じる</button>
             </div>
         </div>
     </div>
@@ -167,15 +167,15 @@
     </div>
     
     <div class="container">
-        <h1 id="birthdayTitle" class="birthday-title" style="display: none;">Chúc Mừng Sinh Nhật</h1>
+        <h1 id="birthdayTitle" class="birthday-title" style="display: none;">お誕生日おめでとう</h1>
         
         <div class="countdown" id="countdown">
-            <p>Còn <span id="days">0</span> ngày, <span id="hours">0</span> giờ, <span id="minutes">0</span> phút, <span id="seconds">0</span> giây nữa là đến sinh nhật!</p>
+            <p>誕生日まであと<span id="days">0</span>日<span id="hours">0</span>時間<span id="minutes">0</span>分<span id="seconds">0</span>秒！</p>
         </div>
         
         <div id="birthdayContent" class="hidden">
             <div class="cake-container" style="display: none;">
-                <!-- Bánh 3D sẽ được thêm bởi JavaScript -->
+                <!-- 3Dケーキはここにjavascriptで追加されます -->
             </div>
             
             <div class="cake-2d-container">
@@ -208,8 +208,8 @@
                 </div>
             </div>
             
-            <button id="micPermissionBtn">Cho phép sử dụng microphone</button>
-            <button id="blowButton">Thổi nến!</button>
+            <button id="micPermissionBtn">マイクの使用を許可する</button>
+            <button id="blowButton">ろうそくを吹いて！</button>
             <canvas id="audioFeedback"></canvas>
             
             <div class="progress-container" id="progressContainer">
@@ -217,7 +217,7 @@
             </div>
             
             <p class="message" id="birthdayMessage">
-                Chúc mừng sinh nhật bạn! Hy vọng ngày hôm nay của bạn tràn đầy niềm vui và hạnh phúc!
+                お誕生日おめでとうございます！今日があなたにとって素敵な一日になりますように！
             </p>
             <div id="customMessageDisplay" class="custom-message-display"></div>
         </div>

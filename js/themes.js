@@ -1,20 +1,168 @@
-// Dữ liệu đa ngôn ngữ
+// ===== テーマ設定 =====
+/**
+ * すべてのテーマ関連設定のための中央集権化された設定オブジェクト
+ * アプリケーション全体でハードコードされた値を置き換え、保守性を向上させます
+ * @namespace THEME_CONFIG
+ */
+const THEME_CONFIG = {
+    /**
+     * テーマ名がサポートされているか検証します
+     * @param {string} theme - 検証するテーマ名
+     * @returns {boolean} テーマが有効な場合はtrue
+     */
+    isValidTheme(theme) {
+        return this.allThemeClasses.includes(theme);
+    },
+    
+    /**
+     * 言語コードがサポートされているか検証します
+     * @param {string} lang - 検証する言語コード
+     * @returns {boolean} 言語が有効な場合はtrue
+     */
+    isValidLanguage(lang) {
+        return translations && translations[lang];
+    },
+    
+    /**
+     * 検証済みのテーマ名をフォールバック付きで返します
+     * @param {string} theme - 検証するテーマ名
+     * @returns {string} 有効なテーマ名、またはフォールバックとして'spring'
+     */
+    getValidatedTheme(theme) {
+        if (!theme || !this.isValidTheme(theme)) {
+            console.warn(`無効なテーマ'${theme}'、'spring'にフォールバックします`);
+            return 'spring';
+        }
+        return theme;
+    },
+    
+    themeNames: {
+        hanami: '花見',
+        obon: 'お盆',
+        tsukimi: '月見',
+        christmas: 'クリスマス',
+        halloween: 'ハロウィン',
+        tanabata: '七夕',
+        shogatsu: 'お正月',
+        kodomo: 'こどもの日',
+        bunka: '文化の日',
+        spring: '春',
+        summer: '夏',
+        autumn: '秋',
+        winter: '冬'
+    },
+    
+    videoSources: {
+        spring: 'video/spring.mp4',
+        summer: 'video/summer.mp4',
+        autumn: 'video/autumn.mp4',
+        winter: 'video/winter.mp4',
+        hanami: ['video/hanami.mov', 'video/hanami-2.mp4'],
+        christmas: 'video/christmas.mp4',
+        halloween: 'video/halloween.mp4',
+        obon: 'video/obon.mp4',
+        tsukimi: 'video/tsukimi.mp4',
+        tanabata: 'video/tanabata.mp4',
+        shogatsu: 'video/shogatsu.mp4',
+        kodomo: 'video/kodomo.mp4',
+        bunka: 'video/bunka.mp4'
+    },
+    
+    fallbackVideoSources: {
+        christmas: 'https://cdn.pixabay.com/vimeo/403565117/snowfall-22544.mp4',
+        halloween: 'https://cdn.pixabay.com/vimeo/474265737/fog-54278.mp4',
+        obon: 'https://cdn.pixabay.com/vimeo/353997337/lanterns-14022.mp4',
+        tsukimi: 'https://cdn.pixabay.com/vimeo/330326136/moon-8312.mp4',
+        tanabata: 'https://cdn.pixabay.com/vimeo/353997337/lanterns-14022.mp4',
+        shogatsu: 'https://cdn.pixabay.com/vimeo/567444566/lanterns-92722.mp4'
+    },
+    
+    effects: {
+        autumn: [{ type: 'fallingLeaves', count: 40 }],
+        tsukimi: [{ type: 'fallingLeaves', count: 40 }],
+        spring: [{ type: 'fallingPetals', count: 30 }],
+        hanami: [{ type: 'fallingPetals', count: 30 }],
+        summer: [{ type: 'heatWave', count: 1 }, { type: 'sunGlare', count: 5 }],
+        winter: [{ type: 'fallingSnow', count: 50 }],
+        christmas: [{ type: 'christmasLights', count: 30 }],
+        halloween: [{ type: 'bats', count: 10 }, { type: 'ghosts', count: 5 }],
+        obon: [{ type: 'floatingLanterns', count: 20 }],
+        tanabata: [{ type: 'floatingLanterns', count: 15 }, { type: 'fallingPetals', count: 20 }],
+        shogatsu: [{ type: 'fireworks', count: 8 }, { type: 'floatingLanterns', count: 10 }],
+        kodomo: [{ type: 'fallingPetals', count: 25 }],
+        bunka: [{ type: 'fallingLeaves', count: 30 }]
+    },
+    
+    festivalDates: {
+        christmas: { month: 12, startDate: 20, endDate: 25 },
+        halloween: { month: 10, startDate: 28, endDate: 31 },
+        hanami: [
+            { month: 3, startDate: 20, endDate: 31 },
+            { month: 4, startDate: 1, endDate: 30 },
+            { month: 5, startDate: 1, endDate: 10 }
+        ],
+        obon: { month: 8, startDate: 13, endDate: 16 },
+        tsukimi: [
+            { month: 9, startDate: 15, endDate: 30 },
+            { month: 10, startDate: 1, endDate: 15 }
+        ],
+        tanabata: { month: 7, startDate: 1, endDate: 7 },
+        shogatsu: { month: 1, startDate: 1, endDate: 7 },
+        kodomo: { month: 5, startDate: 1, endDate: 5 },
+        bunka: { month: 11, startDate: 1, endDate: 7 }
+    },
+    
+
+    seasonDates: {
+        spring: { months: [3, 4, 5] },
+        summer: { months: [6, 7, 8] },
+        autumn: { months: [9, 10, 11] },
+        winter: { months: [12, 1, 2] }
+    },
+    
+    /**
+     * 指定された日付で祭りがアクティブかどうかを確認します
+     * @param {string} festivalKey - 祭りの識別子
+     * @param {number} month - 月 (1-12)
+     * @param {number} date - 日
+     * @returns {boolean} 祭りがアクティブな場合はtrue
+     */
+    isFestivalActive(festivalKey, month, date) {
+        const festivalConfig = this.festivalDates[festivalKey];
+        if (!festivalConfig) return false;
+        
+        // 日付範囲の配列を処理します（複数月にまたがる祭り）
+        if (Array.isArray(festivalConfig)) {
+            return festivalConfig.some(range => 
+                month === range.month && date >= range.startDate && date <= range.endDate
+            );
+        }
+        
+        // 単一の日付範囲を処理します
+        return month === festivalConfig.month && 
+               date >= festivalConfig.startDate && 
+               date <= festivalConfig.endDate;
+    },
+    
+    allThemeClasses: ['spring', 'summer', 'autumn', 'winter', 'christmas', 'halloween', 'hanami', 'obon', 'tsukimi', 'tanabata', 'shogatsu', 'kodomo', 'bunka']
+};
+
 const translations = {
-    vi: {
-        title: "Chúc Mừng Sinh Nhật",
-        countdownTitle: "Đếm Ngược Đến Sinh Nhật",
-        days: "Ngày",
-        hours: "Giờ",
-        minutes: "Phút",
-        seconds: "Giây",
-        blowButton: "Thổi nến!",
-        micPermission: "Cho phép sử dụng microphone",
-        birthdayMessageDefault: "Chúc mừng sinh nhật bạn! Hy vọng ngày hôm nay của bạn tràn đầy niềm vui và hạnh phúc!",
-        birthdayMessageSuccess: "Chúc mừng sinh nhật! 🎉<br>Bạn đã thổi tắt nến thành công!<br>Hy vọng mọi điều ước của bạn sẽ thành hiện thực!",
-        albumButton: "📸 Xem Album Kỷ niệm",
-        memoryGame: "🎮 Trò chơi Trí nhớ",
-        puzzleGame: "🧩 Ghép hình",
-        songTitle: "Happy Birthday Song"
+    ja: {
+        title: "お誕生日おめでとうございます",
+        countdownTitle: "誕生日までのカウントダウン",
+        days: "日",
+        hours: "時間",
+        minutes: "分",
+        seconds: "秒",
+        blowButton: "ろうそくを吹き消して！",
+        micPermission: "マイクの使用を許可する",
+        birthdayMessageDefault: "お誕生日おめでとうございます！喜びと幸せに満ちた一日になりますように！",
+        birthdayMessageSuccess: "お誕生日おめでとうございます！🎉<br>ろうそくを吹き消しました！<br>すべての願いが叶いますように！",
+        albumButton: "📸 思い出のアルバムを見る",
+        memoryGame: "🎮 記憶ゲーム",
+        puzzleGame: "🧩 パズルゲーム",
+        songTitle: "ハッピーバースデーソング"
     },
     en: {
         title: "Happy Birthday",
@@ -34,8 +182,18 @@ const translations = {
     }
 };
 
-// Áp dụng ngôn ngữ
+/**
+ * 検証付きでUI要素に言語設定を適用します
+ * 指定された言語がサポートされていない場合、日本語にフォールバックします
+ * @param {string} lang - 言語コード ('en', 'ja')
+ */
 function applyLanguage(lang) {
+    // 検証：langが有効かチェック
+    if (!lang || !translations[lang]) {
+        console.warn(`言語'${lang}'はサポートされていません。'ja'にフォールバックします`);
+        lang = 'ja'; 
+    }
+    
     const elements = {
         birthdayTitle: document.getElementById('birthdayTitle'),
         countdown: document.getElementById('countdown'),
@@ -48,7 +206,7 @@ function applyLanguage(lang) {
         songTitle: document.querySelector('.song-title')
     };
     
-    // Cập nhật nội dung cho birthdayTitle từ đối tượng translations
+    // translationsオブジェクトからbirthdayTitleのコンテンツを更新
     if (elements.birthdayTitle) elements.birthdayTitle.textContent = translations[lang].title;
     if (elements.blowButton) elements.blowButton.textContent = translations[lang].blowButton;
     if (elements.micPermissionBtn) elements.micPermissionBtn.textContent = translations[lang].micPermission;
@@ -61,251 +219,192 @@ function applyLanguage(lang) {
     if (elements.songTitle) elements.songTitle.textContent = translations[lang].songTitle;
     
     localStorage.setItem('language', lang);
-    console.log(`Applied language: ${lang}`);
+    console.log(`適用された言語: ${lang}`);
 }
 
-// Hàm xác định mùa và lễ hội dựa trên ngày tháng
+/**
+ * 現在の日付に基づいて現在の季節と祭りを検出します
+ * 両方が適用される場合、祭りを季節より優先します
+ * 日付範囲と検証にはTHEME_CONFIGを使用します
+ * @returns {string} テーマ名（祭りまたは季節）
+ */
 function detectSeasonAndFestival() {
     const now = new Date();
-    const month = now.getMonth() + 1; // Tháng từ 1-12
+    const month = now.getMonth() + 1; // 月は1-12
     const date = now.getDate();
     let theme = 'default';
     
-    // Xác định lễ hội trước (ưu tiên lễ hội hơn mùa)
-    // Lễ hội Giáng Sinh (Quốc tế)
-    if (month === 12 && date >= 20 && date <= 25) theme = 'christmas';
-    // Lễ hội Tết Nguyên Đán (Việt Nam) - thường rơi vào cuối tháng 1 hoặc đầu tháng 2
-    else if ((month === 1 && date >= 20) || (month === 2 && date <= 15)) theme = 'tet';
-    // Lễ hội Halloween (Quốc tế)
-    else if (month === 10 && date >= 28 && date <= 31) theme = 'halloween';
-    // Các lễ hội Nhật Bản (ưu tiên cao)
-    else if (month === 3 || (month === 4 && date <= 15)) theme = 'hanami'; // Lễ hội ngắm hoa anh đào (tháng 3 đến giữa tháng 4)
-    else if (month === 8 && date >= 13 && date <= 15) theme = 'obon'; // Lễ hội Obon (tháng 8, thường 13-15)
-    else if ((month === 9 && date >= 15) || (month === 10 && date <= 15)) theme = 'tsukimi'; // Lễ hội ngắm trăng (tháng 9-10)
+    console.log(`日付のテーマを検出中: ${month}/${date}`);
     
-    // Nếu không có lễ hội, xác định mùa theo khí hậu Việt Nam
+    // 祭りを先に決定（季節より優先）
+    const festivals = ['christmas', 'halloween', 'hanami', 'obon', 'tsukimi', 'tanabata', 'shogatsu', 'kodomo', 'bunka'];
+    
+    for (const festival of festivals) {
+        if (THEME_CONFIG.isFestivalActive(festival, month, date)) {
+            theme = festival;
+            console.log(`祭りを検出しました: ${festival}`);
+            break;
+        }
+    }
+    
+    // 祭りがなければ、気候に基づいて季節を決定
     if (theme === 'default') {
-        if (month >= 2 && month <= 4) theme = 'spring'; // Xuân: Tháng 2-4
-        else if (month >= 5 && month <= 7) theme = 'summer'; // Hè: Tháng 5-7
-        else if (month >= 8 && month <= 10) theme = 'autumn'; // Thu: Tháng 8-10
-        else theme = 'winter'; // Đông: Tháng 11-1
+        for (const [season, config] of Object.entries(THEME_CONFIG.seasonDates)) {
+            if (config.months.includes(month)) {
+                theme = season;
+                console.log(`季節を検出しました: ${season}`);
+                break;
+            }
+        }
     }
     
     return theme;
 }
 
-// Hàm áp dụng giao diện theo mùa và lễ hội
 function applyTheme(theme) {
+    theme = THEME_CONFIG.getValidatedTheme(theme);
+    
     const body = document.body;
     const countdown = document.querySelector('.countdown');
     
-    // Xóa tất cả hiệu ứng hiện có
     const themeEffects = document.querySelectorAll('.theme-effect');
     themeEffects.forEach(effect => effect.remove());
     
-    // Xóa bóng bay
     const balloonContainer = document.getElementById('balloonContainer');
     if (balloonContainer) {
         balloonContainer.innerHTML = '';
     }
     
-    // Xóa các class giao diện cũ
-    body.classList.remove('spring', 'summer', 'autumn', 'winter', 'christmas', 'tet', 'halloween', 'hanami', 'obon', 'tsukimi');
+    body.classList.remove(...THEME_CONFIG.allThemeClasses);
     if (countdown) {
-        countdown.classList.remove('spring', 'summer', 'autumn', 'winter', 'christmas', 'tet', 'halloween', 'hanami', 'obon', 'tsukimi');
+        countdown.classList.remove(...THEME_CONFIG.allThemeClasses);
     }
     
-    // Thêm class giao diện mới
     body.classList.add(theme);
     if (countdown) {
         countdown.classList.add(theme);
     }
     
-    // Chỉ áp dụng video background, không tạo hiệu ứng
     applyVideoBackground(theme, body);
     
-    // Tạo các hiệu ứng theo chủ đề
-    if (theme === 'autumn' || theme === 'tsukimi') {
-        console.log('Creating falling leaves for', theme);
-        createFallingLeaves(40, theme);
-    } else if (theme === 'spring' || theme === 'hanami') {
-        console.log('Creating falling petals for', theme);
-        createFallingPetals(30, theme);
-    } else if (theme === 'summer') {
-        console.log('Creating heat wave and sun glare for', theme);
-        createHeatWave(theme);
-        createSunGlare(theme);
-    } else if (theme === 'winter') {
-        console.log('Creating falling snow for', theme);
-        createFallingSnow(50, theme);
-    } else if (theme === 'christmas') {
-        console.log('Creating Christmas lights for', theme);
-        createChristmasLights(30, theme);
-    } else if (theme === 'tet') {
-        console.log('Creating fireworks for', theme);
-        createFireworks(5, theme);
-    } else if (theme === 'halloween') {
-        console.log('Creating bats and ghosts for', theme);
-        createBats(10, theme);
-        createGhosts(5, theme);
-    } else if (theme === 'obon') {
-        console.log('Creating floating lanterns for', theme);
-        createFloatingLanterns(20, theme);
+    const effectsConfig = THEME_CONFIG.effects[theme];
+    if (effectsConfig) {
+        console.log(`${theme}のエフェクトを作成中:`, effectsConfig);
+        effectsConfig.forEach(effect => {
+            switch(effect.type) {
+                case 'fallingLeaves':
+                    createFallingLeaves(effect.count, theme);
+                    break;
+                case 'fallingPetals':
+                    createFallingPetals(effect.count, theme);
+                    break;
+                case 'heatWave':
+                    createHeatWave(theme);
+                    break;
+                case 'sunGlare':
+                    createSunGlare(theme);
+                    break;
+                case 'fallingSnow':
+                    createFallingSnow(effect.count, theme);
+                    break;
+                case 'christmasLights':
+                    createChristmasLights(effect.count, theme);
+                    break;
+                case 'fireworks':
+                    createFireworks(effect.count, theme);
+                    break;
+                case 'bats':
+                    createBats(effect.count, theme);
+                    break;
+                case 'ghosts':
+                    createGhosts(effect.count, theme);
+                    break;
+                case 'floatingLanterns':
+                    createFloatingLanterns(effect.count, theme);
+                    break;
+                default:
+                    console.warn(`不明なエフェクトタイプ: ${effect.type}`);
+            }
+        });
     }
     
-    // Thêm chỉ báo chủ đề để kiểm tra
     const themeIndicator = document.createElement('div');
     themeIndicator.className = 'theme-indicator';
-    let themeText = '';
-    // Hiển thị tên mùa bằng tiếng Việt và giữ nguyên tên lễ hội bằng tiếng Anh
-    if (theme === 'hanami') themeText = 'Hanami';
-    else if (theme === 'obon') themeText = 'Obon';
-    else if (theme === 'tsukimi') themeText = 'Tsukimi';
-    else if (theme === 'christmas') themeText = 'Christmas';
-    else if (theme === 'tet') themeText = 'Tet';
-    else if (theme === 'halloween') themeText = 'Halloween';
-    else if (theme === 'spring') themeText = 'Mùa Xuân';
-    else if (theme === 'summer') themeText = 'Mùa Hè';
-    else if (theme === 'autumn') themeText = 'Mùa Thu';
-    else if (theme === 'winter') themeText = 'Mùa Đông';
-    else themeText = theme.charAt(0).toUpperCase() + theme.slice(1);
-    themeIndicator.textContent = `Chủ Đề Hiện Tại: ${themeText}`;
-    themeIndicator.style.position = 'fixed';
-    themeIndicator.style.top = '60px';
-    themeIndicator.style.left = '20px';
-    themeIndicator.style.background = 'rgba(0, 0, 0, 0.5)';
-    themeIndicator.style.color = 'white';
-    themeIndicator.style.padding = '5px 10px';
-    themeIndicator.style.borderRadius = '5px';
-    themeIndicator.style.zIndex = '1000';
+    
+    const themeText = THEME_CONFIG.themeNames[theme] || theme.charAt(0).toUpperCase() + theme.slice(1);
+    themeIndicator.textContent = `現在のテーマ: ${themeText}`;
     body.appendChild(themeIndicator);
     
-    console.log(`Applied theme: ${theme} with corresponding effects`);
+    console.log(`テーマを適用しました: ${theme}`);
 }
 
-// Hàm áp dụng video background theo chủ đề
 function applyVideoBackground(theme, body) {
+    const videoConfig = THEME_CONFIG.videoSources[theme];
+    if (!videoConfig) {
+        console.warn(`テーマのビデオ設定が見つかりません: ${theme}`);
+        return;
+    }
+    
     let videoSource = '';
-    // Xác định video tương ứng với chủ đề
-    switch(theme) {
-        case 'spring':
-            videoSource = 'video/spring.mp4';
-            break;
-        case 'summer':
-            videoSource = 'video/summer.mp4';
-            break;
-        case 'autumn':
-            videoSource = 'video/autumn.mp4';
-            break;
-        case 'winter':
-            videoSource = 'video/winter.mp4';
-            break;
-        case 'hanami':
-            // Luân phiên giữa 2 video hanami
-            const lastHanamiUsed = localStorage.getItem('lastHanamiVideo') || 'hanami.mov';
-            videoSource = lastHanamiUsed === 'hanami.mov' ? 'video/hanami-2.mp4' : 'video/hanami.mov';
-            localStorage.setItem('lastHanamiVideo', videoSource);
-            break;
-        case 'christmas':
-            videoSource = 'video/christmas.mp4';
-            break;
-        case 'tet':
-            videoSource = 'video/tet.mp4';
-            break;
-        case 'halloween':
-            videoSource = 'video/halloween.mp4';
-            break;
-        case 'obon':
-            videoSource = 'video/obon.mp4';
-            break;
-        case 'tsukimi':
-            videoSource = 'video/tsukimi.mp4';
-            break;
-        default:
-            return; // Không áp dụng video cho các chủ đề khác nếu không có
+    
+    if (Array.isArray(videoConfig)) {
+        const lastHanamiUsed = localStorage.getItem('lastHanamiVideo') || videoConfig[0];
+        const currentIndex = videoConfig.indexOf(lastHanamiUsed);
+        const nextIndex = (currentIndex + 1) % videoConfig.length;
+        videoSource = videoConfig[nextIndex];
+        localStorage.setItem('lastHanamiVideo', videoSource);
+    } else {
+        videoSource = videoConfig;
     }
 
-    // Kiểm tra xem file video có tồn tại không
-    const fallbackVideoSources = {
-        'christmas': 'https://cdn.pixabay.com/vimeo/403565117/snowfall-22544.mp4',
-        'tet': 'https://cdn.pixabay.com/vimeo/567444566/lanterns-92722.mp4',
-        'halloween': 'https://cdn.pixabay.com/vimeo/474265737/fog-54278.mp4',
-        'obon': 'https://cdn.pixabay.com/vimeo/353997337/lanterns-14022.mp4',
-        'tsukimi': 'https://cdn.pixabay.com/vimeo/330326136/moon-8312.mp4'
-    };
-
-    // Tạo phần tử video background
+    const oldVideos = body.querySelectorAll('.video-background');
+    oldVideos.forEach(video => video.remove());
+    
     const video = document.createElement('video');
     video.className = 'video-background';
     video.autoplay = true;
     video.loop = true;
     video.muted = true;
-    video.style.position = 'fixed';
-    video.style.top = '0';
-    video.style.left = '0';
-    video.style.width = '100%';
-    video.style.height = '100%';
-    video.style.objectFit = 'cover';
-    video.style.zIndex = '-1';
-    video.style.opacity = '1.0'; // Hiển thị video hoàn toàn không có lớp màu phủ
 
-    // Thêm xử lý lỗi để sử dụng video dự phòng nếu cần
     video.onerror = function() {
-        if (fallbackVideoSources[theme]) {
-            console.log(`Video local không khả dụng, sử dụng video online: ${fallbackVideoSources[theme]}`);
-            video.src = fallbackVideoSources[theme];
+        const fallbackSource = THEME_CONFIG.fallbackVideoSources[theme];
+        if (fallbackSource) {
+            console.log(`ローカルビデオが利用できません、オンラインビデオを使用: ${fallbackSource}`);
+            video.src = fallbackSource;
+        } else {
+            console.warn(`テーマのフォールバックビデオがありません: ${theme}`);
         }
     };
 
-    // Đặt nguồn video
     video.src = videoSource;
-
-    // Chèn video vào đầu body để làm background
     body.insertBefore(video, body.firstChild);
-    console.log(`Applied video background for theme: ${theme} with source: ${videoSource}`);
+    console.log(`テーマのビデオ背景を適用: ${theme}, ソース: ${videoSource}`);
 }
 
-// Hàm tạo hiệu ứng sóng nhiệt cho mùa hè
 function createHeatWave(theme) {
     const heatWave = document.createElement('div');
     heatWave.className = 'theme-effect heat-wave';
-    heatWave.style.position = 'fixed';
-    heatWave.style.top = '0';
-    heatWave.style.left = '0';
-    heatWave.style.width = '100vw';
-    heatWave.style.height = '100vh';
-    heatWave.style.background = 'rgba(255, 255, 0, 0.05)';
-    heatWave.style.opacity = '0.3';
-    heatWave.style.zIndex = '1';
-    heatWave.style.pointerEvents = 'none';
-    heatWave.style.animation = 'heatWave 3s ease-in-out infinite';
     document.body.appendChild(heatWave);
-    console.log('Created heat wave effect for', theme);
+    console.log('熱波エフェクトを作成:', theme);
 }
 
-// Hàm tạo hiệu ứng ánh nắng cho mùa hè
 function createSunGlare(theme) {
     for (let i = 0; i < 5; i++) {
         const glare = document.createElement('div');
         glare.className = 'theme-effect sun-glare';
-        glare.style.position = 'fixed';
         glare.style.top = `${Math.random() * 30 + 10}vh`;
         glare.style.left = `${Math.random() * 80 + 10}vw`;
         const size = Math.random() * 100 + 50;
         glare.style.width = `${size}px`;
         glare.style.height = `${size}px`;
-        glare.style.background = 'radial-gradient(circle, rgba(255, 255, 100, 0.3), transparent)';
         glare.style.opacity = `${Math.random() * 0.3 + 0.2}`;
-        glare.style.zIndex = '1';
-        glare.style.pointerEvents = 'none';
-        glare.style.animation = `blink ${Math.random() * 2 + 2}s ease-in-out infinite`;
+        glare.style.animationDuration = `${Math.random() * 2 + 2}s`;
         glare.style.animationDelay = `${Math.random() * 3}s`;
         document.body.appendChild(glare);
     }
-    console.log('Created sun glare effect for', theme);
+    console.log('太陽のきらめきエフェクトを作成:', theme);
 }
 
-// Hàm tạo hiệu ứng dơi cho Halloween
 function createBats(count, theme) {
     for (let i = 0; i < count; i++) {
         const bat = document.createElement('div');
@@ -314,18 +413,13 @@ function createBats(count, theme) {
         bat.style.top = `${Math.random() * 30 + 10}vh`;
         bat.style.width = `${Math.random() * 20 + 10}px`;
         bat.style.height = `${Math.random() * 10 + 5}px`;
-        bat.style.backgroundColor = '#000';
-        bat.style.borderRadius = '50% 50% 0 0';
-        bat.style.position = 'fixed';
-        bat.style.opacity = '0.7';
-        bat.style.zIndex = '1';
-        bat.style.animation = `fly ${Math.random() * 3 + 3}s ease-in-out infinite`;
+        bat.style.animationDuration = `${Math.random() * 3 + 3}s`;
         bat.style.animationDelay = `${Math.random() * 3}s`;
         document.body.appendChild(bat);
     }
+    console.log('コウモリエフェクトを作成:', theme);
 }
 
-// Hàm tạo hiệu ứng hoa anh đào rơi
 function createFallingPetals(count, theme) {
     for (let i = 0; i < count; i++) {
         const petal = document.createElement('div');
@@ -334,20 +428,14 @@ function createFallingPetals(count, theme) {
         petal.style.top = `${Math.random() * -50}vh`;
         petal.style.width = `${Math.random() * 10 + 5}px`;
         petal.style.height = `${Math.random() * 10 + 5}px`;
-        petal.style.backgroundColor = theme === 'hanami' ? '#FF9EB5' : '#FF9EB5';
-        petal.style.borderRadius = '50%';
-        petal.style.position = 'fixed';
-        petal.style.opacity = '0.7';
-        petal.style.zIndex = '1';
-        petal.style.animation = `fall ${Math.random() * 5 + 5}s linear infinite`;
+        petal.style.animationDuration = `${Math.random() * 5 + 5}s`;
         petal.style.animationDelay = `${Math.random() * 5}s`;
         document.body.appendChild(petal);
     }
+    console.log('桜の花びらエフェクトを作成:', theme);
 }
 
-// Hàm tạo hiệu ứng lá rơi
 function createFallingLeaves(count, theme) {
-    // Màu sắc lá mùa thu - thêm nhiều màu đỏ và cam
     const autumnColors = ['#FF4500', '#FF8C00', '#A52A2A', '#8B0000', '#CD5C5C', '#B22222', '#FF6347', '#DC143C', '#E25822', '#D2691E'];
     
     for (let i = 0; i < count; i++) {
@@ -356,32 +444,27 @@ function createFallingLeaves(count, theme) {
         leaf.style.left = `${Math.random() * 100}vw`;
         leaf.style.top = `${Math.random() * -50}vh`;
         
-        // Tạo kích thước khác nhau cho lá
         const size = Math.random() * 15 + 5;
         leaf.style.width = `${size}px`;
         leaf.style.height = `${size * 0.8}px`;
         
-        // Màu ngẫu nhiên từ bảng màu mùa thu
         leaf.style.backgroundColor = autumnColors[Math.floor(Math.random() * autumnColors.length)];
         
-        // Hình dạng lá khác nhau - một số lá tròn, một số lá hình giọt nước
         const leafShapes = ['0 50% 0 50%', '50% 0 50% 50%', '50% 50% 0 50%', '30% 70% 70% 30%'];
         leaf.style.borderRadius = leafShapes[Math.floor(Math.random() * leafShapes.length)];
         
         leaf.style.position = 'fixed';
-        leaf.style.opacity = `${Math.random() * 0.3 + 0.6}`; // Độ trong suốt thay đổi
+        leaf.style.opacity = `${Math.random() * 0.3 + 0.6}`;
         leaf.style.zIndex = '1';
         
-        // Thêm hiệu ứng xoay và đung đưa
-        const fallDuration = Math.random() * 8 + 7; // Thời gian rơi lâu hơn
-        const swayDuration = Math.random() * 3 + 2; // Thời gian đung đưa
+        const fallDuration = Math.random() * 8 + 7;
+        const swayDuration = Math.random() * 3 + 2;
         leaf.style.animation = `fall ${fallDuration}s linear infinite, sway ${swayDuration}s ease-in-out infinite, rotate ${swayDuration * 1.5}s linear infinite`;
         leaf.style.animationDelay = `${Math.random() * 5}s, ${Math.random() * 2}s, ${Math.random() * 3}s`;
         
         document.body.appendChild(leaf);
     }
     
-    // Thêm CSS cho hiệu ứng xoay nếu chưa có
     if (!document.getElementById('leaf-animations')) {
         const style = document.createElement('style');
         style.id = 'leaf-animations';
@@ -418,9 +501,9 @@ function createFallingLeaves(count, theme) {
         `;
         document.head.appendChild(style);
     }
+    console.log('落ち葉エフェクトを作成:', theme);
 }
 
-// Hàm tạo hiệu ứng tuyết rơi
 function createFallingSnow(count, theme) {
     for (let i = 0; i < count; i++) {
         const snowflake = document.createElement('div');
@@ -429,18 +512,14 @@ function createFallingSnow(count, theme) {
         snowflake.style.top = `${Math.random() * -50}vh`;
         snowflake.style.width = `${Math.random() * 5 + 2}px`;
         snowflake.style.height = `${Math.random() * 5 + 2}px`;
-        snowflake.style.backgroundColor = '#FFF';
-        snowflake.style.borderRadius = '50%';
-        snowflake.style.position = 'fixed';
         snowflake.style.opacity = `${Math.random() * 0.5 + 0.3}`;
-        snowflake.style.zIndex = '1';
-        snowflake.style.animation = `fall ${Math.random() * 5 + 5}s linear infinite`;
+        snowflake.style.animationDuration = `${Math.random() * 5 + 5}s`;
         snowflake.style.animationDelay = `${Math.random() * 5}s`;
         document.body.appendChild(snowflake);
     }
+    console.log('雪のエフェクトを作成:', theme);
 }
 
-// Hàm tạo hiệu ứng đèn lồng nổi
 function createFloatingLanterns(count, theme) {
     for (let i = 0; i < count; i++) {
         const lantern = document.createElement('div');
@@ -449,40 +528,27 @@ function createFloatingLanterns(count, theme) {
         lantern.style.top = `${Math.random() * 60 + 20}vh`;
         lantern.style.width = `${Math.random() * 20 + 10}px`;
         lantern.style.height = `${Math.random() * 30 + 15}px`;
-        lantern.style.backgroundColor = theme === 'obon' ? '#FF4500' : '#FF4500';
-        lantern.style.borderRadius = '10%';
-        lantern.style.position = 'fixed';
-        lantern.style.opacity = '0.6';
-        lantern.style.zIndex = '1';
-        lantern.style.boxShadow = '0 0 10px rgba(255, 69, 0, 0.5)';
-        lantern.style.animation = `float ${Math.random() * 3 + 3}s ease-in-out infinite`;
+        lantern.style.animationDuration = `${Math.random() * 3 + 3}s`;
         lantern.style.animationDelay = `${Math.random() * 3}s`;
         document.body.appendChild(lantern);
     }
+    console.log('提灯エフェクトを作成:', theme);
 }
 
-// Hàm tạo hiệu ứng đèn Giáng Sinh
 function createChristmasLights(count, theme) {
     for (let i = 0; i < count; i++) {
         const light = document.createElement('div');
         light.className = 'theme-effect christmas-light';
         light.style.left = `${Math.random() * 80 + 10}vw`;
         light.style.top = `${Math.random() * 30}vh`;
-        light.style.width = '10px';
-        light.style.height = '10px';
         light.style.backgroundColor = ['#FF0000', '#00FF00', '#FFFF00'][Math.floor(Math.random() * 3)];
-        light.style.borderRadius = '50%';
-        light.style.position = 'fixed';
-        light.style.opacity = '0.8';
-        light.style.zIndex = '1';
-        light.style.boxShadow = '0 0 5px rgba(255, 255, 255, 0.5)';
-        light.style.animation = `blink ${Math.random() * 1 + 1}s ease-in-out infinite`;
+        light.style.animationDuration = `${Math.random() * 1 + 1}s`;
         light.style.animationDelay = `${Math.random() * 2}s`;
         document.body.appendChild(light);
     }
+    console.log('クリスマスライトエフェクトを作成:', theme);
 }
 
-// Hàm tạo hiệu ứng pháo hoa
 function createFireworks(count, theme) {
     for (let i = 0; i < count; i++) {
         setTimeout(() => {
@@ -490,25 +556,16 @@ function createFireworks(count, theme) {
             firework.className = 'theme-effect firework';
             firework.style.left = `${Math.random() * 80 + 10}vw`;
             firework.style.top = `${Math.random() * 50 + 20}vh`;
-            firework.style.width = '5px';
-            firework.style.height = '5px';
             firework.style.backgroundColor = ['#FF0000', '#FFD700', '#00FF00'][Math.floor(Math.random() * 3)];
-            firework.style.borderRadius = '50%';
-            firework.style.position = 'fixed';
-            firework.style.opacity = '1';
-            firework.style.zIndex = '1';
-            firework.style.boxShadow = '0 0 10px rgba(255, 255, 255, 0.5)';
-            firework.style.animation = `explode 2s ease-out forwards`;
             document.body.appendChild(firework);
             
             setTimeout(() => firework.remove(), 2000);
         }, Math.random() * 5000);
     }
-    // Lặp lại pháo hoa sau 10 giây
     setTimeout(() => createFireworks(count, theme), 10000);
+    console.log('花火エフェクトを作成:', theme);
 }
 
-// Hàm tạo hiệu ứng ma Halloween
 function createGhosts(count, theme) {
     for (let i = 0; i < count; i++) {
         const ghost = document.createElement('div');
@@ -517,13 +574,9 @@ function createGhosts(count, theme) {
         ghost.style.top = `${Math.random() * 60 + 20}vh`;
         ghost.style.width = `${Math.random() * 30 + 20}px`;
         ghost.style.height = `${Math.random() * 40 + 30}px`;
-        ghost.style.backgroundColor = theme === 'halloween' ? '#FFF' : '#FFF';
-        ghost.style.borderRadius = '50% 50% 0 0';
-        ghost.style.position = 'fixed';
-        ghost.style.opacity = '0.5';
-        ghost.style.zIndex = '1';
-        ghost.style.animation = `float ${Math.random() * 5 + 5}s ease-in-out infinite`;
+        ghost.style.animationDuration = `${Math.random() * 5 + 5}s`;
         ghost.style.animationDelay = `${Math.random() * 5}s`;
         document.body.appendChild(ghost);
     }
+    console.log('おばけエフェクトを作成:', theme);
 } 

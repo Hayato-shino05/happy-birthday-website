@@ -1,8 +1,7 @@
-// Dữ liệu ngày sinh nhật - sẽ được tải từ Supabase
 let birthdays = [];
-let lastBirthdayCheck = null; // Thêm biến để theo dõi lần kiểm tra cuối cùng
+let lastBirthdayCheck = null;
 
-// Thêm CSS nội tuyến cần thiết
+// インラインCSS
 const style = document.createElement('style');
 style.textContent = `
     .countdown {
@@ -53,16 +52,13 @@ style.textContent = `
 
 document.head.appendChild(style);
 
-// Tải danh sách sinh nhật từ Supabase
 async function loadBirthdays() {
     try {
-        // Kiểm tra xem đã có kết nối Supabase chưa
         if (!supabase) {
-            console.error("Supabase chưa được khởi tạo");
+            console.error("Supabaseが初期化されていません");
             return;
         }
         
-        // Lấy dữ liệu từ bảng birthdays
         const { data, error } = await supabase
             .from('birthdays')
             .select('*')
@@ -70,84 +66,65 @@ async function loadBirthdays() {
             .order('day');
             
         if (error) {
-            console.error("Lỗi khi tải dữ liệu sinh nhật:", error);
+            console.error("誕生日データの読み込み中にエラーが発生しました:", error);
             return;
         }
         
-        // Chuyển đổi dữ liệu sang định dạng cần thiết
         birthdays = data.map(item => ({
             name: item.name,
             month: item.month,
             day: item.day,
             year: item.year,
-            message: item.message || `🎉 Chúc mừng sinh nhật ${item.name}! 🎉`
+            message: item.message || ` ${item.name}さん、お誕生日おめでとうございます！ `
         }));
         
-        console.log("Đã tải danh sách sinh nhật từ Supabase:", birthdays);
-        
-        // Sau khi tải xong, kiểm tra sinh nhật
+        console.log("Supabaseから誕生日リストをロードしました:", birthdays);
         checkBirthdayAndInitialize();
     } catch (error) {
-        console.error("Lỗi khi tải sinh nhật từ Supabase:", error);
+        console.error("Supabaseからの誕生日の読み込み中にエラーが発生しました:", error);
     }
 }
 
-// Khởi tạo trang khi tài liệu sẵn sàng
-document.addEventListener('DOMContentLoaded', () => {
-    // Tải danh sách sinh nhật từ Supabase khi trang đã tải xong
-    setTimeout(loadBirthdays, 1000); // Chờ 1 giây để đảm bảo Supabase đã được khởi tạo
-});
-
-// Kiểm tra xem có phải ngày sinh nhật không
 function checkIfBirthday(date) {
     try {
-        // Reset time to midnight
         const checkDate = new Date(date);
         checkDate.setHours(0, 0, 0, 0);
         
         return birthdays.find(person => {
-            // So sánh tháng thực tế (1-12) và ngày
+            // 実際の月（1-12）と日を比較
             const monthMatch = (checkDate.getMonth() + 1) === person.month;
             const dayMatch = checkDate.getDate() === person.day;
             
-            console.log(`Checking ${person.name}:`, {
-                personMonth: person.month,
-                currentMonth: checkDate.getMonth() + 1,
-                monthMatch: monthMatch,
-                personDay: person.day,
-                currentDay: checkDate.getDate(),
-                dayMatch: dayMatch
-            });
+            // コンソールスパムを防ぐためにデバッグを削除
             
             return monthMatch && dayMatch;
         });
     } catch (error) {
-        console.error('Error in checkIfBirthday:', error);
+        console.error('checkIfBirthdayでエラーが発生しました:', error);
         return null;
     }
 }
 
-// Tìm sinh nhật tiếp theo
 function findNextBirthday(currentDate) {
     try {
         let nearestPerson = null;
         let nearestDate = null;
         let smallestDiff = Infinity;
 
-        // Tạo một bản sao của mảng birthdays để không ảnh hưởng đến mảng gốc
+        // 元の配列に影響を与えないように、birthdays配列のコピーを作成
         const birthdaysList = [...birthdays];
 
         for (const person of birthdaysList) {
-            // Tạo ngày sinh nhật cho năm hiện tại
+            // 今年の誕生日を作成
             let birthday = new Date(currentDate.getFullYear(), person.month - 1, person.day);
             
-            // Nếu sinh nhật năm nay đã qua, tính cho năm sau
+            // 今年の誕生日が過ぎている場合は、来年で計算
             if (currentDate > birthday) {
                 birthday = new Date(currentDate.getFullYear() + 1, person.month - 1, person.day);
             }
 
             const diff = birthday - currentDate;
-            console.log(`Checking ${person.name}:`, {
+            console.log(`${person.name}を確認中:`, {
                 birthday: birthday,
                 diff: diff,
                 currentSmallest: smallestDiff
@@ -157,23 +134,39 @@ function findNextBirthday(currentDate) {
                 smallestDiff = diff;
                 nearestDate = birthday;
                 nearestPerson = person;
-                console.log(`New nearest person: ${person.name}`);
+                console.log(`新しい最も近い人: ${person.name}`);
             }
         }
 
-        console.log('Final nearest person:', nearestPerson?.name);
+        console.log('最終的に最も近い人:', nearestPerson?.name);
         return { person: nearestPerson, date: nearestDate };
     } catch (error) {
-        console.error('Error finding next birthday:', error);
+        console.error('次の誕生日の検索中にエラーが発生しました:', error);
         return { person: null, date: null };
     }
 }
 
-// Hiển thị đếm ngược
 function displayCountdown(targetDate, person) {
     try {
         const now = new Date();
         const diff = targetDate - now;
+        
+        // 時間が経過した場合（負の値）、次の誕生日を探す
+        if (diff < 0) {
+            console.log('時間が経過しました。次の誕生日を探しています...');
+            
+            // checkBirthdayAndInitializeを呼び出す代わりに、直接次の誕生日を探す
+            const nextBirthday = findNextBirthday(new Date());
+            if (nextBirthday.person) {
+                // 次の誕生日の情報を更新
+                localStorage.setItem('nextBirthdayDate', nextBirthday.date.toISOString());
+                localStorage.setItem('nextBirthdayPerson', JSON.stringify(nextBirthday.person));
+                
+                // 新しい情報でdisplayCountdownを再帰的に呼び出す
+                displayCountdown(nextBirthday.date, nextBirthday.person);
+            }
+            return;
+        }
         
         const days = Math.floor(diff / (1000 * 60 * 60 * 24));
         const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -184,34 +177,34 @@ function displayCountdown(targetDate, person) {
         if (countdownElement) {
             countdownElement.classList.remove('hidden');
             
-            // Kiểm tra xem HTML hiển thị đã tồn tại chưa
+            // 表示されているHTMLが既に存在するか確認
             const titleElement = countdownElement.querySelector('h1');
             
-            // Nếu chưa có HTML hoặc hiển thị người sinh nhật khác, tạo mới toàn bộ HTML
+            // HTMLが存在しないか、別の人の誕生日が表示されている場合、HTML全体を再生成
             if (!titleElement || titleElement.dataset.person !== person.name) {
                 countdownElement.innerHTML = `
-                    <h1 data-person="${person.name}">Đếm Ngược Đến Sinh Nhật ${person.name}</h1>
+                    <h1 data-person="${person.name}">${person.name}の誕生日までのカウントダウン</h1>
                     <div class="time">
                         <div>
                             <span id="days">${days}</span>
-                            <div>Ngày</div>
+                            <div>日</div>
                         </div>
                         <div>
                             <span id="hours">${hours}</span>
-                            <div>Giờ</div>
+                            <div>時間</div>
                         </div>
                         <div>
                             <span id="minutes">${minutes}</span>
-                            <div>Phút</div>
+                            <div>分</div>
                         </div>
                         <div>
                             <span id="seconds">${seconds}</span>
-                            <div>Giây</div>
+                            <div>秒</div>
                         </div>
                     </div>
                 `;
             } else {
-                // Nếu đã có HTML, chỉ cập nhật các số đếm để tránh bị nhảy
+                // HTMLが既に存在する場合、ちらつきを防ぐためにカウントダウンの数字のみを更新
                 const daysElement = countdownElement.querySelector('#days');
                 const hoursElement = countdownElement.querySelector('#hours');
                 const minutesElement = countdownElement.querySelector('#minutes');
@@ -224,67 +217,69 @@ function displayCountdown(targetDate, person) {
             }
         }
     } catch (error) {
-        console.error('Error displaying countdown:', error);
+        console.error('カウントダウンの表示中にエラーが発生しました:', error);
     }
 }
 
-// Hàm kiểm tra sinh nhật và khởi tạo
 async function checkBirthdayAndInitialize() {
     try {
         const now = new Date();
         
-        // Kiểm tra xem đã quá 24 giờ kể từ lần kiểm tra cuối cùng hay chưa
         const lastCheck = localStorage.getItem('lastBirthdayCheck');
-        const shouldCheck = !lastCheck || (now - new Date(lastCheck)) > (24 * 60 * 60 * 1000);
+        const lastCheckDate = lastCheck ? new Date(lastCheck) : null;
+        const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        const todayAt23 = new Date(today.getTime() + 23 * 60 * 60 * 1000); // 今日の23:00
         
-        console.log("Kiểm tra sinh nhật mới: " + (shouldCheck ? "Có" : "Không") + 
-                   (lastCheck ? ", Lần kiểm tra cuối: " + new Date(lastCheck).toLocaleString() : ""));
+        const shouldCheck = !lastCheckDate || 
+                           (now >= todayAt23 && 
+                            (!lastCheckDate || lastCheckDate < todayAt23));
         
-        // Nếu danh sách sinh nhật rỗng hoặc đã đến thời gian kiểm tra lại
+        console.log("新しい誕生日チェック: " + (shouldCheck ? "はい" : "いいえ") + 
+                   (lastCheck ? ", 最終チェック: " + new Date(lastCheck).toLocaleString() : ""));
+        
         if (birthdays.length === 0 || shouldCheck) {
             if (birthdays.length === 0) {
                 await loadBirthdays();
-                // Nếu vẫn không có dữ liệu, dừng xử lý
                 if (birthdays.length === 0) {
-                    console.error("Không thể tải dữ liệu sinh nhật");
+                    console.error("誕生日データをロードできません");
                     return;
                 }
             }
             
-            // Cập nhật thời gian kiểm tra cuối cùng
             localStorage.setItem('lastBirthdayCheck', now.toISOString());
             lastBirthdayCheck = now;
             
             const birthdayPerson = checkIfBirthday(now);
 
-            // Nếu có sinh nhật, khởi tạo nội dung sinh nhật
             if (birthdayPerson) {
                 const today = `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`;
                 const lastShownDate = localStorage.getItem('lastBirthdayShown');
+                const sessionEffectsShown = sessionStorage.getItem('birthdayEffectsShown');
                 
-                // Nếu chưa hiển thị sinh nhật hôm nay
-                if (lastShownDate !== today) {
-                    localStorage.setItem('lastBirthdayShown', today);
-                    localStorage.setItem('currentBirthday', birthdayPerson.name);
-                    localStorage.setItem('birthdayPerson', birthdayPerson.name); // Thêm cho các chức năng khác
-                    showBirthdayContent(birthdayPerson);
+                localStorage.setItem('lastBirthdayShown', today);
+                localStorage.setItem('currentBirthday', birthdayPerson.name);
+                localStorage.setItem('birthdayPerson', birthdayPerson.name);
+                
+                if (sessionEffectsShown !== today) {
+                    console.log('エフェクト付きで誕生日を表示');
+                    showBirthdayContent(birthdayPerson, true); // エフェクトあり
+                    sessionStorage.setItem('birthdayEffectsShown', today);
+                } else {
+                    console.log('エフェクトなしで誕生日を表示');
+                    showBirthdayContent(birthdayPerson, false); // エフェクトなし
                 }
             } else {
-                // Xóa dữ liệu sinh nhật cũ
                 localStorage.removeItem('lastBirthdayShown');
                 localStorage.removeItem('currentBirthday');
                 
-                // Khởi tạo đếm ngược
                 const nextBirthday = findNextBirthday(new Date());
                 if (nextBirthday.person) {
-                    // Lưu thông tin sinh nhật kế tiếp để sử dụng trong đếm ngược
                     localStorage.setItem('nextBirthdayDate', nextBirthday.date.toISOString());
                     localStorage.setItem('nextBirthdayPerson', JSON.stringify(nextBirthday.person));
                     displayCountdown(nextBirthday.date, nextBirthday.person);
                 }
             }
         } else {
-            // Chỉ cập nhật đếm ngược từ dữ liệu đã lưu, không kiểm tra lại
             const nextBirthdayDateStr = localStorage.getItem('nextBirthdayDate');
             const nextBirthdayPersonStr = localStorage.getItem('nextBirthdayPerson');
             
@@ -295,19 +290,26 @@ async function checkBirthdayAndInitialize() {
             }
         }
     } catch (error) {
-        console.error('Error in checkBirthdayAndInitialize:', error);
+        console.error('checkBirthdayAndInitializeでエラーが発生しました:', error);
     }
 }
 
-// Cập nhật thời gian đếm ngược (chạy mỗi giây)
 function updateCountdownTime() {
     try {
-        // Lấy thông tin sinh nhật tiếp theo từ localStorage
+        const now = new Date();
+        const today = `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`;
+        const lastBirthdayShown = localStorage.getItem('lastBirthdayShown');
+        
+        if (lastBirthdayShown === today) {
+            const countdownElement = document.getElementById('countdown');
+            if (countdownElement) countdownElement.classList.add('hidden');
+            return; 
+        }
+        
         const nextBirthdayDateStr = localStorage.getItem('nextBirthdayDate');
         const nextBirthdayPersonStr = localStorage.getItem('nextBirthdayPerson');
         
         if (!nextBirthdayDateStr || !nextBirthdayPersonStr) {
-            // Nếu không có dữ liệu, chạy lại hàm khởi tạo một lần
             checkBirthdayAndInitialize();
             return;
         }
@@ -315,15 +317,13 @@ function updateCountdownTime() {
         const nextBirthdayDate = new Date(nextBirthdayDateStr);
         const nextBirthdayPerson = JSON.parse(nextBirthdayPersonStr);
         
-        // Chỉ cập nhật bộ đếm thời gian, không kiểm tra lại ngày sinh nhật
         displayCountdown(nextBirthdayDate, nextBirthdayPerson);
     } catch (error) {
-        console.error('Error in updateCountdownTime:', error);
+        console.error('updateCountdownTimeでエラーが発生しました:', error);
     }
 }
 
-// Hiển thị nội dung sinh nhật
-function showBirthdayContent(birthdayPerson) {
+function showBirthdayContent(birthdayPerson, showEffects = true) {
     const countdownElement = document.getElementById('countdown');
     if (countdownElement) {
         countdownElement.classList.add('hidden');
@@ -332,12 +332,14 @@ function showBirthdayContent(birthdayPerson) {
     const birthdayContent = document.getElementById('birthdayContent');
     if (birthdayContent) {
         birthdayContent.classList.remove('hidden');
-        birthdayContent.classList.add('appearing');
         
-        // Xóa lớp animation sau khi nó hoàn thành
-        setTimeout(() => {
-            birthdayContent.classList.remove('appearing');
-        }, 1000);
+        if (showEffects) {
+            birthdayContent.classList.add('appearing');
+            
+            setTimeout(() => {
+                birthdayContent.classList.remove('appearing');
+            }, 1000);
+        }
     }
 
     const birthdayTitle = document.getElementById('birthdayTitle');
@@ -345,7 +347,7 @@ function showBirthdayContent(birthdayPerson) {
         birthdayTitle.style.display = 'block';
         birthdayTitle.style.opacity = '1';
         birthdayTitle.classList.add('birthday-title');
-        birthdayTitle.textContent = 'Chúc Mừng Sinh Nhật';
+        birthdayTitle.textContent = 'お誕生日おめでとうございます';
     }
 
     const birthdayMessage = document.getElementById('birthdayMessage');
@@ -357,55 +359,53 @@ function showBirthdayContent(birthdayPerson) {
         birthdayMessage.classList.add('celebrating');
     }
 
-    // Hiển thị bánh 2D
     const cake2DContainer = document.querySelector('.cake-2d-container');
     if (cake2DContainer) {
         cake2DContainer.style.display = 'flex';
     }
     
-    // Hiện nút thổi nến với hiệu ứng sau khi bánh đã hiển thị
-    setTimeout(() => {
-        const blowButton = document.getElementById('blowButton');
-        if (blowButton) {
-            blowButton.style.display = 'block';
-            blowButton.style.opacity = '0';
-            blowButton.style.transform = 'translateY(20px)';
-            
-            // Hiệu ứng hiện dần
+    const blowButton = document.getElementById('blowButton');
+    if (blowButton) {
+        blowButton.style.display = 'block';
+        
+        if (showEffects) {
             setTimeout(() => {
-                blowButton.style.transition = 'all 0.5s ease';
-                blowButton.style.opacity = '1';
-                blowButton.style.transform = 'translateY(0)';
-            }, 100);
-            
-            // Gắn sự kiện cho nút thổi nến - Chỉ cần nhấn nút là thổi tắt
-            blowButton.onclick = function() {
-                // Gọi trực tiếp hàm thổi tắt nến khi nhấn nút
-                if (typeof blowOutCandle === 'function') {
-                    blowOutCandle();
-                } else {
-                    console.log('Đang xử lý thổi nến...');
-                    // Fallback nếu không tìm thấy hàm
-                    const flames = document.querySelectorAll('.flame');
-                    if (flames && flames.length > 0) {
-                        flames.forEach((flame, index) => {
-                            setTimeout(() => {
-                                flame.style.opacity = '0';
-                            }, index * 200);
-                        });
-                    }
-                }
-            };
+                blowButton.style.opacity = '0';
+                blowButton.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    blowButton.style.transition = 'all 0.5s ease';
+                    blowButton.style.opacity = '1';
+                    blowButton.style.transform = 'translateY(0)';
+                }, 100);
+            }, 1000);
+        } else {
+            blowButton.style.opacity = '1';
+            blowButton.style.transform = 'translateY(0)';
         }
-    }, 1000);
+        
+        blowButton.onclick = function() {
+            if (typeof blowOutCandle === 'function') {
+                blowOutCandle();
+            } else {
+                console.log('ろうそくを吹き消し処理中...');
+                const flames = document.querySelectorAll('.flame');
+                if (flames && flames.length > 0) {
+                    flames.forEach((flame, index) => {
+                        setTimeout(() => {
+                            flame.style.opacity = '0';
+                        }, index * 200);
+                    });
+                }
+            }
+        };
+    }
     
-    // Ẩn nút cấp quyền microphone vì không cần thiết
     const micPermissionBtn = document.getElementById('micPermissionBtn');
     if (micPermissionBtn) {
         micPermissionBtn.style.display = 'none';
     }
     
-    // Ẩn bánh 3D và hiển thị bánh 2D
     const cakeContainer = document.querySelector('.cake-container');
     if (cakeContainer) {
         cakeContainer.style.display = 'none';
@@ -416,61 +416,41 @@ function showBirthdayContent(birthdayPerson) {
         birthdayMessageContainer.style.display = 'block';
     }
 
-    // Thay đổi nền trang với hiệu ứng
     document.body.style.transition = 'background 1.5s ease';
     document.body.style.background = 'linear-gradient(135deg, #ffe6eb 0%, #ffb8c6 100%)';
 
-    // Tạo hiệu ứng confetti rơi xuống
     setTimeout(() => {
     createConfetti();
         
-        // Thêm đợt confetti thứ hai sau vài giây
         setTimeout(createConfetti, 2000);
     }, 500);
 
-    // Phát nhạc sinh nhật với độ trễ nhỏ
     setTimeout(playBirthdayMusic, 1200);
     
-    // Hiển thị lời chúc cá nhân hóa nếu có
     setTimeout(displaySavedCustomMessage, 1500);
     
-    // Thêm hiệu ứng bóng bay
     if (typeof createBalloons === 'function') {
         setTimeout(createBalloons, 1000);
     }
 }
 
-// Hàm khởi tạo bánh sinh nhật 3D
 function init3DCake() {
-    // Bánh 3D đã bị vô hiệu hóa, chỉ sử dụng bánh 2D
-    console.log('Bánh 3D đã bị vô hiệu hóa, chỉ sử dụng bánh 2D');
-    return;
 }
 
-// Thêm trang trí cho bánh
 function addCakeTierDecorations(tier, radius, height, color) {
-    // Đã bị vô hiệu hóa vì không còn dùng bánh 3D
-    return;
 }
 
-// Thêm chữ Happy Birthday lên bánh
 function addBirthdayText(cakeGroup) {
-    // Đã vô hiệu hóa chức năng hiển thị chữ "Chúc Mừng Sinh Nhật"
-    return; // Không thêm chữ vào bánh nữa
 }
 
-// Tính năng tải Three.js nếu chưa có
 function loadThreeJS(callback) {
-    // Đã bị vô hiệu hóa vì không còn dùng bánh 3D
     if (callback) callback();
-    return;
 }
 
-// Phát nhạc sinh nhật
 function playBirthdayMusic() {
     const audio = new Audio('happy-birthday.mp3');
     audio.play().catch(e => {
-        console.log('Auto-play prevented:', e);
+        console.log('自動再生が防止されました:', e);
         const playButton = document.getElementById('playMusic');
         if (playButton) {
             playButton.textContent = '▶️';
@@ -478,22 +458,20 @@ function playBirthdayMusic() {
     });
 }
 
-// Debug function
 function debugDate() {
     const now = new Date();
-    console.log('Current Date:', {
+    console.log('現在の日付:', {
         fullDate: now,
-        month: now.getMonth() + 1, // Chuyển về 1-12
+        month: now.getMonth() + 1, 
         date: now.getDate(),
         year: now.getFullYear()
     });
     
     const birthdayPerson = checkIfBirthday(now);
-    console.log('Birthday Check Result:', birthdayPerson);
+    console.log('誕生日チェック結果:', birthdayPerson);
     
-    // Kiểm tra tất cả sinh nhật
     birthdays.forEach(person => {
-        console.log(`Checking ${person.name}:`, {
+        console.log(`${person.name}を確認中:`, {
             personMonth: person.month,
             currentMonth: now.getMonth() + 1,
             personDay: person.day,
@@ -503,33 +481,45 @@ function debugDate() {
     });
 }
 
-// Khởi tạo trang
 document.addEventListener('DOMContentLoaded', function() {
-    // Kiểm tra sinh nhật một lần khi tải trang
-    checkBirthdayAndInitialize();
-    
-    // Cập nhật đếm ngược mỗi giây (không kiểm tra lại ngày sinh nhật)
+    setTimeout(loadBirthdays, 1000);
+    setTimeout(checkBirthdayAndInitialize, 1500);
     setInterval(updateCountdownTime, 1000);
     
-    // Khởi tạo các tính năng khác
     initPhotoAlbum();
     initGames();
     initSocialShare();
     initMusicPlayer();
     
-    // Áp dụng giao diện theo mùa và lễ hội
     const theme = detectSeasonAndFestival();
     applyTheme(theme);
     
-    // Áp dụng ngôn ngữ
-    const savedLang = localStorage.getItem('language') || 'vi';
+    const savedLang = localStorage.getItem('language') || 'ja';
     document.getElementById('languageSelect').value = savedLang;
     applyLanguage(savedLang);
     
-    // Khởi tạo tính năng lời chúc cá nhân hóa
+    const languageSelect = document.getElementById('languageSelect');
+    languageSelect.addEventListener('change', function() {
+        const selectedLang = this.value;
+        applyLanguage(selectedLang);
+    });
+    
     initCustomMessage();
     displaySavedCustomMessage();
+    setupDailyBirthdayCheck();
+});
+
+function setupDailyBirthdayCheck() {
+    setInterval(() => {
+        const now = new Date();
+        const hours = now.getHours();
+        const minutes = now.getMinutes();
+        
+        if (hours === 0 && minutes === 0) {
+            console.log('0時 - 毎日の誕生日チェック');
+            checkBirthdayAndInitialize();
+        }
+    }, 60000);
     
-    // Debug với số lượng log thấp hơn
-    // debugDate();
-}); 
+    console.log('毎日の誕生日チェック設定完了');
+}

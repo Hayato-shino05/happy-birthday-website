@@ -1075,7 +1075,7 @@ function initPuzzleGame() {
     if (window.useLocalMedia) {
         imageUrl = `memory/${imageFile}`;
     } else {
-        const baseUrl = 'your-supabase-link/storage/v1/object/public/media/';
+        const baseUrl = 'https://fmvqrwztdoyoworobsix.supabase.co/storage/v1/object/public/media/';
         imageUrl = `${baseUrl}${imageFile}`;
     }
     
