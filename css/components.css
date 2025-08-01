@@ -1,4 +1,4 @@
-/* Cake tiers styling */
+/* ケーキの層スタイリング */
 .cake-tier-1, .cake-tier-2, .cake-tier-3 {
     filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.1));
 }
@@ -21,7 +21,7 @@
     filter: drop-shadow(0 -1px 2px rgba(255, 255, 255, 0.5));
 }
 
-/* Star decorations */
+/* 星の装飾 */
 .cake-tier-3 .star {
     fill: #ffd700;
     filter: drop-shadow(0 0 3px rgba(255, 215, 0, 0.7));
@@ -33,7 +33,7 @@
     100% { opacity: 1; }
 }
 
-/* Candle styling */
+/* ロウソクスタイリング */
 .candles rect {
     fill: #ffffff;
     stroke: #ffb3b3;
@@ -125,7 +125,7 @@
     }
 }
 
-/* Button styles */
+/* ボタンスタイル */
 #blowButton {
     position: relative;
     overflow: hidden;
@@ -215,7 +215,7 @@
     box-shadow: 6px 6px 0 #D4B08C;
 }
 
-/* Audio feedback and progress bar */
+/* 音声フィードバックとプログレスバー */
 #audioFeedback {
     width: 300px;
     height: 60px;
@@ -256,7 +256,7 @@
     font-weight: bold;
 }
 
-/* Balloon styles */
+/* 風船スタイル */
 .balloon {
     position: absolute;
     width: 70px;
@@ -277,7 +277,7 @@
     overflow: hidden;
 }
 
-/* Confetti */
+/* 紙吹雪 */
 .confetti {
     position: fixed;
     width: 10px;
@@ -301,7 +301,7 @@
     }
 }
 
-/* Album and Memory Wall */
+/* アルバムとメモリーウォール */
 .memory-wall {
     position: fixed;
     top: 50%;
@@ -356,7 +356,7 @@
     opacity: 0.9;
 }
 
-/* Slideshow styles */
+/* スライドショースタイル */
 .swiper-container {
     width: 100%;
     height: 100%;
@@ -442,7 +442,7 @@
     box-shadow: 5px 5px 0 #D4B08C;
 }
 
-/* Game Container */
+/* ゲームコンテナ */
 .games-container {
     position: fixed;
     bottom: 20px;
@@ -469,7 +469,7 @@
     box-shadow: 6px 6px 0 #D4B08C;
 }
 
-/* Social Share */
+/* ソーシャルシェア */
 .social-share {
     position: fixed;
     right: 20px;
@@ -497,7 +497,7 @@
     box-shadow: 6px 6px 0 #D4B08C;
 }
 
-/* Music Player */
+/* 音楽プレーヤー */
 .music-player {
     position: fixed;
     bottom: 20px;
@@ -531,7 +531,7 @@
     box-shadow: 4px 4px 0 #D4B08C;
 }
 
-/* Language Selector */
+/* 言語セレクター */
 .language-selector {
     position: fixed;
     top: 20px;
@@ -556,7 +556,7 @@
     box-shadow: 3px 3px 0 #D4B08C;
 }
 
-/* Custom Message */
+/* カスタムメッセージ */
 .custom-message-container {
     position: fixed;
     top: 20px;
@@ -568,7 +568,7 @@
 }
 
 .bulletin-board-modal {
-    display: none; /* Mặc định ẩn */
+    display: none; /* デフォルトで非表示 */
     position: fixed;
     top: 0;
     left: 0;
@@ -755,7 +755,7 @@
     box-shadow: 3px 3px 0 #D4B08C;
 }
 
-/* Virtual Gift Modal */
+/* バーチャルギフトモーダル */
 .virtual-gift-modal {
     position: fixed;
     top: 0;
@@ -863,7 +863,7 @@
     box-shadow: 6px 6px 0 #D4B08C;
 }
 
-/* Virtual Gifts View Modal */
+/* バーチャルギフト表示モーダル */
 .virtual-gifts-modal {
     position: fixed;
     top: 0;
@@ -1009,7 +1009,7 @@
     animation: writeText 3s forwards;
 }
 
-/* Responsive styles for components */
+/* コンポーネントのレスポンシブスタイル */
 @media screen and (max-width: 768px) {
     .photo-gallery {
         grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -1022,10 +1022,10 @@
         height: 90%;
     }
 
-    /* Adjust game container for mobile */
+    /* モバイル用ゲームコンテナの調整 */
     .games-container {
         position: fixed;
-        bottom: 70px; /* Move up to avoid overlap with music player */
+        bottom: 70px; /* ミュージックプレイヤーとの重なりを避けるために上に移動 */
         left: 0;
         width: 100%;
         display: flex;
@@ -1038,7 +1038,7 @@
         font-size: 0.9em;
     }
 
-    /* Adjust social share buttons */
+    /* ソーシャルシェアボタンの調整 */
     .social-share {
         right: 10px;
         top: auto;
@@ -1046,7 +1046,7 @@
         transform: none;
     }
 
-    /* Adjust music player */
+    /* 音楽プレーヤーの調整 */
     .music-player {
         padding: 5px 10px;
     }
@@ -1056,14 +1056,14 @@
         height: 30px;
     }
 
-    /* Feature buttons adjustments */
+    /* 機能ボタンの調整 */
     .feature-button {
         padding: 8px 15px;
         margin: 5px;
         font-size: 0.9em;
     }
 
-    /* Bulletin board modal adjustments */
+    /* 掲示板モーダルの調整 */
     .bulletin-board-modal .modal-content {
         width: 95%;
         max-width: 350px;
@@ -1121,7 +1121,7 @@
         font-size: 0.85em;
     }
 
-    /* Custom message container adjustments */
+    /* カスタムメッセージコンテナの調整 */
     .custom-message-container {
         top: 10px;
         right: 10px;
@@ -1129,7 +1129,7 @@
         max-width: 200px;
     }
 
-    /* Virtual gift modal adjustments */
+    /* バーチャルギフトモーダルの調整 */
     .virtual-gift-modal .modal-content {
         width: 95%;
         max-width: 350px;
@@ -1192,7 +1192,7 @@
         font-size: 0.85em;
     }
 
-    /* Virtual gift modal adjustments */
+    /* バーチャルギフトモーダルの調整 */
     .virtual-gift-modal .modal-content {
         width: 98%;
         max-width: 300px;
@@ -1233,7 +1233,7 @@
     }
 }
 
-/* Cake Container Improvements */
+/* ケーキコンテナの改善 */
 .cake-container {
     width: 100%;
     height: 300px;
@@ -1273,7 +1273,7 @@
     z-index: 1;
 }
 
-/* Pulsing glow effect for birthday content */
+/* 誕生日コンテンツの脈動発光エフェクト */
 @keyframes pulse {
     0% { transform: scale(1); }
     50% { transform: scale(1.05); }
@@ -1294,7 +1294,7 @@
     text-shadow: 0 0 10px rgba(255, 64, 129, 0.3);
 }
 
-/* Smoke animation for candles */
+/* ロウソク用の煙アニメーション */
 @keyframes smoke {
     0% {
         transform: translateY(0) scale(1);
@@ -1315,7 +1315,7 @@
     animation: smoke 2s ease-out forwards;
 }
 
-/* Birthday content wrapper improvements */
+/* 誕生日コンテンツラッパーの改善 */
 #birthdayContent {
     padding: 20px;
     background: rgba(255, 255, 255, 0.7);
@@ -1346,7 +1346,7 @@
     }
 }
 
-/* Bánh sinh nhật 2D */
+/* 2D誕生日ケーキ */
 .cake-2d-container {
     width: 100%;
     height: 300px;
@@ -1549,7 +1549,7 @@
     }
 }
 
-/* Hiệu ứng nổi cho bánh */
+/* ケーキの浮き上がりエフェクト */
 @keyframes float {
     0% {
         transform: translateY(0px) rotate(0deg);
@@ -1570,7 +1570,7 @@
     100% { transform: translateY(0) rotate(0deg); }
 }
 
-/* Hiệu ứng khói */
+/* 煙エフェクト */
 @keyframes smoke {
     0% {
         transform: translateY(0) scale(1);
@@ -1591,7 +1591,7 @@
     animation: smoke 2s ease-out forwards;
 }
 
-/* Hiệu ứng cho chữ mừng sinh nhật */
+/* 誕生日おめでとうテキストエフェクト */
 .birthday-title {
     font-family: 'Dancing Script', cursive;
     font-size: 3.5em;

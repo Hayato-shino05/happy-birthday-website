@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Serif+Display&family=Old+Standard+TT:wght@400;700&display=swap');
 
-/* Kiểu cơ bản của trang */
+/* ページの基本スタイル */
 body {
     font-family: 'Old Standard TT', serif;
     background: #F3E5D8;
@@ -124,7 +124,7 @@ h1 {
     display: none;
 }
 
-/* Animations */
+/* アニメーション */
 @keyframes pulse {
     0% {transform: scale(1);}
     50% {transform: scale(1.05);}
@@ -170,10 +170,10 @@ h1 {
     100% { opacity: 1; width: 100%; }
 }
 
-/* Media Queries */
+/* メディアクエリ */
 @media screen and (max-width: 768px) {
     h1 {
-        font-size: 2.5em; /* Smaller heading for mobile */
+        font-size: 2.5em; /* モバイル用の小さなヘッダー */
     }
 
     .container {

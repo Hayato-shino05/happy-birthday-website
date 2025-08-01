@@ -1,4 +1,4 @@
-/* Giao diện theo mùa - Dựa trên văn hóa Nhật Bản */
+/* 季節に応じたテーマ */
 body.spring {
     background-color: #F8DDE4;
     background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23E91E63' fill-opacity='0.15'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
@@ -23,7 +23,7 @@ body.winter {
     color: #01579B;
 }
 
-/* Giao diện theo lễ hội */
+/* 祭りのテーマ */
 body.christmas {
     background-color: #EF9A9A;
     background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23D32F2F' fill-opacity='0.15'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
@@ -42,7 +42,7 @@ body.halloween {
     color: #FFCCBC;
 }
 
-/* Giao diện countdown theo mùa và lễ hội - Dựa trên văn hóa Nhật Bản */
+/* 季節とイベントに応じたカウントダウンテーマ */
 .countdown.spring {
     background: linear-gradient(135deg, #FCE4EC 0%, #F8DDE4 100%);
     border-color: #C2185B;
@@ -78,7 +78,7 @@ body.halloween {
     border-color: #FF5722;
 }
 
-/* Theme Overlay */
+/* テーマオーバーレイ */
 .theme-overlay {
     position: fixed;
     top: 0;
@@ -121,7 +121,7 @@ body.halloween .theme-overlay {
     background: linear-gradient(135deg, #4A148C 0%, #6A1B9A 50%, #8E24AA 100%);
 }
 
-/* Animations cho hiệu ứng theo chủ đề */
+/* テーマエフェクトのアニメーション */
 @keyframes backgroundShift {
     0% { background-position: 0% 0%; }
     50% { background-position: 100% 100%; }
@@ -158,7 +158,7 @@ body.halloween .theme-overlay {
     100% { transform: translateX(0) translateY(0); }
 }
 
-/* Giao diện cho lễ hội Nhật Bản */
+/* 日本の祭りのテーマ */
 .hanami .countdown {
     background: linear-gradient(135deg, #FFE6F2 0%, #F8DDE4 100%);
     border-color: #C2185B;
@@ -190,14 +190,14 @@ body.halloween .theme-overlay {
 }
 
 /* ===== THEME EFFECTS CSS CLASSES ===== */
-/* Base class for all theme effects */
+/* 全テーマエフェクトの基底クラス */
 .theme-effect {
     position: fixed;
     pointer-events: none;
     z-index: 1;
 }
 
-/* Heat Wave Effect */
+/* 熱波エフェクト */
 .heat-wave {
     top: 0;
     left: 0;
@@ -208,7 +208,7 @@ body.halloween .theme-overlay {
     animation: heatWave 3s ease-in-out infinite;
 }
 
-/* Sun Glare Effect */
+/* 太陽光エフェクト */
 .sun-glare {
     width: 50px;
     height: 50px;
@@ -217,7 +217,7 @@ body.halloween .theme-overlay {
     animation: blink 2s ease-in-out infinite;
 }
 
-/* Bat Effect */
+/* コウモリエフェクト */
 .bat {
     width: 15px;
     height: 8px;
@@ -227,7 +227,7 @@ body.halloween .theme-overlay {
     animation: fly 4s ease-in-out infinite;
 }
 
-/* Petal Effect */
+/* 花びらエフェクト */
 .petal {
     width: 8px;
     height: 8px;
@@ -237,13 +237,13 @@ body.halloween .theme-overlay {
     animation: fall 7s linear infinite;
 }
 
-/* Leaf Effect */
+/* 葉っぱエフェクト */
 .leaf {
     opacity: 0.8;
     animation: fall 10s linear infinite, sway 2.5s ease-in-out infinite, rotate 3.5s linear infinite;
 }
 
-/* Snowflake Effect */
+/* 雪の結晶エフェクト */
 .snowflake {
     width: 4px;
     height: 4px;
@@ -253,7 +253,7 @@ body.halloween .theme-overlay {
     animation: fall 8s linear infinite;
 }
 
-/* Lantern Effect */
+/* 提灯エフェクト */
 .lantern {
     width: 15px;
     height: 20px;
@@ -264,7 +264,7 @@ body.halloween .theme-overlay {
     animation: float 4s ease-in-out infinite;
 }
 
-/* Christmas Light Effect */
+/* クリスマスライトエフェクト */
 .christmas-light {
     width: 10px;
     height: 10px;
@@ -274,7 +274,7 @@ body.halloween .theme-overlay {
     animation: blink 1.5s ease-in-out infinite;
 }
 
-/* Firework Effect */
+/* 花火エフェクト */
 .firework {
     width: 5px;
     height: 5px;
@@ -284,7 +284,7 @@ body.halloween .theme-overlay {
     animation: explode 2s ease-out forwards;
 }
 
-/* Ghost Effect */
+/* おばけエフェクト */
 .ghost {
     background-color: #FFF;
     border-radius: 50% 50% 0 0;
@@ -292,7 +292,7 @@ body.halloween .theme-overlay {
     animation: float 7s ease-in-out infinite;
 }
 
-/* Theme Indicator */
+/* テーマインジケーター */
 .theme-indicator {
     position: fixed;
     top: 60px;
@@ -305,7 +305,7 @@ body.halloween .theme-overlay {
     font-size: 12px;
 }
 
-/* Video Background */
+/* 動画背景 */
 .video-background {
     position: fixed;
     top: 0;

@@ -1,11 +1,11 @@
-/* Mobile Optimization Styles */
-/* These styles are specifically for mobile devices to ensure a better user experience */
+/* モバイル最適化スタイル */
+/* モバイルデバイス向けのユーザーエクスペリエンス向上用スタイル */
 
-/* Apply styles for screens smaller than 768px */
+/* 768px以下の画面サイズ用スタイル */
 @media screen and (max-width: 768px) {
-    /* General layout adjustments */
+    /* 一般レイアウト調整 */
     body {
-        font-size: 14px; /* Smaller font size for better readability on mobile */
+        font-size: 14px; /* モバイルでの読みやすさ向上のための小さなフォントサイズ */
         padding: 0;
         margin: 0;
         overflow-x: hidden;
@@ -13,20 +13,20 @@
 
     .container {
         padding: 15px 10px;
-        max-width: 100%; /* Ensure container uses full width */
+        max-width: 100%; /* コンテナが全幅を使用することを保証 */
     }
 
     h1 {
-        font-size: 2.2em; /* Smaller heading for mobile */
+        font-size: 2.2em; /* モバイル用の小さなヘッダー */
         margin-bottom: 15px;
     }
 
-    /* Countdown adjustments */
+    /* カウントダウン調整 */
     .countdown {
         font-size: 1.1em;
         padding: 10px;
         margin: 15px 0;
-        max-width: 100%; /* Full width for countdown */
+        max-width: 100%; /* カウントダウンの全幅表示 */
     }
 
     .countdown h1 {
@@ -44,21 +44,21 @@
         padding: 8px 12px;
     }
 
-    /* Cake container */
+    /* ケーキコンテナ */
     .cake-container {
         width: 220px;
         height: 220px;
         margin: 30px auto 15px;
     }
 
-    /* Buttons */
+    /* ボタン */
     .feature-button, #blowButton, #micPermissionBtn {
         padding: 8px 15px;
         font-size: 0.9em;
         margin: 5px;
     }
 
-    /* Music player */
+    /* 音楽プレーヤー */
     .music-player {
         padding: 5px 10px;
         bottom: 10px;
@@ -75,7 +75,7 @@
         font-size: 0.9em;
     }
 
-    /* Games container */
+    /* ゲームコンテナ */
     .games-container {
         bottom: 60px;
         left: 0;
@@ -90,7 +90,7 @@
         margin: 3px;
     }
 
-    /* Social share buttons */
+    /* ソーシャルシェアボタン */
     .social-share {
         right: 5px;
         top: auto;
@@ -104,7 +104,7 @@
         height: 35px;
     }
 
-    /* Custom message container */
+    /* カスタムメッセージコンテナ */
     .custom-message-container {
         top: 5px;
         right: 5px;
@@ -112,7 +112,7 @@
         max-width: 180px;
     }
 
-    /* Album and Memory Wall */
+    /* アルバムとメモリーウォール */
     .memory-wall {
         width: 98%;
         height: 85%;
@@ -125,7 +125,7 @@
         padding: 10px;
     }
 
-    /* Bulletin board modal */
+    /* 掲示板モーダル */
     .bulletin-board-modal .modal-content {
         width: 95%;
         max-width: 320px;
@@ -158,7 +158,7 @@
         font-size: 0.85em;
     }
 
-    /* Virtual gift modal */
+    /* バーチャルギフトモーダル */
     .virtual-gift-modal .modal-content {
         width: 95%;
         max-width: 320px;
@@ -176,7 +176,7 @@
         font-size: 0.8em;
     }
 
-    /* Puzzle game */
+    /* パズルゲーム */
     #puzzleArea {
         width: 100%;
         height: 200px;
@@ -191,7 +191,7 @@
     }
 }
 
-/* Extra small screens */
+/* 超小型画面 */
 @media screen and (max-width: 480px) {
     body {
         font-size: 12px;
@@ -292,7 +292,7 @@
         height: 60px;
     }
 
-    /* Virtual gift modal */
+    /* バーチャルギフトモーダル */
     .virtual-gift-modal .modal-content {
         width: 98%;
         max-width: 290px;
@@ -303,7 +303,7 @@
         max-height: 250px;
     }
 
-    /* Virtual gifts view modal */
+    /* バーチャルギフト表示モーダル */
     .virtual-gifts-modal .modal-content {
         width: 98%;
         max-width: 290px;
@@ -314,7 +314,7 @@
         max-height: 250px;
     }
 
-    /* Puzzle game */
+    /* パズルゲーム */
     #puzzleArea {
         height: 180px;
     }
@@ -324,7 +324,7 @@
     }
 }
 
-/* Very small screens */
+/* 非常に小さな画面 */
 @media screen and (max-width: 320px) {
     body {
         font-size: 11px;
@@ -352,7 +352,7 @@
         grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
     }
 
-    /* Puzzle game */
+    /* パズルゲーム */
     #puzzleArea {
         height: 150px;
     }

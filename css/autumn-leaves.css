@@ -1,9 +1,9 @@
-/* CSS cho hiệu ứng lá rơi mùa thu */
+/* 秋の落ち葉エフェクトの CSS */
 .leaf {
     position: fixed;
     z-index: 1;
     opacity: 0.8;
-    pointer-events: none; /* Để không cản trở các tương tác người dùng */
+    pointer-events: none; /* ユーザーのインタラクションを妨げないため */
 }
 
 @keyframes fall {
@@ -36,7 +36,7 @@
     }
 }
 
-/* Tạo các hình dạng lá khác nhau */
+/* 異なる葉の形を作成 */
 .leaf-shape-1 {
     border-radius: 0 50% 0 50%;
 }
@@ -53,7 +53,7 @@
     border-radius: 50% 50% 50% 0;
 }
 
-/* Các màu sắc mùa thu */
+/* 異なる葉の色を作成 */
 .leaf-color-1 {
     background-color: #FF4500;
 }
