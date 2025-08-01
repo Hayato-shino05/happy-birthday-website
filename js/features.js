@@ -1,52 +1,43 @@
-// Biến toàn cục cho microphone
+
 let blowProgress = 0;
 let audioContext, analyser, microphone, javascriptNode;
 
-// Phân tích âm thanh cho tính năng thổi nến
 function setupAudioAnalysis() {
-    // Đã bỏ tính năng thổi nến bằng micro
-    // Gọi trực tiếp hàm thổi tắt nến
     if (typeof blowOutCandle === 'function') {
         blowOutCandle();
     }
 }
 
-// Cập nhật hiển thị tiến trình thổi nến
 function updateBlowProgress() {
-    // Đã bỏ tính năng thổi nến bằng micro
 }
 
-// Ngắt kết nối âm thanh khi hoàn thành
 function disconnectAudio() {
-    // Đã bỏ tính năng thổi nến bằng micro
 }
 
-// Xử lý khi thổi tắt nến
 function blowOutCandle() {
-    // Xử lý với bánh 2D
     const flames = document.querySelectorAll('.flame');
     if (flames && flames.length > 0) {
-        // Tắt từng ngọn lửa với hiệu ứng
+
         flames.forEach((flame, index) => {
             setTimeout(() => {
                 flame.style.opacity = '0';
                 flame.style.transform = 'translateX(-50%) scale(0.1)';
                 flame.style.boxShadow = 'none';
                 
-                // Tạo hiệu ứng khói
+
                 createSmokeEffect2D(flame);
             }, index * 200);
         });
     }
 
-    // Xử lý với bánh 3D nếu có
+
     if (window.cakeSceneElements) {
         const { candleGroup } = window.cakeSceneElements;
         
-        // Tạo hiệu ứng tắt từng nến một với thời gian trễ
+
         candleGroup.children.forEach((child, index) => {
             if (child.name && child.name.startsWith('flame_')) {
-                // Tạo hiệu ứng tắt nến với độ trễ cho từng nến
+
                 setTimeout(() => {
                     child.visible = false;
                 }, index * 300);
@@ -54,7 +45,7 @@ function blowOutCandle() {
         });
     }
 
-    // Ẩn nút thổi nến với hiệu ứng
+
     const blowButton = document.getElementById('blowButton');
     if (blowButton) {
         blowButton.style.transition = 'all 0.5s ease';
@@ -66,7 +57,7 @@ function blowOutCandle() {
         }, 500);
     }
     
-    // Ẩn các phần tử feedback
+
     const audioFeedback = document.getElementById('audioFeedback');
     if (audioFeedback) {
         audioFeedback.style.display = 'none';
@@ -77,31 +68,31 @@ function blowOutCandle() {
         progressContainer.style.display = 'none';
     }
 
-    // Phát âm thanh và hiệu ứng
+
     playSound();
     createMoreConfetti();
 
-    // Hiển thị thông báo chúc mừng với animation
+
     const message = document.getElementById('birthdayMessage');
     if (message) {
-        // Hiệu ứng biến mất từ từ
+
         message.style.transition = 'all 0.5s ease';
         message.style.opacity = '0';
         
         setTimeout(() => {
-            message.innerHTML = 'Chúc mừng sinh nhật! 🎉<br>Bạn đã thổi tắt nến thành công!<br>Hy vọng mọi điều ước của bạn sẽ thành hiện thực! 🎂';
+            message.innerHTML = 'お誕生日おめでとうございます！🎉<br>ロウソクを消すことができました！<br>あなたの願いがすべて叶いますように！🎂';
     message.style.fontSize = '1.8em';
     message.style.color = '#ff4081';
             message.classList.add('celebrating');
             
-            // Hiệu ứng hiện ra từ từ
+
             setTimeout(() => {
                 message.style.opacity = '1'; 
             }, 100);
         }, 500);
     }
     
-    // Thêm hiệu ứng rung nhẹ cho bánh 2D
+
     const cake2D = document.querySelector('.cake-2d');
     if (cake2D) {
         cake2D.style.animation = 'none';
@@ -114,12 +105,9 @@ function blowOutCandle() {
     }
 }
 
-// Tạo hiệu ứng khói cho bánh 2D
 function createSmokeEffect2D(flameElement) {
     const parentCandle = flameElement.parentElement;
     const rect = flameElement.getBoundingClientRect();
-    
-    // Tạo 5 hạt khói
     for (let i = 0; i < 5; i++) {
         const smoke = document.createElement('div');
         smoke.className = 'smoke-particle';
@@ -136,16 +124,14 @@ function createSmokeEffect2D(flameElement) {
         
         parentCandle.appendChild(smoke);
         
-        // Xóa hạt khói sau khi animation kết thúc
+
         setTimeout(() => {
             smoke.remove();
         }, 2000 + (i * 200));
     }
 }
 
-// Thêm animation cho bánh 2D
 document.addEventListener('DOMContentLoaded', function() {
-    // Thêm keyframes cho animation shake
     const style = document.createElement('style');
     style.textContent = `
         @keyframes shake {
@@ -159,7 +145,6 @@ document.addEventListener('DOMContentLoaded', function() {
     document.head.appendChild(style);
 });
 
-// Hàm tạo hiệu ứng khói khi nến tắt
 function createSmokeEffect(x, y, z) {
     if (!window.cakeSceneElements) return;
     
@@ -168,7 +153,7 @@ function createSmokeEffect(x, y, z) {
     const smokeParticles = [];
     const numParticles = 5;
     
-    // Tạo các hạt khói
+
     for (let i = 0; i < numParticles; i++) {
         const smokeGeometry = new THREE.SphereGeometry(0.05, 8, 8);
         const smokeMaterial = new THREE.MeshBasicMaterial({
@@ -198,7 +183,7 @@ function createSmokeEffect(x, y, z) {
         smokeParticles.push(smokeParticle);
     }
     
-    // Hàm cập nhật vị trí và trạng thái các hạt khói
+
     function updateSmokeParticles() {
         const now = Date.now();
         let allDone = true;
@@ -209,19 +194,19 @@ function createSmokeEffect(x, y, z) {
             if (elapsed < particle.userData.life) {
                 allDone = false;
                 
-                // Cập nhật vị trí
+
                 particle.position.x += particle.userData.velocity.x;
                 particle.position.y += particle.userData.velocity.y;
                 particle.position.z += particle.userData.velocity.z;
                 
-                // Scale up
+
                 const scale = 1 + elapsed * 0.5;
                 particle.scale.set(scale, scale, scale);
                 
-                // Fade out
+
                 particle.material.opacity = 0.7 * (1 - (elapsed / particle.userData.life));
                 
-                // Làm chậm dần
+
                 particle.userData.velocity.y *= 0.98;
             } else if (particle.parent) {
                 scene.remove(particle);
@@ -238,7 +223,6 @@ function createSmokeEffect(x, y, z) {
     updateSmokeParticles();
 }
 
-// Hàm tạo hiệu ứng rung cho đối tượng
 function shakeObject(object) {
     if (!object) return;
     
@@ -252,10 +236,10 @@ function shakeObject(object) {
         const progress = elapsed / shakeDuration;
         
         if (progress < 1) {
-            // Tính toán độ rung giảm dần
+
             const intensity = 0.1 * (1 - progress);
             
-            // Áp dụng rung ngẫu nhiên
+
             object.position.x = originalPosition.x + (Math.random() - 0.5) * intensity;
             object.position.z = originalPosition.z + (Math.random() - 0.5) * intensity;
             object.rotation.x = originalRotation.x + (Math.random() - 0.5) * intensity * 0.05;
@@ -263,7 +247,7 @@ function shakeObject(object) {
             
             requestAnimationFrame(animateShake);
         } else {
-            // Khôi phục vị trí ban đầu
+
             object.position.copy(originalPosition);
             object.rotation.copy(originalRotation);
         }
@@ -272,7 +256,6 @@ function shakeObject(object) {
     animateShake();
 }
 
-// Tạo hiệu ứng confetti
 function createConfetti() {
     const container = document.querySelector('.container');
 
@@ -284,7 +267,7 @@ function createConfetti() {
             confetti.style.backgroundColor = getRandomColor();
             confetti.style.opacity = 1;
 
-            // Different shapes
+
             if (i % 4 === 0) {
                 confetti.style.borderRadius = '50%';
             } else if (i % 4 === 1) {
@@ -296,13 +279,13 @@ function createConfetti() {
                 confetti.style.transform = 'rotate(45deg)';
             }
 
-            // Set animation
+
             const animationDuration = Math.random() * 3 + 2;
             confetti.style.animation = `confettiFall ${animationDuration}s linear forwards`;
 
             document.body.appendChild(confetti);
 
-            // Remove after animation completes
+
             setTimeout(() => {
                 confetti.remove();
             }, animationDuration * 1000);
@@ -310,27 +293,23 @@ function createConfetti() {
     }
 }
 
-// Tạo nhiều hiệu ứng confetti hơn để ăn mừng
 function createMoreConfetti() {
     for (let i = 0; i < 5; i++) {
         setTimeout(createConfetti, i * 300);
     }
 }
 
-// Hàm lấy màu ngẫu nhiên
 function getRandomColor() {
     const colors = ['#f94144', '#f3722c', '#f8961e', '#f9c74f', '#90be6d', '#43aa8b', '#577590', '#ff99c8', '#9b5de5', '#00bbf9'];
     return colors[Math.floor(Math.random() * colors.length)];
 }
 
-// Phát âm thanh khi thổi tắt nến
 function playSound() {
     try {
-        // Create audio element for party sound - using simple beep sounds for now
         const audio = new Audio();
         audio.src = 'data:audio/wav;base64,UklGRl9vT19XQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YU9vT18A';
 
-        // Play a short melody
+
         for (let i = 0; i < 5; i++) {
             setTimeout(() => {
                 const note = new Audio();
@@ -343,22 +322,18 @@ function playSound() {
     }
 }
 
-// Album ảnh - Đã di chuyển sang album.js
 
-// Thêm biến toàn cục để kiểm soát việc sử dụng local media
+
 window.useLocalMedia = false;
-// Theo dõi việc đã tải dữ liệu hay chưa
 window.mediaAlreadyLoaded = false;
 
 function loadSamplePhotos() {
-    // Chức năng này đã được di chuyển sang album.js
-    console.log("Chức năng album đã được di chuyển sang album.js");
+    console.log("アルバム機能はalbum.jsに移動されました");
     if (typeof initPhotoAlbum === 'function') {
         initPhotoAlbum();
     }
 }
 
-// Trò chơi và lịch sinh nhật
 function initGames() {
     const memoryGameBtn = document.getElementById('startMemoryGame');
     const puzzleGameBtn = document.getElementById('startPuzzleGame');
@@ -375,7 +350,6 @@ function initGames() {
     }
 }
 
-// Hàm mở trò chơi đố vui sinh nhật
 function startBirthdayQuiz() {
     let quizModal = document.getElementById('birthdayQuizModal');
     if (!quizModal) {
@@ -420,7 +394,7 @@ function startBirthdayQuiz() {
         });
 
         const title = document.createElement('h2');
-        title.textContent = 'Đố Vui Sinh Nhật';
+        title.textContent = '誕生日の謎';
         title.style.color = '#854D27';
         title.style.marginBottom = '20px';
         title.style.fontFamily = '\'DM Serif Display\', serif';
@@ -434,7 +408,7 @@ function startBirthdayQuiz() {
         quizArea.style.width = '90%';
 
         const restartBtn = document.createElement('button');
-        restartBtn.textContent = 'Chơi Lại';
+        restartBtn.textContent = '再挑戦';
         restartBtn.style.padding = '10px 20px';
         restartBtn.style.background = '#854D27';
         restartBtn.style.color = '#FFF9F3';
@@ -469,26 +443,26 @@ function startBirthdayQuiz() {
     initBirthdayQuiz();
 }
 
-// Hàm khởi tạo đố vui sinh nhật
+
 function initBirthdayQuiz() {
     const quizArea = document.getElementById('quizArea');
     quizArea.innerHTML = '';
     
-    // Kiểm tra danh sách sinh nhật
+
     if (typeof birthdays === 'undefined' || birthdays.length === 0) {
         const noDataMsg = document.createElement('p');
-        noDataMsg.textContent = 'Không có dữ liệu sinh nhật để tạo câu hỏi.';
+        noDataMsg.textContent = '誕生日データがないため、クイズを作成できません。';
         noDataMsg.style.color = '#854D27';
         noDataMsg.style.fontStyle = 'italic';
         quizArea.appendChild(noDataMsg);
         return;
     }
     
-    // Tạo danh sách câu hỏi từ danh sách sinh nhật
+
     let questions = [];
     birthdays.forEach(person => {
         questions.push({
-            question: `Ngày sinh của ${person.name} là ngày nào?`,
+            question: `${person.name}の誕生日はいつですか？`,
             correctAnswer: `${person.day}/${person.month}`,
             options: [
                 `${person.day}/${person.month}`,
@@ -499,8 +473,7 @@ function initBirthdayQuiz() {
         });
     });
     
-    // Xáo trộn danh sách câu hỏi
-    questions = questions.sort(() => Math.random() - 0.5).slice(0, 5); // Lấy 5 câu hỏi ngẫu nhiên
+    questions = questions.sort(() => Math.random() - 0.5).slice(0, 5);
     
     let currentQuestionIndex = 0;
     let score = 0;
@@ -510,7 +483,7 @@ function displayQuestion() {
         quizArea.innerHTML = '';
         if (currentQuestionIndex >= questions.length) {
             const resultMsg = document.createElement('p');
-            resultMsg.textContent = `Đố vui hoàn tất! Điểm của bạn: ${score}/${questions.length}`;
+            resultMsg.textContent = `クイズ完了！あなたのスコア: ${score}/${questions.length}`;
             resultMsg.style.color = '#854D27';
             resultMsg.style.fontSize = '1.2em';
             resultMsg.style.fontWeight = 'bold';
@@ -526,7 +499,7 @@ function displayQuestion() {
         questionText.style.marginBottom = '15px';
         quizArea.appendChild(questionText);
         
-        // Xáo trộn các lựa chọn
+
         const shuffledOptions = question.options.sort(() => Math.random() - 0.5);
         shuffledOptions.forEach(option => {
             const optionBtn = document.createElement('button');
@@ -556,19 +529,19 @@ function displayQuestion() {
         });
     }
     
-    // Kiểm tra câu trả lời
+
 function checkAnswer(selected, correct) {
         if (selected === correct) {
             score++;
-            alert('Đúng!');
+            alert('正解！');
         } else {
-            alert(`Sai! Đáp án đúng là: ${correct}`);
+            alert(`不正解！正解は: ${correct}`);
         }
         currentQuestionIndex++;
         displayQuestion();
     }
     
-    // Hiển thị câu hỏi đầu tiên
+
     displayQuestion();
 }
 
@@ -617,7 +590,7 @@ function openBirthdayCalendar() {
         });
 
         const title = document.createElement('h2');
-        title.textContent = 'Lịch Sinh Nhật';
+        title.textContent = '誕生日カレンダー';
         title.style.color = '#854D27';
         title.style.marginBottom = '20px';
         title.style.fontFamily = '\'DM Serif Display\', serif';
@@ -640,22 +613,22 @@ function openBirthdayCalendar() {
     displayBirthdayCalendar();
 }
 
-// Hàm hiển thị lịch sinh nhật
+
 function displayBirthdayCalendar() {
     const calendarView = document.getElementById('calendarView');
     calendarView.innerHTML = '';
     
-    // Lấy danh sách sinh nhật từ biến birthdays (được định nghĩa trong core.js)
+
     if (typeof birthdays === 'undefined') {
         const noDataMsg = document.createElement('p');
-        noDataMsg.textContent = 'Không có dữ liệu sinh nhật để hiển thị.';
+        noDataMsg.textContent = '表示する誕生日データがありません。';
         noDataMsg.style.color = '#854D27';
         noDataMsg.style.fontStyle = 'italic';
         calendarView.appendChild(noDataMsg);
         return;
     }
     
-    // Sắp xếp danh sách sinh nhật theo tháng và ngày
+
     const sortedBirthdays = birthdays.sort((a, b) => {
         if (a.month === b.month) {
             return a.day - b.day;
@@ -663,7 +636,7 @@ function displayBirthdayCalendar() {
         return a.month - b.month;
     });
     
-    // Hiển thị danh sách sinh nhật
+
     const list = document.createElement('ul');
     list.style.listStyleType = 'none';
     list.style.padding = '0';
@@ -674,7 +647,7 @@ function displayBirthdayCalendar() {
         listItem.style.padding = '10px';
         listItem.style.borderBottom = '1px solid #D4B08C';
         listItem.style.color = '#2C1810';
-        listItem.textContent = `${person.name} - Ngày ${person.day} Tháng ${person.month}`;
+        listItem.textContent = `${person.name} - ${person.month}月${person.day}日`;
         list.appendChild(listItem);
     });
     
@@ -682,7 +655,7 @@ function displayBirthdayCalendar() {
 }
 
 function startMemoryGame() {
-    // Tạo modal cho trò chơi trí nhớ
+
     let gameModal = document.getElementById('memoryGameModal');
     if (!gameModal) {
         gameModal = document.createElement('div');
@@ -724,7 +697,7 @@ function startMemoryGame() {
         });
 
         const title = document.createElement('h2');
-        title.textContent = 'Trò Chơi Trí Nhớ';
+        title.textContent = '記憶ゲーム';
         title.style.color = '#854D27';
         title.style.marginBottom = '20px';
         title.style.fontFamily = '\'DM Serif Display\', serif';
@@ -738,7 +711,7 @@ function startMemoryGame() {
         gameGrid.style.width = '80%';
 
         const restartBtn = document.createElement('button');
-        restartBtn.textContent = 'Chơi Lại';
+        restartBtn.textContent = '再挑戦';
         restartBtn.style.padding = '10px 20px';
         restartBtn.style.background = '#854D27';
         restartBtn.style.color = '#FFF9F3';
@@ -777,18 +750,18 @@ function initMemoryGame() {
     const grid = document.getElementById('memoryGameGrid');
     grid.innerHTML = '';
     
-    // Danh sách các biểu tượng (8 cặp, tổng cộng 16 thẻ cho lưới 4x4)
+
     const symbols = ['🎂', '🎉', '🎁', '🎈', '🧁', '🍰', '🥳', '🎊', '🎂', '🎉', '🎁', '🎈', '🧁', '🍰', '🥳', '🎊'];
     let flippedCards = [];
     let matchedPairs = 0;
     
-    // Xáo trộn mảng biểu tượng
+
     for (let i = symbols.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [symbols[i], symbols[j]] = [symbols[j], symbols[i]];
     }
     
-    // Tạo các thẻ
+
     symbols.forEach((symbol, index) => {
         const card = document.createElement('div');
         card.style.width = '80px';
@@ -799,7 +772,7 @@ function initMemoryGame() {
         card.style.alignItems = 'center';
         card.style.justifyContent = 'center';
         card.style.cursor = 'pointer';
-        card.style.fontSize = '0'; // Ẩn biểu tượng ban đầu
+        card.style.fontSize = '0';
         card.style.transition = 'all 0.3s';
         card.style.boxShadow = '2px 2px 0 #D4B08C';
         card.dataset.symbol = symbol;
@@ -822,7 +795,7 @@ function initMemoryGame() {
                             matchedPairs++;
                             if (matchedPairs === symbols.length / 2) {
                                 setTimeout(() => {
-                                    alert('Chúc mừng! Bạn đã tìm hết các cặp!');
+                                    alert('おめでとうございます！すべてのペアを見つけました！');
                                 }, 300);
                             }
                         } else {
@@ -845,38 +818,36 @@ function initMemoryGame() {
     });
 }
 
-// Biến toàn cục để lưu trữ danh sách ảnh cho trò chơi ghép hình
+
 let puzzleGameImages = [];
 let isPuzzleImagesLoaded = false;
 
-// Hàm tải danh sách ảnh từ media
 async function loadPuzzleImages() {
     if (isPuzzleImagesLoaded && puzzleGameImages.length > 0) {
         return puzzleGameImages;
     }
     
     try {
-        console.log("Đang tải ảnh cho trò chơi ghép hình...");
+        console.log('パズルゲーム用の画像を読み込み中...');
         
-        // Nếu window.mediaFilesLoaded đã được định nghĩa và có giá trị true
+
         if (window.mediaFilesLoaded && window.mediaFiles && window.mediaFiles.length > 0) {
-            // Lọc chỉ lấy các file ảnh từ mediaFiles
+
             const imageFiles = window.mediaFiles.filter(file => 
                 file.match(/\.(jpg|jpeg|png|gif|webp)$/i)
             );
             
             if (imageFiles.length > 0) {
-                console.log(`Đã tìm thấy ${imageFiles.length} ảnh từ media đã tải`);
+                console.log(`メディアから${imageFiles.length}枚の画像を発見しました`);
                 puzzleGameImages = imageFiles;
                 isPuzzleImagesLoaded = true;
                 return imageFiles;
             }
         }
         
-        // Nếu không có mediaFiles hoặc không tìm thấy ảnh, thử tải từ Supabase
-        console.log("Đang tải ảnh từ Supabase...");
+        console.log('Supabaseから画像を読み込み中...');
         
-        // Kiểm tra xem supabase đã được định nghĩa chưa
+
         if (typeof supabase !== 'undefined') {
             const { data, error } = await supabase
                 .storage
@@ -889,14 +860,14 @@ async function loadPuzzleImages() {
             if (error) throw error;
             
             if (data && data.length > 0) {
-                // Lọc các file ảnh
+
                 const imageFiles = data
                     .filter(file => file.name !== '.emptyFolderPlaceholder')
                     .filter(file => file.name.match(/\.(jpg|jpeg|png|gif|webp)$/i))
                     .map(file => file.name);
                 
                 if (imageFiles.length > 0) {
-                    console.log(`Đã tìm thấy ${imageFiles.length} ảnh từ Supabase`);
+                    console.log(`Supabaseから${imageFiles.length}枚の画像を発見しました`);
                     puzzleGameImages = imageFiles;
                     isPuzzleImagesLoaded = true;
                     window.useLocalMedia = false;
@@ -905,8 +876,7 @@ async function loadPuzzleImages() {
             }
         }
         
-        // Fallback: Sử dụng danh sách ảnh local
-        console.log("Sử dụng danh sách ảnh local");
+        console.log('ローカル画像リストを使用します');
         const localImages = ['1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg', 
                             '6.jpg', '7.jpg', '8.jpg', '9.jpg', '10.jpg'];
         puzzleGameImages = localImages;
@@ -914,8 +884,7 @@ async function loadPuzzleImages() {
         window.useLocalMedia = true;
         return localImages;
     } catch (error) {
-        console.error("Lỗi khi tải ảnh cho trò chơi ghép hình:", error);
-        // Fallback: Sử dụng danh sách ảnh mặc định
+        console.error('パズルゲーム用画像読み込みエラー:', error);
         const defaultImages = ['1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg'];
         puzzleGameImages = defaultImages;
         isPuzzleImagesLoaded = true;
@@ -925,7 +894,7 @@ async function loadPuzzleImages() {
 }
 
 function startPuzzleGame() {
-    // Tạo modal cho trò chơi ghép hình
+
     let puzzleModal = document.getElementById('puzzleGameModal');
     if (!puzzleModal) {
         puzzleModal = document.createElement('div');
@@ -967,7 +936,7 @@ function startPuzzleGame() {
         });
 
         const title = document.createElement('h2');
-        title.textContent = 'Trò Chơi Ghép Hình';
+        title.textContent = 'パズルゲーム';
         title.style.color = '#854D27';
         title.style.marginBottom = '20px';
         title.style.fontFamily = '\'DM Serif Display\', serif';
@@ -995,7 +964,7 @@ function startPuzzleGame() {
         piecesContainer.style.padding = '10px';
         piecesContainer.style.background = '#FFF9F3';
 
-        // Thêm thông tin hiện đang sử dụng hình ảnh nào
+
         const imageInfo = document.createElement('div');
         imageInfo.id = 'puzzleImageInfo';
         imageInfo.style.marginTop = '10px';
@@ -1004,7 +973,7 @@ function startPuzzleGame() {
         imageInfo.style.fontStyle = 'italic';
         
         const restartBtn = document.createElement('button');
-        restartBtn.textContent = 'Đổi Ảnh Khác';
+        restartBtn.textContent = '他の画像に変更';
         restartBtn.style.padding = '10px 20px';
         restartBtn.style.background = '#854D27';
         restartBtn.style.color = '#FFF9F3';
@@ -1017,7 +986,7 @@ function startPuzzleGame() {
         restartBtn.style.textTransform = 'uppercase';
         restartBtn.style.letterSpacing = '1px';
         restartBtn.addEventListener('click', async () => {
-            // Tải lại ảnh mới và khởi tạo lại trò chơi
+
             await loadPuzzleImages();
             initPuzzleGame();
         });
@@ -1040,15 +1009,15 @@ function startPuzzleGame() {
         document.body.appendChild(puzzleModal);
     }
     
-    // Hiển thị modal
+
     puzzleModal.style.display = 'flex';
     
-    // Trước tiên tải danh sách ảnh, sau đó khởi tạo trò chơi
+
     loadPuzzleImages().then(() => {
         initPuzzleGame();
     }).catch(error => {
-        console.error("Lỗi khi tải ảnh:", error);
-        initPuzzleGame(); // Vẫn khởi tạo trò chơi với ảnh mặc định nếu có lỗi
+        console.error('画像読み込みエラー:', error);
+        initPuzzleGame();
     });
 }
 
@@ -1062,15 +1031,14 @@ function initPuzzleGame() {
     puzzleArea.innerHTML = '';
     piecesContainer.innerHTML = '';
     
-    // Chọn một ảnh ngẫu nhiên từ danh sách
-    let imageFile = '1.jpg'; // Ảnh mặc định
+    let imageFile = '1.jpg';
     
     if (puzzleGameImages.length > 0) {
         const randomIndex = Math.floor(Math.random() * puzzleGameImages.length);
         imageFile = puzzleGameImages[randomIndex];
     }
     
-    // Xác định đường dẫn tới ảnh
+
     let imageUrl;
     if (window.useLocalMedia) {
         imageUrl = `memory/${imageFile}`;
@@ -1079,19 +1047,19 @@ function initPuzzleGame() {
         imageUrl = `${baseUrl}${imageFile}`;
     }
     
-    // Hiển thị thông tin ảnh đang được sử dụng
+
     if (imageInfo) {
-        imageInfo.textContent = `Đang sử dụng ảnh: ${imageFile}`;
+        imageInfo.textContent = `使用中の画像: ${imageFile}`;
     }
     
-    console.log("Trò chơi ghép hình sử dụng ảnh:", imageUrl);
+    console.log('パズルゲーム使用画像:', imageUrl);
     
-    const gridCols = 4; // 4 cột để ưu tiên chiều ngang
-    const gridRows = 2; // 2 hàng để giảm chiều dọc
+    const gridCols = 4;
+    const gridRows = 2;
     const totalPieces = gridCols * gridRows;
-    // Điều chỉnh kích thước dựa trên kích thước màn hình, ưu tiên chiều ngang tối đa
+
     const containerWidth = Math.min(window.innerWidth * 0.9, 600);
-    const containerHeight = Math.min(window.innerHeight * 0.4, containerWidth * 0.5); // Tỷ lệ 2:1 
+    const containerHeight = Math.min(window.innerHeight * 0.4, containerWidth * 0.5); 
     puzzleArea.style.width = containerWidth + 'px';
     puzzleArea.style.height = containerHeight + 'px';
     puzzleArea.style.gridTemplateColumns = `repeat(${gridCols}, 1fr)`;
@@ -1100,23 +1068,20 @@ function initPuzzleGame() {
     let pieces = [];
     let placedPieces = Array(totalPieces).fill(false);
     
-    // Tạo một phần tử img tạm thời để kiểm tra ảnh
+
     const testImage = new Image();
     testImage.onload = () => {
-        // Ảnh hợp lệ, tiếp tục tạo trò chơi
+
         createPuzzleGame(imageUrl);
     };
     testImage.onerror = () => {
-        // Ảnh không tồn tại, sử dụng ảnh mặc định
-        console.error("Không thể tải ảnh:", imageUrl);
-        imageUrl = 'memory/1.jpg'; // Ảnh mặc định
+        console.error('画像を読み込めません:', imageUrl);
+        imageUrl = 'memory/1.jpg';
         createPuzzleGame(imageUrl);
     };
     testImage.src = imageUrl;
     
-    // Hàm tạo trò chơi ghép hình
     function createPuzzleGame(imgUrl) {
-        // Tạo các ô trống trong khu vực ghép hình
         for (let i = 0; i < totalPieces; i++) {
             const slot = document.createElement('div');
             slot.style.width = pieceWidth + 'px';
@@ -1142,7 +1107,7 @@ function initPuzzleGame() {
             puzzleArea.appendChild(slot);
         }
         
-        // Tạo các mảnh ghép
+
         for (let y = 0; y < gridRows; y++) {
             for (let x = 0; x < gridCols; x++) {
                 const index = y * gridCols + x;
@@ -1168,13 +1133,13 @@ function initPuzzleGame() {
             }
         }
         
-        // Xáo trộn các mảnh ghép
+
         for (let i = pieces.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [pieces[i], pieces[j]] = [pieces[j], pieces[i]];
         }
         
-        // Đặt các mảnh ghép vào khu vực chứa
+
         pieces.forEach(piece => {
             piece.style.margin = '5px';
             piecesContainer.appendChild(piece);
@@ -1197,12 +1162,11 @@ function checkPuzzleCompletion() {
     }
     if (isComplete && filledSlots === slots.length) {
         setTimeout(() => {
-            alert('Chúc mừng! Bạn đã hoàn thành ghép hình!');
+            alert('おめでとうございます！パズルを完成しました！');
         }, 300);
     }
 }
 
-// Chia sẻ mạng xã hội
 function initSocialShare() {
     const shareButtons = document.querySelectorAll('.share-button');
     shareButtons.forEach(button => {
@@ -1218,7 +1182,6 @@ function initSocialShare() {
     }
 }
 
-// Hàm mở trình tạo thẻ chúc mừng điện tử
 function openECardGenerator() {
     let eCardModal = document.getElementById('eCardModal');
     if (!eCardModal) {
@@ -1263,7 +1226,7 @@ function openECardGenerator() {
         });
 
         const title = document.createElement('h2');
-        title.textContent = 'Tạo Thẻ Chúc Mừng';
+        title.textContent = 'お祝いカードを作成';
         title.style.color = '#854D27';
         title.style.marginBottom = '20px';
         title.style.fontFamily = '\'DM Serif Display\', serif';
@@ -1276,7 +1239,7 @@ function openECardGenerator() {
 
         const messageInput = document.createElement('textarea');
         messageInput.id = 'eCardMessage';
-        messageInput.placeholder = 'Nhập lời chúc của bạn...';
+        messageInput.placeholder = 'お祝いのメッセージを入力してください...';
         messageInput.style.width = '100%';
         messageInput.style.height = '100px';
         messageInput.style.padding = '10px';
@@ -1301,18 +1264,18 @@ function openECardGenerator() {
         imageSelect.style.color = '#2C1810';
         const defaultOption = document.createElement('option');
         defaultOption.value = '';
-        defaultOption.textContent = 'Chọn hình nền thẻ';
+        defaultOption.textContent = 'カードの背景を選択';
         imageSelect.appendChild(defaultOption);
-        // Thêm các tùy chọn hình nền từ thư mục memory (giả định)
+
         for (let i = 1; i <= 5; i++) {
             const option = document.createElement('option');
             option.value = `memory/${i}.jpg`;
-            option.textContent = `Hình nền ${i}`;
+            option.textContent = `背景 ${i}`;
             imageSelect.appendChild(option);
         }
 
         const generateBtn = document.createElement('button');
-        generateBtn.textContent = 'Tạo Thẻ và Chia Sẻ';
+        generateBtn.textContent = 'カードを作成してシェア';
         generateBtn.style.padding = '10px 20px';
         generateBtn.style.background = '#854D27';
         generateBtn.style.color = '#FFF9F3';
@@ -1347,34 +1310,33 @@ function openECardGenerator() {
     eCardModal.style.display = 'flex';
 }
 
-// Hàm tạo thẻ chúc mừng điện tử
 function generateECard() {
     const message = document.getElementById('eCardMessage').value.trim();
     const imageUrl = document.getElementById('eCardImage').value;
     
     if (!message || !imageUrl) {
-        alert('Vui lòng nhập lời chúc và chọn hình nền!');
+        alert('お祝いメッセージを入力し、背景を選択してください！');
         return;
     }
     
-    // Tạo liên kết chia sẻ (giả định, có thể tích hợp API thực tế nếu cần)
+
     const encodedMessage = encodeURIComponent(message);
     const encodedImage = encodeURIComponent(imageUrl);
     const eCardLink = `${window.location.origin}/ecard?message=${encodedMessage}&image=${encodedImage}`;
     
-    // Hiển thị liên kết để chia sẻ
+
     const modalContent = document.querySelector('#eCardModal .modal-content');
     const shareSection = document.createElement('div');
     shareSection.style.marginTop = '20px';
     shareSection.style.textAlign = 'center';
     shareSection.innerHTML = `
-        <p style="margin-bottom: 10px; color: #854D27;">Sao chép liên kết để chia sẻ thẻ chúc mừng:</p>
+        <p style="margin-bottom: 10px; color: #854D27;">お祝いカードをシェアするリンクをコピー:</p>
         <input type="text" value="${eCardLink}" readonly style="width: 100%; padding: 10px; border: 2px solid #D4B08C; background: #FFF9F3; color: #2C1810; font-family: 'Old Standard TT', serif; font-size: 14px;">
-        <button onclick="copyECardLink(this)" style="margin-top: 10px; padding: 8px 15px; background: #854D27; color: #FFF9F3; border: 2px solid #D4B08C; cursor: pointer; font-size: 1em; transition: all 0.3s; box-shadow: 4px 4px 0 #D4B08C;">Sao Chép Liên Kết</button>
+        <button onclick="copyECardLink(this)" style="margin-top: 10px; padding: 8px 15px; background: #854D27; color: #FFF9F3; border: 2px solid #D4B08C; cursor: pointer; font-size: 1em; transition: all 0.3s; box-shadow: 4px 4px 0 #D4B08C;">リンクをコピー</button>
     `;
     modalContent.appendChild(shareSection);
     
-    // Xem trước thẻ chúc mừng
+
     const preview = document.createElement('div');
     preview.style.marginTop = '20px';
     preview.style.border = '2px solid #D4B08C';
@@ -1397,42 +1359,40 @@ function generateECard() {
     console.log(`Generated eCard with message: ${message} and image: ${imageUrl}`);
 }
 
-// Hàm sao chép liên kết thẻ chúc mừng
 function copyECardLink(button) {
     const input = button.previousElementSibling;
     input.select();
     document.execCommand('copy');
-    button.textContent = '✓ Đã Sao Chép';
+    button.textContent = '✓ コピー完了';
     setTimeout(() => {
-        button.textContent = 'Sao Chép Liên Kết';
+        button.textContent = 'リンクをコピー';
     }, 2000);
 }
 
 function shareOnSocialMedia(platform) {
     const url = window.location.href;
-    const birthdayPerson = localStorage.getItem('currentBirthday') || 'bạn thân';
-    const text = encodeURIComponent(`Hội Mẹ Bầu Đơn Thân - Chúc mừng sinh nhật ${birthdayPerson}!`);
+    const birthdayPerson = localStorage.getItem('currentBirthday') || '大切な人';
+    const text = encodeURIComponent(`${birthdayPerson}の誕生日おめでとうございます！`);
     
     const shareUrls = {
         facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`,
         'x-twitter': `https://twitter.com/intent/tweet?text=${text}&url=${encodeURIComponent(url)}`,
-        instagram: `https://www.instagram.com/`, // Instagram không hỗ trợ chia sẻ URL trực tiếp qua web, chỉ mở trang
+        instagram: `https://www.instagram.com/`,
         whatsapp: `https://api.whatsapp.com/send?text=${text}%20${encodeURIComponent(url)}`,
         telegram: `https://t.me/share/url?url=${encodeURIComponent(url)}&text=${text}`,
-        email: `mailto:?subject=${encodeURIComponent('Chúc mừng sinh nhật!')}&body=${text}%20${encodeURIComponent(url)}`
+        email: `mailto:?subject=${encodeURIComponent('誕生日おめでとう！')}&body=${text}%20${encodeURIComponent(url)}`
     };
 
     if (shareUrls[platform]) {
         window.open(shareUrls[platform], '_blank', 'width=600,height=400');
         setTimeout(() => {
-            alert('Cảm ơn bạn đã chia sẻ niềm vui sinh nhật!');
+            alert('誕生日の喜びをシェアしていただきありがとうございます！');
         }, 500);
     } else {
-        alert('Nền tảng này hiện không được hỗ trợ.');
+        alert('このプラットフォームは現在サポートされていません。');
     }
 }
 
-// Trình phát nhạc
 function initMusicPlayer() {
     const playButton = document.getElementById('playMusic');
     const musicPlayer = document.querySelector('.music-player');
@@ -1440,7 +1400,6 @@ function initMusicPlayer() {
     let audio = new Audio('happy-birthday.mp3');
     let currentTrack = 'happy-birthday.mp3';
 
-    // Thêm nút chọn nhạc nền
     let selectMusicBtn = document.getElementById('selectMusicBtn');
     if (!selectMusicBtn) {
         selectMusicBtn = document.createElement('button');
@@ -1478,31 +1437,28 @@ function initMusicPlayer() {
         isPlaying = !isPlaying;
     });
 
-    // Lưu trạng thái nhạc đang phát
     audio.addEventListener('ended', () => {
         playButton.textContent = '▶️';
         isPlaying = false;
     });
 
-    // Hàm thay đổi nhạc nền
     window.changeMusicTrack = function(trackUrl, trackName) {
         audio.pause();
         playButton.textContent = '▶️';
         isPlaying = false;
         audio = new Audio(trackUrl);
         currentTrack = trackUrl;
-        document.querySelector('.song-title').textContent = trackName || 'Nhạc nền tùy chỉnh';
+        document.querySelector('.song-title').textContent = trackName || '背景音';
         localStorage.setItem('selectedTrack', trackUrl);
-        localStorage.setItem('selectedTrackName', trackName || 'Nhạc nền tùy chỉnh');
+        localStorage.setItem('selectedTrackName', trackName || '背景音');
     };
 
-    // Khôi phục nhạc đã chọn trước đó nếu có
     const savedTrack = localStorage.getItem('selectedTrack');
     const savedTrackName = localStorage.getItem('selectedTrackName');
     if (savedTrack) {
         audio = new Audio(savedTrack);
         currentTrack = savedTrack;
-        document.querySelector('.song-title').textContent = savedTrackName || 'Nhạc nền tùy chỉnh';
+        document.querySelector('.song-title').textContent = savedTrackName || '背景音';
     }
 }
 
@@ -1548,7 +1504,7 @@ function openMusicSelectionModal() {
         });
 
         const title = document.createElement('h2');
-        title.textContent = 'Chọn Nhạc Nền Sinh Nhật';
+        title.textContent = '背景音選択';
         title.style.color = '#854D27';
         title.style.marginBottom = '20px';
         title.style.fontFamily = '\'DM Serif Display\', serif';
@@ -1560,7 +1516,6 @@ function openMusicSelectionModal() {
         trackList.style.maxHeight = '200px';
         trackList.style.overflowY = 'scroll';
 
-        // Danh sách nhạc mẫu (có thể thay thế bằng file thực tế nếu có)
         const tracks = [
             { url: 'happy-birthday.mp3', name: 'Happy Birthday Song (Default)' },
             { url: 'https://www.bensound.com/bensound-music/bensound-slowmotion.mp3', name: 'Slow Motion' },
@@ -1604,7 +1559,7 @@ function openMusicSelectionModal() {
         });
 
         const uploadLabel = document.createElement('label');
-        uploadLabel.textContent = 'Tải lên nhạc nền của bạn (MP3/WAV)';
+        uploadLabel.textContent = '背景音をアップロード (MP3/WAV)';
         uploadLabel.style.display = 'block';
         uploadLabel.style.marginTop = '15px';
         uploadLabel.style.color = '#854D27';
@@ -1621,7 +1576,6 @@ function openMusicSelectionModal() {
     musicModal.style.display = 'flex';
 }
 
-// Lời chúc cá nhân
 function initCustomMessage() {
     const customMessageBtn = document.getElementById('customMessageBtn');
     const customMessageModal = document.getElementById('customMessageModal');
@@ -1642,13 +1596,12 @@ function initCustomMessage() {
         }
     });
     
-    // Thêm trường nhập tên người gửi
     let senderNameInput = document.getElementById('senderNameInput');
     if (!senderNameInput) {
         senderNameInput = document.createElement('input');
         senderNameInput.id = 'senderNameInput';
         senderNameInput.type = 'text';
-        senderNameInput.placeholder = 'Nhập tên của bạn...';
+        senderNameInput.placeholder = '名前を入力してください...';
         senderNameInput.style.width = '100%';
         senderNameInput.style.padding = '10px';
         senderNameInput.style.border = '2px solid #D4B08C';
@@ -1666,7 +1619,7 @@ function initCustomMessage() {
         const customMessageInput = document.getElementById('customMessageInput');
         const senderNameInput = document.getElementById('senderNameInput');
         const messageText = customMessageInput.value.trim();
-        const senderName = senderNameInput.value.trim() || 'Ẩn danh';
+        const senderName = senderNameInput.value.trim() || '匿名';
         
         if (messageText) {
             const messageWithSender = `${messageText} - ${senderName}`;
@@ -1676,16 +1629,15 @@ function initCustomMessage() {
             customMessageInput.value = '';
             senderNameInput.value = '';
         } else {
-            alert('Vui lòng nhập lời chúc!');
+            alert('メッセージを入力してください!');
         }
     });
 
-    // Thêm nút ghi âm lời chúc vào modal
     let recordBtn = document.getElementById('recordMessageBtn');
     if (!recordBtn) {
         recordBtn = document.createElement('button');
         recordBtn.id = 'recordMessageBtn';
-        recordBtn.textContent = '🎤 Ghi Âm Lời Chúc';
+        recordBtn.textContent = '🎤 語声を録音';
         recordBtn.style.padding = '10px 20px';
         recordBtn.style.background = '#854D27';
         recordBtn.style.color = '#FFF9F3';
@@ -1714,7 +1666,6 @@ function initCustomMessage() {
         modalContent.appendChild(recordBtn);
     }
 
-    // Thêm nút gửi video chúc mừng vào modal
     let videoBtn = document.getElementById('videoMessageBtn');
     if (!videoBtn) {
         videoBtn = document.createElement('button');
@@ -1748,9 +1699,7 @@ function initCustomMessage() {
         modalContent.appendChild(videoBtn);
     }
 
-    // Thêm nút nghe lời chúc ghi âm nếu có dữ liệu
     displaySavedAudioMessages();
-    // Thêm nút xem video chúc mừng nếu có dữ liệu
     displaySavedVideoMessages();
 }
 
@@ -1796,14 +1745,14 @@ function openRecordMessageModal() {
         });
 
         const title = document.createElement('h2');
-        title.textContent = 'Ghi Âm Lời Chúc Sinh Nhật';
+        title.textContent = '語声を録音';
         title.style.color = '#854D27';
         title.style.marginBottom = '20px';
         title.style.fontFamily = '\'DM Serif Display\', serif';
 
         const status = document.createElement('p');
         status.id = 'recordStatus';
-        status.textContent = 'Nhấn nút để bắt đầu ghi âm...';
+        status.textContent = '録音を開始するには、ボタンを押してください...';
         status.style.color = '#2C1810';
         status.style.marginBottom = '20px';
         status.style.fontSize = '1.1em';
@@ -1811,7 +1760,7 @@ function openRecordMessageModal() {
         const senderNameInputRecord = document.createElement('input');
         senderNameInputRecord.id = 'senderNameInputRecord';
         senderNameInputRecord.type = 'text';
-        senderNameInputRecord.placeholder = 'Nhập tên của bạn...';
+        senderNameInputRecord.placeholder = '名前を入力してください...';
         senderNameInputRecord.style.width = '100%';
         senderNameInputRecord.style.padding = '10px';
         senderNameInputRecord.style.border = '2px solid #D4B08C';
@@ -1824,7 +1773,7 @@ function openRecordMessageModal() {
 
         const recordControl = document.createElement('button');
         recordControl.id = 'recordControl';
-        recordControl.textContent = '🎤 Bắt Đầu Ghi Âm';
+        recordControl.textContent = '🎤録音開始';
         recordControl.style.padding = '10px 20px';
         recordControl.style.background = '#854D27';
         recordControl.style.color = '#FFF9F3';
@@ -1848,7 +1797,7 @@ function openRecordMessageModal() {
 
         const saveBtn = document.createElement('button');
         saveBtn.id = 'saveRecording';
-        saveBtn.textContent = 'Lưu Lời Chúc';
+        saveBtn.textContent = '保存する';
         saveBtn.style.padding = '10px 20px';
         saveBtn.style.background = '#854D27';
         saveBtn.style.color = '#FFF9F3';
@@ -1898,7 +1847,7 @@ function toggleRecording() {
 
 function startRecording() {
     if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-        alert('Trình duyệt của bạn không hỗ trợ ghi âm!');
+        alert('ブラウザが録音をサポートしていません!');
         return;
     }
 
@@ -1915,12 +1864,12 @@ function startRecording() {
 
             const recordControl = document.getElementById('recordControl');
             const status = document.getElementById('recordStatus');
-            recordControl.textContent = '⏹ Dừng Ghi Âm';
-            status.textContent = 'Đang ghi âm...';
+            recordControl.textContent = '⏹録音停止';
+            status.textContent = '録音中...';
         })
         .catch(err => {
-            console.error('Không thể truy cập microphone: ', err);
-            alert('Không thể truy cập microphone. Hãy thử lại.');
+            console.error('マイクへのアクセスが許可されませんでした: ', err);
+            alert('マイクへのアクセスが許可されませんでした。もう一度試してください。');
         });
 }
 
@@ -1937,11 +1886,10 @@ function stopRecording() {
             const recordControl = document.getElementById('recordControl');
             const status = document.getElementById('recordStatus');
             const saveBtn = document.getElementById('saveRecording');
-            recordControl.textContent = '🎤 Ghi Âm Lại';
-            status.textContent = 'Ghi âm hoàn tất. Nghe thử bằng cách nhấn nút Lưu.';
+            recordControl.textContent = '🎤録音再開';
+            status.textContent = '録音中...';
             saveBtn.style.display = 'block';
 
-            // Dừng stream để giải phóng microphone
             mediaRecorder.stream.getTracks().forEach(track => track.stop());
         });
 
@@ -1952,23 +1900,20 @@ function stopRecording() {
 function saveAudioMessage() {
     if (window.currentAudioMessage) {
         const senderNameInput = document.getElementById('senderNameInputRecord');
-        const senderName = senderNameInput.value.trim() || 'Ẩn danh';
+        const senderName = senderNameInput.value.trim() || '匿名';
         const birthdayPerson = localStorage.getItem('currentBirthday') || 'unknown';
         
-        // Lấy blob từ URL
         fetch(window.currentAudioMessage)
             .then(res => res.blob())
             .then(async audioBlob => {
-                // Hiển thị thông báo đang xử lý
                 const status = document.getElementById('recordStatus');
-                status.textContent = 'Đang tải lời chúc lên...';
+                status.textContent = '録音を保存しています...';
                 
                 try {
-                    // Lưu vào Supabase Storage
                     if (typeof saveAudioMessageToSupabase === 'function') {
                         const result = await saveAudioMessageToSupabase(audioBlob, senderName, birthdayPerson);
                         if (result) {
-                            alert('Lời chúc ghi âm đã được lưu thành công!');
+                            alert('録音を保存しました!');
                             document.getElementById('recordMessageModal').style.display = 'none';
                             senderNameInput.value = '';
                             displaySavedAudioMessages();
@@ -1976,26 +1921,25 @@ function saveAudioMessage() {
                         }
                     }
                     
-                    // Fallback nếu không thể lưu vào Supabase
-                    console.log("Không thể lưu vào Supabase, sử dụng localStorage");
+                    console.log("Supabaseへの保存に失敗しました、ローカルストレージを使用します");
         let audioMessages = JSON.parse(localStorage.getItem('audioMessages') || '{}');
         if (!audioMessages[birthdayPerson]) {
             audioMessages[birthdayPerson] = [];
         }
         audioMessages[birthdayPerson].push({ url: window.currentAudioMessage, sender: senderName });
         localStorage.setItem('audioMessages', JSON.stringify(audioMessages));
-                    alert('Lời chúc ghi âm đã được lưu cục bộ!');
+                    alert('録音を保存しました!');
         document.getElementById('recordMessageModal').style.display = 'none';
         senderNameInput.value = '';
         displaySavedAudioMessages();
                 } catch (error) {
-                    console.error('Lỗi khi lưu tin nhắn âm thanh:', error);
-                    alert('Đã xảy ra lỗi khi lưu tin nhắn âm thanh.');
-                    status.textContent = 'Đã xảy ra lỗi. Vui lòng thử lại.';
+                    console.error('録音を保存する際にエラーが発生しました:', error);
+                    alert('録音を保存する際にエラーが発生しました。');
+                    status.textContent = '録音を保存する際にエラーが発生しました。';
                 }
             });
     } else {
-        alert('Không có bản ghi âm nào để lưu.');
+        alert('録音データがありません。');
     }
 }
 
@@ -2004,7 +1948,6 @@ async function displaySavedAudioMessages() {
     let playAudioBtn = document.getElementById('playAudioMessagesBtn');
     const customMessageContainer = document.querySelector('.custom-message-container');
     
-    // Thử lấy dữ liệu từ Supabase trước
     let hasMessages = false;
     
     try {
@@ -2015,10 +1958,9 @@ async function displaySavedAudioMessages() {
             }
         }
     } catch (error) {
-        console.error('Không thể lấy tin nhắn âm thanh từ Supabase:', error);
+        console.error('Supabaseから音声メッセージを取得する際にエラーが発生しました:', error);
     }
     
-    // Kiểm tra dữ liệu local nếu không có dữ liệu từ Supabase
     if (!hasMessages) {
         const audioMessages = JSON.parse(localStorage.getItem('audioMessages') || '{}');
         const messages = audioMessages[birthdayPerson] || [];
@@ -2030,7 +1972,7 @@ async function displaySavedAudioMessages() {
             playAudioBtn = document.createElement('button');
             playAudioBtn.id = 'playAudioMessagesBtn';
             playAudioBtn.className = 'feature-button';
-            playAudioBtn.textContent = '🎧 Nghe Lời Chúc Ghi Âm';
+            playAudioBtn.textContent = '🎧録音を聞く';
             playAudioBtn.style.marginTop = '10px';
             playAudioBtn.addEventListener('click', () => {
                 openAudioMessagesModal(birthdayPerson);
@@ -2085,7 +2027,7 @@ async function openAudioMessagesModal(birthdayPerson) {
         });
 
         const title = document.createElement('h2');
-        title.textContent = 'Lời Chúc Ghi Âm';
+        title.textContent = '録音を聞く';
         title.style.color = '#854D27';
         title.style.marginBottom = '20px';
         title.style.fontFamily = '\'DM Serif Display\', serif';
@@ -2108,38 +2050,34 @@ async function openAudioMessagesModal(birthdayPerson) {
     const audioList = document.getElementById('audioMessagesList');
     audioList.innerHTML = '';
     
-    // Hiển thị thông báo đang tải
     const loadingMsg = document.createElement('p');
-    loadingMsg.textContent = 'Đang tải lời chúc ghi âm...';
+    loadingMsg.textContent = '録音を聞く...';
     loadingMsg.style.color = '#2C1810';
     audioList.appendChild(loadingMsg);
     
     let messagesLoaded = false;
     
-    // Lấy tin nhắn từ Supabase
     try {
         if (typeof getAudioMessages === 'function' && typeof supabase !== 'undefined') {
             const supabaseMessages = await getAudioMessages(birthdayPerson);
             if (supabaseMessages && supabaseMessages.length > 0) {
                 messagesLoaded = true;
-                audioList.innerHTML = ''; // Xóa thông báo đang tải
+                audioList.innerHTML = ''; 
                 
-                // Hiển thị tiêu đề phần Supabase
                 const supabaseTitle = document.createElement('h3');
-                supabaseTitle.textContent = 'Lời chúc trực tuyến';
+                supabaseTitle.textContent = 'オンラインの声';
                 supabaseTitle.style.color = '#854D27';
                 supabaseTitle.style.marginBottom = '10px';
                 supabaseTitle.style.borderBottom = '1px solid #D4B08C';
                 audioList.appendChild(supabaseTitle);
                 
-                // Hiển thị tin nhắn từ Supabase
                 supabaseMessages.forEach((messageObj, index) => {
                     const audioItem = document.createElement('div');
                     audioItem.style.padding = '10px';
                     audioItem.style.borderBottom = '1px solid #D4B08C';
                     audioItem.style.cursor = 'pointer';
                     audioItem.style.color = '#2C1810';
-                    audioItem.textContent = `Lời chúc ${index + 1} từ ${messageObj.sender}`;
+                    audioItem.textContent = `メッセージ ${index + 1} - ${messageObj.sender}さんから`;
                     audioItem.addEventListener('click', () => {
                         playAudioMessage(messageObj.audio_data);
                     });
@@ -2148,37 +2086,37 @@ async function openAudioMessagesModal(birthdayPerson) {
             }
         }
     } catch (error) {
-        console.error('Không thể lấy tin nhắn âm thanh từ Supabase:', error);
+        console.error('Supabaseから音声メッセージを取得できませんでした:', error);
     }
     
-    // Lấy tin nhắn từ localStorage
+
     const audioMessages = JSON.parse(localStorage.getItem('audioMessages') || '{}');
     const localMessages = audioMessages[birthdayPerson] || [];
     
     if (localMessages.length > 0) {
         if (messagesLoaded) {
-            // Nếu đã có tin nhắn từ Supabase, thêm tiêu đề cho phần local
+
             const localTitle = document.createElement('h3');
-            localTitle.textContent = 'Lời chúc cục bộ';
+            localTitle.textContent = 'ローカルメッセージ';
             localTitle.style.color = '#854D27';
             localTitle.style.marginTop = '20px';
             localTitle.style.marginBottom = '10px';
             localTitle.style.borderBottom = '1px solid #D4B08C';
             audioList.appendChild(localTitle);
         } else {
-            // Nếu chưa có tin nhắn nào, xóa thông báo đang tải
+
             audioList.innerHTML = '';
             messagesLoaded = true;
         }
         
-        // Hiển thị tin nhắn từ localStorage
+
         localMessages.forEach((messageObj, index) => {
             const audioItem = document.createElement('div');
             audioItem.style.padding = '10px';
             audioItem.style.borderBottom = '1px solid #D4B08C';
             audioItem.style.cursor = 'pointer';
             audioItem.style.color = '#2C1810';
-            audioItem.textContent = `Lời chúc ${index + 1} từ ${messageObj.sender}`;
+            audioItem.textContent = `メッセージ ${index + 1} - ${messageObj.sender}さんから`;
             audioItem.addEventListener('click', () => {
                 playAudioMessage(messageObj.url);
             });
@@ -2186,23 +2124,23 @@ async function openAudioMessagesModal(birthdayPerson) {
         });
     }
     
-    // Nếu không có tin nhắn nào từ cả hai nguồn
+
     if (!messagesLoaded && localMessages.length === 0) {
         audioList.innerHTML = '';
         const noMessages = document.createElement('p');
-        noMessages.textContent = 'Chưa có lời chúc ghi âm nào.';
+        noMessages.textContent = '音声メッセージがまだありません。';
         noMessages.style.color = '#2C1810';
         audioList.appendChild(noMessages);
     }
 }
 
-// Hiển thị lời chúc cá nhân
+
 function displayCustomMessage(message) {
     const customMessageDisplay = document.getElementById('customMessageDisplay');
     if (customMessageDisplay) {
         customMessageDisplay.textContent = message;
         customMessageDisplay.style.display = 'block';
-        // Reset opacity để hiệu ứng hoạt hình chạy lại
+
         customMessageDisplay.style.opacity = '0';
         customMessageDisplay.style.width = '0';
         setTimeout(() => {
@@ -2212,7 +2150,7 @@ function displayCustomMessage(message) {
     }
 }
 
-// Hiển thị lời chúc đã lưu
+
 function displaySavedCustomMessage() {
     const savedMessage = localStorage.getItem('customBirthdayMessage');
     if (savedMessage) {
@@ -2220,7 +2158,7 @@ function displaySavedCustomMessage() {
     }
 }
 
-// Thiết lập event listener cho nút cho phép sử dụng microphone
+
 document.addEventListener('DOMContentLoaded', function() {
     const micPermissionBtn = document.getElementById('micPermissionBtn');
     if (micPermissionBtn) {
@@ -2233,7 +2171,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Thiết lập event listener cho nút thổi nến thủ công
+
     const blowButton = document.getElementById('blowButton');
     if (blowButton) {
         let buttonClickCount = 0;
@@ -2246,34 +2184,30 @@ document.addEventListener('DOMContentLoaded', function() {
                 blowOutCandle();
                 disconnectAudio();
             } else {
-                this.textContent = `Thổi mạnh hơn! (${buttonClickCount}/5)`;
+                this.textContent = `もっと強く吹いて！ (${buttonClickCount}/5)`;
             }
         });
     }
 
-    // Khởi tạo tính năng mời bạn bè
     initInviteFriends();
-    // Khởi tạo tính năng cộng đồng
     initCommunityFeatures();
-    // Khởi tạo quà tặng ảo
     initVirtualGift();
 });
 
-// Khởi tạo quà tặng ảo
+
 function initVirtualGift() {
-    // Không cần tìm virtualGiftBtn nữa vì đã bỏ nút này
-    // Chỉ cần đảm bảo modal và các phần tử liên quan vẫn hoạt động cho phần chọn quà trong bảng tin
     
     const virtualGiftModal = document.getElementById('virtualGiftModal');
     if (!virtualGiftModal) {
-        console.error('Không tìm thấy phần tử #virtualGiftModal');
+        console.error('virtualGiftModal要素が見つかりません');
         return;
+{{ ... }}
     }
     
     const closeVirtualGift = document.getElementById('closeVirtualGift');
     const submitGift = document.getElementById('submitGift');
     if (!closeVirtualGift || !submitGift) {
-        console.error('Không tìm thấy phần tử closeVirtualGift hoặc submitGift');
+        console.error('closeVirtualGiftまたはsubmitGift要素が見つかりません');
         return;
     }
     
@@ -2291,31 +2225,31 @@ function initVirtualGift() {
     
     submitGift.addEventListener('click', () => {
         const senderInput = document.getElementById('giftSender');
-        const sender = senderInput ? senderInput.value.trim() || 'Ẩn danh' : 'Ẩn danh';
+        const sender = senderInput ? senderInput.value.trim() || '匿名' : '匿名';
         
         if (selectedGift) {
             saveVirtualGift(sender, selectedGift);
             if (senderInput) senderInput.value = '';
             virtualGiftModal.style.display = 'none';
-            alert('Quà tặng ảo đã được gửi!');
+            alert('バーチャルギフトを送信しました！');
             displaySavedVirtualGifts();
         } else {
-            alert('Vui lòng chọn một món quà!');
+            alert('ギフトを選択してください！');
         }
     });
 }
 
-// Tải danh sách quà tặng ảo
+
 function loadGiftList() {
     const giftListContainer = document.getElementById('giftList');
     giftListContainer.innerHTML = '';
     
     const gifts = [
-        { id: 'flower', name: 'Hoa 🌸', emoji: '🌸' },
-        { id: 'cake', name: 'Bánh Sinh Nhật 🎂', emoji: '🎂' },
-        { id: 'gift', name: 'Hộp Quà 🎁', emoji: '🎁' },
-        { id: 'balloon', name: 'Bóng Bay 🎈', emoji: '🎈' },
-        { id: 'heart', name: 'Trái Tim ❤️', emoji: '❤️' }
+        { id: 'flower', name: '花 🌸', emoji: '🌸' },
+        { id: 'cake', name: '誕生日ケーキ 🎂', emoji: '🎂' },
+        { id: 'gift', name: 'プレゼント 🎁', emoji: '🎁' },
+        { id: 'balloon', name: '風船 🎈', emoji: '🎈' },
+        { id: 'heart', name: 'ハート ❤️', emoji: '❤️' }
     ];
     
     gifts.forEach(gift => {
@@ -2344,23 +2278,21 @@ function loadGiftList() {
     });
 }
 
-// Hàm lấy tên quà tặng từ id
 function getGiftName(giftId) {
     const gifts = {
-        'cake': 'Bánh Sinh Nhật',
-        'balloon': 'Bong Bóng',
-        'gift': 'Hộp Quà',
-        'flower': 'Hoa',
-        'chocolate': 'Chocolate',
-        'card': 'Thiệp',
-        'wine': 'Rượu Vang',
-        'teddy': 'Gấu Bông',
-        'heart': 'Trái Tim'
+        'cake': '誕生日ケーキ',
+        'balloon': '風船',
+        'gift': 'プレゼント',
+        'flower': '花',
+        'chocolate': 'チョコレート',
+        'card': 'カード',
+        'wine': 'ワイン',
+        'teddy': 'ぬいぐるみ',
+        'heart': 'ハート'
     };
     return gifts[giftId] || 'Quà Tặng';
 }
 
-// Hàm lấy biểu tượng emoji cho quà tặng
 function getGiftEmoji(giftId) {
     const giftEmojis = {
         flower: '🌸',
@@ -2372,17 +2304,13 @@ function getGiftEmoji(giftId) {
     return giftEmojis[giftId] || '🎁';
 }
 
-// Lưu quà tặng ảo vào Supabase
 async function saveVirtualGift(sender, gift) {
     try {
         if (sender && sender.trim()) {
-            // Lưu tên người dùng nếu có
             saveUsername(sender);
         }
         
         const birthdayPerson = localStorage.getItem('currentBirthday') || 'unknown';
-        
-        // Lưu quà tặng ảo vào Supabase
         const giftData = { 
             sender: sender,
             gift_id: gift.id,
@@ -2395,13 +2323,11 @@ async function saveVirtualGift(sender, gift) {
             
         if (error) throw error;
         
-        // Cập nhật hiển thị quà tặng
         await displaySavedVirtualGifts();
         
-        // Cập nhật display trong Bảng tin chúc mừng
         const selectedGiftDisplay = document.getElementById('selectedGiftDisplay');
         if (selectedGiftDisplay) {
-            selectedGiftDisplay.innerHTML = `Đã chọn: ${gift.emoji} ${gift.name}`;
+            selectedGiftDisplay.innerHTML = `選択: ${gift.emoji} ${gift.name}`;
             selectedGiftDisplay.style.display = 'block';
             selectedGiftDisplay.dataset.giftId = gift.id;
         }
@@ -2410,10 +2336,9 @@ async function saveVirtualGift(sender, gift) {
     } catch (error) {
         console.error('Lỗi khi lưu quà tặng:', error);
         
-        // Fallback to localStorage if Supabase fails
     const birthdayPerson = localStorage.getItem('currentBirthday') || 'unknown';
     const now = new Date();
-    const time = now.toLocaleString('vi-VN');
+    const time = now.toLocaleString('ja-JP');
     const giftData = { sender, giftId: gift.id, giftName: gift.name, time };
     let virtualGifts = JSON.parse(localStorage.getItem('virtualGifts') || '{}');
     if (!virtualGifts[birthdayPerson]) {
@@ -2422,10 +2347,9 @@ async function saveVirtualGift(sender, gift) {
     virtualGifts[birthdayPerson].push(giftData);
     localStorage.setItem('virtualGifts', JSON.stringify(virtualGifts));
         
-        // Cập nhật display trong Bảng tin chúc mừng
         const selectedGiftDisplay = document.getElementById('selectedGiftDisplay');
         if (selectedGiftDisplay) {
-            selectedGiftDisplay.innerHTML = `Đã chọn: ${gift.emoji} ${gift.name}`;
+            selectedGiftDisplay.innerHTML = `選択: ${gift.emoji} ${gift.name}`;
             selectedGiftDisplay.style.display = 'block';
             selectedGiftDisplay.dataset.giftId = gift.id;
         }
@@ -2434,12 +2358,10 @@ async function saveVirtualGift(sender, gift) {
     }
 }
 
-// Hiển thị quà tặng ảo đã lưu
 async function displaySavedVirtualGifts() {
     try {
     const birthdayPerson = localStorage.getItem('currentBirthday') || 'unknown';
         
-        // Lấy danh sách quà tặng từ Supabase
         const { data: gifts, error } = await supabase
             .from('virtual_gifts')
             .select('*')
@@ -2448,7 +2370,6 @@ async function displaySavedVirtualGifts() {
             
         if (error) throw error;
         
-        // Cập nhật UI
     let viewGiftsBtn = document.getElementById('viewVirtualGiftsBtn');
     const customMessageContainer = document.querySelector('.custom-message-container');
     
@@ -2457,7 +2378,7 @@ async function displaySavedVirtualGifts() {
             viewGiftsBtn = document.createElement('button');
             viewGiftsBtn.id = 'viewVirtualGiftsBtn';
             viewGiftsBtn.className = 'feature-button';
-            viewGiftsBtn.textContent = '🎁 Xem Quà Tặng Ảo';
+            viewGiftsBtn.textContent = '🎁 バーチャルギフトを見る';
             viewGiftsBtn.addEventListener('click', () => {
                 openVirtualGiftsModal(birthdayPerson);
             });
@@ -2468,9 +2389,8 @@ async function displaySavedVirtualGifts() {
         viewGiftsBtn.style.display = 'none';
     }
     } catch (error) {
-        console.error('Lỗi khi hiển thị quà tặng:', error);
+        console.error('ギフトの表示エラー:', error);
         
-        // Fallback to localStorage if Supabase fails
     const birthdayPerson = localStorage.getItem('currentBirthday') || 'unknown';
     const virtualGifts = JSON.parse(localStorage.getItem('virtualGifts') || '{}');
     const gifts = virtualGifts[birthdayPerson] || [];
@@ -2482,7 +2402,7 @@ async function displaySavedVirtualGifts() {
             viewGiftsBtn = document.createElement('button');
             viewGiftsBtn.id = 'viewVirtualGiftsBtn';
             viewGiftsBtn.className = 'feature-button';
-            viewGiftsBtn.textContent = '🎁 Xem Quà Tặng Ảo';
+            viewGiftsBtn.textContent = '🎁 バーチャルギフトを見る';
             viewGiftsBtn.addEventListener('click', () => {
                 openVirtualGiftsModal(birthdayPerson);
             });
@@ -2495,7 +2415,6 @@ async function displaySavedVirtualGifts() {
     }
 }
 
-// Mở modal hiển thị danh sách quà tặng ảo đã nhận
 async function openVirtualGiftsModal(birthdayPerson) {
     let giftsModal = document.getElementById('virtualGiftsModal');
     if (!giftsModal) {
@@ -2538,7 +2457,7 @@ async function openVirtualGiftsModal(birthdayPerson) {
         });
 
         const title = document.createElement('h2');
-        title.textContent = 'Quà Tặng Ảo Đã Nhận';
+        title.textContent = '受け取ったバーチャルギフト';
         title.style.color = '#854D27';
         title.style.marginBottom = '20px';
         title.style.fontFamily = "'DM Serif Display', serif";
@@ -2562,7 +2481,6 @@ async function openVirtualGiftsModal(birthdayPerson) {
         const giftsList = document.getElementById('virtualGiftsList');
         giftsList.innerHTML = '';
         
-        // Lấy danh sách quà tặng từ Supabase
         const { data: gifts, error } = await supabase
             .from('virtual_gifts')
             .select('*')
@@ -2578,27 +2496,25 @@ async function openVirtualGiftsModal(birthdayPerson) {
                 giftItem.style.borderBottom = '1px solid #D4B08C';
                 giftItem.style.color = '#2C1810';
                 
-                // Format thời gian
                 const createdAt = new Date(giftObj.created_at);
-                const formattedTime = createdAt.toLocaleString('vi-VN');
+                const formattedTime = createdAt.toLocaleString('ja-JP');
                 
                 giftItem.innerHTML = `
                     <span style="font-size: 1.5em;">${getGiftEmoji(giftObj.gift_id)}</span>
-                    <span>${getGiftName(giftObj.gift_id)} từ ${giftObj.sender}</span>
+                    <span>${getGiftName(giftObj.gift_id)} from ${giftObj.sender}</span>
                     <small>(${formattedTime})</small>
                 `;
                 giftsList.appendChild(giftItem);
             });
         } else {
             const noGifts = document.createElement('p');
-            noGifts.textContent = 'Chưa có quà tặng ảo nào.';
+            noGifts.textContent = '受け取ったバーチャルギフトはありません。';
             noGifts.style.color = '#2C1810';
             giftsList.appendChild(noGifts);
         }
     } catch (error) {
-        console.error('Lỗi khi hiển thị quà tặng:', error);
+        console.error('ギフトの表示エラー:', error);
         
-        // Fallback to localStorage if Supabase fails
     const giftsList = document.getElementById('virtualGiftsList');
     giftsList.innerHTML = '';
     const virtualGifts = JSON.parse(localStorage.getItem('virtualGifts') || '{}');
@@ -2611,21 +2527,20 @@ async function openVirtualGiftsModal(birthdayPerson) {
             giftItem.style.color = '#2C1810';
             giftItem.innerHTML = `
                 <span style="font-size: 1.5em;">${getGiftEmoji(giftObj.giftId)}</span>
-                <span>${giftObj.giftName} từ ${giftObj.sender}</span>
+                <span>${giftObj.giftName} from ${giftObj.sender}</span>
                 <small>(${giftObj.time})</small>
             `;
             giftsList.appendChild(giftItem);
         });
     } else {
         const noGifts = document.createElement('p');
-        noGifts.textContent = 'Chưa có quà tặng ảo nào.';
+        noGifts.textContent = '受け取ったバーチャルギフトはありません。';
         noGifts.style.color = '#2C1810';
         giftsList.appendChild(noGifts);
     }
 }
 }
 
-// Trình phát nhạc
 function initMusicPlayer() {
     const playButton = document.getElementById('playMusic');
     const musicPlayer = document.querySelector('.music-player');
@@ -2633,12 +2548,11 @@ function initMusicPlayer() {
     let audio = new Audio('happy-birthday.mp3');
     let currentTrack = 'happy-birthday.mp3';
 
-    // Thêm nút chọn nhạc nền
     let selectMusicBtn = document.getElementById('selectMusicBtn');
     if (!selectMusicBtn) {
         selectMusicBtn = document.createElement('button');
         selectMusicBtn.id = 'selectMusicBtn';
-        selectMusicBtn.textContent = '🎵 Chọn Nhạc';
+        selectMusicBtn.textContent = '🎵 音楽を選ぶ';
         selectMusicBtn.style.marginLeft = '10px';
         selectMusicBtn.style.padding = '8px 12px';
         selectMusicBtn.style.background = '#854D27';
@@ -2671,31 +2585,28 @@ function initMusicPlayer() {
         isPlaying = !isPlaying;
     });
 
-    // Lưu trạng thái nhạc đang phát
     audio.addEventListener('ended', () => {
         playButton.textContent = '▶️';
         isPlaying = false;
     });
 
-    // Hàm thay đổi nhạc nền
     window.changeMusicTrack = function(trackUrl, trackName) {
         audio.pause();
         playButton.textContent = '▶️';
         isPlaying = false;
         audio = new Audio(trackUrl);
         currentTrack = trackUrl;
-        document.querySelector('.song-title').textContent = trackName || 'Nhạc nền tùy chỉnh';
+        document.querySelector('.song-title').textContent = trackName || '背景音';
         localStorage.setItem('selectedTrack', trackUrl);
-        localStorage.setItem('selectedTrackName', trackName || 'Nhạc nền tùy chỉnh');
+        localStorage.setItem('selectedTrackName', trackName || '背景音');
     };
 
-    // Khôi phục nhạc đã chọn trước đó nếu có
     const savedTrack = localStorage.getItem('selectedTrack');
     const savedTrackName = localStorage.getItem('selectedTrackName');
     if (savedTrack) {
         audio = new Audio(savedTrack);
         currentTrack = savedTrack;
-        document.querySelector('.song-title').textContent = savedTrackName || 'Nhạc nền tùy chỉnh';
+        document.querySelector('.song-title').textContent = savedTrackName || '背景音';
     }
 }
 
@@ -2741,7 +2652,7 @@ function openMusicSelectionModal() {
         });
 
         const title = document.createElement('h2');
-        title.textContent = 'Chọn Nhạc Nền Sinh Nhật';
+        title.textContent = '音楽を選ぶ';
         title.style.color = '#854D27';
         title.style.marginBottom = '20px';
         title.style.fontFamily = '\'DM Serif Display\', serif';
@@ -2753,7 +2664,6 @@ function openMusicSelectionModal() {
         trackList.style.maxHeight = '200px';
         trackList.style.overflowY = 'scroll';
 
-        // Danh sách nhạc mẫu (có thể thay thế bằng file thực tế nếu có)
         const tracks = [
             { url: 'happy-birthday.mp3', name: 'Happy Birthday Song (Default)' },
             { url: 'https://www.bensound.com/bensound-music/bensound-slowmotion.mp3', name: 'Slow Motion' },
@@ -2797,7 +2707,7 @@ function openMusicSelectionModal() {
         });
 
         const uploadLabel = document.createElement('label');
-        uploadLabel.textContent = 'Tải lên nhạc nền của bạn (MP3/WAV)';
+        uploadLabel.textContent = '背景音をアップロード (MP3/WAV)';
         uploadLabel.style.display = 'block';
         uploadLabel.style.marginTop = '15px';
         uploadLabel.style.color = '#854D27';
@@ -2814,16 +2724,14 @@ function openMusicSelectionModal() {
     musicModal.style.display = 'flex';
 }
 
-// Tính năng mời bạn bè
 function initInviteFriends() {
-    // Kiểm tra xem nút mời bạn bè đã tồn tại chưa, nếu chưa thì tạo mới
     let inviteBtn = document.getElementById('inviteFriendsBtn');
     const customMessageContainer = document.querySelector('.custom-message-container');
     if (!inviteBtn) {
         inviteBtn = document.createElement('button');
         inviteBtn.id = 'inviteFriendsBtn';
         inviteBtn.className = 'feature-button';
-        inviteBtn.textContent = '📩 Mời Bạn Bè';
+        inviteBtn.textContent = '📩 邀請友人';
         customMessageContainer.appendChild(inviteBtn);
     }
 
@@ -2831,19 +2739,16 @@ function initInviteFriends() {
         openInviteModal();
     });
 
-    // Kiểm tra tham số mời trong URL
     const urlParams = new URLSearchParams(window.location.search);
     const inviteCode = urlParams.get('invite');
     if (inviteCode) {
-        // Tăng số lượng người tham gia qua lời mời (mô phỏng)
         let inviteCount = parseInt(localStorage.getItem('inviteCount') || '0', 10);
         inviteCount++;
         localStorage.setItem('inviteCount', inviteCount.toString());
-        alert(`Bạn đã tham gia qua lời mời! Số người tham gia: ${inviteCount}`);
+        alert(`友人を招待してくださりありがとうございます！招待数: ${inviteCount}`);
     }
 }
 
-// Hàm lấy tên người có sinh nhật gần nhất hoặc hôm nay
 function getNextBirthdayPerson() {
     const currentBirthday = localStorage.getItem('currentBirthday');
     if (currentBirthday) {
@@ -2852,9 +2757,9 @@ function getNextBirthdayPerson() {
     if (typeof findNextBirthday === 'function') {
         const now = new Date();
         const nextBirthday = findNextBirthday(now);
-        return nextBirthday.person ? nextBirthday.person.name : 'người thân yêu';
+        return nextBirthday.person ? nextBirthday.person.name : '大切な人';
     }
-    return 'người thân yêu';
+    return '大切な人';
 }
 
 function openInviteModal() {
@@ -2899,7 +2804,7 @@ function openInviteModal() {
         });
 
         const title = document.createElement('h2');
-        title.textContent = 'Mời Bạn Bè Tham Gia';
+        title.textContent = '友人を招待してください';
         title.style.color = '#854D27';
         title.style.marginBottom = '20px';
         title.style.fontFamily = '\'DM Serif Display\', serif';
@@ -2920,7 +2825,7 @@ function openInviteModal() {
         inviteLink.value = generateInviteLink();
 
         const copyBtn = document.createElement('button');
-        copyBtn.textContent = 'Sao Chép Liên Kết';
+        copyBtn.textContent = '友人を招待してください';
         copyBtn.style.padding = '8px 15px';
         copyBtn.style.background = '#854D27';
         copyBtn.style.color = '#FFF9F3';
@@ -2934,7 +2839,7 @@ function openInviteModal() {
         copyBtn.addEventListener('click', () => {
             inviteLink.select();
             document.execCommand('copy');
-            alert('Đã sao chép liên kết mời!');
+            alert('友人を招待してください');
         });
         copyBtn.addEventListener('mouseover', () => {
             copyBtn.style.transform = 'translate(-2px, -2px)';
@@ -2947,7 +2852,7 @@ function openInviteModal() {
 
         const inviteMessage = document.createElement('textarea');
         inviteMessage.id = 'inviteMessage';
-        inviteMessage.placeholder = 'Nhập lời mời của bạn...';
+        inviteMessage.placeholder = '友人を招待してください';
         inviteMessage.style.width = '100%';
         inviteMessage.style.height = '100px';
         inviteMessage.style.padding = '10px';
@@ -2959,12 +2864,12 @@ function openInviteModal() {
         inviteMessage.style.background = '#FFF9F3';
         inviteMessage.style.color = '#2C1810';
         const birthdayPerson = localStorage.getItem('currentBirthday') || getNextBirthdayPerson();
-        inviteMessage.value = `Hãy tham gia chúc mừng sinh nhật ${birthdayPerson} cùng Hội Mẹ Bầu Đơn Thân!`;
+        inviteMessage.value = `${birthdayPerson}の誕生日パーティーに友達を招待しましょう！`;
 
         const emailInput = document.createElement('input');
         emailInput.id = 'emailInput';
         emailInput.type = 'email';
-        emailInput.placeholder = 'Nhập email người nhận...';
+        emailInput.placeholder = '友人を招待してください';
         emailInput.style.width = '100%';
         emailInput.style.padding = '10px';
         emailInput.style.border = '2px solid #D4B08C';
@@ -2996,9 +2901,9 @@ function openInviteModal() {
                 inviteModal.style.display = 'none';
                 emailInput.value = '';
                 const birthdayPerson = localStorage.getItem('currentBirthday') || getNextBirthdayPerson();
-                inviteMessage.value = `Hãy tham gia chúc mừng sinh nhật ${birthdayPerson} cùng Hội Mẹ Bầu Đơn Thân!`;
+                inviteMessage.value = `${birthdayPerson}の誕生日パーティーに友達を招待しましょう！`;
             } else {
-                alert('Vui lòng nhập email và lời mời!');
+                alert('友人を招待してください');
             }
         });
         sendBtn.addEventListener('mouseover', () => {
@@ -3015,7 +2920,7 @@ function openInviteModal() {
         stats.style.marginTop = '20px';
         stats.style.color = '#854D27';
         stats.style.fontSize = '1.1em';
-        stats.textContent = `Số người tham gia qua lời mời: ${localStorage.getItem('inviteCount') || '0'}`;
+        stats.textContent = `友人を招待してください: ${localStorage.getItem('inviteCount') || '0'}`;
 
         modalContent.appendChild(closeBtn);
         modalContent.appendChild(title);
@@ -3029,29 +2934,24 @@ function openInviteModal() {
         document.body.appendChild(inviteModal);
     }
     inviteModal.style.display = 'flex';
-    // Cập nhật số liệu thống kê
-    document.getElementById('inviteStats').textContent = `Số người tham gia qua lời mời: ${localStorage.getItem('inviteCount') || '0'}`;
+    document.getElementById('inviteStats').textContent = `友人を招待してください: ${localStorage.getItem('inviteCount') || '0'}`;
 }
 
 function generateInviteLink() {
-    // Tạo mã mời ngẫu nhiên (trong thực tế, điều này nên được tạo phía máy chủ)
     const inviteCode = Math.random().toString(36).substring(2, 7);
     return `${window.location.origin}${window.location.pathname}?invite=${inviteCode}`;
 }
 
 function sendInviteEmail(email, message) {
-    // Mô phỏng gửi email (trong thực tế, điều này cần được thực hiện phía máy chủ)
-    const subject = encodeURIComponent('Lời Mời Tham Gia Chúc Mừng Sinh Nhật');
+    const subject = encodeURIComponent('友人を招待してください');
     const body = encodeURIComponent(`${message}\n\nTruy cập liên kết: ${document.getElementById('inviteLink').value}`);
     window.open(`mailto:${email}?subject=${subject}&body=${body}`, '_blank');
-    // Ghi nhận hành động gửi lời mời
     let inviteSentCount = parseInt(localStorage.getItem('inviteSentCount') || '0', 10);
     inviteSentCount++;
     localStorage.setItem('inviteSentCount', inviteSentCount.toString());
-    alert(`Đã gửi lời mời đến ${email}! Số lời mời đã gửi: ${inviteSentCount}`);
+    alert(`友人を招待してください${email}! 友人を招待してください: ${inviteSentCount}`);
 }
 
-// Tạo hiệu ứng bóng bay cho trang
 function createBalloons() {
     const balloonContainer = document.getElementById('balloonContainer');
     if (!balloonContainer) {
@@ -3073,9 +2973,7 @@ function createBalloons() {
     }
 }
 
-// Khởi tạo các tính năng
 document.addEventListener('DOMContentLoaded', function() {
-    // Kiểm tra tồn tại của các hàm trước khi gọi
     try {
         if (typeof createBalloons === 'function') createBalloons();
         if (typeof initPhotoAlbum === 'function') initPhotoAlbum();
@@ -3083,22 +2981,19 @@ document.addEventListener('DOMContentLoaded', function() {
         if (typeof initSocialShare === 'function') initSocialShare();
         if (typeof initMusicPlayer === 'function') initMusicPlayer();
     
-    // Các tính năng từ community.js
     if (typeof initCustomMessage === 'function') initCustomMessage();
     if (typeof initCommunityFeatures === 'function') initCommunityFeatures();
     if (typeof initInviteFriends === 'function') initInviteFriends();
     
-    // Cập nhật hiển thị tin nhắn lưu trữ nếu có
+    if (typeof displaySavedCustomMessage === 'function') displaySavedCustomMessage();
     if (typeof displaySavedCustomMessage === 'function') displaySavedCustomMessage();
     } catch (error) {
-        console.error('Lỗi khi khởi tạo các tính năng:', error);
+        console.error('機能の初期化中にエラーが発生しました:', error);
     }
 });
 
-// Khai báo hàm saveUsername nếu chưa có trong file
 function saveUsername(name) {
     if (typeof window.saveUsername === 'function') {
-        // Nếu hàm đã được định nghĩa ở nơi khác (js/community.js), gọi lại hàm đó
         return window.saveUsername(name);
     }
     

@@ -1,9 +1,7 @@
-// Hàm lấy tên người dùng đã lưu
 function getSavedUsername() {
     return localStorage.getItem('birthdayChatUserName') || '';
 }
 
-// Hàm lưu tên người dùng
 function saveUsername(name) {
     if (name && name.trim() !== '') {
         localStorage.setItem('birthdayChatUserName', name.trim());
@@ -12,93 +10,75 @@ function saveUsername(name) {
     return false;
 }
 
-// Tạo global helper để có thể dùng ở file khác
 window.saveUsername = saveUsername;
 window.getSavedUsername = getSavedUsername;
 
-// Tạo global helper để có thể dùng ở file khác
-window.saveUsername = saveUsername;
-window.getSavedUsername = getSavedUsername;
-
-// Khởi tạo bảng tin chúc mừng
 function initBulletinBoard() {
-    console.log('Khởi tạo Bảng tin chúc mừng');
+    console.log('掲示板を初期化中');
     const bulletinBtn = document.getElementById('bulletinBoardBtn');
     const bulletinModal = document.getElementById('bulletinBoardModal');
     const closeBulletinBoard = document.getElementById('closeBulletinBoard');
     const selectGiftBtn = document.getElementById('selectGiftBtn');
     const submitPost = document.getElementById('submitPost');
     
-    // Kiểm tra các phần tử đã tồn tại
     if (!bulletinBtn) {
-        console.error('Không tìm thấy nút mở bảng tin');
+        console.error('掲示板ボタンが見つかりません');
         return;
     }
     
     if (!bulletinModal) {
-        console.error('Không tìm thấy modal bảng tin');
+        console.error('掲示板モーダルが見つかりません');
         return;
     }
     
     if (!closeBulletinBoard) {
-        console.error('Không tìm thấy nút đóng bảng tin');
+        console.error('掲示板閉じるボタンが見つかりません');
         return;
     }
     
-    // Đăng ký sự kiện click cho nút mở bảng tin
     bulletinBtn.addEventListener('click', () => {
-        console.log('Mở bảng tin chúc mừng');
+        console.log('お祝い掲示板を開く');
         
-        // Kiểm tra xem người dùng đã nhập tên chưa
         const userName = getSavedUsername();
         
         if (!userName) {
-            // Nếu chưa có tên, mở modal nhập tên
-            console.log('Chưa có tên người dùng, mở modal nhập tên');
+            console.log('ユーザー名がありません、名前入力モーダルを開く');
             openUserNameModalForBulletin();
         } else {
-            // Đã có tên, mở bảng tin chúc mừng
-            console.log('Đã có tên người dùng, mở bảng tin');
+            console.log('ユーザー名があります、掲示板を開く');
             bulletinModal.style.display = 'flex';
         }
     });
     
-    // Đăng ký sự kiện click cho nút đóng bảng tin
     closeBulletinBoard.addEventListener('click', () => {
-        console.log('Đóng bảng tin chúc mừng');
+        console.log('お祝い掲示板を閉じる');
         bulletinModal.style.display = 'none';
     });
     
-    // Đăng ký sự kiện click cho vùng bên ngoài modal để đóng
     bulletinModal.addEventListener('click', (e) => {
         if (e.target === bulletinModal) {
             bulletinModal.style.display = 'none';
         }
     });
     
-    // Xử lý sự kiện cho nút chọn quà tặng ảo
     if (selectGiftBtn) {
         selectGiftBtn.addEventListener('click', () => {
-            // Kiểm tra xem người dùng đã nhập tên chưa
             const userName = getSavedUsername();
             
             if (!userName) {
-                // Nếu chưa có tên, mở modal nhập tên
                 openUserNameModalForGift();
             } else {
-                // Đã có tên, mở modal chọn quà
                 openVirtualGiftModal(userName);
             }
         });
     }
     
-    // Xử lý sự kiện cho nút gửi quà tặng
     if (submitPost) {
         submitPost.addEventListener('click', () => {
             const selectedGiftDisplay = document.getElementById('selectedGiftDisplay');
             
             if (!selectedGiftDisplay || selectedGiftDisplay.style.display === 'none') {
-                alert('Vui lòng chọn quà tặng trước khi gửi!');
+                alert('送信前にギフトを選択してください！');
                 return;
             }
             
@@ -108,16 +88,14 @@ function initBulletinBoard() {
                 return;
             }
             
-            // Xử lý gửi quà tặng ở đây
-            alert('Đã gửi quà tặng thành công!');
+            alert('ギフトを正常に送信しました！');
             bulletinModal.style.display = 'none';
         });
     }
     
-    console.log('Đã khởi tạo xong Bảng tin chúc mừng');
+    console.log('お祝い掲示板の初期化完了');
 }
 
-// Lời chúc cá nhân
 function initCustomMessage() {
     const customMessageBtn = document.getElementById('customMessageBtn');
     const customMessageModal = document.getElementById('customMessageModal');
@@ -125,7 +103,6 @@ function initCustomMessage() {
     const submitCustomMessage = document.getElementById('submitCustomMessage');
     
     customMessageBtn.addEventListener('click', () => {
-        // Kiểm tra và điền tên người dùng nếu đã lưu
         const userName = getSavedUsername();
         if (userName && document.getElementById('senderNameInput')) {
             document.getElementById('senderNameInput').value = userName;
@@ -144,13 +121,12 @@ function initCustomMessage() {
         }
     });
     
-    // Thêm trường nhập tên người gửi
     let senderNameInput = document.getElementById('senderNameInput');
     if (!senderNameInput) {
         senderNameInput = document.createElement('input');
         senderNameInput.id = 'senderNameInput';
         senderNameInput.type = 'text';
-        senderNameInput.placeholder = 'Nhập tên của bạn...';
+        senderNameInput.placeholder = 'あなたのお名前...';
         senderNameInput.style.width = '100%';
         senderNameInput.style.padding = '10px';
         senderNameInput.style.border = '2px solid #D4B08C';
@@ -163,7 +139,6 @@ function initCustomMessage() {
         const modalContent = customMessageModal.querySelector('.modal-content');
         modalContent.insertBefore(senderNameInput, modalContent.children[2]);
         
-        // Điền tên người dùng từ localStorage nếu có
         const savedUserName = getSavedUsername();
         if (savedUserName) {
             senderNameInput.value = savedUserName;
@@ -177,44 +152,38 @@ function initCustomMessage() {
         let senderName = senderNameInput.value.trim();
         
         if (!messageText) {
-            alert('Vui lòng nhập lời chúc!');
+            alert('お祝いメッセージを入力してください！');
             return;
         }
         
-        // Nếu không có tên người gửi
         if (!senderName) {
-            // Kiểm tra xem đã lưu tên chưa
             const savedUserName = getSavedUsername();
             if (savedUserName) {
                 senderName = savedUserName;
             } else {
-                senderName = 'Ẩn danh';
+                senderName = '匿名';
             }
         } else {
-            // Lưu tên người dùng để sử dụng sau này
             saveUsername(senderName);
         }
         
-        // Lưu vào Supabase thay vì localStorage
         const birthdayName = getCurrentBirthdayPerson();
         const saved = await saveCustomMessage(senderName, messageText, birthdayName);
         
         if (saved) {
-            // Hiển thị tin nhắn
             displayCustomMessage(`${messageText} - ${senderName}`);
             customMessageModal.style.display = 'none';
             customMessageInput.value = '';
         } else {
-            alert('Không thể lưu lời chúc. Vui lòng thử lại sau!');
+            alert('お祝いメッセージを保存できません。後でもう一度お試しください！');
         }
     });
 
-    // Thêm nút ghi âm lời chúc vào modal
     let recordBtn = document.getElementById('recordMessageBtn');
     if (!recordBtn) {
         recordBtn = document.createElement('button');
         recordBtn.id = 'recordMessageBtn';
-        recordBtn.textContent = '🎤 Ghi Âm Lời Chúc';
+        recordBtn.textContent = '🎤 お祝いメッセージを録音';
         recordBtn.style.padding = '10px 20px';
         recordBtn.style.background = '#854D27';
         recordBtn.style.color = '#FFF9F3';
@@ -243,12 +212,11 @@ function initCustomMessage() {
         modalContent.appendChild(recordBtn);
     }
 
-    // Thêm nút gửi video chúc mừng vào modal
     let videoBtn = document.getElementById('videoMessageBtn');
     if (!videoBtn) {
         videoBtn = document.createElement('button');
         videoBtn.id = 'videoMessageBtn';
-        videoBtn.textContent = '🎥 Video Chúc Mừng';
+        videoBtn.textContent = '🎥 お祝いビデオ';
         videoBtn.style.padding = '10px 20px';
         videoBtn.style.background = '#854D27';
         videoBtn.style.color = '#FFF9F3';
@@ -277,11 +245,9 @@ function initCustomMessage() {
         modalContent.appendChild(videoBtn);
     }
 
-    // Thêm nút nghe lời chúc ghi âm nếu có dữ liệu
     displaySavedAudioMessages();
 }
 
-// Mở modal ghi âm lời chúc
 function openRecordMessageModal() {
     let recordModal = document.getElementById('recordMessageModal');
     
@@ -321,14 +287,13 @@ function openRecordMessageModal() {
         closeBtn.style.color = '#854D27';
         closeBtn.addEventListener('click', () => {
             recordModal.style.display = 'none';
-            // Dừng ghi âm nếu đang ghi
             if (mediaRecorder && mediaRecorder.state === 'recording') {
                 mediaRecorder.stop();
             }
         });
         
         const title = document.createElement('h2');
-        title.textContent = 'Ghi Âm Lời Chúc';
+        title.textContent = 'お祝いメッセージを録音';
         title.style.color = '#854D27';
         title.style.marginBottom = '20px';
         title.style.fontFamily = '\'DM Serif Display\', serif';
@@ -341,7 +306,7 @@ function openRecordMessageModal() {
         
         const recordBtn = document.createElement('button');
         recordBtn.id = 'recordBtn';
-        recordBtn.textContent = '⏺️ Bắt đầu ghi âm';
+        recordBtn.textContent = '⏺️ 録音開始';
         recordBtn.style.padding = '10px 20px';
         recordBtn.style.background = '#854D27';
         recordBtn.style.color = '#FFF9F3';
@@ -355,7 +320,7 @@ function openRecordMessageModal() {
         
         const statusText = document.createElement('div');
         statusText.id = 'recordingStatus';
-        statusText.textContent = 'Chưa ghi âm';
+        statusText.textContent = '未録音';
         statusText.style.marginTop = '10px';
         statusText.style.color = '#854D27';
         statusText.style.fontStyle = 'italic';
@@ -370,7 +335,7 @@ function openRecordMessageModal() {
         const senderInput = document.createElement('input');
         senderInput.id = 'audioMessageSender';
         senderInput.type = 'text';
-        senderInput.placeholder = 'Nhập tên của bạn...';
+        senderInput.placeholder = 'あなたのお名前...';
         senderInput.style.width = '100%';
         senderInput.style.padding = '10px';
         senderInput.style.border = '2px solid #D4B08C';
@@ -384,7 +349,7 @@ function openRecordMessageModal() {
         
         const saveBtn = document.createElement('button');
         saveBtn.id = 'saveAudioBtn';
-        saveBtn.textContent = '💾 Lưu Lời Chúc';
+        saveBtn.textContent = '💾 お祝いメッセージを保存';
         saveBtn.style.padding = '10px 20px';
         saveBtn.style.background = '#854D27';
         saveBtn.style.color = '#FFF9F3';
@@ -411,30 +376,26 @@ function openRecordMessageModal() {
         document.body.appendChild(recordModal);
     }
     
-    // Reset UI state
     const recordBtn = document.getElementById('recordBtn');
     const audioPreview = document.getElementById('audioPreview');
     const senderInput = document.getElementById('audioMessageSender');
     const saveBtn = document.getElementById('saveAudioBtn');
     const statusText = document.getElementById('recordingStatus');
     
-    recordBtn.textContent = '⏺️ Bắt đầu ghi âm';
+    recordBtn.textContent = '⏺️ 録音開始';
     audioPreview.style.display = 'none';
     audioPreview.src = '';
     senderInput.style.display = 'none';
     senderInput.value = '';
     saveBtn.style.display = 'none';
-    statusText.textContent = 'Chưa ghi âm';
+    statusText.textContent = '未録音';
     statusText.style.color = '#854D27';
     
     recordModal.style.display = 'flex';
 }
 
-// Biến toàn cục cho việc ghi âm
-// Không khai báo lại các biến đã được khai báo ở file khác
-// Sử dụng biến toàn cục đã có
 
-// Bật/tắt ghi âm
+
 function toggleRecording() {
     if (mediaRecorder && mediaRecorder.state === 'recording') {
         stopRecording();
@@ -443,19 +404,15 @@ function toggleRecording() {
     }
 }
 
-// Bắt đầu ghi âm
 function startRecording() {
     const recordBtn = document.getElementById('recordBtn');
     const audioPreview = document.getElementById('audioPreview');
     const statusText = document.getElementById('recordingStatus');
     
-    // Kiểm tra hỗ trợ thu âm
     if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-        alert('Trình duyệt của bạn không hỗ trợ thu âm!');
+        alert('お使いのブラウザは録音に対応していません！');
         return;
     }
-    
-    // Yêu cầu quyền truy cập micro
     navigator.mediaDevices.getUserMedia({ audio: true })
         .then(stream => {
             mediaRecorder = new MediaRecorder(stream);
@@ -471,106 +428,90 @@ function startRecording() {
                 audioPreview.src = audioUrl;
                 audioPreview.style.display = 'block';
                 
-                // Hiển thị controls để lưu
                 document.getElementById('audioMessageSender').style.display = 'block';
                 document.getElementById('saveAudioBtn').style.display = 'block';
                 
-                // Dừng stream âm thanh
                 stream.getTracks().forEach(track => track.stop());
             };
             
             mediaRecorder.start();
-            recordBtn.textContent = '⏹️ Dừng ghi âm';
-            statusText.textContent = '⚫ Đang ghi âm...';
+            recordBtn.textContent = '⏹️ 録音停止';
+            statusText.textContent = '⚫ 録音中...';
             statusText.style.color = '#ff4081';
         })
         .catch(error => {
-            console.error('Không thể truy cập microphone:', error);
-            alert('Không thể truy cập microphone. Vui lòng kiểm tra quyền truy cập và thử lại.');
+            console.error('マイクにアクセスできません:', error);
+            alert('マイクにアクセスできません。アクセス許可を確認してもう一度お試しください。');
         });
 }
 
-// Dừng ghi âm
 function stopRecording() {
     if (mediaRecorder) {
         mediaRecorder.stop();
         
-        // Dừng tất cả các track để tắt microphone
         mediaRecorder.stream.getTracks().forEach(track => track.stop());
         
         const recordBtn = document.getElementById('recordBtn');
         const statusText = document.getElementById('recordingStatus');
         
-        recordBtn.textContent = '⏺️ Ghi âm mới';
-        statusText.textContent = '✅ Đã ghi âm xong';
+        recordBtn.textContent = '⏺️ 新しい録音';
+        statusText.textContent = '✅ 録音完了';
         statusText.style.color = '#4CAF50';
     }
 }
 
-// Lưu tin nhắn âm thanh
 function saveAudioMessage() {
     const senderInput = document.getElementById('audioMessageSender');
-    const senderName = senderInput.value.trim() || 'Ẩn danh';
+    const senderName = senderInput.value.trim() || '匿名';
     
     if (!audioBlob) {
-        alert('Không có bản ghi âm để lưu!');
+        alert('保存する録音がありません！');
         return;
     }
     
-    // Hiển thị thông báo đang xử lý
     const statusText = document.getElementById('recordingStatus');
     if (statusText) {
-        statusText.textContent = 'Đang tải âm thanh lên...';
+        statusText.textContent = '音声をアップロード中...';
         statusText.style.color = '#FFA500';
     }
     
-    // Lấy thông tin người nhận sinh nhật
-    const birthdayPerson = localStorage.getItem('currentBirthday') || 'Chung';
-    
-    // Sử dụng hàm từ supabase-config.js để lưu âm thanh
+    const birthdayPerson = localStorage.getItem('currentBirthday') || '共通';
     saveAudioMessageToSupabase(audioBlob, senderName, birthdayPerson)
         .then(success => {
             if (success) {
-        // Đóng modal và hiển thị thông báo
         document.getElementById('recordMessageModal').style.display = 'none';
-        alert('Lời chúc âm thanh đã được lưu thành công!');
-        
-        // Cập nhật hiển thị tin nhắn
+        alert('お祝い音声メッセージが正常に保存されました！');
         displaySavedAudioMessages();
             } else {
-                // Hiển thị lỗi
                 if (statusText) {
-                    statusText.textContent = 'Lỗi khi lưu âm thanh!';
-                    statusText.style.color = '#FF0000';
+                    statusText.textContent = '音声保存エラー';
+                    statusText.style.color = '#ff4444';
                 }
-                alert('Không thể lưu âm thanh. Vui lòng thử lại sau.');
+                alert('音声保存エラー');
             }
         })
         .catch(error => {
-            console.error('Lỗi khi lưu âm thanh:', error);
+            console.error('音声保存エラー:', error);
             if (statusText) {
-                statusText.textContent = 'Lỗi khi lưu âm thanh!';
+                statusText.textContent = '音声保存エラー';
+                statusText.style.color = '#ff4444';
                 statusText.style.color = '#FF0000';
             }
             alert('Lỗi khi lưu âm thanh: ' + error.message);
         });
 }
 
-// Hiển thị tin nhắn âm thanh đã lưu
 function displaySavedAudioMessages() {
-    const birthdayPerson = localStorage.getItem('currentBirthday') || 'Chung';
-    
-    // Sử dụng hàm getAudioMessages từ supabase-config.js để lấy dữ liệu
+    const birthdayPerson = localStorage.getItem('currentBirthday') || '共通';
     getAudioMessages(birthdayPerson)
         .then(messages => {
             if (messages && messages.length > 0) {
-        // Nếu có tin nhắn âm thanh, thêm nút để nghe
         let audioBtn = document.getElementById('viewAudioMessagesBtn');
         
         if (!audioBtn && document.getElementById('customMessageDisplay')) {
             audioBtn = document.createElement('button');
             audioBtn.id = 'viewAudioMessagesBtn';
-            audioBtn.textContent = '🔊 Nghe Lời Chúc';
+            audioBtn.textContent = '🔊 お祝いを聞く';
             audioBtn.style.padding = '10px 20px';
             audioBtn.style.background = '#854D27';
             audioBtn.style.color = '#FFF9F3';
@@ -593,11 +534,10 @@ function displaySavedAudioMessages() {
     }
         })
         .catch(error => {
-            console.error('Lỗi khi lấy danh sách âm thanh:', error);
+            console.error('音声リスト取得エラー:', error);
         });
 }
 
-// Mở modal hiển thị tin nhắn âm thanh
 function openAudioMessagesModal(birthdayPerson) {
     let audioModal = document.getElementById('audioMessagesModal');
     
@@ -637,12 +577,11 @@ function openAudioMessagesModal(birthdayPerson) {
         closeBtn.style.color = '#854D27';
         closeBtn.addEventListener('click', () => {
             audioModal.style.display = 'none';
-            // Dừng tất cả audio đang phát
             document.querySelectorAll('audio').forEach(audio => audio.pause());
         });
         
         const title = document.createElement('h2');
-        title.textContent = birthdayPerson ? `Lời Chúc Gửi Đến ${birthdayPerson}` : 'Lời Chúc Sinh Nhật';
+        title.textContent = birthdayPerson ? `${birthdayPerson}へのお祝いメッセージ` : 'お誕生日お祝いメッセージ';
         title.style.color = '#854D27';
         title.style.marginBottom = '20px';
         title.style.fontFamily = '\'DM Serif Display\', serif';
@@ -655,7 +594,7 @@ function openAudioMessagesModal(birthdayPerson) {
         
         // Hiển thị thông báo đang tải
         const loadingMsg = document.createElement('p');
-        loadingMsg.textContent = 'Đang tải tin nhắn âm thanh...';
+        loadingMsg.textContent = '音声メッセージを読み込み中...';
         loadingMsg.style.textAlign = 'center';
         loadingMsg.style.color = '#854D27';
         loadingMsg.id = 'audioLoadingMessage';
@@ -671,22 +610,18 @@ function openAudioMessagesModal(birthdayPerson) {
         
     audioModal.style.display = 'flex';
     
-    // Lấy tin nhắn âm thanh từ Supabase
         const messagesList = document.getElementById('audioMessagesList');
     
-    // Xóa nội dung cũ nếu có
     if (messagesList) {
-        messagesList.innerHTML = '<p id="audioLoadingMessage" style="text-align: center; color: #854D27;">Đang tải tin nhắn âm thanh...</p>';
+        messagesList.innerHTML = '<p id="audioLoadingMessage" style="text-align: center; color: #854D27;">音声メッセージを読み込み中...</p>';
         
-        // Lấy và hiển thị tin nhắn
         getAudioMessages(birthdayPerson)
             .then(messages => {
-                // Xóa thông báo đang tải
                 messagesList.innerHTML = '';
                 
                 if (!messages || messages.length === 0) {
                 const noMessages = document.createElement('p');
-                noMessages.textContent = 'Chưa có lời chúc âm thanh nào.';
+                noMessages.textContent = 'まだお祝い音声メッセージがありません。';
                 noMessages.style.textAlign = 'center';
                 noMessages.style.fontStyle = 'italic';
                 noMessages.style.color = '#854D27';
@@ -720,7 +655,6 @@ function openAudioMessagesModal(birthdayPerson) {
                     const audioPlayer = document.createElement('audio');
                     audioPlayer.controls = true;
                     audioPlayer.style.width = '100%';
-                        // Sử dụng URL từ Supabase Storage
                         audioPlayer.src = message.audio_data;
                     
                     messageItem.appendChild(messageHeader);
@@ -732,25 +666,23 @@ function openAudioMessagesModal(birthdayPerson) {
             .catch(error => {
                 messagesList.innerHTML = '';
                 const errorMsg = document.createElement('p');
-                errorMsg.textContent = 'Lỗi khi tải tin nhắn âm thanh: ' + error.message;
+                errorMsg.textContent = '音声メッセージ読み込みエラー: ' + error.message;
                 errorMsg.style.textAlign = 'center';
                 errorMsg.style.color = 'red';
                 messagesList.appendChild(errorMsg);
-                console.error('Lỗi khi lấy tin nhắn âm thanh:', error);
+                console.error('音声メッセージ取得エラー:', error);
             });
     }
 }
 
-// Phát tin nhắn âm thanh
 function playAudioMessage(audioUrl) {
     const audio = new Audio(audioUrl);
     audio.play().catch(error => {
-        console.error('Không thể phát âm thanh:', error);
-        alert('Không thể phát âm thanh. Vui lòng thử lại.');
+        console.error('音声再生できません:', error);
+        alert('音声を再生できません。もう一度お試しください。');
     });
 }
 
-// Hiển thị tin nhắn văn bản
 function displayCustomMessage(message) {
     const customMessageDisplay = document.getElementById('customMessageDisplay');
     if (customMessageDisplay) {
@@ -763,36 +695,36 @@ function displayCustomMessage(message) {
     }
 }
 
-// Hiển thị tin nhắn văn bản đã lưu
+// お祝いメッセージを表示
 async function displaySavedCustomMessage() {
     try {
-        // Lấy người nhận tin nhắn chúc mừng hiện tại
+        // 誕生日のお祝いメッセージを表示する人を取得
         const birthdayPerson = getCurrentBirthdayPerson();
         
-        // Lấy tin nhắn từ Supabase thay vì localStorage
+        // お祝いメッセージを取得
         const message = await getLatestCustomMessage(birthdayPerson);
         
         if (message) {
             displayCustomMessage(`${message.message} - ${message.sender}`);
         }
     } catch (error) {
-        console.error('Lỗi khi hiển thị lời chúc:', error);
+        console.error('お祝いメッセージ表示エラー:', error);
         
-        // Fallback to localStorage if Supabase fails
-    const savedMessage = localStorage.getItem('customBirthdayMessage');
-    if (savedMessage) {
-        displayCustomMessage(savedMessage);
+        // ローカルストレージからメッセージを取得
+        const savedMessage = localStorage.getItem('customBirthdayMessage');
+        if (savedMessage) {
+            displayCustomMessage(savedMessage);
         }
     }
 }
 
-// Hàm helper để lấy người có sinh nhật hiện tại
+// 誕生日のお祝いメッセージを表示する人を取得
 function getCurrentBirthdayPerson() {
-    // Mặc định là người dùng hiện tại hoặc một tên cố định
-    return localStorage.getItem('birthdayPerson') || 'Friend';
+    // デフォルトは友達
+    return localStorage.getItem('birthdayPerson') || '友達';
 }
 
-// Mở modal ghi video
+// ビデオメッセージモーダルを開く
 function openVideoMessageModal() {
     let videoModal = document.getElementById('videoMessageModal');
     
@@ -833,21 +765,21 @@ function openVideoMessageModal() {
         closeBtn.addEventListener('click', () => {
             videoModal.style.display = 'none';
             
-            // Dừng stream video nếu đang chạy
+            // ビデオストリームを停止
             const videoPreview = document.getElementById('videoPreview');
             if (videoPreview.srcObject) {
                 videoPreview.srcObject.getTracks().forEach(track => track.stop());
                 videoPreview.srcObject = null;
             }
             
-            // Dừng ghi video nếu đang ghi
+            // ビデオ録画を停止
             if (videoRecorder && videoRecorder.state === 'recording') {
                 videoRecorder.stop();
             }
         });
         
         const title = document.createElement('h2');
-        title.textContent = 'Ghi Video Chúc Mừng';
+        title.textContent = 'お祝いビデオを録画';
         title.style.color = '#854D27';
         title.style.marginBottom = '20px';
         title.style.fontFamily = '\'DM Serif Display\', serif';
@@ -874,7 +806,7 @@ function openVideoMessageModal() {
         
         const startVideoBtn = document.createElement('button');
         startVideoBtn.id = 'startVideoBtn';
-        startVideoBtn.textContent = '⏺️ Bắt đầu Ghi';
+        startVideoBtn.textContent = '⏺️ 録画開始';
         startVideoBtn.style.padding = '10px 20px';
         startVideoBtn.style.background = '#854D27';
         startVideoBtn.style.color = '#FFF9F3';
@@ -889,9 +821,9 @@ function openVideoMessageModal() {
             const videoPreview = document.getElementById('videoPreview');
             const statusText = document.getElementById('videoRecordingStatus');
             
-            if (startButton.textContent.includes('Bắt đầu')) {
+            if (startButton.textContent.includes('録画開始')) {
                 if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-                    alert('Trình duyệt của bạn không hỗ trợ ghi video!');
+                    alert('お使いのブラウザはビデオ録画に対応していません！');
                     return;
                 }
                 
@@ -919,27 +851,26 @@ function openVideoMessageModal() {
                             videoPreview.muted = false;
                             videoPreview.play();
                             
-                            // Hiển thị các control để lưu
                             document.getElementById('videoMessageSender').style.display = 'block';
                             document.getElementById('saveVideoBtn').style.display = 'block';
                         };
                         
                         videoRecorder.start();
-                        startButton.textContent = '⏹️ Dừng Ghi';
-                        statusText.textContent = '⚫ Đang ghi video...';
+                        startButton.textContent = '⏹️ 録画停止';
+                        statusText.textContent = '⚫ ビデオ録画中...';
                         statusText.style.color = '#ff4081';
                     })
                     .catch(error => {
-                        console.error('Không thể truy cập camera:', error);
-                        alert('Không thể truy cập camera. Vui lòng kiểm tra quyền truy cập và thử lại.');
+                        console.error('カメラにアクセスできません:', error);
+                        alert('カメラにアクセスできません。アクセス許可を確認してもう一度お試しください。');
                     });
             } else {
                 if (videoRecorder && videoRecorder.state === 'recording') {
                     videoRecorder.stop();
                     videoPreview.srcObject.getTracks().forEach(track => track.stop());
                     
-                    startButton.textContent = '🔄 Ghi Lại';
-                    statusText.textContent = '✅ Đã ghi video xong';
+                    startButton.textContent = '🔄 再録画';
+                    statusText.textContent = '✅ ビデオ録画完了';
                     statusText.style.color = '#4CAF50';
                 }
             }
@@ -956,7 +887,7 @@ function openVideoMessageModal() {
         const senderInput = document.createElement('input');
         senderInput.id = 'videoMessageSender';
         senderInput.type = 'text';
-        senderInput.placeholder = 'Nhập tên của bạn...';
+        senderInput.placeholder = 'あなたのお名前...';
         senderInput.style.width = '100%';
         senderInput.style.padding = '10px';
         senderInput.style.border = '2px solid #D4B08C';
@@ -970,7 +901,7 @@ function openVideoMessageModal() {
         
         const saveBtn = document.createElement('button');
         saveBtn.id = 'saveVideoBtn';
-        saveBtn.textContent = '💾 Lưu Video';
+        saveBtn.textContent = '💾 ビデオ保存';
         saveBtn.style.padding = '10px 20px';
         saveBtn.style.background = '#854D27';
         saveBtn.style.color = '#FFF9F3';
@@ -983,8 +914,8 @@ function openVideoMessageModal() {
         saveBtn.style.marginTop = '20px';
         saveBtn.style.display = 'none';
         saveBtn.addEventListener('click', () => {
-            const senderName = document.getElementById('videoMessageSender').value.trim() || 'Ẩn danh';
-            const videoName = `Video chúc mừng từ ${senderName}`;
+            const senderName = document.getElementById('videoMessageSender').value.trim() || '匿名';
+            const videoName = `${senderName}からのお祝いビデオ`;
             
             saveVideoMessage(videoBlob, videoName, senderName);
         });
@@ -1003,18 +934,17 @@ function openVideoMessageModal() {
         videoModal.appendChild(modalContent);
         document.body.appendChild(videoModal);
     } else {
-        // Reset UI state
         const startButton = document.getElementById('startVideoBtn');
         const videoPreview = document.getElementById('videoPreview');
         const statusText = document.getElementById('videoRecordingStatus');
         const senderInput = document.getElementById('videoMessageSender');
         const saveBtn = document.getElementById('saveVideoBtn');
         
-        startButton.textContent = '⏺️ Bắt đầu Ghi';
+        startButton.textContent = '⏺️ 録画開始';
         videoPreview.srcObject = null;
         videoPreview.src = '';
         videoPreview.muted = true;
-        statusText.textContent = 'Chưa ghi video';
+        statusText.textContent = '未録画';
         statusText.style.color = '#854D27';
         senderInput.style.display = 'none';
         senderInput.value = '';
@@ -1024,79 +954,66 @@ function openVideoMessageModal() {
     videoModal.style.display = 'flex';
 }
 
-// Biến toàn cục cho việc ghi video
 let videoRecorder;
 let videoChunks = [];
 let videoBlob;
 let videoUrl;
 
-// Lưu tin nhắn video
 function saveVideoMessage(videoData, videoName, senderName) {
     if (!videoData) {
-        alert('Không có video để lưu!');
+        alert('保存するビデオがありません！');
         return;
     }
     
-    // Kiểm tra kích thước của video (giới hạn kích thước 10MB cho Supabase)
-    if (videoData.size > 10 * 1024 * 1024) { // Giới hạn 10MB
-        alert('Video quá lớn để lưu trữ. Vui lòng ghi video ngắn hơn (dưới 10MB).');
+    if (videoData.size > 10 * 1024 * 1024) {
+        alert('ビデオが大きすぎます。短いビデオを録画してください（10MB未満）。');
         return;
     }
     
-    // Hiển thị thông báo đang xử lý
     const statusText = document.getElementById('videoRecordingStatus');
     if (statusText) {
-        statusText.textContent = 'Đang tải video lên...';
+        statusText.textContent = 'ビデオをアップロード中...';
         statusText.style.color = '#FFA500';
     }
     
-    // Lấy thông tin người nhận sinh nhật
-    const birthdayPerson = localStorage.getItem('currentBirthday') || 'Chung';
+    const birthdayPerson = localStorage.getItem('currentBirthday') || '共通';
     
-    // Sử dụng hàm từ supabase-config.js để lưu video
     saveVideoMessageToSupabase(videoData, videoName, senderName, birthdayPerson)
         .then(success => {
             if (success) {
-        // Đóng modal và hiển thị thông báo
         document.getElementById('videoMessageModal').style.display = 'none';
-        alert('Video chúc mừng đã được lưu thành công!');
+        alert('お祝いビデオが正常に保存されました！');
         
-        // Cập nhật hiển thị tin nhắn
         displaySavedVideoMessages();
             } else {
-                // Hiển thị lỗi
                 if (statusText) {
-                    statusText.textContent = 'Lỗi khi lưu video!';
+                    statusText.textContent = 'ビデオ保存エラー！';
                     statusText.style.color = '#FF0000';
                 }
-                alert('Không thể lưu video. Vui lòng thử lại sau.');
+                alert('ビデオを保存できません。後でもう一度お試しください。');
             }
         })
         .catch(error => {
-            console.error('Lỗi khi lưu video:', error);
+            console.error('ビデオ保存エラー:', error);
             if (statusText) {
-                statusText.textContent = 'Lỗi khi lưu video!';
+                statusText.textContent = 'ビデオ保存エラー！';
                 statusText.style.color = '#FF0000';
             }
-            alert('Lỗi khi lưu video: ' + error.message);
+            alert('ビデオ保存エラー: ' + error.message);
         });
 }
 
-// Hiển thị tin nhắn video đã lưu
 function displaySavedVideoMessages() {
-    const birthdayPerson = localStorage.getItem('currentBirthday') || 'Chung';
-    
-    // Sử dụng hàm getVideoMessages từ supabase-config.js để lấy dữ liệu
+    const birthdayPerson = localStorage.getItem('currentBirthday') || '共通';
     getVideoMessages(birthdayPerson)
         .then(messages => {
             if (messages && messages.length > 0) {
-        // Nếu có tin nhắn video, thêm nút để xem
         let videoBtn = document.getElementById('viewVideoMessagesBtn');
         
         if (!videoBtn && document.getElementById('customMessageDisplay')) {
             videoBtn = document.createElement('button');
             videoBtn.id = 'viewVideoMessagesBtn';
-            videoBtn.textContent = '🎥 Xem Video Chúc Mừng';
+            videoBtn.textContent = '🎥 お祝いビデオを見る';
             videoBtn.style.padding = '10px 20px';
             videoBtn.style.background = '#854D27';
             videoBtn.style.color = '#FFF9F3';
@@ -1119,11 +1036,10 @@ function displaySavedVideoMessages() {
     }
         })
         .catch(error => {
-            console.error('Lỗi khi lấy danh sách video:', error);
+            console.error('ビデオリスト取得エラー:', error);
         });
 }
 
-// Mở modal hiển thị tin nhắn video
 function openVideoMessagesModal(birthdayPerson) {
     let videoModal = document.getElementById('videoMessagesModal');
     
@@ -1163,12 +1079,11 @@ function openVideoMessagesModal(birthdayPerson) {
         closeBtn.style.color = '#854D27';
         closeBtn.addEventListener('click', () => {
             videoModal.style.display = 'none';
-            // Dừng tất cả video đang phát
             document.querySelectorAll('video').forEach(video => video.pause());
         });
         
         const title = document.createElement('h2');
-        title.textContent = birthdayPerson ? `Video Chúc Mừng Gửi Đến ${birthdayPerson}` : 'Video Chúc Mừng Sinh Nhật';
+        title.textContent = birthdayPerson ? `${birthdayPerson}へのお祝いビデオ` : 'お祝いビデオ';
         title.style.color = '#854D27';
         title.style.marginBottom = '20px';
         title.style.fontFamily = '\'DM Serif Display\', serif';
@@ -1181,7 +1096,7 @@ function openVideoMessagesModal(birthdayPerson) {
         
         // Hiển thị thông báo đang tải
         const loadingMsg = document.createElement('p');
-        loadingMsg.textContent = 'Đang tải video...';
+        loadingMsg.textContent = 'ビデオを読み込み中...';
         loadingMsg.style.textAlign = 'center';
         loadingMsg.style.color = '#854D27';
         loadingMsg.id = 'videoLoadingMessage';
@@ -1197,22 +1112,17 @@ function openVideoMessagesModal(birthdayPerson) {
         
     videoModal.style.display = 'flex';
     
-    // Lấy video từ Supabase
-        const messagesList = document.getElementById('videoMessagesList');
+    const messagesList = document.getElementById('videoMessagesList');
     
-    // Xóa nội dung cũ nếu có
     if (messagesList) {
-        messagesList.innerHTML = '<p id="videoLoadingMessage" style="text-align: center; color: #854D27;">Đang tải video...</p>';
-        
-        // Lấy và hiển thị tin nhắn
+        messagesList.innerHTML = '<p id="videoLoadingMessage" style="text-align: center; color: #854D27;">ビデオを読み込み中...</p>';
         getVideoMessages(birthdayPerson)
             .then(messages => {
-                // Xóa thông báo đang tải
                 messagesList.innerHTML = '';
                 
                 if (!messages || messages.length === 0) {
                 const noMessages = document.createElement('p');
-                noMessages.textContent = 'Chưa có video chúc mừng nào.';
+                noMessages.textContent = 'まだお祝いビデオがありません。';
                 noMessages.style.textAlign = 'center';
                 noMessages.style.fontStyle = 'italic';
                 noMessages.style.color = '#854D27';
@@ -1244,7 +1154,7 @@ function openVideoMessagesModal(birthdayPerson) {
                     messageHeader.appendChild(timestamp);
                     
                         const videoTitle = document.createElement('h3');
-                        videoTitle.textContent = message.video_name || `Video #${index + 1}`;
+                        videoTitle.textContent = message.video_name || `ビデオ #${index + 1}`;
                         videoTitle.style.margin = '0 0 10px 0';
                         videoTitle.style.color = '#854D27';
                     
@@ -1253,7 +1163,6 @@ function openVideoMessagesModal(birthdayPerson) {
                     videoPlayer.style.width = '100%';
                     videoPlayer.style.maxHeight = '400px';
                         videoPlayer.style.backgroundColor = '#000';
-                        // Sử dụng URL từ Supabase Storage
                         videoPlayer.src = message.video_url;
                         videoPlayer.preload = 'metadata';
                     
@@ -1267,16 +1176,15 @@ function openVideoMessagesModal(birthdayPerson) {
             .catch(error => {
                 messagesList.innerHTML = '';
                 const errorMsg = document.createElement('p');
-                errorMsg.textContent = 'Lỗi khi tải video: ' + error.message;
+                errorMsg.textContent = 'ビデオ読み込みエラー: ' + error.message;
                 errorMsg.style.textAlign = 'center';
                 errorMsg.style.color = 'red';
                 messagesList.appendChild(errorMsg);
-                console.error('Lỗi khi lấy video:', error);
+                console.error('ビデオ取得エラー:', error);
             });
     }
 }
 
-// Phát tin nhắn video
 function playVideoMessage(videoUrl) {
     const video = document.createElement('video');
     video.src = videoUrl;
@@ -1315,29 +1223,23 @@ function playVideoMessage(videoUrl) {
     document.body.appendChild(videoContainer);
     
     video.play().catch(error => {
-        console.error('Không thể phát video:', error);
-        alert('Không thể phát video. Vui lòng thử lại.');
+        console.error('ビデオ再生エラー:', error);
+        alert('ビデオを再生できません。もう一度お試しください。');
     });
 }
 
-// Khởi tạo tính năng cộng đồng
 function initCommunityFeatures() {
-    // Khởi tạo bảng tin chúc mừng
     initBulletinBoard();
     
-    // Khởi tạo lời chúc cá nhân
     initCustomMessage();
     
-    // Thiết lập kết nối real-time cho chat
     setupChatRealtime();
-    
-    // Thêm nút Chat Nhóm vào trang
     const container = document.querySelector('.container');
     
     if (container) {
         const chatButton = document.createElement('button');
         chatButton.id = 'openChatBtn';
-        chatButton.textContent = '💬 Chat Nhóm';
+        chatButton.textContent = '💬 グループチャット';
         chatButton.classList.add('feature-button');
         chatButton.style.position = 'fixed';
         chatButton.style.bottom = '20px';
@@ -1350,7 +1252,6 @@ function initCommunityFeatures() {
     }
 }
 
-// Kiểm tra tên người dùng và mở chat
 function checkUserNameAndOpenChat() {
     const userName = localStorage.getItem('birthdayChatUserName');
     
@@ -1361,7 +1262,6 @@ function checkUserNameAndOpenChat() {
     }
 }
 
-// Mở modal nhập tên người dùng
 function openUserNameModal() {
     let userNameModal = document.getElementById('userNameModal');
     
@@ -1422,7 +1322,7 @@ function openUserNameModal() {
         userNameInput.style.color = '#2C1810';
         
         const submitBtn = document.createElement('button');
-        submitBtn.textContent = 'Vào Chat';
+        submitBtn.textContent = 'チャットに参加';
         submitBtn.style.padding = '10px 20px';
         submitBtn.style.background = '#854D27';
         submitBtn.style.color = '#FFF9F3';
@@ -1456,7 +1356,6 @@ function openUserNameModal() {
         document.body.appendChild(userNameModal);
     }
     
-    // Reset input field
     const userNameInput = document.getElementById('chatUserNameInput');
     if (userNameInput) {
         userNameInput.value = '';
@@ -1465,7 +1364,6 @@ function openUserNameModal() {
     userNameModal.style.display = 'flex';
 }
 
-// Mở modal phòng chat
 function openChatRoomModal(userName) {
     let chatModal = document.getElementById('chatRoomModal');
     
@@ -1493,7 +1391,7 @@ function openChatRoomModal(userName) {
         chatHeader.style.alignItems = 'center';
         
         const chatTitle = document.createElement('h3');
-        chatTitle.textContent = 'Chat Nhóm Sinh Nhật';
+        chatTitle.textContent = '誕生日グループチャット';
         chatTitle.style.margin = '0';
         chatTitle.style.fontSize = '1.2em';
         
@@ -1549,7 +1447,7 @@ function openChatRoomModal(userName) {
         const messageInput = document.createElement('input');
         messageInput.id = 'chatMessageInput';
         messageInput.type = 'text';
-        messageInput.placeholder = 'Nhập tin nhắn...';
+        messageInput.placeholder = 'メッセージを入力...';
         messageInput.style.flex = '1';
         messageInput.style.padding = '10px';
         messageInput.style.border = '2px solid #D4B08C';
@@ -1570,7 +1468,6 @@ function openChatRoomModal(userName) {
         sendBtn.style.cursor = 'pointer';
         sendBtn.style.fontSize = '1.1em';
         
-        // Xử lý gửi tin nhắn
         const sendMessage = () => {
             const messageText = messageInput.value.trim();
             
@@ -1588,6 +1485,8 @@ function openChatRoomModal(userName) {
             }
         });
         
+        messageInput.placeholder = 'Enter your message...';
+        
         chatInput.appendChild(messageInput);
         chatInput.appendChild(sendBtn);
         
@@ -1597,14 +1496,12 @@ function openChatRoomModal(userName) {
         
         document.body.appendChild(chatModal);
         
-        // Tải lịch sử chat
         loadChatHistory();
     }
     
     chatModal.style.display = 'flex';
 }
 
-// Tải lịch sử chat
 async function loadChatHistory() {
     try {
     const chatMessages = document.getElementById('chatMessages');
@@ -1613,7 +1510,6 @@ async function loadChatHistory() {
         
         chatMessages.innerHTML = '';
         
-        // Lấy tin nhắn chat từ Supabase
         const { data: messages, error } = await supabase
             .from('chat_messages')
             .select('*')
@@ -1648,7 +1544,6 @@ async function loadChatHistory() {
                 senderSpan.style.marginBottom = '5px';
                 senderSpan.style.fontSize = '0.9em';
                 
-                // Format thời gian
                 const timeSpan = document.createElement('div');
                 const msgTime = new Date(msg.created_at);
                 timeSpan.textContent = msgTime.toLocaleTimeString();
@@ -1663,13 +1558,12 @@ async function loadChatHistory() {
                 chatMessages.appendChild(messageDiv);
             });
             
-            // Cuộn xuống tin nhắn mới nhất
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
     } catch (error) {
         console.error('Lỗi khi tải lịch sử chat:', error);
         
-        // Fallback to localStorage if Supabase fails
+
         const chatMessages = document.getElementById('chatMessages');
         const messagesData = localStorage.getItem('birthdayChatMessages');
         
@@ -1700,7 +1594,6 @@ async function loadChatHistory() {
                 senderSpan.style.marginBottom = '5px';
                 senderSpan.style.fontSize = '0.9em';
                 
-                // Format thời gian
                 const timeSpan = document.createElement('div');
                 const msgTime = new Date(msg.created_at);
                 timeSpan.textContent = msgTime.toLocaleTimeString();
@@ -1715,26 +1608,20 @@ async function loadChatHistory() {
                 chatMessages.appendChild(messageDiv);
             });
             
-            // Cuộn xuống tin nhắn mới nhất
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
     }
 }
 
-// Gửi tin nhắn chat
 async function sendChatMessage(sender, text) {
     try {
-        // Tạo dữ liệu tin nhắn
         const messageData = { 
             sender: sender,
             text: text,
             created_at: new Date().toISOString()
         };
         
-        // Hiển thị tin nhắn ngay lập tức trên giao diện
         appendNewChatMessage(messageData);
-        
-        // Lưu tin nhắn vào Supabase
         const { data, error } = await supabase
             .from('chat_messages')
             .insert([messageData]);
@@ -1743,9 +1630,7 @@ async function sendChatMessage(sender, text) {
         
         return true;
     } catch (error) {
-        console.error('Lỗi khi gửi tin nhắn:', error);
-        
-        // Fallback to localStorage if Supabase fails
+        console.error('メッセージ送信エラー:', error);
         const chatMessages = JSON.parse(localStorage.getItem('birthdayChatMessages') || '[]');
         chatMessages.push({
             sender: sender,
@@ -1758,28 +1643,24 @@ async function sendChatMessage(sender, text) {
     }
 }
 
-// Thiết lập kênh real-time cho chat
 function setupChatRealtime() {
     try {
-        // Thiết lập real-time subscription
         const chatChannel = supabase
             .channel('public:chat_messages')
             .on('postgres_changes', 
                 { event: 'INSERT', schema: 'public', table: 'chat_messages' },
                 (payload) => {
-                    // Thêm tin nhắn mới vào giao diện
                     appendNewChatMessage(payload.new);
                 }
             )
             .subscribe();
             
-        console.log('Đã thiết lập kênh real-time cho chat');
+        console.log('チャット用リアルタイムチャンネルを設定しました');
     } catch (error) {
-        console.error('Lỗi khi thiết lập real-time cho chat:', error);
+        console.error('チャットリアルタイム設定エラー:', error);
     }
 }
 
-// Thêm tin nhắn mới vào giao diện chat
 function appendNewChatMessage(message) {
     const chatMessages = document.getElementById('chatMessages');
     if (!chatMessages) return;
@@ -1822,19 +1703,16 @@ function appendNewChatMessage(message) {
     
     chatMessages.appendChild(messageDiv);
     
-    // Cuộn xuống tin nhắn mới nhất
     chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
-// Khởi tạo tính năng mời bạn bè
 function initInviteFriends() {
-    // Thêm nút Mời Bạn Bè vào trang
     const container = document.querySelector('.container');
     
     if (container) {
         const inviteButton = document.createElement('button');
         inviteButton.id = 'inviteFriendsBtn';
-        inviteButton.textContent = '👥 Mời Bạn Bè';
+        inviteButton.textContent = '👥 友達を招待';
         inviteButton.classList.add('feature-button');
         inviteButton.style.position = 'fixed';
         inviteButton.style.bottom = '70px';
@@ -1847,7 +1725,6 @@ function initInviteFriends() {
     }
 }
 
-// Mở modal mời bạn bè
 function openInviteModal() {
     let inviteModal = document.getElementById('inviteModal');
     
@@ -1888,45 +1765,44 @@ function openInviteModal() {
         });
         
         const title = document.createElement('h2');
-        title.textContent = 'Mời Bạn Bè Tham Gia';
+        title.textContent = '友達を招待して参加してもらいましょう';
         title.style.color = '#854D27';
         title.style.marginBottom = '20px';
         title.style.fontFamily = '\'DM Serif Display\', serif';
         
         const description = document.createElement('p');
-        // Lấy thông tin người sinh nhật gần nhất và ngày sinh nhật
         const nextBirthdayPerson = localStorage.getItem('nextBirthdayPerson');
         const nextBirthdayDate = localStorage.getItem('nextBirthdayDate');
         
-        let birthdayPersonName = 'người thân yêu';
+        let birthdayPersonName = '大切な人';
         let birthdayDateText = '';
         
         if (nextBirthdayPerson) {
             try {
                 const person = JSON.parse(nextBirthdayPerson);
-                birthdayPersonName = person.name || 'người thân yêu';
+                birthdayPersonName = person.name || '大切な人';
             } catch (e) {
-                console.error('Lỗi khi đọc thông tin người sinh nhật:', e);
+                console.error('誕生日情報読み込みエラー:', e);
             }
         }
         
         if (nextBirthdayDate) {
             try {
                 const date = new Date(nextBirthdayDate);
-                birthdayDateText = ` vào ngày ${date.getDate()}/${date.getMonth() + 1}`;
+                birthdayDateText = ` ${date.getMonth() + 1}月${date.getDate()}日に`;
             } catch (e) {
-                console.error('Lỗi khi đọc ngày sinh nhật:', e);
+                console.error('誕生日読み込みエラー:', e);
             }
         }
         
-        description.textContent = `Gửi lời mời đến bạn bè để cùng tham gia chúc mừng sinh nhật ${birthdayPersonName}${birthdayDateText}!`;
+        description.textContent = `友達を招待して${birthdayPersonName}の誕生日${birthdayDateText}一緒にお祝いしましょう！みんなで素敵な思い出を作り、心のこもったお祝いのメッセージを送りましょう。`;
         description.style.marginBottom = '20px';
         
         const linkSection = document.createElement('div');
         linkSection.style.marginBottom = '30px';
         
         const linkLabel = document.createElement('div');
-        linkLabel.textContent = 'Đường dẫn mời:';
+        linkLabel.textContent = '招待リンク：';
         linkLabel.style.fontWeight = 'bold';
         linkLabel.style.marginBottom = '10px';
         
@@ -1950,7 +1826,7 @@ function openInviteModal() {
         linkInput.style.color = '#2C1810';
         
         const copyBtn = document.createElement('button');
-        copyBtn.textContent = '📋 Sao chép';
+        copyBtn.textContent = '📋 コピー';
         copyBtn.style.padding = '10px 15px';
         copyBtn.style.background = '#854D27';
         copyBtn.style.color = '#FFF9F3';
@@ -1961,9 +1837,9 @@ function openInviteModal() {
         copyBtn.addEventListener('click', () => {
             linkInput.select();
             document.execCommand('copy');
-            copyBtn.textContent = '✓ Đã sao chép';
+            copyBtn.textContent = '✓ コピー完了';
             setTimeout(() => {
-                copyBtn.textContent = '📋 Sao chép';
+                copyBtn.textContent = '📋 コピー';
             }, 2000);
         });
         
@@ -1971,7 +1847,7 @@ function openInviteModal() {
         linkDisplay.appendChild(copyBtn);
         
         const shareLabel = document.createElement('div');
-        shareLabel.textContent = 'Chia sẻ qua:';
+        shareLabel.textContent = 'シェアする：';
         shareLabel.style.fontWeight = 'bold';
         shareLabel.style.marginBottom = '10px';
         shareLabel.style.marginTop = '20px';
@@ -2001,7 +1877,7 @@ function openInviteModal() {
             shareBtn.style.display = 'flex';
             shareBtn.style.justifyContent = 'center';
             shareBtn.style.alignItems = 'center';
-            shareBtn.title = `Chia sẻ qua ${platform.name}`;
+            shareBtn.title = `${platform.name}でシェア`;
             
             shareBtn.addEventListener('click', () => {
                 const link = linkInput.value;
@@ -2012,10 +1888,10 @@ function openInviteModal() {
                         shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(link)}`;
                         break;
                     case 'Twitter':
-                        shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(link)}&text=${encodeURIComponent('Tham gia chúc mừng sinh nhật với tôi!')}`;
+                        shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(link)}&text=${encodeURIComponent('一緒に誕生日をお祝いしましょう！')}`;
                         break;
                     case 'WhatsApp':
-                        shareUrl = `https://wa.me/?text=${encodeURIComponent('Tham gia chúc mừng sinh nhật với tôi! ' + link)}`;
+                        shareUrl = `https://wa.me/?text=${encodeURIComponent('一緒に誕生日をお祝いしましょう！ ' + link)}`;
                         break;
                 }
                 
@@ -2028,14 +1904,14 @@ function openInviteModal() {
         const emailSection = document.createElement('div');
         
         const emailLabel = document.createElement('div');
-        emailLabel.textContent = 'Gửi lời mời qua email:';
+        emailLabel.textContent = 'メールで招待状を送る：';
         emailLabel.style.fontWeight = 'bold';
         emailLabel.style.marginBottom = '10px';
         
         const emailInput = document.createElement('input');
         emailInput.id = 'inviteEmailInput';
         emailInput.type = 'email';
-        emailInput.placeholder = 'Email người nhận...';
+        emailInput.placeholder = '受信者のメールアドレス...';
         emailInput.style.width = '100%';
         emailInput.style.padding = '10px';
         emailInput.style.border = '2px solid #D4B08C';
@@ -2048,7 +1924,7 @@ function openInviteModal() {
         
         const messageInput = document.createElement('textarea');
         messageInput.id = 'inviteMessageInput';
-        messageInput.placeholder = 'Tin nhắn cá nhân (tùy chọn)...';
+        messageInput.placeholder = '個人メッセージ（任意）...';
         messageInput.style.width = '100%';
         messageInput.style.padding = '10px';
         messageInput.style.border = '2px solid #D4B08C';
@@ -2062,7 +1938,7 @@ function openInviteModal() {
         messageInput.style.minHeight = '100px';
         
         const sendEmailBtn = document.createElement('button');
-        sendEmailBtn.textContent = '📧 Gửi Lời Mời';
+        sendEmailBtn.textContent = '📧 招待状を送る';
         sendEmailBtn.style.padding = '10px 20px';
         sendEmailBtn.style.background = '#854D27';
         sendEmailBtn.style.color = '#FFF9F3';
@@ -2084,7 +1960,7 @@ function openInviteModal() {
                 emailInput.value = '';
                 messageInput.value = '';
             } else {
-                alert('Vui lòng nhập email người nhận!');
+                alert('受信者のメールアドレスを入力してください！');
             }
         });
         
@@ -2111,23 +1987,20 @@ function openInviteModal() {
     inviteModal.style.display = 'flex';
 }
 
-// Tạo liên kết mời
 function generateInviteLink() {
     return window.location.href;
 }
 
-// Gửi email mời
 function sendInviteEmail(email, message) {
     const link = generateInviteLink();
-    const subject = 'Lời mời tham gia chúc mừng sinh nhật';
-    const defaultMessage = 'Chào bạn,\n\nMình mời bạn tham gia để cùng chúc mừng sinh nhật! Hãy nhấn vào liên kết dưới đây để tham gia:\n\n';
+    const subject = '誕生日お祝いに参加しませんか';
+    const defaultMessage = 'こんにちは！\n\n誕生日のお祝いに一緒に参加しませんか？下記のリンクをクリックして参加してください：\n\n';
     const fullMessage = defaultMessage + link + (message ? '\n\n' + message : '');
     
     const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(fullMessage)}`;
     window.open(mailtoLink);
 }
 
-// Mở modal nhập tên người dùng cho chức năng quà tặng
 function openUserNameModalForGift() {
     let userNameModal = document.getElementById('userNameModal');
     
@@ -2168,7 +2041,7 @@ function openUserNameModalForGift() {
         });
         
         const title = document.createElement('h2');
-        title.textContent = 'Nhập Tên Của Bạn';
+        title.textContent = 'あなたの名前を入力してください';
         title.style.color = '#854D27';
         title.style.marginBottom = '20px';
         title.style.fontFamily = '\'DM Serif Display\', serif';
@@ -2176,7 +2049,7 @@ function openUserNameModalForGift() {
         const userNameInput = document.createElement('input');
         userNameInput.id = 'chatUserNameInput';
         userNameInput.type = 'text';
-        userNameInput.placeholder = 'Tên của bạn...';
+        userNameInput.placeholder = 'あなたの名前...';
         userNameInput.style.width = '100%';
         userNameInput.style.padding = '10px';
         userNameInput.style.border = '2px solid #D4B08C';
@@ -2188,7 +2061,7 @@ function openUserNameModalForGift() {
         userNameInput.style.color = '#2C1810';
         
         const submitBtn = document.createElement('button');
-        submitBtn.textContent = 'Xác Nhận';
+        submitBtn.textContent = '確認';
         submitBtn.style.padding = '10px 20px';
         submitBtn.style.background = '#854D27';
         submitBtn.style.color = '#FFF9F3';
@@ -2209,7 +2082,7 @@ function openUserNameModalForGift() {
                 userNameModal.style.display = 'none';
                 openVirtualGiftModal(userName);
             } else {
-                alert('Vui lòng nhập tên của bạn!');
+                alert('名前を入力してください！');
             }
         });
         
@@ -2222,7 +2095,6 @@ function openUserNameModalForGift() {
         document.body.appendChild(userNameModal);
     }
     
-    // Reset input field
     const userNameInput = document.getElementById('chatUserNameInput');
     if (userNameInput) {
         userNameInput.value = '';
@@ -2231,27 +2103,23 @@ function openUserNameModalForGift() {
     userNameModal.style.display = 'flex';
 }
 
-// Mở modal chọn quà tặng
 function openVirtualGiftModal(userName) {
     const virtualGiftModal = document.getElementById('virtualGiftModal');
     const giftSender = document.getElementById('giftSender');
     
     if (virtualGiftModal) {
-        // Điền sẵn tên người gửi nếu có
         if (giftSender && userName) {
             giftSender.value = userName;
         }
         
         virtualGiftModal.style.display = 'flex';
         
-        // Đảm bảo danh sách quà được tải
         loadGiftList();
     } else {
-        console.error('Không tìm thấy modal chọn quà tặng');
+        console.error('ギフト選択モーダルが見つかりません');
     }
 }
 
-// Mở modal nhập tên người dùng cho bảng tin chúc mừng
 function openUserNameModalForBulletin() {
     let userNameModal = document.getElementById('userNameModal');
     
@@ -2292,7 +2160,7 @@ function openUserNameModalForBulletin() {
         });
         
         const title = document.createElement('h2');
-        title.textContent = 'Nhập Tên Của Bạn';
+        title.textContent = 'あなたの名前を入力してください';
         title.style.color = '#854D27';
         title.style.marginBottom = '20px';
         title.style.fontFamily = '\'DM Serif Display\', serif';
@@ -2300,7 +2168,7 @@ function openUserNameModalForBulletin() {
         const userNameInput = document.createElement('input');
         userNameInput.id = 'chatUserNameInput';
         userNameInput.type = 'text';
-        userNameInput.placeholder = 'Tên của bạn...';
+        userNameInput.placeholder = 'あなたの名前...';
         userNameInput.style.width = '100%';
         userNameInput.style.padding = '10px';
         userNameInput.style.border = '2px solid #D4B08C';
@@ -2312,7 +2180,7 @@ function openUserNameModalForBulletin() {
         userNameInput.style.color = '#2C1810';
         
         const submitBtn = document.createElement('button');
-        submitBtn.textContent = 'Vào Bảng Tin';
+        submitBtn.textContent = '掲示板に参加';
         submitBtn.style.padding = '10px 20px';
         submitBtn.style.background = '#854D27';
         submitBtn.style.color = '#FFF9F3';
@@ -2336,7 +2204,7 @@ function openUserNameModalForBulletin() {
                     bulletinModal.style.display = 'flex';
                 }
             } else {
-                alert('Vui lòng nhập tên của bạn!');
+                alert('名前を入力してください！');
             }
         });
         
@@ -2349,7 +2217,6 @@ function openUserNameModalForBulletin() {
         document.body.appendChild(userNameModal);
     }
     
-    // Reset input field
     const userNameInput = document.getElementById('chatUserNameInput');
     if (userNameInput) {
         userNameInput.value = '';

@@ -579,4 +579,4 @@ function createGhosts(count, theme) {
         document.body.appendChild(ghost);
     }
     console.log('おばけエフェクトを作成:', theme);
-} 
+}
