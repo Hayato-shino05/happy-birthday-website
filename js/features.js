@@ -2201,7 +2201,6 @@ function initVirtualGift() {
     if (!virtualGiftModal) {
         console.error('virtualGiftModal要素が見つかりません');
         return;
-{{ ... }}
     }
     
     const closeVirtualGift = document.getElementById('closeVirtualGift');

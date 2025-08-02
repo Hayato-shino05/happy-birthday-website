@@ -5,135 +5,30 @@ const AlbumConfig = {
     itemOffset: 0,
     sortColumn: 'name',
     sortOrder: 'asc',
-    cacheExpiryTime: 60000, 
+    cacheExpiryTime: 60000,
     defaultErrorTimeout: 5000,
     defaultSuccessTimeout: 3000,
-    slideshowDelay: 3000,     
-    slideshowTransitionSpeed: 300 
+    slideshowDelay: 3000,
+    slideshowTransitionSpeed: 300
 };
 
 const AlbumStyles = {
-    photoItem: `
-        position: relative;
-        overflow: hidden;
-        cursor: pointer;
-        transition: transform 0.3s ease;
-    `,
-    photoItemHover: `
-        transform: scale(1.05);
-        z-index: 2;
-    `,
-    photoItemMedia: `
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    `,
-    playIcon: `
-        transition: all 0.3s ease;
-        pointer-events: auto;
-    `,
-    playIconHover: `
-        transform: translate(-50%, -50%) scale(1.2);
-        opacity: 1;
-    `,
-    modal: `
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0,0,0,0.9);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 9999;
-    `,
-    modalMedia: `
-        max-width: 90%;
-        max-height: 80vh;
-        object-fit: contain;
-        z-index: 10001;
-    `,
-    button: `
-        padding: 10px 20px;
-        background: #854D27;
-        color: #FFF9F3;
-        border: 2px solid #D4B08C;
-        cursor: pointer;
-        font-size: 1.1em;
-        border-radius: 0;
-        box-shadow: 2px 2px 0 #D4B08C;
-    `,
-    slideshowContainer: `
-        width: 100%;
-        height: 100%;
-        position: relative;
-        display: none;
-    `,
-    slideshowSlide: `
-        width: 100%;
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        position: absolute;
-        top: 0;
-        left: 0;
-        opacity: 0;
-        transition: opacity ${AlbumConfig.slideshowTransitionSpeed}ms ease-in-out;
-    `,
-    slideshowActiveSlide: `
-        opacity: 1;
-        z-index: 2;
-    `,
-    slideshowControls: `
-        position: absolute;
-        bottom: 20px;
-        left: 0;
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 20px;
-        z-index: 10;
-    `,
-    slideshowButton: `
-        padding: 10px 20px;
-        background: #854D27;
-        color: #FFF9F3;
-        border: 2px solid #D4B08C;
-        cursor: pointer;
-        font-size: 1.1em;
-        border-radius: 0;
-        box-shadow: 2px 2px 0 #D4B08C;
-        opacity: 0.7;
-        transition: opacity 0.3s;
-    `,
-    slideshowButtonHover: `
-        opacity: 1;
-    `,
-    slideshowNavigation: `
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 50px;
-        height: 50px;
-        background: rgba(133, 77, 39, 0.7);
-        color: #FFF;
-        font-size: 24px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        cursor: pointer;
-        z-index: 10;
-        border-radius: 50%;
-        opacity: 0.7;
-        transition: opacity 0.3s;
-    `,
-    slideshowNavigationHover: `
-        opacity: 1;
-        background: rgba(133, 77, 39, 0.9);
-    `
+    photoItem: `position: relative; overflow: hidden; cursor: pointer; transition: transform 0.3s ease;`,
+    photoItemHover: `transform: scale(1.05); z-index: 2;`,
+    photoItemMedia: `width: 100%; height: 100%; object-fit: cover;`,
+    playIcon: `transition: all 0.3s ease; pointer-events: auto;`,
+    playIconHover: `transform: translate(-50%, -50%) scale(1.2); opacity: 1;`,
+    modal: `position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.9); display: flex; justify-content: center; align-items: center; z-index: 9999;`,
+    modalMedia: `max-width: 90%; max-height: 80vh; object-fit: contain; z-index: 10001;`,
+    button: `padding: 10px 20px; background: #854D27; color: #FFF9F3; border: 2px solid #D4B08C; cursor: pointer; font-size: 1.1em; border-radius: 0; box-shadow: 2px 2px 0 #D4B08C;`,
+    slideshowContainer: `width: 100%; height: 100%; position: relative; display: none;`,
+    slideshowSlide: `width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; position: absolute; top: 0; left: 0; opacity: 0; transition: opacity ${AlbumConfig.slideshowTransitionSpeed}ms ease-in-out;`,
+    slideshowActiveSlide: `opacity: 1; z-index: 2;`,
+    slideshowControls: `position: absolute; bottom: 20px; left: 0; width: 100%; display: flex; justify-content: center; align-items: center; gap: 20px; z-index: 10;`,
+    slideshowButton: `padding: 10px 20px; background: #854D27; color: #FFF9F3; border: 2px solid #D4B08C; cursor: pointer; font-size: 1.1em; border-radius: 0; box-shadow: 2px 2px 0 #D4B08C; opacity: 0.7; transition: opacity 0.3s;`,
+    slideshowButtonHover: `opacity: 1;`,
+    slideshowNavigation: `position: absolute; top: 50%; transform: translateY(-50%); width: 50px; height: 50px; background: rgba(133, 77, 39, 0.7); color: #FFF; font-size: 24px; display: flex; justify-content: center; align-items: center; cursor: pointer; z-index: 10; border-radius: 50%; opacity: 0.7; transition: opacity 0.3s;`,
+    slideshowNavigationHover: `opacity: 1; background: rgba(133, 77, 39, 0.9);`
 };
 
 const AlbumState = {
@@ -154,15 +49,36 @@ const AlbumState = {
     }
 };
 
+// スタイル初期化
+const albumStyle = document.createElement('style');
+albumStyle.textContent = `
+.photo-item { ${AlbumStyles.photoItem} }
+.photo-item:hover { ${AlbumStyles.photoItemHover} }
+.photo-item-media { ${AlbumStyles.photoItemMedia} }
+.play-icon { ${AlbumStyles.playIcon} }
+.photo-item:hover .play-icon { ${AlbumStyles.playIconHover} }
+#fullSizeMediaModal video { display: block; max-width: 90%; max-height: 80vh; }
+#fullSizeMediaModal button, #fullSizeMediaModal .caption { z-index: 10002; }
+.slideshow-container { ${AlbumStyles.slideshowContainer} }
+.slideshow-slide { ${AlbumStyles.slideshowSlide} }
+.slideshow-slide.active { ${AlbumStyles.slideshowActiveSlide} }
+.slideshow-controls { ${AlbumStyles.slideshowControls} }
+.slideshow-button { ${AlbumStyles.slideshowButton} }
+.slideshow-button:hover { ${AlbumStyles.slideshowButtonHover} }
+.slideshow-nav { ${AlbumStyles.slideshowNavigation} }
+.slideshow-nav:hover { ${AlbumStyles.slideshowNavigationHover} }
+.slideshow-prev { left: 20px; }
+.slideshow-next { right: 20px; }
+.slideshow-pagination { display: flex; gap: 10px; margin-top: 10px; }
+.slideshow-dot { width: 12px; height: 12px; border-radius: 50%; background: rgba(255,255,255,0.5); cursor: pointer; transition: background 0.3s; }
+.slideshow-dot.active { background: #FFF; }
+`;
+document.head.appendChild(albumStyle);
+
+// ユーティリティ関数
 function cleanupResources() {
-    if (AlbumState.observers.length > 0) {
-        AlbumState.observers.forEach(observer => {
-            if (observer && typeof observer.disconnect === 'function') {
-                observer.disconnect();
-            }
-        });
-        AlbumState.observers = [];
-    }
+    AlbumState.observers.forEach(observer => observer?.disconnect?.());
+    AlbumState.observers = [];
     
     if (AlbumState.slideshow.timer) {
         clearTimeout(AlbumState.slideshow.timer);
@@ -172,153 +88,62 @@ function cleanupResources() {
     invalidateCache();
 }
 
-const albumStyle = document.createElement('style');
-albumStyle.textContent = `
-.photo-item {
-    ${AlbumStyles.photoItem}
-}
-
-.photo-item:hover {
-    ${AlbumStyles.photoItemHover}
-}
-
-.photo-item-media {
-    ${AlbumStyles.photoItemMedia}
-}
-
-.play-icon {
-    ${AlbumStyles.playIcon}
-}
-
-.photo-item:hover .play-icon {
-    ${AlbumStyles.playIconHover}
-}
-
-#fullSizeMediaModal video {
-    display: block;
-    max-width: 90%;
-    max-height: 80vh;
-}
-
-#fullSizeMediaModal button,
-#fullSizeMediaModal .caption {
-    z-index: 10002;
-}
-
-.slideshow-container {
-    ${AlbumStyles.slideshowContainer}
-}
-
-.slideshow-slide {
-    ${AlbumStyles.slideshowSlide}
-}
-
-.slideshow-slide.active {
-    ${AlbumStyles.slideshowActiveSlide}
-}
-
-.slideshow-controls {
-    ${AlbumStyles.slideshowControls}
-}
-
-.slideshow-button {
-    ${AlbumStyles.slideshowButton}
-}
-
-.slideshow-button:hover {
-    ${AlbumStyles.slideshowButtonHover}
-}
-
-.slideshow-nav {
-    ${AlbumStyles.slideshowNavigation}
-}
-
-.slideshow-nav:hover {
-    ${AlbumStyles.slideshowNavigationHover}
-}
-
-.slideshow-prev {
-    left: 20px;
-}
-
-.slideshow-next {
-    right: 20px;
-}
-
-.slideshow-pagination {
-    display: flex;
-    gap: 10px;
-    margin-top: 10px;
-}
-
-.slideshow-dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.5);
-    cursor: pointer;
-    transition: background 0.3s;
-}
-
-.slideshow-dot.active {
-    background: #FFF;
-}
-`;
-document.head.appendChild(albumStyle);
-
-let swiperInstance = null;
-
-
-async function getMediaStats(bucket = AlbumConfig.mediaBucket, useCache = true) {
-    try {
-        const now = Date.now();
-        if (useCache && AlbumState.cacheTime > 0 && 
-            (now - AlbumState.cacheTime < AlbumConfig.cacheExpiryTime) && 
-            AlbumState.mediaFiles.length > 0) {
-            
-            return {
-                total: AlbumState.mediaFiles.length,
-                images: AlbumState.mediaFiles.filter(file => getFileType(file) === 'image').length,
-                videos: AlbumState.mediaFiles.filter(file => getFileType(file) === 'video').length,
-                fileList: AlbumState.mediaFiles.map(name => ({ name }))
-            };
-        }
-        
-        const { data, error } = await supabase
-            .storage
-            .from(bucket)
-            .list('', {
-                limit: AlbumConfig.itemLimit,
-                offset: (AlbumState.currentPage - 1) * AlbumState.itemsPerPage,
-                sortBy: { column: AlbumConfig.sortColumn, order: AlbumConfig.sortOrder }
-            });
-        
-        if (error) throw error;
-        
-        const filteredData = data.filter(file => file.name !== '.emptyFolderPlaceholder');
-        
-        const stats = {
-            total: filteredData.length,
-            images: filteredData.filter(file => file.name.match(/\.(jpg|jpeg|png|gif|webp)$/i)).length,
-            videos: filteredData.filter(file => file.name.match(/\.(mp4|webm|mov|avi)$/i)).length,
-            fileList: filteredData
-        };
-        
-        AlbumState.cacheTime = now;
-        
-        return stats;
-    } catch (error) {
-        handleError(error, "メディア統計の取得エラー");
-        throw error;
-    }
-}
-
 function invalidateCache() {
     AlbumState.cacheTime = 0;
     AlbumState.mediaFiles = [];
     AlbumState.mediaFilesLoaded = false;
 }
 
+function checkSupabaseInitialized() {
+    if (typeof supabase === 'undefined') {
+        handleError(new Error('Supabaseが初期化されていません'), 'データベース接続エラー', true);
+        return false;
+    }
+    return true;
+}
+
+function getFileType(fileName) {
+    return fileName.match(/\.(mp4|webm|mov|avi)$/i) ? 'video' : 'image';
+}
+
+function getMediaPath(fileName) {
+    return `${AlbumConfig.supabaseStorageUrl}${fileName}`;
+}
+
+function createElementWithStyles(type, styles = {}, attributes = {}, textContent = '', clickHandler = null) {
+    const element = document.createElement(type);
+    
+    Object.assign(element.style, styles);
+    
+    Object.entries(attributes).forEach(([attr, value]) => {
+        if (attr === 'className' || attr === 'class') {
+            element.className = value;
+        } else {
+            element.setAttribute(attr, value);
+        }
+    });
+    
+    if (textContent) element.textContent = textContent;
+    if (clickHandler) element.addEventListener('click', clickHandler);
+    
+    return element;
+}
+
+function createButton(text, styles = {}, clickHandler = null, attributes = {}) {
+    return createElementWithStyles('button', {
+        padding: '10px 20px',
+        background: '#854D27',
+        color: '#FFF9F3',
+        border: '2px solid #D4B08C',
+        cursor: 'pointer',
+        borderRadius: '0',
+        boxShadow: '2px 2px 0 #D4B08C',
+        fontSize: '1.1em',
+        ...styles
+    }, attributes, text, clickHandler);
+}
+
+// ローディング関数
 function showLoadingProgress(message, progress = -1) {
     let loadingElement = document.getElementById('albumLoadingProgress');
     
@@ -380,36 +205,164 @@ function hideLoadingProgress() {
     const loadingElement = document.getElementById('albumLoadingProgress');
     if (loadingElement) {
         loadingElement.style.opacity = '0';
-        setTimeout(() => {
-            if (loadingElement.parentNode) {
-                loadingElement.parentNode.removeChild(loadingElement);
-            }
-        }, 500);
+        setTimeout(() => loadingElement.remove(), 500);
     }
 }
 
-function checkSupabaseInitialized() {
-    if (typeof supabase === 'undefined') {
-        handleError(new Error('Supabaseが初期化されていません'), 'データベース接続エラー', true);
+// メディア関連関数
+async function getMediaStats(bucket = AlbumConfig.mediaBucket, useCache = true) {
+    try {
+        const now = Date.now();
+        if (useCache && AlbumState.cacheTime > 0 && 
+            (now - AlbumState.cacheTime < AlbumConfig.cacheExpiryTime) && 
+            AlbumState.mediaFiles.length > 0) {
+            
+            return {
+                total: AlbumState.mediaFiles.length,
+                images: AlbumState.mediaFiles.filter(file => getFileType(file) === 'image').length,
+                videos: AlbumState.mediaFiles.filter(file => getFileType(file) === 'video').length,
+                fileList: AlbumState.mediaFiles.map(name => ({ name }))
+            };
+        }
+        
+        const { data, error } = await supabase
+            .storage
+            .from(bucket)
+            .list('', {
+                limit: AlbumConfig.itemLimit,
+                offset: (AlbumState.currentPage - 1) * AlbumState.itemsPerPage,
+                sortBy: { column: AlbumConfig.sortColumn, order: AlbumConfig.sortOrder }
+            });
+        
+        if (error) throw error;
+        
+        const filteredData = data.filter(file => file.name !== '.emptyFolderPlaceholder');
+        
+        const stats = {
+            total: filteredData.length,
+            images: filteredData.filter(file => file.name.match(/\.(jpg|jpeg|png|gif|webp)$/i)).length,
+            videos: filteredData.filter(file => file.name.match(/\.(mp4|webm|mov|avi)$/i)).length,
+            fileList: filteredData
+        };
+        
+        AlbumState.cacheTime = now;
+        return stats;
+    } catch (error) {
+        handleError(error, "メディア統計の取得エラー");
+        throw error;
+    }
+}
+
+function createMediaElement(mediaPath, fileName, mediaType) {
+    if (mediaType === 'video') {
+        return createElementWithStyles('video', {}, {
+            className: 'photo-item-media',
+            src: mediaPath,
+            controls: false,
+            muted: true,
+            loop: true,
+            preload: 'metadata'
+        });
+    } else {
+        const img = createElementWithStyles('img', {}, {
+            className: 'photo-item-media',
+            src: mediaPath,
+            alt: `Memory ${fileName}`,
+            loading: 'lazy'
+        });
+        
+        img.onerror = () => {
+            console.error(`画像を読み込めません: ${mediaPath}`);
+            img.src = 'data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%20preserveAspectRatio%3D%22none%22%3E%3Cpath%20fill%3D%22%23EEEEEE%22%20d%3D%22M0%200h400v300H0z%22%2F%3E%3Ctext%20fill%3D%22%23999999%22%20font-family%3D%22Arial%2CSans-serif%22%20font-size%3D%2230%22%20font-weight%3D%22bold%22%20dy%3D%22.3em%22%20x%3D%22200%22%20y%3D%22150%22%20text-anchor%3D%22middle%22%3E画像を読み込めません%3C%2Ftext%3E%3C%2Fsvg%3E';
+        };
+        
+        return img;
+    }
+}
+
+// タグ関連関数
+async function getMediaTags(mediaPath) {
+    try {
+        if (!checkSupabaseInitialized()) return [];
+
+        const { data, error } = await supabase
+            .from('media_tags')
+            .select('tags')
+            .eq('media_path', mediaPath)
+            .single();
+            
+        if (error) {
+            if (error.code === 'PGRST116') return [];
+            throw error;
+        }
+        
+        return data?.tags || [];
+    } catch (error) {
+        handleError(error, `メディア ${mediaPath} のタグ取得エラー`);
+        return [];
+    }
+}
+
+async function saveMediaTags(mediaPath, tagsInput) {
+    try {
+        if (!checkSupabaseInitialized()) return false;
+
+        const tags = tagsInput
+            .split(',')
+            .map(tag => tag.trim())
+            .filter(tag => tag !== '')
+            .slice(0, 5);
+        
+        const { data: existingTags, error: fetchError } = await supabase
+            .from('media_tags')
+            .select('*')
+            .eq('media_path', mediaPath);
+            
+        if (fetchError) throw fetchError;
+        
+        const operation = existingTags?.length > 0 
+            ? supabase.from('media_tags').update({ tags }).eq('media_path', mediaPath)
+            : supabase.from('media_tags').insert([{ media_path: mediaPath, tags }]);
+            
+        const { error } = await operation;
+        if (error) throw error;
+        
+        return true;
+    } catch (error) {
+        handleError(error, `メディア ${mediaPath} のタグ保存エラー`, true);
         return false;
     }
-    return true;
 }
 
+async function displayTags(container, mediaPath) {
+    try {
+        const tags = await getMediaTags(mediaPath);
+        
+        const existingTagsContainer = container.querySelector('.tags-container');
+        if (existingTagsContainer) container.removeChild(existingTagsContainer);
+        
+        if (tags?.length > 0) {
+            const tagsContainer = createElementWithStyles('div', {}, { className: 'tags-container' });
+            
+            tags.forEach(tag => {
+                const tagElement = createElementWithStyles('span', {}, { className: 'tag' }, tag);
+                tagsContainer.appendChild(tagElement);
+            });
+            
+            container.appendChild(tagsContainer);
+        }
+    } catch (error) {
+        handleError(error, `メディア ${mediaPath} のタグ表示エラー`);
+    }
+}
+
+// メインローディング関数
 async function loadAlbumMedia(forceRefresh = false) {
-    if (AlbumState.isLoadingMedia) {
-        return;
-    }
-    
-    if (!checkSupabaseInitialized()) {
-        return;
-    }
+    if (AlbumState.isLoadingMedia || !checkSupabaseInitialized()) return;
     
     AlbumState.isLoadingMedia = true;
     
     const gallery = document.getElementById('photoGallery');
-    const slideshowWrapper = document.getElementById('slideshowWrapper');
-    
     showLoadingProgress('アルバムデータを読み込み中...', 10);
     
     if (forceRefresh) {
@@ -421,27 +374,23 @@ async function loadAlbumMedia(forceRefresh = false) {
         const stats = await getMediaStats(AlbumConfig.mediaBucket, !forceRefresh);
         showLoadingProgress('データを受信しました...', 40);
         
+        // 統計情報の表示
         let statsInfo = document.getElementById('mediaStatsInfo');
+        const statsHTML = `<div style="text-align: center; padding: 5px; margin-bottom: 10px; background: #f8f8f8;">
+            <strong>アルバム統計:</strong> 合計 ${stats.total} ファイル (${stats.images} 画像, ${stats.videos} ビデオ)
+        </div>`;
+        
         if (!statsInfo) {
             statsInfo = createElementWithStyles('div', {}, { id: 'mediaStatsInfo' });
-            statsInfo.innerHTML = `<div style="text-align: center; padding: 5px; margin-bottom: 10px; background: #f8f8f8;">
-                <strong>アルバム統計:</strong> 合計 ${stats.total} ファイル (${stats.images} 画像, ${stats.videos} ビデオ)
-            </div>`;
-            
-            if (gallery.firstChild) {
-                gallery.insertBefore(statsInfo, gallery.firstChild);
-            } else {
-                gallery.appendChild(statsInfo);
-            }
+            statsInfo.innerHTML = statsHTML;
+            gallery.insertBefore(statsInfo, gallery.firstChild);
         } else {
-            statsInfo.innerHTML = `<div style="text-align: center; padding: 5px; margin-bottom: 10px; background: #f8f8f8;">
-                <strong>アルバム統計:</strong> 合計 ${stats.total} ファイル (${stats.images} 画像, ${stats.videos} ビデオ)
-            </div>`;
+            statsInfo.innerHTML = statsHTML;
         }
         
         const mediaFiles = stats.fileList;
         
-        if (!mediaFiles || mediaFiles.length === 0) {
+        if (!mediaFiles?.length) {
             const noDataMsg = createElementWithStyles('div', {
                 textAlign: 'center',
                 padding: '20px',
@@ -451,7 +400,6 @@ async function loadAlbumMedia(forceRefresh = false) {
             
             gallery.appendChild(noDataMsg);
             hideLoadingProgress();
-            AlbumState.isLoadingMedia = false;
             return;
         }
         
@@ -482,7 +430,7 @@ async function loadAlbumMedia(forceRefresh = false) {
             hideLoadingProgress();
         }
         
-        if (document.getElementById('slideshowContainer').style.display === 'block') {
+        if (document.getElementById('slideshowContainer')?.style.display === 'block') {
             renderSlideshow();
         }
     } catch (error) {
@@ -505,141 +453,9 @@ async function loadAlbumMedia(forceRefresh = false) {
     }
 }
 
-function getFileType(fileName) {
-    if (fileName.match(/\.(mp4|webm|mov|avi)$/i)) {
-        return 'video';
-    } else {
-        return 'image';
-    }
-}
-
-function createMediaElement(mediaPath, fileName, mediaType) {
-    if (mediaType === 'video') {
-        const video = createElementWithStyles('video', {}, {
-            className: 'photo-item-media',
-            src: mediaPath,
-            controls: false,
-            muted: true,
-            loop: true,
-            preload: 'metadata'
-        });
-        
-        return video;
-    } else {
-        const img = createElementWithStyles('img', {}, {
-            className: 'photo-item-media',
-            src: mediaPath,
-            alt: `Memory ${fileName}`,
-            loading: 'lazy'
-        });
-        
-        img.onerror = function() {
-            console.error(`画像を読み込めません: ${mediaPath}`);
-            img.src = 'data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%20preserveAspectRatio%3D%22none%22%3E%3Cpath%20fill%3D%22%23EEEEEE%22%20d%3D%22M0%200h400v300H0z%22%2F%3E%3Ctext%20fill%3D%22%23999999%22%20font-family%3D%22Arial%2CSans-serif%22%20font-size%3D%2230%22%20font-weight%3D%22bold%22%20dy%3D%22.3em%22%20x%3D%22200%22%20y%3D%22150%22%20text-anchor%3D%22middle%22%3E画像を読み込めません%3C%2Ftext%3E%3C%2Fsvg%3E';
-        };
-        
-        return img;
-    }
-}
-
-async function getMediaTags(mediaPath) {
-    try {
-        if (!checkSupabaseInitialized()) {
-            return [];
-        }
-
-        const { data, error } = await supabase
-            .from('media_tags')
-            .select('tags')
-            .eq('media_path', mediaPath)
-            .single();
-            
-        if (error) {
-            if (error.code === 'PGRST116') {
-                return [];
-            }
-            throw error;
-        }
-        
-        return data?.tags || [];
-    } catch (error) {
-        handleError(error, `メディア ${mediaPath} のタグ取得エラー`);
-        return [];
-    }
-}
-
-async function saveMediaTags(mediaPath, tagsInput) {
-    try {
-        if (!checkSupabaseInitialized()) {
-            return false;
-        }
-
-        const tags = tagsInput
-            .split(',')
-            .map(tag => tag.trim())
-            .filter(tag => tag !== '')
-            .slice(0, 5); 
-        
-        const { data: existingTags, error: fetchError } = await supabase
-            .from('media_tags')
-            .select('*')
-            .eq('media_path', mediaPath);
-            
-        if (fetchError) throw fetchError;
-        
-        let result;
-        if (existingTags && existingTags.length > 0) {
-            const { error: updateError } = await supabase
-                .from('media_tags')
-                .update({ tags: tags })
-                .eq('media_path', mediaPath);
-                
-            if (updateError) throw updateError;
-            result = true;
-        } else {
-            const { error: insertError } = await supabase
-                .from('media_tags')
-                .insert([{ media_path: mediaPath, tags: tags }]);
-                
-            if (insertError) throw insertError;
-            result = true;
-        }
-        
-        return result;
-    } catch (error) {
-        handleError(error, `メディア ${mediaPath} のタグ保存エラー`, true);
-        return false;
-    }
-}
-
-async function displayTags(container, mediaPath) {
-    try {
-        const tags = await getMediaTags(mediaPath);
-        
-        const existingTagsContainer = container.querySelector('.tags-container');
-        if (existingTagsContainer) {
-            container.removeChild(existingTagsContainer);
-        }
-        
-        if (tags && tags.length > 0) {
-            const tagsContainer = createElementWithStyles('div', {}, { className: 'tags-container' });
-            
-            tags.forEach(tag => {
-                const tagElement = createElementWithStyles('span', {}, { className: 'tag' }, tag);
-                tagsContainer.appendChild(tagElement);
-            });
-            
-            container.appendChild(tagsContainer);
-        }
-    } catch (error) {
-        handleError(error, `メディア ${mediaPath} のタグ表示エラー`);
-    }
-}
-
+// レンダリング関数
 function renderPhotoItem(index, gallery) {
-    if (index === '.emptyFolderPlaceholder') {
-        return;
-    }
+    if (index === '.emptyFolderPlaceholder') return;
     
     const photoContainer = createElementWithStyles('div', {}, {
         className: 'photo-item',
@@ -657,7 +473,6 @@ function renderPhotoItem(index, gallery) {
     photoContainer.appendChild(tagButton);
     
     const mediaPath = getMediaPath(index);
-    
     displayTags(photoContainer, `memory/${index}`);
     
     const mediaType = getFileType(index);
@@ -680,7 +495,7 @@ function renderPhotoItem(index, gallery) {
             cursor: 'pointer',
             zIndex: '5'
         }, { className: 'play-icon' }, '▶️', (e) => {
-            e.stopPropagation(); 
+            e.stopPropagation();
             openFullSizeMedia(video.src, index, 'video');
         });
         
@@ -713,6 +528,7 @@ function renderPhotoItem(index, gallery) {
     gallery.appendChild(photoContainer);
 }
 
+// スライドショー関数
 function toggleSlideshowMode(enabled) {
     const slideshowContainer = document.getElementById('slideshowContainer');
     const photoGallery = document.getElementById('photoGallery');
@@ -750,7 +566,7 @@ function renderSlideshow() {
 
     slideshowContainer.innerHTML = '';
     
-    if (!AlbumState.mediaFilesLoaded || !AlbumState.mediaFiles || AlbumState.mediaFiles.length === 0) {
+    if (!AlbumState.mediaFilesLoaded || !AlbumState.mediaFiles?.length) {
         slideshowContainer.innerHTML = '<div class="error-message">スライドショーで表示するデータがありません</div>';
         return;
     }
@@ -764,12 +580,13 @@ function renderSlideshow() {
     AlbumState.slideshow.slides.forEach((file, index) => {
         const slide = document.createElement('div');
         slide.className = 'slideshow-slide';
-        if (index === 0) slide.classList.add('active'); 
+        if (index === 0) slide.classList.add('active');
         slidesWrapper.appendChild(slide);
         
         renderSlideItem(file, slide);
     });
     
+    // ナビゲーションボタン
     const prevButton = document.createElement('div');
     prevButton.className = 'slideshow-nav slideshow-prev';
     prevButton.innerHTML = '&#10094;';
@@ -783,6 +600,7 @@ function renderSlideshow() {
     slideshowContainer.appendChild(prevButton);
     slideshowContainer.appendChild(nextButton);
     
+    // ページネーション
     const pagination = document.createElement('div');
     pagination.className = 'slideshow-pagination';
     
@@ -794,12 +612,13 @@ function renderSlideshow() {
         pagination.appendChild(dot);
     });
     
+    // コントロール
     const controls = document.createElement('div');
     controls.className = 'slideshow-controls';
     
     const playPauseBtn = document.createElement('button');
     playPauseBtn.className = 'slideshow-button';
-    playPauseBtn.textContent = 'Tạm dừng';
+    playPauseBtn.textContent = '一時停止';
     playPauseBtn.addEventListener('click', togglePlayPause);
     
     const closeBtn = document.createElement('button');
@@ -818,9 +637,7 @@ function renderSlideshow() {
 }
 
 function renderSlideItem(fileName, slide) {
-    if (!fileName || fileName === '.emptyFolderPlaceholder') {
-        return;
-    }
+    if (!fileName || fileName === '.emptyFolderPlaceholder') return;
     
     const mediaPath = getMediaPath(fileName);
     const mediaType = getFileType(fileName);
@@ -877,9 +694,7 @@ function renderSlideItem(fileName, slide) {
 function startSlideshow() {
     AlbumState.slideshow.isPlaying = true;
     
-    if (AlbumState.slideshow.timer) {
-        clearTimeout(AlbumState.slideshow.timer);
-    }
+    if (AlbumState.slideshow.timer) clearTimeout(AlbumState.slideshow.timer);
     
     AlbumState.slideshow.timer = setTimeout(() => {
         navigateSlideshow('next');
@@ -931,26 +746,18 @@ function goToSlide(index) {
     
     const slides = document.querySelectorAll('.slideshow-slide');
     slides.forEach((slide, i) => {
-        if (i === index) {
-            slide.classList.add('active');
-        } else {
-            slide.classList.remove('active');
-        }
+        slide.classList.toggle('active', i === index);
     });
     
     const dots = document.querySelectorAll('.slideshow-dot');
     dots.forEach((dot, i) => {
-        if (i === index) {
-            dot.classList.add('active');
-        } else {
-            dot.classList.remove('active');
-        }
+        dot.classList.toggle('active', i === index);
     });
     
     const videos = document.querySelectorAll('#slideshowContainer video');
     videos.forEach((video, i) => {
         const slide = video.closest('.slideshow-slide');
-        if (slide && slide.classList.contains('active')) {
+        if (slide?.classList.contains('active')) {
             video.play().catch(e => console.log('ビデオ自動再生が失敗しました'));
         } else {
             video.pause();
@@ -959,9 +766,7 @@ function goToSlide(index) {
     });
     
     if (AlbumState.slideshow.isPlaying) {
-        if (AlbumState.slideshow.timer) {
-            clearTimeout(AlbumState.slideshow.timer);
-        }
+        if (AlbumState.slideshow.timer) clearTimeout(AlbumState.slideshow.timer);
         
         AlbumState.slideshow.timer = setTimeout(() => {
             navigateSlideshow('next');
@@ -969,14 +774,10 @@ function goToSlide(index) {
     }
 }
 
-function initTags() {
-}
-
+// モーダル関数
 function createModal(id, styles = {}) {
     const existingModal = document.getElementById(id);
-    if (existingModal) {
-        existingModal.remove();
-    }
+    if (existingModal) existingModal.remove();
     
     const modal = createElementWithStyles('div', {
         position: 'fixed',
@@ -990,10 +791,9 @@ function createModal(id, styles = {}) {
         alignItems: 'center',
         zIndex: '9999',
         ...styles
-    }, { id: id });
+    }, { id });
     
     document.body.appendChild(modal);
-    
     return modal;
 }
 
@@ -1019,20 +819,6 @@ function createCloseButton(parentElement, closeHandler) {
     
     parentElement.appendChild(closeBtn);
     return closeBtn;
-}
-
-function createButton(text, styles = {}, clickHandler = null, attributes = {}) {
-    return createElementWithStyles('button', {
-        padding: '10px 20px',
-        background: '#854D27',
-        color: '#FFF9F3',
-        border: '2px solid #D4B08C',
-        cursor: 'pointer',
-        borderRadius: '0',
-        boxShadow: '2px 2px 0 #D4B08C',
-        fontSize: '1.1em',
-        ...styles
-    }, attributes, text, clickHandler);
 }
 
 function openFullSizeMedia(mediaUrl, mediaNumber, mediaType) {
@@ -1128,15 +914,11 @@ function openFullSizeMedia(mediaUrl, mediaNumber, mediaType) {
         modal.remove();
     });
 
-    mediaElement.addEventListener('click', (e) => {
-        e.stopPropagation();
-    });
+    mediaElement.addEventListener('click', (e) => e.stopPropagation());
 }
 
 function openTagModal(mediaIndex) {
-    const tagModal = createModal('tagModalCustom', {
-        display: 'flex'
-    });
+    const tagModal = createModal('tagModalCustom', { display: 'flex' });
     tagModal.dataset.mediaIndex = mediaIndex;
 
     const modalContent = createElementWithStyles('div', {
@@ -1211,11 +993,7 @@ function openTagModal(mediaIndex) {
     tagModal.appendChild(modalContent);
 
     getMediaTags(mediaIndex).then(tags => {
-        if (tags && tags.length > 0) {
-            tagInput.value = tags.join(', ');
-        } else {
-            tagInput.value = '';
-        }
+        tagInput.value = tags?.length > 0 ? tags.join(', ') : '';
     }).catch(error => {
         handleError(error, 'タグの取得エラー');
         tagInput.value = '';
@@ -1224,20 +1002,17 @@ function openTagModal(mediaIndex) {
     setTimeout(() => tagInput.focus(), 100);
 }
 
+// 検索機能
 async function searchMediaByTag(query) {
     try {
-        if (!checkSupabaseInitialized()) {
-            return;
-        }
+        if (!checkSupabaseInitialized()) return;
 
         const photoGallery = document.getElementById('photoGallery');
         const mediaItems = photoGallery.querySelectorAll('.photo-item');
         const searchTerm = query.toLowerCase().trim();
 
         if (searchTerm === '') {
-            mediaItems.forEach(item => {
-                item.style.display = 'block';
-            });
+            mediaItems.forEach(item => item.style.display = 'block');
             return;
         }
 
@@ -1265,9 +1040,7 @@ async function searchMediaByTag(query) {
 
         const photoGallery = document.getElementById('photoGallery');
         const mediaItems = photoGallery.querySelectorAll('.photo-item');
-        mediaItems.forEach(item => {
-            item.style.display = 'block';
-        });
+        mediaItems.forEach(item => item.style.display = 'block');
     }
 }
 
@@ -1282,15 +1055,16 @@ async function saveTags(mediaIndex, tagsInput) {
     }
 }
 
+// アップロード機能
 async function uploadMediaFile(file, fileName, statusElement) {
     try {
         if (!checkSupabaseInitialized()) {
-            throw new Error("Không thể kết nối tới Supabase");
+            throw new Error("Supabaseに接続できません");
         }
 
         statusElement.textContent = `アップロード中: ${file.name}`;
 
-        const maxSize = 10 * 1024 * 1024; 
+        const maxSize = 10 * 1024 * 1024;
         if (file.size > maxSize) {
             throw new Error(`ファイルサイズが大きすぎます (${(file.size/1024/1024).toFixed(2)}MB)。上限は ${maxSize/1024/1024}MB です。`);
         }
@@ -1305,7 +1079,6 @@ async function uploadMediaFile(file, fileName, statusElement) {
             .upload(fileName, file);
 
         if (error) throw error;
-
         return true;
     } catch (error) {
         handleError(error, `ファイル ${fileName} のアップロードエラー`, true);
@@ -1337,24 +1110,18 @@ function updateUploadStatus(notification, message, type = 'progress') {
         notification.style.backgroundColor = '#d4edda';
         notification.style.borderColor = '#c3e6cb';
         notification.style.color = '#155724';
-
-        setTimeout(() => {
-            notification.remove();
-        }, AlbumConfig.defaultSuccessTimeout);
+        setTimeout(() => notification.remove(), AlbumConfig.defaultSuccessTimeout);
     } else if (type === 'error') {
         notification.style.backgroundColor = '#f8d7da';
         notification.style.borderColor = '#f5c6cb';
         notification.style.color = '#721c24';
-
-        setTimeout(() => {
-            notification.remove();
-        }, AlbumConfig.defaultErrorTimeout);
+        setTimeout(() => notification.remove(), AlbumConfig.defaultErrorTimeout);
     }
 }
 
 async function handleFileUpload(event) {
     const files = event.target.files;
-    if (!files || files.length === 0) return;
+    if (!files?.length) return;
 
     const uploadStatus = createUploadStatusNotification();
     updateUploadStatus(uploadStatus, `${files.length}個のファイルのアップロードを準備中...`);
@@ -1374,12 +1141,7 @@ async function handleFileUpload(event) {
             updateUploadStatus(uploadStatus, `アップロード中 (${i+1}/${files.length}): ${file.name}`);
 
             const success = await uploadMediaFile(file, fileName, uploadStatus);
-
-            if (success) {
-                successCount++;
-            } else {
-                failedCount++;
-            }
+            success ? successCount++ : failedCount++;
         }
 
         let message = `${successCount}個のファイルのアップロードが成功しました！`;
@@ -1388,7 +1150,6 @@ async function handleFileUpload(event) {
         }
 
         updateUploadStatus(uploadStatus, message, 'success');
-
         loadAlbumMedia();
     } catch (error) {
         updateUploadStatus(uploadStatus, `エラー: ${error.message || 'ファイルをアップロードできません'}`, 'error');
@@ -1411,7 +1172,7 @@ function addUploadButton(gallery) {
         className: 'photo-item-media'
     });
 
-    const uploadIcon = createElementWithStyles('div', {}, {});
+    const uploadIcon = createElementWithStyles('div', {});
     uploadIcon.innerHTML = '<img src="assets/icon/upload.png" alt="アップロード Icon" style="width: 100px; height: 100px;">';
 
     const uploadText = createElementWithStyles('div', {
@@ -1449,76 +1210,91 @@ function addUploadButton(gallery) {
 
     uploadContainer.style.border = '2px dashed #D4B08C';
 
-    uploadContainer.addEventListener('click', () => {
-        fileInput.click();
-    });
-
+    uploadContainer.addEventListener('click', () => fileInput.click());
     fileInput.addEventListener('change', handleFileUpload);
 
     gallery.appendChild(uploadContainer);
 }
 
-function getMediaPath(fileName) {
-    return `${AlbumConfig.supabaseStorageUrl}${fileName}`;
-}
-
+// エラーハンドリング
 function handleError(error, message, showToUser = false) {
     console.error(`${message}:`, error);
 
     if (showToUser) {
-        const errorNotification = document.createElement('div');
-        errorNotification.style.position = 'fixed';
-        errorNotification.style.top = '20px';
-        errorNotification.style.left = '50%';
-        errorNotification.style.transform = 'translateX(-50%)';
-        errorNotification.style.backgroundColor = '#f8d7da';
-        errorNotification.style.borderColor = '#f5c6cb';
-        errorNotification.style.color = '#721c24';
-        errorNotification.style.padding = '15px 20px';
-        errorNotification.style.zIndex = '10000';
-        errorNotification.style.boxShadow = '0 0 15px rgba(0,0,0,0.2)';
-        errorNotification.textContent = `エラー: ${error.message || message}`;
+        const errorNotification = createElementWithStyles('div', {
+            position: 'fixed',
+            top: '20px',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            backgroundColor: '#f8d7da',
+            borderColor: '#f5c6cb',
+            color: '#721c24',
+            padding: '15px 20px',
+            zIndex: '10000',
+            boxShadow: '0 0 15px rgba(0,0,0,0.2)'
+        }, {}, `エラー: ${error.message || message}`);
 
         document.body.appendChild(errorNotification);
-
-        setTimeout(() => {
-            errorNotification.remove();
-        }, AlbumConfig.defaultErrorTimeout);
+        setTimeout(() => errorNotification.remove(), AlbumConfig.defaultErrorTimeout);
     }
 
-    return error; 
+    return error;
 }
 
-function createElementWithStyles(type, styles = {}, attributes = {}, textContent = '', clickHandler = null) {
-    const element = document.createElement(type);
-
-    Object.entries(styles).forEach(([property, value]) => {
-        element.style[property] = value;
-    });
-    
-    Object.entries(attributes).forEach(([attr, value]) => {
-        if (attr === 'className' || attr === 'class') {
-            element.className = value;
-        } else {
-            element.setAttribute(attr, value);
-        }
-    });
-    
-    if (textContent) {
-        element.textContent = textContent;
+// UI表示関数
+function showPhotoAlbum() {
+    const memoryWall = document.getElementById('memoryWall');
+    if (memoryWall) {
+        Object.assign(memoryWall.style, {
+            position: 'fixed',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: '80%',
+            height: '80%',
+            background: '#FFF9F3',
+            border: '2px solid #D4B08C',
+            zIndex: '2000',
+            padding: '20px',
+            overflowY: 'auto',
+            boxShadow: '8px 8px 0 #D4B08C',
+            display: 'block',
+            opacity: '0',
+            transition: 'opacity 0.3s ease'
+        });
+        
+        setTimeout(() => memoryWall.style.opacity = '1', 10);
+    } else {
+        console.error('#memoryWall要素が見つかりません');
     }
     
-    if (clickHandler) {
-        element.addEventListener('click', clickHandler);
-    }
-    
-    return element;
+    loadAlbumMedia();
 }
 
+function hidePhotoAlbum() {
+    const memoryWall = document.getElementById('memoryWall');
+    if (memoryWall) {
+        memoryWall.style.opacity = '0';
+        setTimeout(() => memoryWall.style.display = 'none', 300);
+    }
+}
+
+function addRefreshButton(gallery) {
+    const statsInfo = document.getElementById('mediaStatsInfo');
+    
+    if (statsInfo && !statsInfo.querySelector('button')) {
+        const refreshButton = createButton('🔄 再読み込み', {
+            padding: '5px 10px',
+            fontSize: '0.9em',
+            margin: '0 10px'
+        }, () => loadAlbumMedia(true));
+        
+        statsInfo.firstChild.appendChild(refreshButton);
+    }
+}
+
+// 初期化関数
 function initPhotoAlbum() {
-
-    initTags();
-    
     const openAlbumButton = document.getElementById('openAlbum');
     if (openAlbumButton) {
         openAlbumButton.addEventListener('click', showPhotoAlbum);
@@ -1526,32 +1302,30 @@ function initPhotoAlbum() {
     
     const slideshowBtn = document.getElementById('slideshowBtn');
     if (slideshowBtn) {
-        slideshowBtn.addEventListener('click', () => {
-            toggleSlideshowMode(true);
-        });
+        slideshowBtn.addEventListener('click', () => toggleSlideshowMode(true));
     }
     
     const closeSlideBtn = document.getElementById('closeSlideshow');
     if (closeSlideBtn) {
-        closeSlideBtn.addEventListener('click', () => {
-            toggleSlideshowMode(false);
-        });
+        closeSlideBtn.addEventListener('click', () => toggleSlideshowMode(false));
     }
     
     const closeAlbumBtn = document.createElement('button');
     closeAlbumBtn.id = 'closeAlbum';
     closeAlbumBtn.textContent = 'アルバムを閉じる';
     closeAlbumBtn.className = 'close-album-btn';
-    closeAlbumBtn.style.position = 'absolute';
-    closeAlbumBtn.style.top = '10px';
-    closeAlbumBtn.style.right = '10px';
-    closeAlbumBtn.style.padding = '10px 15px';
-    closeAlbumBtn.style.background = '#854D27';
-    closeAlbumBtn.style.color = '#FFF9F3';
-    closeAlbumBtn.style.border = '2px solid #D4B08C';
-    closeAlbumBtn.style.borderRadius = '0';
-    closeAlbumBtn.style.cursor = 'pointer';
-    closeAlbumBtn.style.zIndex = '1000';
+    Object.assign(closeAlbumBtn.style, {
+        position: 'absolute',
+        top: '10px',
+        right: '10px',
+        padding: '10px 15px',
+        background: '#854D27',
+        color: '#FFF9F3',
+        border: '2px solid #D4B08C',
+        borderRadius: '0',
+        cursor: 'pointer',
+        zIndex: '1000'
+    });
     closeAlbumBtn.addEventListener('click', hidePhotoAlbum);
     
     const memoryWall = document.getElementById('memoryWall');
@@ -1568,81 +1342,20 @@ function initPhotoAlbum() {
 
     const searchInput = document.getElementById('searchTags');
     if (searchInput) {
-        searchInput.addEventListener('input', (e) => {
-            searchMediaByTag(e.target.value);
-        });
+        searchInput.addEventListener('input', (e) => searchMediaByTag(e.target.value));
     }
 
     window.addEventListener('beforeunload', cleanupResources);
 }
 
-function showPhotoAlbum() {
-    const memoryWall = document.getElementById('memoryWall');
-    if (memoryWall) {
-        memoryWall.style.position = 'fixed';
-        memoryWall.style.top = '50%';
-        memoryWall.style.left = '50%';
-        memoryWall.style.transform = 'translate(-50%, -50%)';
-        memoryWall.style.width = '80%';
-        memoryWall.style.height = '80%';
-        memoryWall.style.background = '#FFF9F3';
-        memoryWall.style.border = '2px solid #D4B08C';
-        memoryWall.style.zIndex = '2000';
-        memoryWall.style.padding = '20px';
-        memoryWall.style.overflowY = 'auto';
-        memoryWall.style.boxShadow = '8px 8px 0 #D4B08C';
-        
-        memoryWall.style.display = 'block';
-        memoryWall.style.opacity = '0'; 
-        memoryWall.style.transition = 'opacity 0.3s ease';
-        
-        setTimeout(() => {
-            memoryWall.style.opacity = '1';
-        }, 10);
-    } else {
-        console.error('#memoryWall要素が見つかりません');
-    }
-    
-    loadAlbumMedia();
-}
-
-function hidePhotoAlbum() {
-    const memoryWall = document.getElementById('memoryWall');
-    if (memoryWall) {
-        memoryWall.style.opacity = '0';
-        setTimeout(() => {
-            memoryWall.style.display = 'none';
-        }, 300);
-    }
-}
-
-function addRefreshButton(gallery) {
-
-    const statsInfo = document.getElementById('mediaStatsInfo');
-    
-    if (statsInfo) {
-        const refreshButton = createButton('🔄 再読み込み', {
-            padding: '5px 10px',
-            fontSize: '0.9em',
-            margin: '0 10px'
-        }, () => {
-            loadAlbumMedia(true);
-        });
-        
-        if (!statsInfo.querySelector('button')) {
-            statsInfo.firstChild.appendChild(refreshButton);
-        }
-    }
-}
-
+// DOMContentLoaded イベント
 document.addEventListener('DOMContentLoaded', function() {
-
     if (document.getElementById('photoGallery')) {
         initPhotoAlbum();
     }
     
     const albumVersionKey = 'albumVersion';
-    const currentVersion = '1.2.0'; 
+    const currentVersion = '1.2.0';
     const storedVersion = localStorage.getItem(albumVersionKey);
     
     if (storedVersion !== currentVersion) {
