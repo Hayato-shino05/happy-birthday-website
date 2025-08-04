@@ -1051,11 +1051,6 @@
   color: #FF9800;
 }
 
-/* ========================================
- * Video Messages Display System
- * ======================================== */
-
-/* Video Messages Modal */
 .video-messages-modal {
   position: fixed;
   top: 0;
@@ -1073,33 +1068,28 @@
   display: flex;
 }
 
-/* Video Messages List */
 .video-messages-list {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-/* Video Loading Message */
 .video-loading-message {
   text-align: center;
   color: var(--community-primary);
 }
 
-/* Video No Messages */
 .video-no-messages {
   text-align: center;
   font-style: italic;
   color: var(--community-primary);
 }
 
-/* Video Error Message */
 .video-error-message {
   text-align: center;
   color: #FF0000;
 }
 
-/* Video Message Item */
 .video-message-item {
   background: #F5E6D8;
   padding: 20px;
@@ -1107,33 +1097,28 @@
   border-radius: 0 5px 5px 0;
 }
 
-/* Video Message Header */
 .video-message-header {
   display: flex;
   justify-content: space-between;
   margin-bottom: 15px;
 }
 
-/* Video Message Sender */
 .video-message-sender {
   font-weight: bold;
   color: var(--community-text);
 }
 
-/* Video Message Timestamp */
 .video-message-timestamp {
   font-size: 0.8em;
   color: var(--community-primary);
 }
 
-/* Video Message Player */
 .video-message-player {
   width: 100%;
   max-height: 400px;
   background-color: #000;
 }
 
-/* View Video Messages Button */
 .view-video-messages-btn {
   padding: 10px 20px;
   background: var(--community-primary);
@@ -1159,13 +1144,11 @@
   color: #FF0000;
 }
 
-/* Video Message Title */
 .video-message-title {
   margin: 0 0 10px 0;
   color: var(--community-primary);
 }
 
-/* Fullscreen Video Player */
 .video-fullscreen-container {
   position: fixed;
   top: 0;
@@ -1198,7 +1181,6 @@
   color: #ccc;
 }
 
-/* Chat Button Fixed Position */
 .chat-button-fixed {
   position: fixed;
   bottom: 20px;
@@ -1206,7 +1188,6 @@
   z-index: 100;
 }
 
-/* Invite Button Fixed Position */
 .invite-button-fixed {
   position: fixed;
   bottom: 70px;
@@ -1214,12 +1195,10 @@
   z-index: 100;
 }
 
-/* Chat Modal Expanded State */
 .chat-modal-expanded {
   height: 500px;
 }
 
-/* ビデオ送信者入力 */
 .video-sender-input {
   width: 100%;
   padding: 10px;
@@ -1432,18 +1411,3 @@
     opacity: 1;
   }
 }
-
-/* ========================================
- * 8. デバッグ用 - 開発時のみ使用
- * ======================================== */
-
-/* 開発時にコメントアウトを外してデバッグ */
-/*
-.modal-overlay {
-  border: 2px solid red !important;
-}
-
-.modal-content {
-  border: 2px solid blue !important;
-}
-*/

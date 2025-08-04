@@ -1,32 +1,63 @@
-# Birthday Celebration Website - Connections of Joy
+# Happy Birthday Website - Connecting Joy
 
-> **A creative open-source interactive website** to organize, remember, and share friends' birthdays in a fun and unique way! From countdowns to blowing out candles on a 2D cake, albums, mini-games, community chat, and seasonal interfaces, it provides an unforgettable experience!
+> A **creative open-source interactive website** to organize, remember, and share your friends' birthdays in a fun and unique way! From real-time countdown to 2D/3D cake candle blowing, photo & video albums, mini-games, real-time chat, and seasonal themes - creating unforgettable birthday experiences!
 
-[![日本語](https://img.shields.io/badge/lang-Japanese-blue)](README.md)
+[![日本語](https://img.shields.io/badge/lang-日本語-red)](README.md)
 
 <p align="center">
   <img src="https://img.shields.io/badge/Made%20with-❤️-ff69b4" alt="Made with Love">
   <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT">
-  <img src="https://img.shields.io/badge/Version-1.0-brightgreen" alt="Version 1.0">
+  <img src="https://img.shields.io/badge/Version-1.2.0-brightgreen" alt="Version 1.2.0">
+  <img src="https://img.shields.io/badge/Database-Supabase-green" alt="Supabase">
+  <img src="https://img.shields.io/badge/Framework-Vanilla_JS-yellow" alt="Vanilla JS">
 </p>
 
 ## Key Features
 
-| **Feature**                     | **Description**                                                                 |
-|---------------------------------|---------------------------------------------------------------------------------|
-| 🎉 **Birthday Countdown**       | Displays the remaining time until the next birthday in your group of friends.   |
-| 🎂 **Interactive Cake**         | A beautiful 2D cake with a button to blow out the candles.                      |
-| 📸 **Memorial Album**           | Manage memories by viewing, tagging, searching, and sharing photos/videos.      |
-| 🎮 **Interactive Games**        | Includes memory games and puzzle games.                                         |
-| 🎵 **Music Player**             | Plays fun birthday songs to create a celebratory atmosphere.                    |
-| 🎭 **Seasonal Interfaces**      | Automatically changes for spring/summer/autumn/winter, Christmas, New Year, Halloween, cherry blossom viewing, etc. |
-| 💬 **Community Features**       | Provides text, audio, video messages, virtual gifts, and a blessing bulletin board. |
-| 📹 **Video Message Recording**  | Records and saves birthday celebration videos using the device camera.          |
-| 🎈 **Interactive Effects**      | Adds liveliness with effects like blowing out candles, fireworks, and balloons. |
-| 📱 **Social Sharing**           | Easy sharing to popular social media platforms.                                 |
-| 🌐 **Multi-Language Support**   | Switchable interfaces in Japanese and English.                                  |
+### Core Features
+| **Feature**                  | **Description**                                                          |
+|------------------------------|--------------------------------------------------------------------------|
+| Real-time Countdown   | Fetch birthday data from Supabase and display real-time countdown to next birthday |
+| Interactive Cake      | Beautiful 2D/3D cake (using Three.js), microphone-enabled candle blowing |
+| Music Player          | Auto-play birthday songs, custom music upload functionality            |
+| Visual Effects        | Confetti, smoke effects, balloon animations, cake vibration effects    |
 
-## Project's Wonderful Benefits 💖
+### Album & Media Features
+| **Feature**                  | **Description**                                                          |
+|------------------------------|--------------------------------------------------------------------------|
+| Photo & Video Album   | Media management with Supabase Storage, tagging, search, slideshow     |
+| Tag System            | Tag media files, search and filter by tags                             |
+| Media Upload          | Direct photo & video upload (10MB limit, multiple files support)       |
+| Search Functionality  | Tag-based fast search, real-time filtering                             |
+
+### Games & Entertainment
+| **Feature**                  | **Description**                                                          |
+|------------------------------|--------------------------------------------------------------------------|
+| Memory Game           | Memory card game with score recording                                  |
+| Puzzle Game           | Jigsaw puzzle using photos, adjustable difficulty                      |
+| Birthday Quiz          | Customizable birthday-related quiz                                      |
+| Birthday Calendar     | Monthly birthday display, visual calendar interface                    |
+
+### Community & Social Features
+| **Feature**                  | **Description**                                                          |
+|------------------------------|--------------------------------------------------------------------------|
+| Real-time Chat        | Using Supabase real-time features, username management                 |
+| Celebration Board     | Public message posting, virtual gift sending                           |
+| Voice Messages        | Browser recording, voice message save & playback                       |
+| Video Messages        | Webcam recording, video message save & playback                        |
+| Virtual Gifts         | Digital gift selection & sending system                                |
+| Friend Invitation     | Email invitations, social media sharing                                |
+
+### Themes & Customization
+| **Feature**                  | **Description**                                                          |
+|------------------------------|--------------------------------------------------------------------------|
+| Seasonal Themes       | Auto-switch for Spring (cherry blossoms), Summer, Autumn (leaves), Winter (snow) |
+| Festival Themes       | Special themes for Christmas, Halloween, New Year, Obon, Tanabata, Hanami |
+| Video Backgrounds     | Theme-appropriate video backgrounds with fallback                       |
+| Particle Effects      | Falling leaves, petals, snow, lanterns, fireworks, bats animations     |
+| Multi-language Support | Full Japanese & English support, dynamic language switching           |
+
+## Project's Wonderful Benefits 
 
 1. **Strengthen Bonds of Friendship**:
    - Never forget a friend's birthday.
@@ -93,16 +124,25 @@ happy-birthday-website/
   ├── assets/         # Images and static resources
   ├── css/            # CSS files
   │   ├── base.css    # Basic CSS
+  │   ├── components.css # UI components
   │   ├── themes.css  # Theme-specific CSS
-  │   └── ...
+  │   ├── mobile.css  # Mobile responsive
+  │   ├── autumn-leaves.css # Autumn leaves effects
+  │   └── page/       # Page-specific CSS
+  │       ├── core.css     # Core functionality CSS
+  │       ├── album.css    # Album management CSS
+  │       ├── community.css # Community features CSS
+  │       ├── features.css # Interactive features CSS
+  │       └── themes.css   # Theme management CSS
   ├── js/             # JavaScript files
   │   ├── core.js     # Core functionality
   │   ├── album.js    # Album management
   │   ├── community.js # Community features
   │   ├── features.js # Interactive features
   │   ├── themes.js   # Theme management
-  │   └── ...
+  │   └── supabase-config.js # Supabase configuration
   ├── video/          # Background videos for themes
+  ├── package.json    # Node.js dependencies
   └── index.html      # Main page
 ```
 

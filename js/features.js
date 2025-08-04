@@ -159,7 +159,7 @@ function createSmokeEffect(x, y, z) {
                 Math.random() * 0.02 + 0.01,
                 (Math.random() - 0.5) * 0.01
             ),
-            life: 2.0,  // seconds
+            life: 2.0, 
             startTime: Date.now()
         };
         
@@ -212,7 +212,7 @@ function shakeObject(object) {
     
     const originalPosition = object.position.clone();
     const originalRotation = object.rotation.clone();
-    const shakeDuration = 1000; // ms
+    const shakeDuration = 1000; 
     const startTime = Date.now();
     
     function animateShake() {
@@ -250,7 +250,6 @@ function createConfetti() {
             confetti.style.left = Math.random() * 100 + 'vw';
             confetti.style.backgroundColor = getRandomColor();
 
-            // Add shape variations
             if (i % 4 === 0) {
                 confetti.style.borderRadius = '50%';
             } else if (i % 4 === 1) {
@@ -407,7 +406,6 @@ function initBirthdayQuiz() {
     let currentQuestionIndex = 0;
     let score = 0;
     
-    // Hiển thị câu hỏi
 function displayQuestion() {
         quizArea.innerHTML = '';
         if (currentQuestionIndex >= questions.length) {
@@ -453,7 +451,6 @@ function checkAnswer(selected, correct) {
     displayQuestion();
 }
 
-// Hàm mở lịch sinh nhật
 function openBirthdayCalendar() {
     let calendarModal = document.getElementById('birthdayCalendarModal');
     if (!calendarModal) {
@@ -781,7 +778,7 @@ function initPuzzleGame() {
     if (window.useLocalMedia) {
         imageUrl = `memory/${imageFile}`;
     } else {
-        const baseUrl = 'https://fmvqrwztdoyoworobsix.supabase.co/storage/v1/object/public/media/';
+        const baseUrl = 'your-supabase-link/storage/v1/object/public/media/';
         imageUrl = `${baseUrl}${imageFile}`;
     }
     
@@ -1299,7 +1296,6 @@ if (!recordModal) {
     recordControl.textContent = '';
     recordControl.className = 'record-btn';
     recordControl.addEventListener('click', toggleRecording);
-    // Hover effects handled by CSS
 
         const saveBtn = document.createElement('button');
         saveBtn.id = 'saveRecording';
@@ -1588,7 +1584,6 @@ function displayCustomMessage(message) {
         customMessageDisplay.textContent = message;
         customMessageDisplay.classList.add('show');
         
-        // Trigger animation
         customMessageDisplay.classList.add('animate-in');
     }
 }
@@ -2222,7 +2217,6 @@ function createBalloons() {
     for (let i = 0; i < totalBalloons; i++) {
         const balloon = document.createElement('div');
         balloon.className = 'balloon';
-        // Dynamic styles that need to be inline for randomization
         balloon.style.background = colors[Math.floor(Math.random() * colors.length)];
         balloon.style.left = `${Math.random() * 100}%`;
         balloon.style.animationDuration = `${Math.random() * 5 + 5}s`;

@@ -1,18 +1,18 @@
-/* ===== THEME EFFECTS CSS ===== */
+/* ===== テーマエフェクトCSS ===== */
 /**
- * CSS cho tất cả các hiệu ứng theme được tạo từ themes.js
- * Refactored từ inline styles để cải thiện maintainability
+ * themes.jsから作成されたすべてのテーマエフェクト用CSS
+ * メンテナンス性向上のためインラインスタイルからリファクタリング
  */
 
-/* === BASE THEME EFFECT CLASSES === */
+/* === ベーステーマエフェクトクラス === */
 .theme-effect {
     position: fixed;
     pointer-events: none;
     z-index: 1;
 }
 
-/* === KEYFRAME ANIMATIONS === */
-/* Falling animations */
+/* === キーフレームアニメーション === */
+/* 落下アニメーション */
 @keyframes fall {
     0% {
         transform: translateY(0);
@@ -79,14 +79,14 @@
     }
 }
 
-/* === SUN GLARE EFFECT === */
+/* === 太陽のまぶしさエフェクト === */
 .theme-effect.sun-glare {
     background: radial-gradient(circle, rgba(255, 255, 0, 0.3) 0%, transparent 70%);
     border-radius: 50%;
     animation: twinkle 2s ease-in-out infinite;
 }
 
-/* === BAT EFFECT === */
+/* === コウモリエフェクト === */
 .theme-effect.bat {
     background: #000;
     border-radius: 50% 10px 50% 10px;
@@ -117,7 +117,7 @@
     transform: translateY(-50%);
 }
 
-/* === PETAL EFFECT === */
+/* === 花びらエフェクト === */
 .theme-effect.petal {
     background: linear-gradient(45deg, #FFB6C1, #FFC0CB, #FFCCCB);
     border-radius: 50% 0 50% 0;
@@ -125,14 +125,14 @@
     opacity: 0.8;
 }
 
-/* === LEAF EFFECT === */
+/* === 葉っぱエフェクト === */
 .theme-effect.leaf {
-    /* Background color will be set dynamically for variety */
-    /* Border radius will be set dynamically for different leaf shapes */
+    /* 背景色はバリエーションのため動的に設定されます */
+    /* 異なる葉の形状のためボーダー半径は動的に設定されます */
     animation: fall 7s linear infinite, sway 2s ease-in-out infinite, rotate 3s linear infinite;
 }
 
-/* === SNOWFLAKE EFFECT === */
+/* === 雪の結晶エフェクト === */
 .theme-effect.snowflake {
     background: #FFF;
     border-radius: 50%;
@@ -140,7 +140,7 @@
     box-shadow: 0 0 3px rgba(255, 255, 255, 0.8);
 }
 
-/* === LANTERN EFFECT === */
+/* === 提灯エフェクト === */
 .theme-effect.lantern {
     background: linear-gradient(to bottom, #FFD700 0%, #FF8C00 50%, #FF4500 100%);
     border-radius: 10px 10px 50% 50%;
@@ -159,7 +159,7 @@
     transform: translateX(-50%);
 }
 
-/* === CHRISTMAS LIGHT EFFECT === */
+/* === クリスマスライトエフェクト === */
 .theme-effect.christmas-light {
     width: 8px !important;
     height: 12px !important;
@@ -168,7 +168,7 @@
     box-shadow: 0 0 5px currentColor;
 }
 
-/* === FIREWORK EFFECT === */
+/* === 花火エフェクト === */
 .theme-effect.firework {
     width: 4px !important;
     height: 4px !important;
@@ -191,7 +191,7 @@
     }
 }
 
-/* === GHOST EFFECT === */
+/* === おばけエフェクト === */
 .theme-effect.ghost {
     background: rgba(255, 255, 255, 0.8);
     border-radius: 50% 50% 0 0;
@@ -230,7 +230,7 @@
     font-size: 0.8em;
 }
 
-/* === RESPONSIVE ADJUSTMENTS === */
+/* === レスポンシブ調整 === */
 @media (max-width: 768px) {
     .theme-effect {
         transform: scale(0.7);
@@ -253,14 +253,14 @@
     }
 }
 
-/* === PERFORMANCE OPTIMIZATIONS === */
+/* === パフォーマンス最適化 === */
 .theme-effect {
     will-change: transform, opacity;
     backface-visibility: hidden;
     transform-style: preserve-3d;
 }
 
-/* Reduce animations on low-end devices */
+/* 低スペックデバイスでのアニメーション減少 */
 @media (prefers-reduced-motion: reduce) {
     .theme-effect {
         animation-duration: 0.01ms !important;

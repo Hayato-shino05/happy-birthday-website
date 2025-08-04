@@ -1,10 +1,10 @@
-/* Features CSS - Extracted from features.js inline styles */
+/* フィーチャーCSS - features.jsのインラインスタイルから抽出 */
 
 /* =========================
-   FLAME AND CANDLE EFFECTS
+   炎とキャンドルエフェクト
    ========================= */
 
-/* Flame extinguish animation */
+/* 炎の消火アニメーション */
 .flame-extinguish {
     opacity: 0 !important;
     transform: translateX(-50%) scale(0.1) !important;
@@ -12,7 +12,7 @@
     transition: all 0.3s ease;
 }
 
-/* Blow button hide animation */
+/* 吹き消しボタン非表示アニメーション */
 .blow-button-hide {
     transition: all 0.5s ease;
     opacity: 0;
@@ -23,7 +23,7 @@
     display: none;
 }
 
-/* Audio feedback styling */
+/* オーディオフィードバックスタイル */
 .audio-feedback {
     position: fixed;
     top: 50%;
@@ -38,7 +38,7 @@
     border: 2px solid #D4B08C;
 }
 
-/* Progress container */
+/* プログレスコンテナ */
 .progress-container {
     position: fixed;
     bottom: 20px;
@@ -52,7 +52,7 @@
     border: 2px solid #D4B08C;
 }
 
-/* Birthday message styling */
+/* 誕生日メッセージスタイル */
 .birthday-message {
     position: fixed;
     top: 50%;
@@ -70,7 +70,7 @@
     box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
 
-/* Cake 2D animation effects */
+/* ケーキ2Dアニメーションエフェクト */
 .cake-2d-celebrate {
     animation: celebrate 2s ease-in-out;
 }
@@ -84,7 +84,7 @@
 }
 
 /* =========================
-   SMOKE EFFECTS
+   煙エフェクト
    ========================= */
 
 .smoke-particle {
@@ -97,7 +97,7 @@
     z-index: 1000;
 }
 
-/* Smoke animation keyframes */
+/* 煙アニメーションキーフレーム */
 @keyframes smokeRise {
     0% {
         opacity: 0.7;
@@ -118,7 +118,7 @@
 }
 
 /* =========================
-   CONFETTI EFFECTS
+   紙吹雪エフェクト
    ========================= */
 
 .confetti-particle {
@@ -129,7 +129,7 @@
     z-index: 9999;
 }
 
-/* Confetti fall animation */
+/* 紙吹雪落下アニメーション */
 @keyframes confettiFall {
     0% {
         transform: translateY(-100vh) rotate(0deg);
@@ -146,7 +146,7 @@
 }
 
 /* =========================
-   MODAL BASE STYLES
+   モーダルベーススタイル
    ========================= */
 
 .features-modal {
@@ -199,7 +199,7 @@
 }
 
 /* =========================
-   QUIZ MODAL STYLES
+   クイズモーダルスタイル
    ========================= */
 
 .quiz-modal-container {
@@ -272,7 +272,7 @@
 }
 
 /* =========================
-   CALENDAR MODAL STYLES
+   カレンダーモーダルスタイル
    ========================= */
 
 .calendar-modal-container {
@@ -308,7 +308,7 @@
 }
 
 /* =========================
-   MEMORY GAME STYLES
+   メモリーゲームスタイル
    ========================= */
 
 .memory-game-container {
@@ -369,7 +369,7 @@
 }
 
 /* =========================
-   PUZZLE GAME STYLES
+   パズルゲームスタイル
    ========================= */
 
 .puzzle-game-container {
@@ -427,7 +427,7 @@
 }
 
 /* =========================
-   PUZZLE GAME MODAL STYLES
+   パズルゲームモーダルスタイル
    ========================= */
 
 #puzzleGameModal {
@@ -553,7 +553,7 @@
 }
 
 /* =========================
-   E-CARD MODAL STYLES
+   Eカードモーダルスタイル
    ========================= */
 
 #eCardModal {
@@ -717,7 +717,7 @@
 }
 
 /* =========================
-MUSIC PLAYER STYLES
+音楽プレーヤースタイル
 ========================= */
 
 .music-select-btn {
@@ -812,7 +812,8 @@ color: #854D27;
 font-size: 1em;
 }
 
-/* ======================/* === CUSTOM MESSAGE MODAL === */
+/* ======================
+/* === カスタムメッセージモーダル === */
 .custom-message-input {
     width: 100%;
     padding: 10px;
@@ -854,7 +855,7 @@ transform: translate(-2px, -2px);
 box-shadow: 6px 6px 0 #D4B08C;
 }
 
-/* === RECORD MESSAGE MODAL === */
+/* === メッセージ録音モーダル === */
 #recordMessageModal {
 position: fixed;
 top: 0;
@@ -948,7 +949,7 @@ font-weight: bold;
     margin: 15px 0;
 }
 
-/* === UTILITY CLASSES === */
+/* === ユーティリティクラス === */
 
 .hidden {
 display: none !important;
@@ -973,7 +974,7 @@ animation: fadeIn 0.5s ease-in;
     to { opacity: 0; }
 }
 
-/* Responsive design */
+/* レスポンシブデザイン */
 @media (max-width: 768px) {
     .features-modal-container {
         width: 95%;
@@ -1003,7 +1004,7 @@ animation: fadeIn 0.5s ease-in;
     }
 }
 
-/* === AUDIO MESSAGES MODAL === */
+/* === オーディオメッセージモーダル === */
 .audio-messages-modal {
     position: fixed;
     top: 0;
@@ -1077,7 +1078,7 @@ animation: fadeIn 0.5s ease-in;
     font-style: italic;
 }
 
-/* === VIRTUAL GIFT COMPONENTS === */
+/* === バーチャルギフトコンポーネント === */
 .gift-item {
     padding: 10px;
     margin: 5px;
@@ -1113,7 +1114,7 @@ animation: fadeIn 0.5s ease-in;
     color: #854D27;
 }
 
-/* Virtual Gifts Modal */
+/* バーチャルギフトモーダル */
 .virtual-gifts-modal {
     position: fixed;
     top: 0;
@@ -1184,7 +1185,7 @@ animation: fadeIn 0.5s ease-in;
     padding: 20px;
 }
 
-/* === MUSIC SELECTION MODAL === */
+/* === 音楽選択モーダル === */
 .music-selection-modal {
     position: fixed;
     top: 0;
@@ -1256,7 +1257,7 @@ animation: fadeIn 0.5s ease-in;
     font-size: 1em;
 }
 
-/* Music Select Button */
+/* 音楽選択ボタン */
 .music-select-btn {
     margin-left: 10px;
     padding: 8px 12px;
@@ -1300,7 +1301,7 @@ animation: fadeIn 0.5s ease-in;
     }
 }
 
-/* Custom Message Display Animation */
+/* カスタムメッセージ表示アニメーション */
 #customMessageDisplay {
     transition: all 0.3s ease;
     opacity: 0;
@@ -1313,13 +1314,13 @@ animation: fadeIn 0.5s ease-in;
     width: 100%;
 }
 
-/* Record Button Hover Effects */
+/* 録音ボタンホバーエフェクト */
 .record-btn:hover {
     transform: translate(-2px, -2px);
     box-shadow: 6px 6px 0 #D4B08C;
 }
 
-/* === INVITE MODAL === */
+/* === 招待モーダル === */
 .invite-modal {
     position: fixed;
     top: 0;
@@ -1446,7 +1447,7 @@ animation: fadeIn 0.5s ease-in;
     font-size: 1.1em;
 }
 
-/* === AUDIO MESSAGE PLAYER === */
+/* === オーディオメッセージプレーヤー === */
 .audio-message-player {
     width: 100%;
     margin-top: 10px;

@@ -181,7 +181,6 @@ function initCustomMessage() {
             customMessageModal.classList.remove('show');
             openRecordMessageModal();
         });
-        // Hover effects được xử lý bằng CSS
         const modalContent = customMessageModal.querySelector('.modal-content');
         modalContent.appendChild(recordBtn);
     }
@@ -196,7 +195,6 @@ function initCustomMessage() {
             customMessageModal.classList.remove('show');
             openVideoMessageModal();
         });
-        // Hover effects được xử lý bằng CSS
         const modalContent = customMessageModal.querySelector('.modal-content');
         modalContent.appendChild(videoBtn);
     }
@@ -449,7 +447,6 @@ function openAudioMessagesModal(birthdayPerson) {
         messagesList.id = 'audioMessagesList';
         messagesList.className = 'audio-messages-list';
         
-        // Hiển thị thông báo đang tải
         const loadingMsg = document.createElement('p');
         loadingMsg.textContent = '音声メッセージを読み込み中...';
         loadingMsg.className = 'audio-loading-message';

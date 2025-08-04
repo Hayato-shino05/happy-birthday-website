@@ -392,7 +392,6 @@ function createSunGlare(theme) {
     for (let i = 0; i < 5; i++) {
         const glare = document.createElement('div');
         glare.className = 'theme-effect sun-glare';
-        // Dynamic styles for randomization
         glare.style.left = `${Math.random() * 80 + 10}vw`;
         glare.style.top = `${Math.random() * 50}vh`;
         glare.style.width = `${Math.random() * 100 + 50}px`;
@@ -408,7 +407,6 @@ function createBats(count, theme) {
     for (let i = 0; i < count; i++) {
         const bat = document.createElement('div');
         bat.className = 'theme-effect bat';
-        // Dynamic styles for randomization
         bat.style.left = `${Math.random() * 80 + 10}vw`;
         bat.style.top = `${Math.random() * 30 + 10}vh`;
         bat.style.width = `${Math.random() * 20 + 10}px`;
@@ -424,7 +422,6 @@ function createFallingPetals(count, theme) {
     for (let i = 0; i < count; i++) {
         const petal = document.createElement('div');
         petal.className = 'theme-effect petal';
-        // Dynamic styles for randomization
         petal.style.left = `${Math.random() * 100}vw`;
         petal.style.top = `${Math.random() * -50}vh`;
         petal.style.width = `${Math.random() * 10 + 5}px`;
@@ -443,7 +440,6 @@ function createFallingLeaves(count, theme) {
     for (let i = 0; i < count; i++) {
         const leaf = document.createElement('div');
         leaf.className = 'theme-effect leaf';
-        // Dynamic styles for randomization
         leaf.style.left = `${Math.random() * 100}vw`;
         leaf.style.top = `${Math.random() * -50}vh`;
         
@@ -468,7 +464,6 @@ function createFallingSnow(count, theme) {
     for (let i = 0; i < count; i++) {
         const snowflake = document.createElement('div');
         snowflake.className = 'theme-effect snowflake';
-        // Dynamic styles for randomization
         snowflake.style.left = `${Math.random() * 100}vw`;
         snowflake.style.top = `${Math.random() * -50}vh`;
         snowflake.style.width = `${Math.random() * 5 + 2}px`;
@@ -484,7 +479,6 @@ function createFloatingLanterns(count, theme) {
     for (let i = 0; i < count; i++) {
         const lantern = document.createElement('div');
         lantern.className = 'theme-effect lantern';
-        // Dynamic styles for randomization
         lantern.style.left = `${Math.random() * 80 + 10}vw`;
         lantern.style.top = `${Math.random() * 60 + 20}vh`;
         lantern.style.width = `${Math.random() * 20 + 10}px`;
@@ -500,7 +494,6 @@ function createChristmasLights(count, theme) {
     for (let i = 0; i < count; i++) {
         const light = document.createElement('div');
         light.className = 'theme-effect christmas-light';
-        // Dynamic styles for randomization
         light.style.left = `${Math.random() * 80 + 10}vw`;
         light.style.top = `${Math.random() * 30}vh`;
         light.style.backgroundColor = ['#FF0000', '#00FF00', '#FFFF00'][Math.floor(Math.random() * 3)];
@@ -516,7 +509,6 @@ function createFireworks(count, theme) {
         setTimeout(() => {
             const firework = document.createElement('div');
             firework.className = 'theme-effect firework';
-            // Dynamic styles for randomization
             firework.style.left = `${Math.random() * 80 + 10}vw`;
             firework.style.top = `${Math.random() * 50 + 20}vh`;
             firework.style.backgroundColor = ['#FF0000', '#FFD700', '#00FF00'][Math.floor(Math.random() * 3)];
@@ -533,7 +525,6 @@ function createGhosts(count, theme) {
     for (let i = 0; i < count; i++) {
         const ghost = document.createElement('div');
         ghost.className = 'theme-effect ghost';
-        // Dynamic styles for randomization
         ghost.style.left = `${Math.random() * 80 + 10}vw`;
         ghost.style.top = `${Math.random() * 60 + 20}vh`;
         ghost.style.width = `${Math.random() * 30 + 20}px`;

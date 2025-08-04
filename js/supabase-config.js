@@ -1,7 +1,8 @@
 // 基本的なSupabase設定ファイル
 
 // Supabase接続情報 - クライアントサイドJavaScriptで使用する固定値
-
+const SUPABASE_URL = 'your-supabase-link';
+const SUPABASE_KEY = 'your-supabase-key';
 // Supabaseクライアントの初期化
 let supabase;
 
