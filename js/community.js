@@ -46,18 +46,18 @@ function initBulletinBoard() {
             openUserNameModalForBulletin();
         } else {
             console.log('ユーザー名があります、掲示板を開く');
-            bulletinModal.style.display = 'flex';
+            bulletinModal.classList.add('show');
         }
     });
     
     closeBulletinBoard.addEventListener('click', () => {
         console.log('お祝い掲示板を閉じる');
-        bulletinModal.style.display = 'none';
+        bulletinModal.classList.remove('show');
     });
     
     bulletinModal.addEventListener('click', (e) => {
         if (e.target === bulletinModal) {
-            bulletinModal.style.display = 'none';
+            bulletinModal.classList.remove('show');
         }
     });
     
@@ -77,7 +77,7 @@ function initBulletinBoard() {
         submitPost.addEventListener('click', () => {
             const selectedGiftDisplay = document.getElementById('selectedGiftDisplay');
             
-            if (!selectedGiftDisplay || selectedGiftDisplay.style.display === 'none') {
+            if (!selectedGiftDisplay || !selectedGiftDisplay.classList.contains('show')) {
                 alert('送信前にギフトを選択してください！');
                 return;
             }
@@ -89,7 +89,7 @@ function initBulletinBoard() {
             }
             
             alert('ギフトを正常に送信しました！');
-            bulletinModal.style.display = 'none';
+            bulletinModal.classList.remove('show');
         });
     }
     
@@ -108,16 +108,16 @@ function initCustomMessage() {
             document.getElementById('senderNameInput').value = userName;
         }
         
-        customMessageModal.style.display = 'flex';
+        customMessageModal.classList.add('show');
     });
     
     closeCustomMessage.addEventListener('click', () => {
-        customMessageModal.style.display = 'none';
+        customMessageModal.classList.remove('show');
     });
     
     customMessageModal.addEventListener('click', (e) => {
         if (e.target === customMessageModal) {
-            customMessageModal.style.display = 'none';
+            customMessageModal.classList.remove('show');
         }
     });
     
@@ -127,15 +127,7 @@ function initCustomMessage() {
         senderNameInput.id = 'senderNameInput';
         senderNameInput.type = 'text';
         senderNameInput.placeholder = 'あなたのお名前...';
-        senderNameInput.style.width = '100%';
-        senderNameInput.style.padding = '10px';
-        senderNameInput.style.border = '2px solid #D4B08C';
-        senderNameInput.style.borderRadius = '0';
-        senderNameInput.style.marginBottom = '10px';
-        senderNameInput.style.fontFamily = '\'Old Standard TT\', serif';
-        senderNameInput.style.fontSize = '16px';
-        senderNameInput.style.background = '#FFF9F3';
-        senderNameInput.style.color = '#2C1810';
+        senderNameInput.className = 'custom-message-sender-input';
         const modalContent = customMessageModal.querySelector('.modal-content');
         modalContent.insertBefore(senderNameInput, modalContent.children[2]);
         
@@ -172,7 +164,7 @@ function initCustomMessage() {
         
         if (saved) {
             displayCustomMessage(`${messageText} - ${senderName}`);
-            customMessageModal.style.display = 'none';
+            customMessageModal.classList.remove('show');
             customMessageInput.value = '';
         } else {
             alert('お祝いメッセージを保存できません。後でもう一度お試しください！');
@@ -184,30 +176,12 @@ function initCustomMessage() {
         recordBtn = document.createElement('button');
         recordBtn.id = 'recordMessageBtn';
         recordBtn.textContent = '🎤 お祝いメッセージを録音';
-        recordBtn.style.padding = '10px 20px';
-        recordBtn.style.background = '#854D27';
-        recordBtn.style.color = '#FFF9F3';
-        recordBtn.style.border = '2px solid #D4B08C';
-        recordBtn.style.borderRadius = '0';
-        recordBtn.style.cursor = 'pointer';
-        recordBtn.style.fontSize = '1.1em';
-        recordBtn.style.transition = 'all 0.3s';
-        recordBtn.style.boxShadow = '4px 4px 0 #D4B08C';
-        recordBtn.style.textTransform = 'uppercase';
-        recordBtn.style.letterSpacing = '1px';
-        recordBtn.style.marginTop = '10px';
+        recordBtn.className = 'record-message-btn';
         recordBtn.addEventListener('click', () => {
-            customMessageModal.style.display = 'none';
+            customMessageModal.classList.remove('show');
             openRecordMessageModal();
         });
-        recordBtn.addEventListener('mouseover', () => {
-            recordBtn.style.transform = 'translate(-2px, -2px)';
-            recordBtn.style.boxShadow = '6px 6px 0 #D4B08C';
-        });
-        recordBtn.addEventListener('mouseout', () => {
-            recordBtn.style.transform = 'none';
-            recordBtn.style.boxShadow = '4px 4px 0 #D4B08C';
-        });
+        // Hover effects được xử lý bằng CSS
         const modalContent = customMessageModal.querySelector('.modal-content');
         modalContent.appendChild(recordBtn);
     }
@@ -217,30 +191,12 @@ function initCustomMessage() {
         videoBtn = document.createElement('button');
         videoBtn.id = 'videoMessageBtn';
         videoBtn.textContent = '🎥 お祝いビデオ';
-        videoBtn.style.padding = '10px 20px';
-        videoBtn.style.background = '#854D27';
-        videoBtn.style.color = '#FFF9F3';
-        videoBtn.style.border = '2px solid #D4B08C';
-        videoBtn.style.borderRadius = '0';
-        videoBtn.style.cursor = 'pointer';
-        videoBtn.style.fontSize = '1.1em';
-        videoBtn.style.transition = 'all 0.3s';
-        videoBtn.style.boxShadow = '4px 4px 0 #D4B08C';
-        videoBtn.style.textTransform = 'uppercase';
-        videoBtn.style.letterSpacing = '1px';
-        videoBtn.style.marginTop = '10px';
+        videoBtn.className = 'video-message-btn';
         videoBtn.addEventListener('click', () => {
-            customMessageModal.style.display = 'none';
+            customMessageModal.classList.remove('show');
             openVideoMessageModal();
         });
-        videoBtn.addEventListener('mouseover', () => {
-            videoBtn.style.transform = 'translate(-2px, -2px)';
-            videoBtn.style.boxShadow = '6px 6px 0 #D4B08C';
-        });
-        videoBtn.addEventListener('mouseout', () => {
-            videoBtn.style.transform = 'none';
-            videoBtn.style.boxShadow = '4px 4px 0 #D4B08C';
-        });
+        // Hover effects được xử lý bằng CSS
         const modalContent = customMessageModal.querySelector('.modal-content');
         modalContent.appendChild(videoBtn);
     }
@@ -254,39 +210,16 @@ function openRecordMessageModal() {
     if (!recordModal) {
         recordModal = document.createElement('div');
         recordModal.id = 'recordMessageModal';
-        recordModal.style.position = 'fixed';
-        recordModal.style.top = '0';
-        recordModal.style.left = '0';
-        recordModal.style.width = '100%';
-        recordModal.style.height = '100%';
-        recordModal.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
-        recordModal.style.display = 'none';
-        recordModal.style.justifyContent = 'center';
-        recordModal.style.alignItems = 'center';
-        recordModal.style.zIndex = '1000';
+        recordModal.className = 'record-modal';
         
         const modalContent = document.createElement('div');
-        modalContent.style.background = '#FFF9F3';
-        modalContent.style.padding = '30px';
-        modalContent.style.border = '3px solid #D4B08C';
-        modalContent.style.boxShadow = '10px 10px 0 #D4B08C';
-        modalContent.style.maxWidth = '500px';
-        modalContent.style.width = '90%';
-        modalContent.style.maxHeight = '90vh';
-        modalContent.style.overflowY = 'auto';
-        modalContent.style.position = 'relative';
+        modalContent.className = 'modal-content';
         
         const closeBtn = document.createElement('span');
         closeBtn.textContent = '×';
-        closeBtn.style.position = 'absolute';
-        closeBtn.style.top = '10px';
-        closeBtn.style.right = '20px';
-        closeBtn.style.fontSize = '30px';
-        closeBtn.style.fontWeight = 'bold';
-        closeBtn.style.cursor = 'pointer';
-        closeBtn.style.color = '#854D27';
+        closeBtn.className = 'modal-close';
         closeBtn.addEventListener('click', () => {
-            recordModal.style.display = 'none';
+            recordModal.classList.remove('show');
             if (mediaRecorder && mediaRecorder.state === 'recording') {
                 mediaRecorder.stop();
             }
@@ -294,73 +227,37 @@ function openRecordMessageModal() {
         
         const title = document.createElement('h2');
         title.textContent = 'お祝いメッセージを録音';
-        title.style.color = '#854D27';
-        title.style.marginBottom = '20px';
-        title.style.fontFamily = '\'DM Serif Display\', serif';
+        title.className = 'modal-title';
         
         const recordControls = document.createElement('div');
-        recordControls.style.display = 'flex';
-        recordControls.style.justifyContent = 'center';
-        recordControls.style.gap = '10px';
-        recordControls.style.marginBottom = '20px';
+        recordControls.className = 'record-controls';
         
         const recordBtn = document.createElement('button');
         recordBtn.id = 'recordBtn';
         recordBtn.textContent = '⏺️ 録音開始';
-        recordBtn.style.padding = '10px 20px';
-        recordBtn.style.background = '#854D27';
-        recordBtn.style.color = '#FFF9F3';
-        recordBtn.style.border = '2px solid #D4B08C';
-        recordBtn.style.borderRadius = '0';
-        recordBtn.style.cursor = 'pointer';
-        recordBtn.style.fontSize = '1.1em';
-        recordBtn.style.transition = 'all 0.3s';
-        recordBtn.style.boxShadow = '4px 4px 0 #D4B08C';
+        recordBtn.className = 'record-btn';
         recordBtn.addEventListener('click', toggleRecording);
         
         const statusText = document.createElement('div');
         statusText.id = 'recordingStatus';
         statusText.textContent = '未録音';
-        statusText.style.marginTop = '10px';
-        statusText.style.color = '#854D27';
-        statusText.style.fontStyle = 'italic';
+        statusText.className = 'recording-status';
         
         const audioPreview = document.createElement('audio');
         audioPreview.id = 'audioPreview';
         audioPreview.controls = true;
-        audioPreview.style.width = '100%';
-        audioPreview.style.marginTop = '20px';
-        audioPreview.style.display = 'none';
+        audioPreview.className = 'audio-preview';
         
         const senderInput = document.createElement('input');
         senderInput.id = 'audioMessageSender';
         senderInput.type = 'text';
         senderInput.placeholder = 'あなたのお名前...';
-        senderInput.style.width = '100%';
-        senderInput.style.padding = '10px';
-        senderInput.style.border = '2px solid #D4B08C';
-        senderInput.style.borderRadius = '0';
-        senderInput.style.marginTop = '20px';
-        senderInput.style.fontFamily = '\'Old Standard TT\', serif';
-        senderInput.style.fontSize = '16px';
-        senderInput.style.background = '#FFF9F3';
-        senderInput.style.color = '#2C1810';
-        senderInput.style.display = 'none';
+        senderInput.className = 'audio-sender-input';
         
         const saveBtn = document.createElement('button');
         saveBtn.id = 'saveAudioBtn';
         saveBtn.textContent = '💾 お祝いメッセージを保存';
-        saveBtn.style.padding = '10px 20px';
-        saveBtn.style.background = '#854D27';
-        saveBtn.style.color = '#FFF9F3';
-        saveBtn.style.border = '2px solid #D4B08C';
-        saveBtn.style.borderRadius = '0';
-        saveBtn.style.cursor = 'pointer';
-        saveBtn.style.fontSize = '1.1em';
-        saveBtn.style.transition = 'all 0.3s';
-        saveBtn.style.boxShadow = '4px 4px 0 #D4B08C';
-        saveBtn.style.marginTop = '20px';
-        saveBtn.style.display = 'none';
+        saveBtn.className = 'save-audio-btn';
         saveBtn.addEventListener('click', saveAudioMessage);
         
         recordControls.appendChild(recordBtn);
@@ -383,18 +280,16 @@ function openRecordMessageModal() {
     const statusText = document.getElementById('recordingStatus');
     
     recordBtn.textContent = '⏺️ 録音開始';
-    audioPreview.style.display = 'none';
+    audioPreview.classList.remove('show');
     audioPreview.src = '';
-    senderInput.style.display = 'none';
+    senderInput.classList.remove('show');
     senderInput.value = '';
-    saveBtn.style.display = 'none';
+    saveBtn.classList.remove('show');
     statusText.textContent = '未録音';
-    statusText.style.color = '#854D27';
+    statusText.className = 'recording-status';
     
-    recordModal.style.display = 'flex';
+    recordModal.classList.add('show');
 }
-
-
 
 function toggleRecording() {
     if (mediaRecorder && mediaRecorder.state === 'recording') {
@@ -426,10 +321,10 @@ function startRecording() {
                 audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
                 audioUrl = URL.createObjectURL(audioBlob);
                 audioPreview.src = audioUrl;
-                audioPreview.style.display = 'block';
+                audioPreview.classList.add('show');
                 
-                document.getElementById('audioMessageSender').style.display = 'block';
-                document.getElementById('saveAudioBtn').style.display = 'block';
+                document.getElementById('audioMessageSender').classList.add('show');
+                document.getElementById('saveAudioBtn').classList.add('show');
                 
                 stream.getTracks().forEach(track => track.stop());
             };
@@ -437,7 +332,7 @@ function startRecording() {
             mediaRecorder.start();
             recordBtn.textContent = '⏹️ 録音停止';
             statusText.textContent = '⚫ 録音中...';
-            statusText.style.color = '#ff4081';
+            statusText.className = 'recording-status recording';
         })
         .catch(error => {
             console.error('マイクにアクセスできません:', error);
@@ -456,7 +351,7 @@ function stopRecording() {
         
         recordBtn.textContent = '⏺️ 新しい録音';
         statusText.textContent = '✅ 録音完了';
-        statusText.style.color = '#4CAF50';
+        statusText.className = 'recording-status completed';
     }
 }
 
@@ -472,20 +367,20 @@ function saveAudioMessage() {
     const statusText = document.getElementById('recordingStatus');
     if (statusText) {
         statusText.textContent = '音声をアップロード中...';
-        statusText.style.color = '#FFA500';
+        statusText.className = 'recording-status uploading';
     }
     
     const birthdayPerson = localStorage.getItem('currentBirthday') || '共通';
     saveAudioMessageToSupabase(audioBlob, senderName, birthdayPerson)
         .then(success => {
             if (success) {
-        document.getElementById('recordMessageModal').style.display = 'none';
+        document.getElementById('recordMessageModal').classList.remove('show');
         alert('お祝い音声メッセージが正常に保存されました！');
         displaySavedAudioMessages();
             } else {
                 if (statusText) {
                     statusText.textContent = '音声保存エラー';
-                    statusText.style.color = '#ff4444';
+                    statusText.className = 'recording-status error';
                 }
                 alert('音声保存エラー');
             }
@@ -494,10 +389,9 @@ function saveAudioMessage() {
             console.error('音声保存エラー:', error);
             if (statusText) {
                 statusText.textContent = '音声保存エラー';
-                statusText.style.color = '#ff4444';
-                statusText.style.color = '#FF0000';
+                statusText.className = 'recording-status error';
             }
-            alert('Lỗi khi lưu âm thanh: ' + error.message);
+            alert('音声の保存中にエラーが発生しました: ' + error.message);
         });
 }
 
@@ -512,17 +406,7 @@ function displaySavedAudioMessages() {
             audioBtn = document.createElement('button');
             audioBtn.id = 'viewAudioMessagesBtn';
             audioBtn.textContent = '🔊 お祝いを聞く';
-            audioBtn.style.padding = '10px 20px';
-            audioBtn.style.background = '#854D27';
-            audioBtn.style.color = '#FFF9F3';
-            audioBtn.style.border = '2px solid #D4B08C';
-            audioBtn.style.borderRadius = '0';
-            audioBtn.style.cursor = 'pointer';
-            audioBtn.style.fontSize = '1.1em';
-            audioBtn.style.transition = 'all 0.3s';
-            audioBtn.style.boxShadow = '4px 4px 0 #D4B08C';
-            audioBtn.style.margin = '10px auto';
-            audioBtn.style.display = 'block';
+            audioBtn.className = 'view-audio-messages-btn';
             
             audioBtn.addEventListener('click', () => {
                 openAudioMessagesModal(birthdayPerson);
@@ -544,59 +428,31 @@ function openAudioMessagesModal(birthdayPerson) {
     if (!audioModal) {
         audioModal = document.createElement('div');
         audioModal.id = 'audioMessagesModal';
-        audioModal.style.position = 'fixed';
-        audioModal.style.top = '0';
-        audioModal.style.left = '0';
-        audioModal.style.width = '100%';
-        audioModal.style.height = '100%';
-        audioModal.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
-        audioModal.style.display = 'none';
-        audioModal.style.justifyContent = 'center';
-        audioModal.style.alignItems = 'center';
-        audioModal.style.zIndex = '1000';
+        audioModal.className = 'audio-messages-modal';
         
         const modalContent = document.createElement('div');
-        modalContent.style.background = '#FFF9F3';
-        modalContent.style.padding = '30px';
-        modalContent.style.border = '3px solid #D4B08C';
-        modalContent.style.boxShadow = '10px 10px 0 #D4B08C';
-        modalContent.style.maxWidth = '600px';
-        modalContent.style.width = '90%';
-        modalContent.style.maxHeight = '90vh';
-        modalContent.style.overflowY = 'auto';
-        modalContent.style.position = 'relative';
+        modalContent.className = 'modal-content';
         
         const closeBtn = document.createElement('span');
         closeBtn.textContent = '×';
-        closeBtn.style.position = 'absolute';
-        closeBtn.style.top = '10px';
-        closeBtn.style.right = '20px';
-        closeBtn.style.fontSize = '30px';
-        closeBtn.style.fontWeight = 'bold';
-        closeBtn.style.cursor = 'pointer';
-        closeBtn.style.color = '#854D27';
+        closeBtn.className = 'modal-close';
         closeBtn.addEventListener('click', () => {
-            audioModal.style.display = 'none';
+            audioModal.classList.remove('show');
             document.querySelectorAll('audio').forEach(audio => audio.pause());
         });
         
         const title = document.createElement('h2');
         title.textContent = birthdayPerson ? `${birthdayPerson}へのお祝いメッセージ` : 'お誕生日お祝いメッセージ';
-        title.style.color = '#854D27';
-        title.style.marginBottom = '20px';
-        title.style.fontFamily = '\'DM Serif Display\', serif';
+        title.className = 'modal-title';
         
         const messagesList = document.createElement('div');
         messagesList.id = 'audioMessagesList';
-        messagesList.style.display = 'flex';
-        messagesList.style.flexDirection = 'column';
-        messagesList.style.gap = '15px';
+        messagesList.className = 'audio-messages-list';
         
         // Hiển thị thông báo đang tải
         const loadingMsg = document.createElement('p');
         loadingMsg.textContent = '音声メッセージを読み込み中...';
-        loadingMsg.style.textAlign = 'center';
-        loadingMsg.style.color = '#854D27';
+        loadingMsg.className = 'audio-loading-message';
         loadingMsg.id = 'audioLoadingMessage';
         messagesList.appendChild(loadingMsg);
         
@@ -608,12 +464,12 @@ function openAudioMessagesModal(birthdayPerson) {
         document.body.appendChild(audioModal);
     }
         
-    audioModal.style.display = 'flex';
+    audioModal.classList.add('show');
     
         const messagesList = document.getElementById('audioMessagesList');
     
     if (messagesList) {
-        messagesList.innerHTML = '<p id="audioLoadingMessage" style="text-align: center; color: #854D27;">音声メッセージを読み込み中...</p>';
+        messagesList.innerHTML = '<p id="audioLoadingMessage" class="audio-loading-message">音声メッセージを読み込み中...</p>';
         
         getAudioMessages(birthdayPerson)
             .then(messages => {
@@ -622,39 +478,30 @@ function openAudioMessagesModal(birthdayPerson) {
                 if (!messages || messages.length === 0) {
                 const noMessages = document.createElement('p');
                 noMessages.textContent = 'まだお祝い音声メッセージがありません。';
-                noMessages.style.textAlign = 'center';
-                noMessages.style.fontStyle = 'italic';
-                noMessages.style.color = '#854D27';
+                noMessages.className = 'no-audio-messages';
                 messagesList.appendChild(noMessages);
             } else {
                 messages.forEach((message, index) => {
                     const messageItem = document.createElement('div');
-                    messageItem.style.background = '#F5E6D8';
-                    messageItem.style.padding = '15px';
-                    messageItem.style.borderLeft = '4px solid #D4B08C';
-                    messageItem.style.borderRadius = '0 5px 5px 0';
+                    messageItem.className = 'audio-message-item';
                     
                     const messageHeader = document.createElement('div');
-                    messageHeader.style.display = 'flex';
-                    messageHeader.style.justifyContent = 'space-between';
-                    messageHeader.style.marginBottom = '10px';
+                    messageHeader.className = 'audio-message-header';
                     
                     const senderName = document.createElement('span');
                     senderName.textContent = message.sender;
-                    senderName.style.fontWeight = 'bold';
-                    senderName.style.color = '#2C1810';
+                    senderName.className = 'audio-sender-name';
                     
                     const timestamp = document.createElement('span');
                         timestamp.textContent = new Date(message.created_at).toLocaleString();
-                    timestamp.style.fontSize = '0.8em';
-                    timestamp.style.color = '#854D27';
+                    timestamp.className = 'audio-timestamp';
                     
                     messageHeader.appendChild(senderName);
                     messageHeader.appendChild(timestamp);
                     
                     const audioPlayer = document.createElement('audio');
                     audioPlayer.controls = true;
-                    audioPlayer.style.width = '100%';
+                    audioPlayer.className = 'audio-player';
                         audioPlayer.src = message.audio_data;
                     
                     messageItem.appendChild(messageHeader);
@@ -667,8 +514,7 @@ function openAudioMessagesModal(birthdayPerson) {
                 messagesList.innerHTML = '';
                 const errorMsg = document.createElement('p');
                 errorMsg.textContent = '音声メッセージ読み込みエラー: ' + error.message;
-                errorMsg.style.textAlign = 'center';
-                errorMsg.style.color = 'red';
+                errorMsg.className = 'audio-error-message';
                 messagesList.appendChild(errorMsg);
                 console.error('音声メッセージ取得エラー:', error);
             });
@@ -691,7 +537,7 @@ function displayCustomMessage(message) {
                 <p>${message}</p>
             </div>
         `;
-        customMessageDisplay.style.opacity = 1;
+        customMessageDisplay.classList.add('show');
     }
 }
 
@@ -731,27 +577,10 @@ function openVideoMessageModal() {
     if (!videoModal) {
         videoModal = document.createElement('div');
         videoModal.id = 'videoMessageModal';
-        videoModal.style.position = 'fixed';
-        videoModal.style.top = '0';
-        videoModal.style.left = '0';
-        videoModal.style.width = '100%';
-        videoModal.style.height = '100%';
-        videoModal.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
-        videoModal.style.display = 'none';
-        videoModal.style.justifyContent = 'center';
-        videoModal.style.alignItems = 'center';
-        videoModal.style.zIndex = '1000';
+        videoModal.className = 'video-message-modal';
         
         const modalContent = document.createElement('div');
-        modalContent.style.background = '#FFF9F3';
-        modalContent.style.padding = '30px';
-        modalContent.style.border = '3px solid #D4B08C';
-        modalContent.style.boxShadow = '10px 10px 0 #D4B08C';
-        modalContent.style.maxWidth = '600px';
-        modalContent.style.width = '90%';
-        modalContent.style.maxHeight = '90vh';
-        modalContent.style.overflowY = 'auto';
-        modalContent.style.position = 'relative';
+        modalContent.className = 'modal-content';
         
         const closeBtn = document.createElement('span');
         closeBtn.textContent = '×';
@@ -780,42 +609,26 @@ function openVideoMessageModal() {
         
         const title = document.createElement('h2');
         title.textContent = 'お祝いビデオを録画';
-        title.style.color = '#854D27';
-        title.style.marginBottom = '20px';
-        title.style.fontFamily = '\'DM Serif Display\', serif';
+        title.className = 'modal-title';
         
         const videoContainer = document.createElement('div');
-        videoContainer.style.marginBottom = '20px';
+        videoContainer.className = 'video-container';
         
         const videoPreview = document.createElement('video');
         videoPreview.id = 'videoPreview';
         videoPreview.width = 540;
         videoPreview.height = 360;
-        videoPreview.style.background = '#000';
-        videoPreview.style.display = 'block';
-        videoPreview.style.maxWidth = '100%';
-        videoPreview.style.margin = '0 auto';
+        videoPreview.className = 'video-preview';
         videoPreview.autoplay = true;
         videoPreview.muted = true;
         
         const recordControls = document.createElement('div');
-        recordControls.style.display = 'flex';
-        recordControls.style.justifyContent = 'center';
-        recordControls.style.gap = '10px';
-        recordControls.style.marginTop = '20px';
+        recordControls.className = 'video-record-controls';
         
         const startVideoBtn = document.createElement('button');
         startVideoBtn.id = 'startVideoBtn';
         startVideoBtn.textContent = '⏺️ 録画開始';
-        startVideoBtn.style.padding = '10px 20px';
-        startVideoBtn.style.background = '#854D27';
-        startVideoBtn.style.color = '#FFF9F3';
-        startVideoBtn.style.border = '2px solid #D4B08C';
-        startVideoBtn.style.borderRadius = '0';
-        startVideoBtn.style.cursor = 'pointer';
-        startVideoBtn.style.fontSize = '1.1em';
-        startVideoBtn.style.transition = 'all 0.3s';
-        startVideoBtn.style.boxShadow = '4px 4px 0 #D4B08C';
+        startVideoBtn.className = 'video-record-btn';
         startVideoBtn.addEventListener('click', () => {
             const startButton = document.getElementById('startVideoBtn');
             const videoPreview = document.getElementById('videoPreview');
@@ -851,14 +664,14 @@ function openVideoMessageModal() {
                             videoPreview.muted = false;
                             videoPreview.play();
                             
-                            document.getElementById('videoMessageSender').style.display = 'block';
-                            document.getElementById('saveVideoBtn').style.display = 'block';
+                            document.getElementById('videoMessageSender').classList.add('show');
+                            document.getElementById('saveVideoBtn').classList.add('show');
                         };
                         
                         videoRecorder.start();
                         startButton.textContent = '⏹️ 録画停止';
                         statusText.textContent = '⚫ ビデオ録画中...';
-                        statusText.style.color = '#ff4081';
+                        statusText.className = 'video-recording-status recording';
                     })
                     .catch(error => {
                         console.error('カメラにアクセスできません:', error);
@@ -871,48 +684,26 @@ function openVideoMessageModal() {
                     
                     startButton.textContent = '🔄 再録画';
                     statusText.textContent = '✅ ビデオ録画完了';
-                    statusText.style.color = '#4CAF50';
+                    statusText.className = 'video-recording-status completed';
                 }
             }
         });
         
         const statusText = document.createElement('div');
         statusText.id = 'videoRecordingStatus';
-        statusText.textContent = 'Chưa ghi video';
-        statusText.style.marginTop = '10px';
-        statusText.style.color = '#854D27';
-        statusText.style.fontStyle = 'italic';
-        statusText.style.textAlign = 'center';
+        statusText.textContent = '未録画';
+        statusText.className = 'video-recording-status';
         
         const senderInput = document.createElement('input');
         senderInput.id = 'videoMessageSender';
         senderInput.type = 'text';
         senderInput.placeholder = 'あなたのお名前...';
-        senderInput.style.width = '100%';
-        senderInput.style.padding = '10px';
-        senderInput.style.border = '2px solid #D4B08C';
-        senderInput.style.borderRadius = '0';
-        senderInput.style.marginTop = '20px';
-        senderInput.style.fontFamily = '\'Old Standard TT\', serif';
-        senderInput.style.fontSize = '16px';
-        senderInput.style.background = '#FFF9F3';
-        senderInput.style.color = '#2C1810';
-        senderInput.style.display = 'none';
+        senderInput.className = 'video-sender-input';
         
         const saveBtn = document.createElement('button');
         saveBtn.id = 'saveVideoBtn';
         saveBtn.textContent = '💾 ビデオ保存';
-        saveBtn.style.padding = '10px 20px';
-        saveBtn.style.background = '#854D27';
-        saveBtn.style.color = '#FFF9F3';
-        saveBtn.style.border = '2px solid #D4B08C';
-        saveBtn.style.borderRadius = '0';
-        saveBtn.style.cursor = 'pointer';
-        saveBtn.style.fontSize = '1.1em';
-        saveBtn.style.transition = 'all 0.3s';
-        saveBtn.style.boxShadow = '4px 4px 0 #D4B08C';
-        saveBtn.style.marginTop = '20px';
-        saveBtn.style.display = 'none';
+        saveBtn.className = 'video-save-btn';
         saveBtn.addEventListener('click', () => {
             const senderName = document.getElementById('videoMessageSender').value.trim() || '匿名';
             const videoName = `${senderName}からのお祝いビデオ`;
@@ -945,13 +736,13 @@ function openVideoMessageModal() {
         videoPreview.src = '';
         videoPreview.muted = true;
         statusText.textContent = '未録画';
-        statusText.style.color = '#854D27';
-        senderInput.style.display = 'none';
+        statusText.className = 'video-recording-status';
+        senderInput.classList.remove('show');
         senderInput.value = '';
-        saveBtn.style.display = 'none';
+        saveBtn.classList.remove('show');
     }
     
-    videoModal.style.display = 'flex';
+    videoModal.classList.add('show');
 }
 
 let videoRecorder;
@@ -973,7 +764,7 @@ function saveVideoMessage(videoData, videoName, senderName) {
     const statusText = document.getElementById('videoRecordingStatus');
     if (statusText) {
         statusText.textContent = 'ビデオをアップロード中...';
-        statusText.style.color = '#FFA500';
+        statusText.className = 'video-recording-status uploading';
     }
     
     const birthdayPerson = localStorage.getItem('currentBirthday') || '共通';
@@ -981,14 +772,14 @@ function saveVideoMessage(videoData, videoName, senderName) {
     saveVideoMessageToSupabase(videoData, videoName, senderName, birthdayPerson)
         .then(success => {
             if (success) {
-        document.getElementById('videoMessageModal').style.display = 'none';
+        document.getElementById('videoMessageModal').classList.remove('show');
         alert('お祝いビデオが正常に保存されました！');
         
         displaySavedVideoMessages();
             } else {
                 if (statusText) {
                     statusText.textContent = 'ビデオ保存エラー！';
-                    statusText.style.color = '#FF0000';
+                    statusText.className = 'video-recording-status error';
                 }
                 alert('ビデオを保存できません。後でもう一度お試しください。');
             }
@@ -997,7 +788,7 @@ function saveVideoMessage(videoData, videoName, senderName) {
             console.error('ビデオ保存エラー:', error);
             if (statusText) {
                 statusText.textContent = 'ビデオ保存エラー！';
-                statusText.style.color = '#FF0000';
+                statusText.className = 'video-recording-status error';
             }
             alert('ビデオ保存エラー: ' + error.message);
         });
@@ -1014,17 +805,7 @@ function displaySavedVideoMessages() {
             videoBtn = document.createElement('button');
             videoBtn.id = 'viewVideoMessagesBtn';
             videoBtn.textContent = '🎥 お祝いビデオを見る';
-            videoBtn.style.padding = '10px 20px';
-            videoBtn.style.background = '#854D27';
-            videoBtn.style.color = '#FFF9F3';
-            videoBtn.style.border = '2px solid #D4B08C';
-            videoBtn.style.borderRadius = '0';
-            videoBtn.style.cursor = 'pointer';
-            videoBtn.style.fontSize = '1.1em';
-            videoBtn.style.transition = 'all 0.3s';
-            videoBtn.style.boxShadow = '4px 4px 0 #D4B08C';
-            videoBtn.style.margin = '10px auto';
-            videoBtn.style.display = 'block';
+            videoBtn.className = 'view-video-messages-btn';
             
             videoBtn.addEventListener('click', () => {
                 openVideoMessagesModal(birthdayPerson);
@@ -1046,27 +827,10 @@ function openVideoMessagesModal(birthdayPerson) {
     if (!videoModal) {
         videoModal = document.createElement('div');
         videoModal.id = 'videoMessagesModal';
-        videoModal.style.position = 'fixed';
-        videoModal.style.top = '0';
-        videoModal.style.left = '0';
-        videoModal.style.width = '100%';
-        videoModal.style.height = '100%';
-        videoModal.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
-        videoModal.style.display = 'none';
-        videoModal.style.justifyContent = 'center';
-        videoModal.style.alignItems = 'center';
-        videoModal.style.zIndex = '1000';
+        videoModal.className = 'video-messages-modal';
         
         const modalContent = document.createElement('div');
-        modalContent.style.background = '#FFF9F3';
-        modalContent.style.padding = '30px';
-        modalContent.style.border = '3px solid #D4B08C';
-        modalContent.style.boxShadow = '10px 10px 0 #D4B08C';
-        modalContent.style.maxWidth = '80%';
-        modalContent.style.width = '800px';
-        modalContent.style.maxHeight = '90vh';
-        modalContent.style.overflowY = 'auto';
-        modalContent.style.position = 'relative';
+        modalContent.className = 'modal-content';
         
         const closeBtn = document.createElement('span');
         closeBtn.textContent = '×';
@@ -1084,21 +848,15 @@ function openVideoMessagesModal(birthdayPerson) {
         
         const title = document.createElement('h2');
         title.textContent = birthdayPerson ? `${birthdayPerson}へのお祝いビデオ` : 'お祝いビデオ';
-        title.style.color = '#854D27';
-        title.style.marginBottom = '20px';
-        title.style.fontFamily = '\'DM Serif Display\', serif';
+        title.className = 'modal-title';
         
         const messagesList = document.createElement('div');
         messagesList.id = 'videoMessagesList';
-        messagesList.style.display = 'flex';
-        messagesList.style.flexDirection = 'column';
-        messagesList.style.gap = '20px';
+        messagesList.className = 'video-messages-list';
         
-        // Hiển thị thông báo đang tải
         const loadingMsg = document.createElement('p');
         loadingMsg.textContent = 'ビデオを読み込み中...';
-        loadingMsg.style.textAlign = 'center';
-        loadingMsg.style.color = '#854D27';
+        loadingMsg.className = 'video-loading-message';
         loadingMsg.id = 'videoLoadingMessage';
         messagesList.appendChild(loadingMsg);
         
@@ -1110,12 +868,12 @@ function openVideoMessagesModal(birthdayPerson) {
         document.body.appendChild(videoModal);
     }
         
-    videoModal.style.display = 'flex';
+    videoModal.classList.add('show');
     
     const messagesList = document.getElementById('videoMessagesList');
     
     if (messagesList) {
-        messagesList.innerHTML = '<p id="videoLoadingMessage" style="text-align: center; color: #854D27;">ビデオを読み込み中...</p>';
+        messagesList.innerHTML = '<p id="videoLoadingMessage" class="video-loading-message">ビデオを読み込み中...</p>';
         getVideoMessages(birthdayPerson)
             .then(messages => {
                 messagesList.innerHTML = '';
@@ -1123,48 +881,36 @@ function openVideoMessagesModal(birthdayPerson) {
                 if (!messages || messages.length === 0) {
                 const noMessages = document.createElement('p');
                 noMessages.textContent = 'まだお祝いビデオがありません。';
-                noMessages.style.textAlign = 'center';
-                noMessages.style.fontStyle = 'italic';
-                noMessages.style.color = '#854D27';
+                noMessages.className = 'video-no-messages';
                 messagesList.appendChild(noMessages);
             } else {
                 messages.forEach((message, index) => {
                     const messageItem = document.createElement('div');
-                    messageItem.style.background = '#F5E6D8';
-                        messageItem.style.padding = '20px';
-                    messageItem.style.borderLeft = '4px solid #D4B08C';
-                    messageItem.style.borderRadius = '0 5px 5px 0';
+                    messageItem.className = 'video-message-item';
                     
                     const messageHeader = document.createElement('div');
-                    messageHeader.style.display = 'flex';
-                    messageHeader.style.justifyContent = 'space-between';
-                        messageHeader.style.marginBottom = '15px';
+                    messageHeader.className = 'video-message-header';
                     
                     const senderName = document.createElement('span');
                     senderName.textContent = message.sender;
-                    senderName.style.fontWeight = 'bold';
-                    senderName.style.color = '#2C1810';
+                    senderName.className = 'video-message-sender';
                     
                     const timestamp = document.createElement('span');
-                        timestamp.textContent = new Date(message.created_at).toLocaleString();
-                    timestamp.style.fontSize = '0.8em';
-                    timestamp.style.color = '#854D27';
+                    timestamp.textContent = new Date(message.created_at).toLocaleString();
+                    timestamp.className = 'video-message-timestamp';
                     
                     messageHeader.appendChild(senderName);
                     messageHeader.appendChild(timestamp);
                     
                         const videoTitle = document.createElement('h3');
                         videoTitle.textContent = message.video_name || `ビデオ #${index + 1}`;
-                        videoTitle.style.margin = '0 0 10px 0';
-                        videoTitle.style.color = '#854D27';
+                        videoTitle.className = 'video-message-title';
                     
                     const videoPlayer = document.createElement('video');
                     videoPlayer.controls = true;
-                    videoPlayer.style.width = '100%';
-                    videoPlayer.style.maxHeight = '400px';
-                        videoPlayer.style.backgroundColor = '#000';
-                        videoPlayer.src = message.video_url;
-                        videoPlayer.preload = 'metadata';
+                    videoPlayer.className = 'video-message-player';
+                    videoPlayer.src = message.video_url;
+                    videoPlayer.preload = 'metadata';
                     
                     messageItem.appendChild(messageHeader);
                         messageItem.appendChild(videoTitle);
@@ -1177,8 +923,7 @@ function openVideoMessagesModal(birthdayPerson) {
                 messagesList.innerHTML = '';
                 const errorMsg = document.createElement('p');
                 errorMsg.textContent = 'ビデオ読み込みエラー: ' + error.message;
-                errorMsg.style.textAlign = 'center';
-                errorMsg.style.color = 'red';
+                errorMsg.className = 'video-error-message';
                 messagesList.appendChild(errorMsg);
                 console.error('ビデオ取得エラー:', error);
             });
@@ -1189,30 +934,14 @@ function playVideoMessage(videoUrl) {
     const video = document.createElement('video');
     video.src = videoUrl;
     video.controls = true;
-    video.style.width = '100%';
-    video.style.maxHeight = '80vh';
+    video.className = 'video-fullscreen-player';
     
     const videoContainer = document.createElement('div');
-    videoContainer.style.position = 'fixed';
-    videoContainer.style.top = '0';
-    videoContainer.style.left = '0';
-    videoContainer.style.width = '100%';
-    videoContainer.style.height = '100%';
-    videoContainer.style.backgroundColor = 'rgba(0, 0, 0, 0.9)';
-    videoContainer.style.display = 'flex';
-    videoContainer.style.justifyContent = 'center';
-    videoContainer.style.alignItems = 'center';
-    videoContainer.style.zIndex = '1100';
+    videoContainer.className = 'video-fullscreen-container';
     
     const closeBtn = document.createElement('span');
     closeBtn.textContent = '×';
-    closeBtn.style.position = 'absolute';
-    closeBtn.style.top = '20px';
-    closeBtn.style.right = '30px';
-    closeBtn.style.fontSize = '40px';
-    closeBtn.style.fontWeight = 'bold';
-    closeBtn.style.cursor = 'pointer';
-    closeBtn.style.color = '#fff';
+    closeBtn.className = 'video-fullscreen-close';
     closeBtn.addEventListener('click', () => {
         video.pause();
         document.body.removeChild(videoContainer);
@@ -1240,11 +969,7 @@ function initCommunityFeatures() {
         const chatButton = document.createElement('button');
         chatButton.id = 'openChatBtn';
         chatButton.textContent = '💬 グループチャット';
-        chatButton.classList.add('feature-button');
-        chatButton.style.position = 'fixed';
-        chatButton.style.bottom = '20px';
-        chatButton.style.right = '20px';
-        chatButton.style.zIndex = '100';
+        chatButton.classList.add('feature-button', 'chat-button-fixed');
         
         chatButton.addEventListener('click', checkUserNameAndOpenChat);
         
@@ -1262,90 +987,38 @@ function checkUserNameAndOpenChat() {
     }
 }
 
-function openUserNameModal() {
+// ユーザー名入力モーダルを作成する共通関数 - CSS classes使用版
+function createUserNameModal(buttonText, onSubmit) {
     let userNameModal = document.getElementById('userNameModal');
     
     if (!userNameModal) {
         userNameModal = document.createElement('div');
         userNameModal.id = 'userNameModal';
-        userNameModal.style.position = 'fixed';
-        userNameModal.style.top = '0';
-        userNameModal.style.left = '0';
-        userNameModal.style.width = '100%';
-        userNameModal.style.height = '100%';
-        userNameModal.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
-        userNameModal.style.display = 'none';
-        userNameModal.style.justifyContent = 'center';
-        userNameModal.style.alignItems = 'center';
-        userNameModal.style.zIndex = '1000';
+        userNameModal.className = 'username-modal';
         
         const modalContent = document.createElement('div');
-        modalContent.style.background = '#FFF9F3';
-        modalContent.style.padding = '30px';
-        modalContent.style.border = '3px solid #D4B08C';
-        modalContent.style.boxShadow = '10px 10px 0 #D4B08C';
-        modalContent.style.maxWidth = '500px';
-        modalContent.style.width = '90%';
-        modalContent.style.position = 'relative';
+        modalContent.className = 'modal-content';
         
         const closeBtn = document.createElement('span');
         closeBtn.textContent = '×';
-        closeBtn.style.position = 'absolute';
-        closeBtn.style.top = '10px';
-        closeBtn.style.right = '20px';
-        closeBtn.style.fontSize = '30px';
-        closeBtn.style.fontWeight = 'bold';
-        closeBtn.style.cursor = 'pointer';
-        closeBtn.style.color = '#854D27';
+        closeBtn.className = 'modal-close';
         closeBtn.addEventListener('click', () => {
-            userNameModal.style.display = 'none';
+            userNameModal.classList.remove('show');
         });
         
         const title = document.createElement('h2');
-        title.textContent = 'Nhập Tên Của Bạn';
-        title.style.color = '#854D27';
-        title.style.marginBottom = '20px';
-        title.style.fontFamily = '\'DM Serif Display\', serif';
+        title.textContent = 'お名前を入力してください';
+        title.className = 'modal-title';
         
         const userNameInput = document.createElement('input');
         userNameInput.id = 'chatUserNameInput';
         userNameInput.type = 'text';
-        userNameInput.placeholder = 'Tên của bạn...';
-        userNameInput.style.width = '100%';
-        userNameInput.style.padding = '10px';
-        userNameInput.style.border = '2px solid #D4B08C';
-        userNameInput.style.borderRadius = '0';
-        userNameInput.style.marginBottom = '20px';
-        userNameInput.style.fontFamily = '\'Old Standard TT\', serif';
-        userNameInput.style.fontSize = '16px';
-        userNameInput.style.background = '#FFF9F3';
-        userNameInput.style.color = '#2C1810';
+        userNameInput.placeholder = 'お名前...';
+        userNameInput.className = 'form-input';
         
         const submitBtn = document.createElement('button');
-        submitBtn.textContent = 'チャットに参加';
-        submitBtn.style.padding = '10px 20px';
-        submitBtn.style.background = '#854D27';
-        submitBtn.style.color = '#FFF9F3';
-        submitBtn.style.border = '2px solid #D4B08C';
-        submitBtn.style.borderRadius = '0';
-        submitBtn.style.cursor = 'pointer';
-        submitBtn.style.fontSize = '1.1em';
-        submitBtn.style.transition = 'all 0.3s';
-        submitBtn.style.boxShadow = '4px 4px 0 #D4B08C';
-        submitBtn.style.display = 'block';
-        submitBtn.style.margin = '0 auto';
-        
-        submitBtn.addEventListener('click', () => {
-            const userName = document.getElementById('chatUserNameInput').value.trim();
-            
-            if (userName) {
-                saveUsername(userName);
-                userNameModal.style.display = 'none';
-                openChatRoomModal(userName);
-            } else {
-                alert('Vui lòng nhập tên của bạn!');
-            }
-        });
+        submitBtn.id = 'userNameSubmitBtn';
+        submitBtn.className = 'btn-submit';
         
         modalContent.appendChild(closeBtn);
         modalContent.appendChild(title);
@@ -1356,74 +1029,83 @@ function openUserNameModal() {
         document.body.appendChild(userNameModal);
     }
     
+    const submitBtn = document.getElementById('userNameSubmitBtn');
     const userNameInput = document.getElementById('chatUserNameInput');
+    
+    // ボタンテキストを更新
+    submitBtn.textContent = buttonText;
+    
+    // 既存のイベントリスナーを削除
+    const newSubmitBtn = submitBtn.cloneNode(true);
+    submitBtn.parentNode.replaceChild(newSubmitBtn, submitBtn);
+    
+    // 新しいイベントリスナーを追加
+    newSubmitBtn.addEventListener('click', () => {
+        const userName = userNameInput.value.trim();
+        
+        if (userName) {
+            saveUsername(userName);
+            userNameModal.classList.remove('show');
+            onSubmit(userName);
+        } else {
+            alert('お名前を入力してください！');
+        }
+    });
+    
+    // 入力フィールドをクリア
     if (userNameInput) {
         userNameInput.value = '';
     }
     
-    userNameModal.style.display = 'flex';
+    userNameModal.classList.add('show');
 }
 
+function openUserNameModal() {
+    createUserNameModal('チャットに参加', (userName) => {
+        openChatRoomModal(userName);
+    });
+}
+
+// チャットルームモーダルを開く - CSS classes使用版
 function openChatRoomModal(userName) {
     let chatModal = document.getElementById('chatRoomModal');
     
     if (!chatModal) {
         chatModal = document.createElement('div');
         chatModal.id = 'chatRoomModal';
-        chatModal.style.position = 'fixed';
-        chatModal.style.bottom = '20px';
-        chatModal.style.right = '20px';
-        chatModal.style.width = '350px';
-        chatModal.style.height = '500px';
-        chatModal.style.backgroundColor = '#FFF9F3';
-        chatModal.style.border = '3px solid #D4B08C';
-        chatModal.style.boxShadow = '10px 10px 0 #D4B08C';
-        chatModal.style.display = 'none';
-        chatModal.style.flexDirection = 'column';
-        chatModal.style.zIndex = '990';
+        chatModal.className = 'chat-modal';
         
         const chatHeader = document.createElement('div');
-        chatHeader.style.background = '#854D27';
-        chatHeader.style.color = '#FFF9F3';
-        chatHeader.style.padding = '10px';
-        chatHeader.style.display = 'flex';
-        chatHeader.style.justifyContent = 'space-between';
-        chatHeader.style.alignItems = 'center';
+        chatHeader.className = 'chat-header';
         
         const chatTitle = document.createElement('h3');
         chatTitle.textContent = '誕生日グループチャット';
-        chatTitle.style.margin = '0';
-        chatTitle.style.fontSize = '1.2em';
+        chatTitle.className = 'chat-title';
         
         const closeBtn = document.createElement('span');
         closeBtn.textContent = '×';
-        closeBtn.style.fontSize = '24px';
-        closeBtn.style.fontWeight = 'bold';
-        closeBtn.style.cursor = 'pointer';
+        closeBtn.className = 'chat-btn';
         closeBtn.addEventListener('click', () => {
-            chatModal.style.display = 'none';
+            chatModal.classList.remove('show');
         });
         
         const minimizeBtn = document.createElement('span');
         minimizeBtn.textContent = '_';
-        minimizeBtn.style.fontSize = '24px';
-        minimizeBtn.style.fontWeight = 'bold';
-        minimizeBtn.style.cursor = 'pointer';
-        minimizeBtn.style.marginRight = '10px';
-        minimizeBtn.style.lineHeight = '18px';
+        minimizeBtn.className = 'chat-btn chat-minimize';
         minimizeBtn.addEventListener('click', () => {
-            if (chatContent.style.display === 'none') {
-                chatContent.style.display = 'flex';
-                chatInput.style.display = 'flex';
-                chatModal.style.height = '500px';
+            if (chatContent.classList.contains('u-hidden')) {
+                chatContent.classList.remove('u-hidden');
+                chatInputArea.classList.remove('u-hidden');
+                chatModal.classList.add('chat-modal-expanded');
             } else {
-                chatContent.style.display = 'none';
-                chatInput.style.display = 'none';
-                chatModal.style.height = 'auto';
+                chatContent.classList.add('u-hidden');
+                chatInputArea.classList.add('u-hidden');
+                chatModal.classList.remove('chat-modal-expanded');
             }
         });
         
         const headerControls = document.createElement('div');
+        headerControls.className = 'chat-controls';
         headerControls.appendChild(minimizeBtn);
         headerControls.appendChild(closeBtn);
         
@@ -1432,41 +1114,20 @@ function openChatRoomModal(userName) {
         
         const chatContent = document.createElement('div');
         chatContent.id = 'chatMessages';
-        chatContent.style.flex = '1';
-        chatContent.style.padding = '10px';
-        chatContent.style.overflowY = 'auto';
-        chatContent.style.display = 'flex';
-        chatContent.style.flexDirection = 'column';
-        chatContent.style.gap = '10px';
+        chatContent.className = 'chat-content';
         
-        const chatInput = document.createElement('div');
-        chatInput.style.display = 'flex';
-        chatInput.style.padding = '10px';
-        chatInput.style.borderTop = '2px solid #D4B08C';
+        const chatInputArea = document.createElement('div');
+        chatInputArea.className = 'chat-input-area';
         
         const messageInput = document.createElement('input');
         messageInput.id = 'chatMessageInput';
         messageInput.type = 'text';
         messageInput.placeholder = 'メッセージを入力...';
-        messageInput.style.flex = '1';
-        messageInput.style.padding = '10px';
-        messageInput.style.border = '2px solid #D4B08C';
-        messageInput.style.borderRight = 'none';
-        messageInput.style.borderRadius = '0';
-        messageInput.style.fontFamily = '\'Old Standard TT\', serif';
-        messageInput.style.fontSize = '16px';
-        messageInput.style.background = '#FFF9F3';
-        messageInput.style.color = '#2C1810';
+        messageInput.className = 'chat-message-input';
         
         const sendBtn = document.createElement('button');
         sendBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i>';
-        sendBtn.style.padding = '10px 15px';
-        sendBtn.style.background = '#854D27';
-        sendBtn.style.color = '#FFF9F3';
-        sendBtn.style.border = '2px solid #D4B08C';
-        sendBtn.style.borderRadius = '0';
-        sendBtn.style.cursor = 'pointer';
-        sendBtn.style.fontSize = '1.1em';
+        sendBtn.className = 'chat-send-btn';
         
         const sendMessage = () => {
             const messageText = messageInput.value.trim();
@@ -1485,21 +1146,46 @@ function openChatRoomModal(userName) {
             }
         });
         
-        messageInput.placeholder = 'Enter your message...';
-        
-        chatInput.appendChild(messageInput);
-        chatInput.appendChild(sendBtn);
+        chatInputArea.appendChild(messageInput);
+        chatInputArea.appendChild(sendBtn);
         
         chatModal.appendChild(chatHeader);
         chatModal.appendChild(chatContent);
-        chatModal.appendChild(chatInput);
+        chatModal.appendChild(chatInputArea);
         
         document.body.appendChild(chatModal);
         
         loadChatHistory();
     }
     
-    chatModal.style.display = 'flex';
+    chatModal.classList.add('show');
+}
+
+// チャットメッセージのDOE要素を作成する共通関数 - CSS classes使用版
+function createMessageDiv(message, currentUserName) {
+    const messageDiv = document.createElement('div');
+    messageDiv.className = 'chat-message';
+    
+    if (message.sender === currentUserName) {
+        messageDiv.classList.add('chat-message--sender');
+    } else {
+        messageDiv.classList.add('chat-message--receiver');
+    }
+    
+    const senderSpan = document.createElement('div');
+    senderSpan.textContent = message.sender;
+    senderSpan.className = 'chat-message__sender';
+    
+    const timeSpan = document.createElement('div');
+    const msgTime = new Date(message.created_at);
+    timeSpan.textContent = msgTime.toLocaleTimeString();
+    timeSpan.className = 'chat-message__time';
+    
+    messageDiv.appendChild(senderSpan);
+    messageDiv.appendChild(document.createTextNode(message.text));
+    messageDiv.appendChild(timeSpan);
+    
+    return messageDiv;
 }
 
 async function loadChatHistory() {
@@ -1521,47 +1207,14 @@ async function loadChatHistory() {
             const currentUserName = localStorage.getItem('birthdayChatUserName');
             
             messages.forEach(msg => {
-                const messageDiv = document.createElement('div');
-                messageDiv.style.padding = '10px';
-                messageDiv.style.borderRadius = '5px';
-                messageDiv.style.maxWidth = '80%';
-                messageDiv.style.wordBreak = 'break-word';
-                messageDiv.style.marginBottom = '10px';
-                
-                if (msg.sender === currentUserName) {
-                    messageDiv.style.alignSelf = 'flex-end';
-                    messageDiv.style.background = '#D4B08C';
-                    messageDiv.style.color = '#2C1810';
-                } else {
-                    messageDiv.style.alignSelf = 'flex-start';
-                    messageDiv.style.background = '#F5E6D8';
-                    messageDiv.style.color = '#2C1810';
-                }
-                
-                const senderSpan = document.createElement('div');
-                senderSpan.textContent = msg.sender;
-                senderSpan.style.fontWeight = 'bold';
-                senderSpan.style.marginBottom = '5px';
-                senderSpan.style.fontSize = '0.9em';
-                
-                const timeSpan = document.createElement('div');
-                const msgTime = new Date(msg.created_at);
-                timeSpan.textContent = msgTime.toLocaleTimeString();
-                timeSpan.style.fontSize = '0.7em';
-                timeSpan.style.textAlign = 'right';
-                timeSpan.style.marginTop = '5px';
-                
-                messageDiv.appendChild(senderSpan);
-                messageDiv.appendChild(document.createTextNode(msg.text));
-                messageDiv.appendChild(timeSpan);
-                
+                const messageDiv = createMessageDiv(msg, currentUserName);
                 chatMessages.appendChild(messageDiv);
             });
             
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
     } catch (error) {
-        console.error('Lỗi khi tải lịch sử chat:', error);
+        console.error('チャット履歴読み込みエラー:', error);
         
 
         const chatMessages = document.getElementById('chatMessages');
@@ -1570,41 +1223,9 @@ async function loadChatHistory() {
         if (chatMessages && messagesData) {
             const messages = JSON.parse(messagesData);
             
+            const currentUserName = localStorage.getItem('birthdayChatUserName');
             messages.forEach(msg => {
-                const messageDiv = document.createElement('div');
-                messageDiv.style.padding = '10px';
-                messageDiv.style.borderRadius = '5px';
-                messageDiv.style.maxWidth = '80%';
-                messageDiv.style.wordBreak = 'break-word';
-                messageDiv.style.marginBottom = '10px';
-                
-                if (msg.sender === localStorage.getItem('birthdayChatUserName')) {
-                    messageDiv.style.alignSelf = 'flex-end';
-                    messageDiv.style.background = '#D4B08C';
-                    messageDiv.style.color = '#2C1810';
-                } else {
-                    messageDiv.style.alignSelf = 'flex-start';
-                    messageDiv.style.background = '#F5E6D8';
-                    messageDiv.style.color = '#2C1810';
-                }
-                
-                const senderSpan = document.createElement('div');
-                senderSpan.textContent = msg.sender;
-                senderSpan.style.fontWeight = 'bold';
-                senderSpan.style.marginBottom = '5px';
-                senderSpan.style.fontSize = '0.9em';
-                
-                const timeSpan = document.createElement('div');
-                const msgTime = new Date(msg.created_at);
-                timeSpan.textContent = msgTime.toLocaleTimeString();
-                timeSpan.style.fontSize = '0.7em';
-                timeSpan.style.textAlign = 'right';
-                timeSpan.style.marginTop = '5px';
-                
-                messageDiv.appendChild(senderSpan);
-                messageDiv.appendChild(document.createTextNode(msg.text));
-                messageDiv.appendChild(timeSpan);
-                
+                const messageDiv = createMessageDiv(msg, currentUserName);
                 chatMessages.appendChild(messageDiv);
             });
             
@@ -1666,43 +1287,9 @@ function appendNewChatMessage(message) {
     if (!chatMessages) return;
     
     const currentUserName = localStorage.getItem('birthdayChatUserName');
-    
-    const messageDiv = document.createElement('div');
-    messageDiv.style.padding = '10px';
-    messageDiv.style.borderRadius = '5px';
-    messageDiv.style.maxWidth = '80%';
-    messageDiv.style.wordBreak = 'break-word';
-    messageDiv.style.marginBottom = '10px';
-    
-    if (message.sender === currentUserName) {
-        messageDiv.style.alignSelf = 'flex-end';
-        messageDiv.style.background = '#D4B08C';
-        messageDiv.style.color = '#2C1810';
-    } else {
-        messageDiv.style.alignSelf = 'flex-start';
-        messageDiv.style.background = '#F5E6D8';
-        messageDiv.style.color = '#2C1810';
-    }
-    
-    const senderSpan = document.createElement('div');
-    senderSpan.textContent = message.sender;
-    senderSpan.style.fontWeight = 'bold';
-    senderSpan.style.marginBottom = '5px';
-    senderSpan.style.fontSize = '0.9em';
-    
-    const timeSpan = document.createElement('div');
-    const msgTime = new Date(message.created_at);
-    timeSpan.textContent = msgTime.toLocaleTimeString();
-    timeSpan.style.fontSize = '0.7em';
-    timeSpan.style.textAlign = 'right';
-    timeSpan.style.marginTop = '5px';
-    
-    messageDiv.appendChild(senderSpan);
-    messageDiv.appendChild(document.createTextNode(message.text));
-    messageDiv.appendChild(timeSpan);
+    const messageDiv = createMessageDiv(message, currentUserName);
     
     chatMessages.appendChild(messageDiv);
-    
     chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
@@ -1713,11 +1300,7 @@ function initInviteFriends() {
         const inviteButton = document.createElement('button');
         inviteButton.id = 'inviteFriendsBtn';
         inviteButton.textContent = '👥 友達を招待';
-        inviteButton.classList.add('feature-button');
-        inviteButton.style.position = 'fixed';
-        inviteButton.style.bottom = '70px';
-        inviteButton.style.right = '20px';
-        inviteButton.style.zIndex = '100';
+        inviteButton.classList.add('feature-button', 'invite-button-fixed');
         
         inviteButton.addEventListener('click', openInviteModal);
         
@@ -1731,44 +1314,21 @@ function openInviteModal() {
     if (!inviteModal) {
         inviteModal = document.createElement('div');
         inviteModal.id = 'inviteModal';
-        inviteModal.style.position = 'fixed';
-        inviteModal.style.top = '0';
-        inviteModal.style.left = '0';
-        inviteModal.style.width = '100%';
-        inviteModal.style.height = '100%';
-        inviteModal.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
-        inviteModal.style.display = 'none';
-        inviteModal.style.justifyContent = 'center';
-        inviteModal.style.alignItems = 'center';
-        inviteModal.style.zIndex = '1000';
+        inviteModal.className = 'invite-modal';
         
         const modalContent = document.createElement('div');
-        modalContent.style.background = '#FFF9F3';
-        modalContent.style.padding = '30px';
-        modalContent.style.border = '3px solid #D4B08C';
-        modalContent.style.boxShadow = '10px 10px 0 #D4B08C';
-        modalContent.style.maxWidth = '500px';
-        modalContent.style.width = '90%';
-        modalContent.style.position = 'relative';
+        modalContent.className = 'modal-content';
         
         const closeBtn = document.createElement('span');
         closeBtn.textContent = '×';
-        closeBtn.style.position = 'absolute';
-        closeBtn.style.top = '10px';
-        closeBtn.style.right = '20px';
-        closeBtn.style.fontSize = '30px';
-        closeBtn.style.fontWeight = 'bold';
-        closeBtn.style.cursor = 'pointer';
-        closeBtn.style.color = '#854D27';
+        closeBtn.className = 'modal-close';
         closeBtn.addEventListener('click', () => {
-            inviteModal.style.display = 'none';
+            inviteModal.classList.remove('show');
         });
         
         const title = document.createElement('h2');
         title.textContent = '友達を招待して参加してもらいましょう';
-        title.style.color = '#854D27';
-        title.style.marginBottom = '20px';
-        title.style.fontFamily = '\'DM Serif Display\', serif';
+        title.className = 'modal-title';
         
         const description = document.createElement('p');
         const nextBirthdayPerson = localStorage.getItem('nextBirthdayPerson');
@@ -1796,44 +1356,28 @@ function openInviteModal() {
         }
         
         description.textContent = `友達を招待して${birthdayPersonName}の誕生日${birthdayDateText}一緒にお祝いしましょう！みんなで素敵な思い出を作り、心のこもったお祝いのメッセージを送りましょう。`;
-        description.style.marginBottom = '20px';
+        description.className = 'modal-description';
         
         const linkSection = document.createElement('div');
-        linkSection.style.marginBottom = '30px';
+        linkSection.className = 'invite-link-section';
         
         const linkLabel = document.createElement('div');
         linkLabel.textContent = '招待リンク：';
-        linkLabel.style.fontWeight = 'bold';
-        linkLabel.style.marginBottom = '10px';
+        linkLabel.className = 'invite-link-label';
         
         const linkDisplay = document.createElement('div');
-        linkDisplay.style.display = 'flex';
-        linkDisplay.style.marginBottom = '10px';
+        linkDisplay.className = 'invite-link-display';
         
         const linkInput = document.createElement('input');
         linkInput.id = 'inviteLinkInput';
         linkInput.type = 'text';
         linkInput.readOnly = true;
         linkInput.value = generateInviteLink();
-        linkInput.style.flex = '1';
-        linkInput.style.padding = '10px';
-        linkInput.style.border = '2px solid #D4B08C';
-        linkInput.style.borderRight = 'none';
-        linkInput.style.borderRadius = '0';
-        linkInput.style.fontFamily = '\'Old Standard TT\', serif';
-        linkInput.style.fontSize = '14px';
-        linkInput.style.background = '#FFF9F3';
-        linkInput.style.color = '#2C1810';
+        linkInput.className = 'invite-link-input';
         
         const copyBtn = document.createElement('button');
         copyBtn.textContent = '📋 コピー';
-        copyBtn.style.padding = '10px 15px';
-        copyBtn.style.background = '#854D27';
-        copyBtn.style.color = '#FFF9F3';
-        copyBtn.style.border = '2px solid #D4B08C';
-        copyBtn.style.borderRadius = '0';
-        copyBtn.style.cursor = 'pointer';
-        copyBtn.style.fontSize = '0.9em';
+        copyBtn.className = 'invite-copy-btn';
         copyBtn.addEventListener('click', () => {
             linkInput.select();
             document.execCommand('copy');
@@ -1848,14 +1392,10 @@ function openInviteModal() {
         
         const shareLabel = document.createElement('div');
         shareLabel.textContent = 'シェアする：';
-        shareLabel.style.fontWeight = 'bold';
-        shareLabel.style.marginBottom = '10px';
-        shareLabel.style.marginTop = '20px';
+        shareLabel.className = 'social-share-label';
         
         const socialShare = document.createElement('div');
-        socialShare.style.display = 'flex';
-        socialShare.style.gap = '10px';
-        socialShare.style.marginBottom = '20px';
+        socialShare.className = 'social-share-container';
         
         const platforms = [
             { name: 'Facebook', icon: 'facebook-f', color: '#1877f2' },
@@ -1866,17 +1406,7 @@ function openInviteModal() {
         platforms.forEach(platform => {
             const shareBtn = document.createElement('button');
             shareBtn.innerHTML = `<i class="fab fa-${platform.icon}"></i>`;
-            shareBtn.style.width = '40px';
-            shareBtn.style.height = '40px';
-            shareBtn.style.borderRadius = '50%';
-            shareBtn.style.background = '#fff';
-            shareBtn.style.border = `2px solid ${platform.color}`;
-            shareBtn.style.color = platform.color;
-            shareBtn.style.fontSize = '1.2em';
-            shareBtn.style.cursor = 'pointer';
-            shareBtn.style.display = 'flex';
-            shareBtn.style.justifyContent = 'center';
-            shareBtn.style.alignItems = 'center';
+            shareBtn.className = `social-share-btn social-share-btn--${platform.name.toLowerCase()}`;
             shareBtn.title = `${platform.name}でシェア`;
             
             shareBtn.addEventListener('click', () => {
@@ -1902,54 +1432,26 @@ function openInviteModal() {
         });
         
         const emailSection = document.createElement('div');
+        emailSection.className = 'email-invite-section';
         
         const emailLabel = document.createElement('div');
         emailLabel.textContent = 'メールで招待状を送る：';
-        emailLabel.style.fontWeight = 'bold';
-        emailLabel.style.marginBottom = '10px';
+        emailLabel.className = 'email-invite-label';
         
         const emailInput = document.createElement('input');
         emailInput.id = 'inviteEmailInput';
         emailInput.type = 'email';
         emailInput.placeholder = '受信者のメールアドレス...';
-        emailInput.style.width = '100%';
-        emailInput.style.padding = '10px';
-        emailInput.style.border = '2px solid #D4B08C';
-        emailInput.style.borderRadius = '0';
-        emailInput.style.marginBottom = '10px';
-        emailInput.style.fontFamily = '\'Old Standard TT\', serif';
-        emailInput.style.fontSize = '16px';
-        emailInput.style.background = '#FFF9F3';
-        emailInput.style.color = '#2C1810';
+        emailInput.className = 'email-invite-input';
         
         const messageInput = document.createElement('textarea');
         messageInput.id = 'inviteMessageInput';
         messageInput.placeholder = '個人メッセージ（任意）...';
-        messageInput.style.width = '100%';
-        messageInput.style.padding = '10px';
-        messageInput.style.border = '2px solid #D4B08C';
-        messageInput.style.borderRadius = '0';
-        messageInput.style.marginBottom = '10px';
-        messageInput.style.fontFamily = '\'Old Standard TT\', serif';
-        messageInput.style.fontSize = '16px';
-        messageInput.style.background = '#FFF9F3';
-        messageInput.style.color = '#2C1810';
-        messageInput.style.resize = 'vertical';
-        messageInput.style.minHeight = '100px';
+        messageInput.className = 'email-invite-message';
         
         const sendEmailBtn = document.createElement('button');
         sendEmailBtn.textContent = '📧 招待状を送る';
-        sendEmailBtn.style.padding = '10px 20px';
-        sendEmailBtn.style.background = '#854D27';
-        sendEmailBtn.style.color = '#FFF9F3';
-        sendEmailBtn.style.border = '2px solid #D4B08C';
-        sendEmailBtn.style.borderRadius = '0';
-        sendEmailBtn.style.cursor = 'pointer';
-        sendEmailBtn.style.fontSize = '1.1em';
-        sendEmailBtn.style.transition = 'all 0.3s';
-        sendEmailBtn.style.boxShadow = '4px 4px 0 #D4B08C';
-        sendEmailBtn.style.display = 'block';
-        sendEmailBtn.style.margin = '0 auto';
+        sendEmailBtn.className = 'email-send-btn';
         
         sendEmailBtn.addEventListener('click', () => {
             const email = emailInput.value.trim();
@@ -1984,7 +1486,7 @@ function openInviteModal() {
         document.body.appendChild(inviteModal);
     }
     
-    inviteModal.style.display = 'flex';
+    inviteModal.classList.add('show');
 }
 
 function generateInviteLink() {
@@ -2002,105 +1504,9 @@ function sendInviteEmail(email, message) {
 }
 
 function openUserNameModalForGift() {
-    let userNameModal = document.getElementById('userNameModal');
-    
-    if (!userNameModal) {
-        userNameModal = document.createElement('div');
-        userNameModal.id = 'userNameModal';
-        userNameModal.style.position = 'fixed';
-        userNameModal.style.top = '0';
-        userNameModal.style.left = '0';
-        userNameModal.style.width = '100%';
-        userNameModal.style.height = '100%';
-        userNameModal.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
-        userNameModal.style.display = 'none';
-        userNameModal.style.justifyContent = 'center';
-        userNameModal.style.alignItems = 'center';
-        userNameModal.style.zIndex = '1000';
-        
-        const modalContent = document.createElement('div');
-        modalContent.style.background = '#FFF9F3';
-        modalContent.style.padding = '30px';
-        modalContent.style.border = '3px solid #D4B08C';
-        modalContent.style.boxShadow = '10px 10px 0 #D4B08C';
-        modalContent.style.maxWidth = '500px';
-        modalContent.style.width = '90%';
-        modalContent.style.position = 'relative';
-        
-        const closeBtn = document.createElement('span');
-        closeBtn.textContent = '×';
-        closeBtn.style.position = 'absolute';
-        closeBtn.style.top = '10px';
-        closeBtn.style.right = '20px';
-        closeBtn.style.fontSize = '30px';
-        closeBtn.style.fontWeight = 'bold';
-        closeBtn.style.cursor = 'pointer';
-        closeBtn.style.color = '#854D27';
-        closeBtn.addEventListener('click', () => {
-            userNameModal.style.display = 'none';
-        });
-        
-        const title = document.createElement('h2');
-        title.textContent = 'あなたの名前を入力してください';
-        title.style.color = '#854D27';
-        title.style.marginBottom = '20px';
-        title.style.fontFamily = '\'DM Serif Display\', serif';
-        
-        const userNameInput = document.createElement('input');
-        userNameInput.id = 'chatUserNameInput';
-        userNameInput.type = 'text';
-        userNameInput.placeholder = 'あなたの名前...';
-        userNameInput.style.width = '100%';
-        userNameInput.style.padding = '10px';
-        userNameInput.style.border = '2px solid #D4B08C';
-        userNameInput.style.borderRadius = '0';
-        userNameInput.style.marginBottom = '20px';
-        userNameInput.style.fontFamily = '\'Old Standard TT\', serif';
-        userNameInput.style.fontSize = '16px';
-        userNameInput.style.background = '#FFF9F3';
-        userNameInput.style.color = '#2C1810';
-        
-        const submitBtn = document.createElement('button');
-        submitBtn.textContent = '確認';
-        submitBtn.style.padding = '10px 20px';
-        submitBtn.style.background = '#854D27';
-        submitBtn.style.color = '#FFF9F3';
-        submitBtn.style.border = '2px solid #D4B08C';
-        submitBtn.style.borderRadius = '0';
-        submitBtn.style.cursor = 'pointer';
-        submitBtn.style.fontSize = '1.1em';
-        submitBtn.style.transition = 'all 0.3s';
-        submitBtn.style.boxShadow = '4px 4px 0 #D4B08C';
-        submitBtn.style.display = 'block';
-        submitBtn.style.margin = '0 auto';
-        
-        submitBtn.addEventListener('click', () => {
-            const userName = document.getElementById('chatUserNameInput').value.trim();
-            
-            if (userName) {
-                saveUsername(userName);
-                userNameModal.style.display = 'none';
-                openVirtualGiftModal(userName);
-            } else {
-                alert('名前を入力してください！');
-            }
-        });
-        
-        modalContent.appendChild(closeBtn);
-        modalContent.appendChild(title);
-        modalContent.appendChild(userNameInput);
-        modalContent.appendChild(submitBtn);
-        
-        userNameModal.appendChild(modalContent);
-        document.body.appendChild(userNameModal);
-    }
-    
-    const userNameInput = document.getElementById('chatUserNameInput');
-    if (userNameInput) {
-        userNameInput.value = '';
-    }
-    
-    userNameModal.style.display = 'flex';
+    createUserNameModal('確認', (userName) => {
+        openVirtualGiftModal(userName);
+    });
 }
 
 function openVirtualGiftModal(userName) {
@@ -2112,7 +1518,7 @@ function openVirtualGiftModal(userName) {
             giftSender.value = userName;
         }
         
-        virtualGiftModal.style.display = 'flex';
+        virtualGiftModal.classList.add('show');
         
         loadGiftList();
     } else {
@@ -2121,106 +1527,10 @@ function openVirtualGiftModal(userName) {
 }
 
 function openUserNameModalForBulletin() {
-    let userNameModal = document.getElementById('userNameModal');
-    
-    if (!userNameModal) {
-        userNameModal = document.createElement('div');
-        userNameModal.id = 'userNameModal';
-        userNameModal.style.position = 'fixed';
-        userNameModal.style.top = '0';
-        userNameModal.style.left = '0';
-        userNameModal.style.width = '100%';
-        userNameModal.style.height = '100%';
-        userNameModal.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
-        userNameModal.style.display = 'none';
-        userNameModal.style.justifyContent = 'center';
-        userNameModal.style.alignItems = 'center';
-        userNameModal.style.zIndex = '1000';
-        
-        const modalContent = document.createElement('div');
-        modalContent.style.background = '#FFF9F3';
-        modalContent.style.padding = '30px';
-        modalContent.style.border = '3px solid #D4B08C';
-        modalContent.style.boxShadow = '10px 10px 0 #D4B08C';
-        modalContent.style.maxWidth = '500px';
-        modalContent.style.width = '90%';
-        modalContent.style.position = 'relative';
-        
-        const closeBtn = document.createElement('span');
-        closeBtn.textContent = '×';
-        closeBtn.style.position = 'absolute';
-        closeBtn.style.top = '10px';
-        closeBtn.style.right = '20px';
-        closeBtn.style.fontSize = '30px';
-        closeBtn.style.fontWeight = 'bold';
-        closeBtn.style.cursor = 'pointer';
-        closeBtn.style.color = '#854D27';
-        closeBtn.addEventListener('click', () => {
-            userNameModal.style.display = 'none';
-        });
-        
-        const title = document.createElement('h2');
-        title.textContent = 'あなたの名前を入力してください';
-        title.style.color = '#854D27';
-        title.style.marginBottom = '20px';
-        title.style.fontFamily = '\'DM Serif Display\', serif';
-        
-        const userNameInput = document.createElement('input');
-        userNameInput.id = 'chatUserNameInput';
-        userNameInput.type = 'text';
-        userNameInput.placeholder = 'あなたの名前...';
-        userNameInput.style.width = '100%';
-        userNameInput.style.padding = '10px';
-        userNameInput.style.border = '2px solid #D4B08C';
-        userNameInput.style.borderRadius = '0';
-        userNameInput.style.marginBottom = '20px';
-        userNameInput.style.fontFamily = '\'Old Standard TT\', serif';
-        userNameInput.style.fontSize = '16px';
-        userNameInput.style.background = '#FFF9F3';
-        userNameInput.style.color = '#2C1810';
-        
-        const submitBtn = document.createElement('button');
-        submitBtn.textContent = '掲示板に参加';
-        submitBtn.style.padding = '10px 20px';
-        submitBtn.style.background = '#854D27';
-        submitBtn.style.color = '#FFF9F3';
-        submitBtn.style.border = '2px solid #D4B08C';
-        submitBtn.style.borderRadius = '0';
-        submitBtn.style.cursor = 'pointer';
-        submitBtn.style.fontSize = '1.1em';
-        submitBtn.style.transition = 'all 0.3s';
-        submitBtn.style.boxShadow = '4px 4px 0 #D4B08C';
-        submitBtn.style.display = 'block';
-        submitBtn.style.margin = '0 auto';
-        
-        submitBtn.addEventListener('click', () => {
-            const userName = document.getElementById('chatUserNameInput').value.trim();
-            
-            if (userName) {
-                saveUsername(userName);
-                userNameModal.style.display = 'none';
-                const bulletinModal = document.getElementById('bulletinBoardModal');
-                if (bulletinModal) {
-                    bulletinModal.style.display = 'flex';
-                }
-            } else {
-                alert('名前を入力してください！');
-            }
-        });
-        
-        modalContent.appendChild(closeBtn);
-        modalContent.appendChild(title);
-        modalContent.appendChild(userNameInput);
-        modalContent.appendChild(submitBtn);
-        
-        userNameModal.appendChild(modalContent);
-        document.body.appendChild(userNameModal);
-    }
-    
-    const userNameInput = document.getElementById('chatUserNameInput');
-    if (userNameInput) {
-        userNameInput.value = '';
-    }
-    
-    userNameModal.style.display = 'flex';
+    createUserNameModal('掲示板に参加', (userName) => {
+        const bulletinModal = document.getElementById('bulletinBoardModal');
+        if (bulletinModal) {
+            bulletinModal.classList.add('show');
+        }
+    });
 }

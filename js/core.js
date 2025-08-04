@@ -1,57 +1,6 @@
 let birthdays = [];
 let lastBirthdayCheck = null;
 
-// インラインCSS
-const style = document.createElement('style');
-style.textContent = `
-    .countdown {
-        transition: all 1s ease-in-out;
-    }
-    
-    .birthday-title {
-        font-family: 'Dancing Script', cursive;
-        font-size: 3.5em;
-        color: #ff6b81;
-        text-shadow: 3px 3px 6px rgba(0,0,0,0.1);
-        margin: 0;
-        padding: 20px;
-        animation: birthdayPop 1.5s ease-out;
-    }
-    
-    @keyframes birthdayPop {
-        0% { transform: scale(0); opacity: 0; }
-        50% { transform: scale(1.2); }
-        100% { transform: scale(1); opacity: 1; }
-    }
-    .photo-item {
-        position: relative;
-        overflow: hidden;
-        cursor: pointer;
-        transition: transform 0.3s ease;
-    }
-    
-    .photo-item:hover {
-        transform: scale(1.05);
-    }
-    
-    .photo-item:hover .play-icon {
-        opacity: 1;
-    }
-    
-    .play-icon {
-        opacity: 0.7;
-        transition: opacity 0.3s ease;
-    }
-    
-    video.memory-photo {
-        object-fit: cover;
-        width: 100%;
-        height: 100%;
-    }
-`;
-
-document.head.appendChild(style);
-
 async function loadBirthdays() {
     try {
         if (!supabase) {
@@ -344,44 +293,36 @@ function showBirthdayContent(birthdayPerson, showEffects = true) {
 
     const birthdayTitle = document.getElementById('birthdayTitle');
     if (birthdayTitle) {
-        birthdayTitle.style.display = 'block';
-        birthdayTitle.style.opacity = '1';
-        birthdayTitle.classList.add('birthday-title');
+        birthdayTitle.classList.add('birthday-title', 'birthday-title-visible');
         birthdayTitle.textContent = 'お誕生日おめでとうございます';
     }
 
     const birthdayMessage = document.getElementById('birthdayMessage');
     if (birthdayMessage) {
         birthdayMessage.textContent = birthdayPerson.message;
-        birthdayMessage.style.display = 'block';
-        birthdayMessage.style.opacity = '1';
-        birthdayMessage.style.transform = 'translateY(0)';
-        birthdayMessage.classList.add('celebrating');
+        birthdayMessage.classList.add('celebrating', 'birthday-message-visible');
     }
 
     const cake2DContainer = document.querySelector('.cake-2d-container');
     if (cake2DContainer) {
-        cake2DContainer.style.display = 'flex';
+        cake2DContainer.classList.add('cake-2d-visible');
     }
     
     const blowButton = document.getElementById('blowButton');
     if (blowButton) {
-        blowButton.style.display = 'block';
+        blowButton.classList.add('blow-button-visible');
         
         if (showEffects) {
             setTimeout(() => {
-                blowButton.style.opacity = '0';
-                blowButton.style.transform = 'translateY(20px)';
+                blowButton.classList.add('blow-button-hidden');
                 
                 setTimeout(() => {
-                    blowButton.style.transition = 'all 0.5s ease';
-                    blowButton.style.opacity = '1';
-                    blowButton.style.transform = 'translateY(0)';
+                    blowButton.classList.remove('blow-button-hidden');
+                    blowButton.classList.add('blow-button-animated');
                 }, 100);
             }, 1000);
         } else {
-            blowButton.style.opacity = '1';
-            blowButton.style.transform = 'translateY(0)';
+            blowButton.classList.add('blow-button-animated');
         }
         
         blowButton.onclick = function() {
@@ -393,7 +334,7 @@ function showBirthdayContent(birthdayPerson, showEffects = true) {
                 if (flames && flames.length > 0) {
                     flames.forEach((flame, index) => {
                         setTimeout(() => {
-                            flame.style.opacity = '0';
+                            flame.classList.add('flame-hidden');
                         }, index * 200);
                     });
                 }
@@ -403,21 +344,20 @@ function showBirthdayContent(birthdayPerson, showEffects = true) {
     
     const micPermissionBtn = document.getElementById('micPermissionBtn');
     if (micPermissionBtn) {
-        micPermissionBtn.style.display = 'none';
+        micPermissionBtn.classList.add('mic-permission-hidden');
     }
     
     const cakeContainer = document.querySelector('.cake-container');
     if (cakeContainer) {
-        cakeContainer.style.display = 'none';
+        cakeContainer.classList.add('cake-container-hidden');
     }
     
     const birthdayMessageContainer = document.querySelector('.birthday-message');
     if (birthdayMessageContainer) {
-        birthdayMessageContainer.style.display = 'block';
+        birthdayMessageContainer.classList.add('birthday-message-container-visible');
     }
 
-    document.body.style.transition = 'background 1.5s ease';
-    document.body.style.background = 'linear-gradient(135deg, #ffe6eb 0%, #ffb8c6 100%)';
+    document.body.classList.add('birthday-background');
 
     setTimeout(() => {
     createConfetti();

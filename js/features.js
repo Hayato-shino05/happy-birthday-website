@@ -20,11 +20,8 @@ function blowOutCandle() {
 
         flames.forEach((flame, index) => {
             setTimeout(() => {
-                flame.style.opacity = '0';
-                flame.style.transform = 'translateX(-50%) scale(0.1)';
-                flame.style.boxShadow = 'none';
+                flame.classList.add('flame-extinguish');
                 
-
                 createSmokeEffect2D(flame);
             }, index * 200);
         });
@@ -48,24 +45,22 @@ function blowOutCandle() {
 
     const blowButton = document.getElementById('blowButton');
     if (blowButton) {
-        blowButton.style.transition = 'all 0.5s ease';
-        blowButton.style.opacity = '0';
-        blowButton.style.transform = 'translateY(20px)';
+        blowButton.classList.add('blow-button-hide');
         
         setTimeout(() => {
-            blowButton.style.display = 'none';
+            blowButton.classList.add('blow-button-hidden');
         }, 500);
     }
     
 
     const audioFeedback = document.getElementById('audioFeedback');
     if (audioFeedback) {
-        audioFeedback.style.display = 'none';
+        audioFeedback.classList.add('hidden');
     }
     
     const progressContainer = document.getElementById('progressContainer');
     if (progressContainer) {
-        progressContainer.style.display = 'none';
+        progressContainer.classList.add('hidden');
     }
 
 
@@ -76,19 +71,13 @@ function blowOutCandle() {
     const message = document.getElementById('birthdayMessage');
     if (message) {
 
-        message.style.transition = 'all 0.5s ease';
-        message.style.opacity = '0';
+        message.classList.add('fade-out');
         
         setTimeout(() => {
-            message.innerHTML = 'お誕生日おめでとうございます！🎉<br>ロウソクを消すことができました！<br>あなたの願いがすべて叶いますように！🎂';
-    message.style.fontSize = '1.8em';
-    message.style.color = '#ff4081';
+            message.innerHTML = 'お誕生日おめでとうございます！<br>ロウソクを消すことができました！<br>あなたの願いがすべて叶いますように！';
             message.classList.add('celebrating');
-            
-
-            setTimeout(() => {
-                message.style.opacity = '1'; 
-            }, 100);
+            message.classList.remove('fade-out');
+            message.classList.add('fade-in');
         }, 500);
     }
     
@@ -112,14 +101,9 @@ function createSmokeEffect2D(flameElement) {
         const smoke = document.createElement('div');
         smoke.className = 'smoke-particle';
         smoke.style.position = 'absolute';
-        smoke.style.width = '8px';
-        smoke.style.height = '8px';
-        smoke.style.borderRadius = '50%';
-        smoke.style.background = 'rgba(200, 200, 200, 0.5)';
         smoke.style.bottom = '100%';
         smoke.style.left = '50%';
         smoke.style.transform = 'translateX(-50%)';
-        smoke.style.animation = 'smoke 2s ease-out forwards';
         smoke.style.animationDelay = (i * 0.2) + 's';
         
         parentCandle.appendChild(smoke);
@@ -262,12 +246,11 @@ function createConfetti() {
     for (let i = 0; i < 50; i++) {
         setTimeout(() => {
             const confetti = document.createElement('div');
-            confetti.className = 'confetti';
+            confetti.className = 'confetti-particle';
             confetti.style.left = Math.random() * 100 + 'vw';
             confetti.style.backgroundColor = getRandomColor();
-            confetti.style.opacity = 1;
 
-
+            // Add shape variations
             if (i % 4 === 0) {
                 confetti.style.borderRadius = '50%';
             } else if (i % 4 === 1) {
@@ -279,12 +262,10 @@ function createConfetti() {
                 confetti.style.transform = 'rotate(45deg)';
             }
 
-
             const animationDuration = Math.random() * 3 + 2;
-            confetti.style.animation = `confettiFall ${animationDuration}s linear forwards`;
+            confetti.style.animationDuration = animationDuration + 's';
 
             document.body.appendChild(confetti);
-
 
             setTimeout(() => {
                 confetti.remove();
@@ -355,81 +336,31 @@ function startBirthdayQuiz() {
     if (!quizModal) {
         quizModal = document.createElement('div');
         quizModal.id = 'birthdayQuizModal';
-        quizModal.style.position = 'fixed';
-        quizModal.style.top = '0';
-        quizModal.style.left = '0';
-        quizModal.style.width = '100%';
-        quizModal.style.height = '100%';
-        quizModal.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
-        quizModal.style.display = 'flex';
-        quizModal.style.justifyContent = 'center';
-        quizModal.style.alignItems = 'center';
-        quizModal.style.zIndex = '10000';
-        quizModal.style.display = 'none';
+        quizModal.className = 'features-modal hidden';
 
         const quizContainer = document.createElement('div');
-        quizContainer.style.background = '#FFF9F3';
-        quizContainer.style.border = '2px solid #D4B08C';
-        quizContainer.style.borderRadius = '0';
-        quizContainer.style.padding = '20px';
-        quizContainer.style.width = '90%';
-        quizContainer.style.maxWidth = '500px';
-        quizContainer.style.maxHeight = '80vh';
-        quizContainer.style.overflowY = 'auto';
-        quizContainer.style.boxShadow = '8px 8px 0 #D4B08C';
-        quizContainer.style.position = 'relative';
-        quizContainer.style.textAlign = 'center';
+        quizContainer.className = 'features-modal-container quiz-modal-container';
 
         const closeBtn = document.createElement('span');
-        closeBtn.className = 'close-btn';
+        closeBtn.className = 'features-modal-close';
         closeBtn.innerHTML = '&times;';
-        closeBtn.style.position = 'absolute';
-        closeBtn.style.top = '10px';
-        closeBtn.style.right = '10px';
-        closeBtn.style.fontSize = '30px';
-        closeBtn.style.cursor = 'pointer';
-        closeBtn.style.color = '#854D27';
         closeBtn.addEventListener('click', () => {
-            quizModal.style.display = 'none';
+            quizModal.classList.add('hidden');
         });
 
         const title = document.createElement('h2');
         title.textContent = '誕生日の謎';
-        title.style.color = '#854D27';
-        title.style.marginBottom = '20px';
-        title.style.fontFamily = '\'DM Serif Display\', serif';
+        title.className = 'features-modal-title';
 
         const quizArea = document.createElement('div');
         quizArea.id = 'quizArea';
-        quizArea.style.display = 'flex';
-        quizArea.style.flexDirection = 'column';
-        quizArea.style.gap = '10px';
-        quizArea.style.margin = '20px auto';
-        quizArea.style.width = '90%';
+        quizArea.className = 'quiz-area';
 
         const restartBtn = document.createElement('button');
         restartBtn.textContent = '再挑戦';
-        restartBtn.style.padding = '10px 20px';
-        restartBtn.style.background = '#854D27';
-        restartBtn.style.color = '#FFF9F3';
-        restartBtn.style.border = '2px solid #D4B08C';
-        restartBtn.style.borderRadius = '0';
-        restartBtn.style.cursor = 'pointer';
-        restartBtn.style.fontSize = '1.1em';
-        restartBtn.style.transition = 'all 0.3s';
-        restartBtn.style.boxShadow = '4px 4px 0 #D4B08C';
-        restartBtn.style.textTransform = 'uppercase';
-        restartBtn.style.letterSpacing = '1px';
+        restartBtn.className = 'quiz-restart-btn';
         restartBtn.addEventListener('click', () => {
             initBirthdayQuiz();
-        });
-        restartBtn.addEventListener('mouseover', () => {
-            restartBtn.style.transform = 'translate(-2px, -2px)';
-            restartBtn.style.boxShadow = '6px 6px 0 #D4B08C';
-        });
-        restartBtn.addEventListener('mouseout', () => {
-            restartBtn.style.transform = 'none';
-            restartBtn.style.boxShadow = '4px 4px 0 #D4B08C';
         });
 
         quizContainer.appendChild(closeBtn);
@@ -439,10 +370,9 @@ function startBirthdayQuiz() {
         quizModal.appendChild(quizContainer);
         document.body.appendChild(quizModal);
     }
-    quizModal.style.display = 'flex';
+    quizModal.classList.remove('hidden');
     initBirthdayQuiz();
 }
-
 
 function initBirthdayQuiz() {
     const quizArea = document.getElementById('quizArea');
@@ -452,8 +382,7 @@ function initBirthdayQuiz() {
     if (typeof birthdays === 'undefined' || birthdays.length === 0) {
         const noDataMsg = document.createElement('p');
         noDataMsg.textContent = '誕生日データがないため、クイズを作成できません。';
-        noDataMsg.style.color = '#854D27';
-        noDataMsg.style.fontStyle = 'italic';
+        noDataMsg.className = 'quiz-no-data';
         quizArea.appendChild(noDataMsg);
         return;
     }
@@ -484,9 +413,7 @@ function displayQuestion() {
         if (currentQuestionIndex >= questions.length) {
             const resultMsg = document.createElement('p');
             resultMsg.textContent = `クイズ完了！あなたのスコア: ${score}/${questions.length}`;
-            resultMsg.style.color = '#854D27';
-            resultMsg.style.fontSize = '1.2em';
-            resultMsg.style.fontWeight = 'bold';
+            resultMsg.className = 'quiz-result';
             quizArea.appendChild(resultMsg);
             return;
         }
@@ -494,9 +421,7 @@ function displayQuestion() {
         const question = questions[currentQuestionIndex];
         const questionText = document.createElement('p');
         questionText.textContent = `${currentQuestionIndex + 1}. ${question.question}`;
-        questionText.style.color = '#854D27';
-        questionText.style.fontSize = '1.1em';
-        questionText.style.marginBottom = '15px';
+        questionText.className = 'quiz-question';
         quizArea.appendChild(questionText);
         
 
@@ -504,26 +429,9 @@ function displayQuestion() {
         shuffledOptions.forEach(option => {
             const optionBtn = document.createElement('button');
             optionBtn.textContent = option;
-            optionBtn.style.padding = '10px 15px';
-            optionBtn.style.margin = '5px';
-            optionBtn.style.background = '#854D27';
-            optionBtn.style.color = '#FFF9F3';
-            optionBtn.style.border = '2px solid #D4B08C';
-            optionBtn.style.borderRadius = '0';
-            optionBtn.style.cursor = 'pointer';
-            optionBtn.style.fontSize = '1em';
-            optionBtn.style.transition = 'all 0.3s';
-            optionBtn.style.boxShadow = '2px 2px 0 #D4B08C';
+            optionBtn.className = 'quiz-option-btn';
             optionBtn.addEventListener('click', () => {
                 checkAnswer(option, question.correctAnswer);
-            });
-            optionBtn.addEventListener('mouseover', () => {
-                optionBtn.style.transform = 'translate(-1px, -1px)';
-                optionBtn.style.boxShadow = '3px 3px 0 #D4B08C';
-            });
-            optionBtn.addEventListener('mouseout', () => {
-                optionBtn.style.transform = 'none';
-                optionBtn.style.boxShadow = '2px 2px 0 #D4B08C';
             });
             quizArea.appendChild(optionBtn);
         });
@@ -551,57 +459,25 @@ function openBirthdayCalendar() {
     if (!calendarModal) {
         calendarModal = document.createElement('div');
         calendarModal.id = 'birthdayCalendarModal';
-        calendarModal.style.position = 'fixed';
-        calendarModal.style.top = '0';
-        calendarModal.style.left = '0';
-        calendarModal.style.width = '100%';
-        calendarModal.style.height = '100%';
-        calendarModal.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
-        calendarModal.style.display = 'flex';
-        calendarModal.style.justifyContent = 'center';
-        calendarModal.style.alignItems = 'center';
-        calendarModal.style.zIndex = '10000';
-        calendarModal.style.display = 'none';
+        calendarModal.className = 'features-modal hidden';
 
         const calendarContainer = document.createElement('div');
-        calendarContainer.style.background = '#FFF9F3';
-        calendarContainer.style.border = '2px solid #D4B08C';
-        calendarContainer.style.borderRadius = '0';
-        calendarContainer.style.padding = '20px';
-        calendarContainer.style.width = '90%';
-        calendarContainer.style.maxWidth = '600px';
-        calendarContainer.style.maxHeight = '80vh';
-        calendarContainer.style.overflowY = 'auto';
-        calendarContainer.style.boxShadow = '8px 8px 0 #D4B08C';
-        calendarContainer.style.position = 'relative';
-        calendarContainer.style.textAlign = 'center';
+        calendarContainer.className = 'features-modal-container calendar-modal-container';
 
         const closeBtn = document.createElement('span');
-        closeBtn.className = 'close-btn';
+        closeBtn.className = 'features-modal-close';
         closeBtn.innerHTML = '&times;';
-        closeBtn.style.position = 'absolute';
-        closeBtn.style.top = '10px';
-        closeBtn.style.right = '10px';
-        closeBtn.style.fontSize = '30px';
-        closeBtn.style.cursor = 'pointer';
-        closeBtn.style.color = '#854D27';
         closeBtn.addEventListener('click', () => {
-            calendarModal.style.display = 'none';
+            calendarModal.classList.add('hidden');
         });
 
         const title = document.createElement('h2');
         title.textContent = '誕生日カレンダー';
-        title.style.color = '#854D27';
-        title.style.marginBottom = '20px';
-        title.style.fontFamily = '\'DM Serif Display\', serif';
+        title.className = 'features-modal-title';
 
         const calendarView = document.createElement('div');
         calendarView.id = 'calendarView';
-        calendarView.style.display = 'flex';
-        calendarView.style.flexDirection = 'column';
-        calendarView.style.gap = '10px';
-        calendarView.style.margin = '20px auto';
-        calendarView.style.width = '90%';
+        calendarView.className = 'calendar-view';
 
         calendarContainer.appendChild(closeBtn);
         calendarContainer.appendChild(title);
@@ -609,7 +485,7 @@ function openBirthdayCalendar() {
         calendarModal.appendChild(calendarContainer);
         document.body.appendChild(calendarModal);
     }
-    calendarModal.style.display = 'flex';
+    calendarModal.classList.remove('hidden');
     displayBirthdayCalendar();
 }
 
@@ -622,8 +498,7 @@ function displayBirthdayCalendar() {
     if (typeof birthdays === 'undefined') {
         const noDataMsg = document.createElement('p');
         noDataMsg.textContent = '表示する誕生日データがありません。';
-        noDataMsg.style.color = '#854D27';
-        noDataMsg.style.fontStyle = 'italic';
+        noDataMsg.className = 'calendar-no-data';
         calendarView.appendChild(noDataMsg);
         return;
     }
@@ -638,15 +513,11 @@ function displayBirthdayCalendar() {
     
 
     const list = document.createElement('ul');
-    list.style.listStyleType = 'none';
-    list.style.padding = '0';
-    list.style.textAlign = 'left';
+    list.className = 'calendar-list';
     
     sortedBirthdays.forEach(person => {
         const listItem = document.createElement('li');
-        listItem.style.padding = '10px';
-        listItem.style.borderBottom = '1px solid #D4B08C';
-        listItem.style.color = '#2C1810';
+        listItem.className = 'calendar-list-item';
         listItem.textContent = `${person.name} - ${person.month}月${person.day}日`;
         list.appendChild(listItem);
     });
@@ -655,84 +526,35 @@ function displayBirthdayCalendar() {
 }
 
 function startMemoryGame() {
-
     let gameModal = document.getElementById('memoryGameModal');
     if (!gameModal) {
         gameModal = document.createElement('div');
         gameModal.id = 'memoryGameModal';
-        gameModal.style.position = 'fixed';
-        gameModal.style.top = '0';
-        gameModal.style.left = '0';
-        gameModal.style.width = '100%';
-        gameModal.style.height = '100%';
-        gameModal.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
-        gameModal.style.display = 'flex';
-        gameModal.style.justifyContent = 'center';
-        gameModal.style.alignItems = 'center';
-        gameModal.style.zIndex = '10000';
-        gameModal.style.display = 'none';
+        gameModal.className = 'features-modal hidden';
 
         const gameContainer = document.createElement('div');
-        gameContainer.style.background = '#FFF9F3';
-        gameContainer.style.border = '2px solid #D4B08C';
-        gameContainer.style.borderRadius = '0';
-        gameContainer.style.padding = '20px';
-        gameContainer.style.width = '80%';
-        gameContainer.style.maxWidth = '600px';
-        gameContainer.style.boxShadow = '8px 8px 0 #D4B08C';
-        gameContainer.style.position = 'relative';
-        gameContainer.style.textAlign = 'center';
+        gameContainer.className = 'features-modal-container memory-game-container';
 
         const closeBtn = document.createElement('span');
-        closeBtn.className = 'close-btn';
+        closeBtn.className = 'features-modal-close';
         closeBtn.innerHTML = '&times;';
-        closeBtn.style.position = 'absolute';
-        closeBtn.style.top = '10px';
-        closeBtn.style.right = '10px';
-        closeBtn.style.fontSize = '30px';
-        closeBtn.style.cursor = 'pointer';
-        closeBtn.style.color = '#854D27';
         closeBtn.addEventListener('click', () => {
-            gameModal.style.display = 'none';
+            gameModal.classList.add('hidden');
         });
 
         const title = document.createElement('h2');
         title.textContent = '記憶ゲーム';
-        title.style.color = '#854D27';
-        title.style.marginBottom = '20px';
-        title.style.fontFamily = '\'DM Serif Display\', serif';
+        title.className = 'features-modal-title';
 
         const gameGrid = document.createElement('div');
         gameGrid.id = 'memoryGameGrid';
-        gameGrid.style.display = 'grid';
-        gameGrid.style.gridTemplateColumns = 'repeat(4, 1fr)';
-        gameGrid.style.gap = '10px';
-        gameGrid.style.margin = '20px auto';
-        gameGrid.style.width = '80%';
+        gameGrid.className = 'memory-game-grid';
 
         const restartBtn = document.createElement('button');
         restartBtn.textContent = '再挑戦';
-        restartBtn.style.padding = '10px 20px';
-        restartBtn.style.background = '#854D27';
-        restartBtn.style.color = '#FFF9F3';
-        restartBtn.style.border = '2px solid #D4B08C';
-        restartBtn.style.borderRadius = '0';
-        restartBtn.style.cursor = 'pointer';
-        restartBtn.style.fontSize = '1.1em';
-        restartBtn.style.transition = 'all 0.3s';
-        restartBtn.style.boxShadow = '4px 4px 0 #D4B08C';
-        restartBtn.style.textTransform = 'uppercase';
-        restartBtn.style.letterSpacing = '1px';
+        restartBtn.className = 'memory-restart-btn';
         restartBtn.addEventListener('click', () => {
             initMemoryGame();
-        });
-        restartBtn.addEventListener('mouseover', () => {
-            restartBtn.style.transform = 'translate(-2px, -2px)';
-            restartBtn.style.boxShadow = '6px 6px 0 #D4B08C';
-        });
-        restartBtn.addEventListener('mouseout', () => {
-            restartBtn.style.transform = 'none';
-            restartBtn.style.boxShadow = '4px 4px 0 #D4B08C';
         });
 
         gameContainer.appendChild(closeBtn);
@@ -742,7 +564,7 @@ function startMemoryGame() {
         gameModal.appendChild(gameContainer);
         document.body.appendChild(gameModal);
     }
-    gameModal.style.display = 'flex';
+    gameModal.classList.remove('hidden');
     initMemoryGame();
 }
 
@@ -764,24 +586,11 @@ function initMemoryGame() {
 
     symbols.forEach((symbol, index) => {
         const card = document.createElement('div');
-        card.style.width = '80px';
-        card.style.height = '80px';
-        card.style.background = '#854D27';
-        card.style.border = '2px solid #D4B08C';
-        card.style.display = 'flex';
-        card.style.alignItems = 'center';
-        card.style.justifyContent = 'center';
-        card.style.cursor = 'pointer';
-        card.style.fontSize = '0';
-        card.style.transition = 'all 0.3s';
-        card.style.boxShadow = '2px 2px 0 #D4B08C';
+        card.className = 'memory-card';
         card.dataset.symbol = symbol;
-        card.classList.add('memory-card');
         
         card.addEventListener('click', () => {
             if (flippedCards.length < 2 && !card.classList.contains('flipped') && !card.classList.contains('matched')) {
-                card.style.background = '#FFF9F3';
-                card.style.fontSize = '40px';
                 card.textContent = symbol;
                 card.classList.add('flipped');
                 flippedCards.push(card);
@@ -799,12 +608,8 @@ function initMemoryGame() {
                                 }, 300);
                             }
                         } else {
-                            card1.style.background = '#854D27';
-                            card1.style.fontSize = '0';
                             card1.textContent = '';
                             card1.classList.remove('flipped');
-                            card2.style.background = '#854D27';
-                            card2.style.fontSize = '0';
                             card2.textContent = '';
                             card2.classList.remove('flipped');
                         }
@@ -894,109 +699,43 @@ async function loadPuzzleImages() {
 }
 
 function startPuzzleGame() {
-
     let puzzleModal = document.getElementById('puzzleGameModal');
     if (!puzzleModal) {
         puzzleModal = document.createElement('div');
         puzzleModal.id = 'puzzleGameModal';
-        puzzleModal.style.position = 'fixed';
-        puzzleModal.style.top = '0';
-        puzzleModal.style.left = '0';
-        puzzleModal.style.width = '100%';
-        puzzleModal.style.height = '100%';
-        puzzleModal.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
-        puzzleModal.style.display = 'flex';
-        puzzleModal.style.justifyContent = 'center';
-        puzzleModal.style.alignItems = 'center';
-        puzzleModal.style.zIndex = '10000';
-        puzzleModal.style.display = 'none';
-
+        
         const puzzleContainer = document.createElement('div');
-        puzzleContainer.style.background = '#FFF9F3';
-        puzzleContainer.style.border = '2px solid #D4B08C';
-        puzzleContainer.style.borderRadius = '0';
-        puzzleContainer.style.padding = '20px';
-        puzzleContainer.style.width = '90%';
-        puzzleContainer.style.maxWidth = '800px';
-        puzzleContainer.style.boxShadow = '8px 8px 0 #D4B08C';
-        puzzleContainer.style.position = 'relative';
-        puzzleContainer.style.textAlign = 'center';
-
+        puzzleContainer.className = 'puzzle-container';
+        
         const closeBtn = document.createElement('span');
-        closeBtn.className = 'close-btn';
         closeBtn.innerHTML = '&times;';
-        closeBtn.style.position = 'absolute';
-        closeBtn.style.top = '10px';
-        closeBtn.style.right = '10px';
-        closeBtn.style.fontSize = '30px';
-        closeBtn.style.cursor = 'pointer';
-        closeBtn.style.color = '#854D27';
+        closeBtn.className = 'features-modal-close';
         closeBtn.addEventListener('click', () => {
-            puzzleModal.style.display = 'none';
+            puzzleModal.classList.remove('show');
         });
-
+        
         const title = document.createElement('h2');
         title.textContent = 'パズルゲーム';
-        title.style.color = '#854D27';
-        title.style.marginBottom = '20px';
-        title.style.fontFamily = '\'DM Serif Display\', serif';
-
+        title.className = 'puzzle-title';
+        
         const puzzleArea = document.createElement('div');
         puzzleArea.id = 'puzzleArea';
-        puzzleArea.style.display = 'grid';
-        puzzleArea.style.gridTemplateColumns = 'repeat(4, 1fr)';
-        puzzleArea.style.gap = '2px';
-        puzzleArea.style.margin = '20px auto';
-        puzzleArea.style.width = '600px';
-        puzzleArea.style.height = '300px';
-        puzzleArea.style.border = '2px solid #D4B08C';
-        puzzleArea.style.background = '#EEE';
-
+        puzzleArea.className = 'puzzle-area';
+        
         const piecesContainer = document.createElement('div');
         piecesContainer.id = 'piecesContainer';
-        piecesContainer.style.display = 'flex';
-        piecesContainer.style.flexWrap = 'wrap';
-        piecesContainer.style.justifyContent = 'center';
-        piecesContainer.style.marginTop = '20px';
-        piecesContainer.style.width = '600px';
-        piecesContainer.style.minHeight = '100px';
-        piecesContainer.style.border = '2px solid #D4B08C';
-        piecesContainer.style.padding = '10px';
-        piecesContainer.style.background = '#FFF9F3';
-
-
+        piecesContainer.className = 'puzzle-pieces-container';
+        
         const imageInfo = document.createElement('div');
         imageInfo.id = 'puzzleImageInfo';
-        imageInfo.style.marginTop = '10px';
-        imageInfo.style.fontSize = '14px';
-        imageInfo.style.color = '#854D27';
-        imageInfo.style.fontStyle = 'italic';
+        imageInfo.className = 'puzzle-image-info';
         
         const restartBtn = document.createElement('button');
         restartBtn.textContent = '他の画像に変更';
-        restartBtn.style.padding = '10px 20px';
-        restartBtn.style.background = '#854D27';
-        restartBtn.style.color = '#FFF9F3';
-        restartBtn.style.border = '2px solid #D4B08C';
-        restartBtn.style.borderRadius = '0';
-        restartBtn.style.cursor = 'pointer';
-        restartBtn.style.fontSize = '1.1em';
-        restartBtn.style.transition = 'all 0.3s';
-        restartBtn.style.boxShadow = '4px 4px 0 #D4B08C';
-        restartBtn.style.textTransform = 'uppercase';
-        restartBtn.style.letterSpacing = '1px';
+        restartBtn.className = 'puzzle-restart-btn';
         restartBtn.addEventListener('click', async () => {
-
             await loadPuzzleImages();
             initPuzzleGame();
-        });
-        restartBtn.addEventListener('mouseover', () => {
-            restartBtn.style.transform = 'translate(-2px, -2px)';
-            restartBtn.style.boxShadow = '6px 6px 0 #D4B08C';
-        });
-        restartBtn.addEventListener('mouseout', () => {
-            restartBtn.style.transform = 'none';
-            restartBtn.style.boxShadow = '4px 4px 0 #D4B08C';
         });
 
         puzzleContainer.appendChild(closeBtn);
@@ -1009,8 +748,7 @@ function startPuzzleGame() {
         document.body.appendChild(puzzleModal);
     }
     
-
-    puzzleModal.style.display = 'flex';
+    puzzleModal.classList.add('show');
     
 
     loadPuzzleImages().then(() => {
@@ -1084,13 +822,20 @@ function initPuzzleGame() {
     function createPuzzleGame(imgUrl) {
         for (let i = 0; i < totalPieces; i++) {
             const slot = document.createElement('div');
+            slot.className = 'puzzle-slot';
             slot.style.width = pieceWidth + 'px';
             slot.style.height = pieceHeight + 'px';
-            slot.style.border = '1px dashed #D4B08C';
             slot.dataset.index = i;
-            slot.addEventListener('dragover', (e) => e.preventDefault());
+            slot.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                slot.classList.add('drag-over');
+            });
+            slot.addEventListener('dragleave', () => {
+                slot.classList.remove('drag-over');
+            });
             slot.addEventListener('drop', (e) => {
                 e.preventDefault();
+                slot.classList.remove('drag-over');
                 const pieceId = e.dataTransfer.getData('text');
                 const piece = document.getElementById(pieceId);
                 if (piece && !placedPieces[slot.dataset.index]) {
@@ -1114,20 +859,22 @@ function initPuzzleGame() {
                 const piece = document.createElement('div');
                 piece.id = 'piece-' + index;
                 piece.draggable = true;
+                piece.className = 'puzzle-piece';
                 piece.style.width = pieceWidth + 'px';
                 piece.style.height = pieceHeight + 'px';
                 piece.style.backgroundImage = `url(${imgUrl})`;
                 piece.style.backgroundSize = `${containerWidth}px ${containerHeight}px`;
                 piece.style.backgroundPosition = `-${x * pieceWidth}px -${y * pieceHeight}px`;
-                piece.style.border = '1px solid #D4B08C';
-                piece.style.cursor = 'move';
                 piece.dataset.correctIndex = index;
-                piece.classList.add('puzzle-piece');
                 piece.addEventListener('dragstart', (e) => {
                     e.dataTransfer.setData('text', piece.id);
+                    piece.classList.add('dragging');
                     if (piece.dataset.currentIndex !== undefined) {
                         placedPieces[piece.dataset.currentIndex] = false;
                     }
+                });
+                piece.addEventListener('dragend', () => {
+                    piece.classList.remove('dragging');
                 });
                 pieces.push(piece);
             }
@@ -1141,7 +888,6 @@ function initPuzzleGame() {
         
 
         pieces.forEach(piece => {
-            piece.style.margin = '5px';
             piecesContainer.appendChild(piece);
         });
     }
@@ -1187,81 +933,32 @@ function openECardGenerator() {
     if (!eCardModal) {
         eCardModal = document.createElement('div');
         eCardModal.id = 'eCardModal';
-        eCardModal.style.position = 'fixed';
-        eCardModal.style.top = '0';
-        eCardModal.style.left = '0';
-        eCardModal.style.width = '100%';
-        eCardModal.style.height = '100%';
-        eCardModal.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
-        eCardModal.style.display = 'flex';
-        eCardModal.style.justifyContent = 'center';
-        eCardModal.style.alignItems = 'center';
-        eCardModal.style.zIndex = '10000';
-        eCardModal.style.display = 'none';
 
         const eCardContainer = document.createElement('div');
-        eCardContainer.style.background = '#FFF9F3';
-        eCardContainer.style.border = '2px solid #D4B08C';
-        eCardContainer.style.borderRadius = '0';
-        eCardContainer.style.padding = '20px';
-        eCardContainer.style.width = '90%';
-        eCardContainer.style.maxWidth = '500px';
-        eCardContainer.style.maxHeight = '80vh';
-        eCardContainer.style.overflowY = 'auto';
-        eCardContainer.style.boxShadow = '8px 8px 0 #D4B08C';
-        eCardContainer.style.position = 'relative';
-        eCardContainer.style.textAlign = 'center';
+        eCardContainer.className = 'ecard-container';
 
         const closeBtn = document.createElement('span');
-        closeBtn.className = 'close-btn';
+        closeBtn.className = 'modal-close-btn';
         closeBtn.innerHTML = '&times;';
-        closeBtn.style.position = 'absolute';
-        closeBtn.style.top = '10px';
-        closeBtn.style.right = '10px';
-        closeBtn.style.fontSize = '30px';
-        closeBtn.style.cursor = 'pointer';
-        closeBtn.style.color = '#854D27';
         closeBtn.addEventListener('click', () => {
-            eCardModal.style.display = 'none';
+            eCardModal.classList.remove('show');
         });
 
         const title = document.createElement('h2');
         title.textContent = 'お祝いカードを作成';
-        title.style.color = '#854D27';
-        title.style.marginBottom = '20px';
-        title.style.fontFamily = '\'DM Serif Display\', serif';
+        title.className = 'ecard-title';
 
         const form = document.createElement('div');
-        form.style.display = 'flex';
-        form.style.flexDirection = 'column';
-        form.style.gap = '15px';
-        form.style.marginBottom = '20px';
+        form.className = 'ecard-form';
 
         const messageInput = document.createElement('textarea');
         messageInput.id = 'eCardMessage';
         messageInput.placeholder = 'お祝いのメッセージを入力してください...';
-        messageInput.style.width = '100%';
-        messageInput.style.height = '100px';
-        messageInput.style.padding = '10px';
-        messageInput.style.border = '2px solid #D4B08C';
-        messageInput.style.borderRadius = '0';
-        messageInput.style.marginBottom = '20px';
-        messageInput.style.fontFamily = '\'Old Standard TT\', serif';
-        messageInput.style.fontSize = '16px';
-        messageInput.style.background = '#FFF9F3';
-        messageInput.style.color = '#2C1810';
-        messageInput.style.resize = 'none';
+        messageInput.className = 'ecard-message-input';
 
         const imageSelect = document.createElement('select');
         imageSelect.id = 'eCardImage';
-        imageSelect.style.width = '100%';
-        imageSelect.style.padding = '10px';
-        imageSelect.style.border = '2px solid #D4B08C';
-        imageSelect.style.borderRadius = '0';
-        imageSelect.style.fontFamily = '\'Old Standard TT\', serif';
-        imageSelect.style.fontSize = '16px';
-        imageSelect.style.background = '#FFF9F3';
-        imageSelect.style.color = '#2C1810';
+        imageSelect.className = 'ecard-message-input';
         const defaultOption = document.createElement('option');
         defaultOption.value = '';
         defaultOption.textContent = 'カードの背景を選択';
@@ -1276,26 +973,8 @@ function openECardGenerator() {
 
         const generateBtn = document.createElement('button');
         generateBtn.textContent = 'カードを作成してシェア';
-        generateBtn.style.padding = '10px 20px';
-        generateBtn.style.background = '#854D27';
-        generateBtn.style.color = '#FFF9F3';
-        generateBtn.style.border = '2px solid #D4B08C';
-        generateBtn.style.borderRadius = '0';
-        generateBtn.style.cursor = 'pointer';
-        generateBtn.style.fontSize = '1.1em';
-        generateBtn.style.transition = 'all 0.3s';
-        generateBtn.style.boxShadow = '4px 4px 0 #D4B08C';
-        generateBtn.style.textTransform = 'uppercase';
-        generateBtn.style.letterSpacing = '1px';
+        generateBtn.className = 'ecard-btn';
         generateBtn.addEventListener('click', generateECard);
-        generateBtn.addEventListener('mouseover', () => {
-            generateBtn.style.transform = 'translate(-2px, -2px)';
-            generateBtn.style.boxShadow = '6px 6px 0 #D4B08C';
-        });
-        generateBtn.addEventListener('mouseout', () => {
-            generateBtn.style.transform = 'none';
-            generateBtn.style.boxShadow = '4px 4px 0 #D4B08C';
-        });
 
         form.appendChild(messageInput);
         form.appendChild(imageSelect);
@@ -1307,7 +986,7 @@ function openECardGenerator() {
         eCardModal.appendChild(eCardContainer);
         document.body.appendChild(eCardModal);
     }
-    eCardModal.style.display = 'flex';
+    eCardModal.classList.add('show');
 }
 
 function generateECard() {
@@ -1325,34 +1004,19 @@ function generateECard() {
     const eCardLink = `${window.location.origin}/ecard?message=${encodedMessage}&image=${encodedImage}`;
     
 
-    const modalContent = document.querySelector('#eCardModal .modal-content');
+    const modalContent = document.querySelector('#eCardModal .ecard-container');
     const shareSection = document.createElement('div');
-    shareSection.style.marginTop = '20px';
-    shareSection.style.textAlign = 'center';
+    shareSection.className = 'ecard-share-section';
     shareSection.innerHTML = `
-        <p style="margin-bottom: 10px; color: #854D27;">お祝いカードをシェアするリンクをコピー:</p>
-        <input type="text" value="${eCardLink}" readonly style="width: 100%; padding: 10px; border: 2px solid #D4B08C; background: #FFF9F3; color: #2C1810; font-family: 'Old Standard TT', serif; font-size: 14px;">
-        <button onclick="copyECardLink(this)" style="margin-top: 10px; padding: 8px 15px; background: #854D27; color: #FFF9F3; border: 2px solid #D4B08C; cursor: pointer; font-size: 1em; transition: all 0.3s; box-shadow: 4px 4px 0 #D4B08C;">リンクをコピー</button>
+        <p class="ecard-share-text">お祝いカードをシェアするリンクをコピー:</p>
+        <input type="text" value="${eCardLink}" readonly class="ecard-link-input">
+        <button onclick="copyECardLink(this)" class="ecard-btn secondary">リンクをコピー</button>
     `;
     modalContent.appendChild(shareSection);
     
-
     const preview = document.createElement('div');
-    preview.style.marginTop = '20px';
-    preview.style.border = '2px solid #D4B08C';
-    preview.style.padding = '10px';
+    preview.className = 'ecard-preview';
     preview.style.backgroundImage = `url(${imageUrl})`;
-    preview.style.backgroundSize = 'cover';
-    preview.style.backgroundPosition = 'center';
-    preview.style.height = '200px';
-    preview.style.display = 'flex';
-    preview.style.alignItems = 'center';
-    preview.style.justifyContent = 'center';
-    preview.style.color = '#FFF9F3';
-    preview.style.textShadow = '1px 1px 2px #000';
-    preview.style.fontFamily = '\'Old Standard TT\', serif';
-    preview.style.fontSize = '16px';
-    preview.style.textAlign = 'center';
     preview.textContent = message;
     modalContent.appendChild(preview);
     
@@ -1404,25 +1068,9 @@ function initMusicPlayer() {
     if (!selectMusicBtn) {
         selectMusicBtn = document.createElement('button');
         selectMusicBtn.id = 'selectMusicBtn';
-        selectMusicBtn.textContent = '🎵 Chọn Nhạc';
-        selectMusicBtn.style.marginLeft = '10px';
-        selectMusicBtn.style.padding = '8px 12px';
-        selectMusicBtn.style.background = '#854D27';
-        selectMusicBtn.style.color = '#FFF9F3';
-        selectMusicBtn.style.border = '2px solid #D4B08C';
-        selectMusicBtn.style.borderRadius = '0';
-        selectMusicBtn.style.cursor = 'pointer';
-        selectMusicBtn.style.boxShadow = '2px 2px 0 #D4B08C';
-        selectMusicBtn.style.transition = 'transform 0.3s';
+        selectMusicBtn.textContent = '🎵 音楽選択';
+        selectMusicBtn.className = 'music-select-btn';
         selectMusicBtn.addEventListener('click', openMusicSelectionModal);
-        selectMusicBtn.addEventListener('mouseover', () => {
-            selectMusicBtn.style.transform = 'translate(-2px, -2px)';
-            selectMusicBtn.style.boxShadow = '4px 4px 0 #D4B08C';
-        });
-        selectMusicBtn.addEventListener('mouseout', () => {
-            selectMusicBtn.style.transform = 'none';
-            selectMusicBtn.style.boxShadow = '2px 2px 0 #D4B08C';
-        });
         musicPlayer.appendChild(selectMusicBtn);
     }
 
@@ -1467,54 +1115,24 @@ function openMusicSelectionModal() {
     if (!musicModal) {
         musicModal = document.createElement('div');
         musicModal.id = 'musicSelectionModal';
-        musicModal.style.position = 'fixed';
-        musicModal.style.top = '0';
-        musicModal.style.left = '0';
-        musicModal.style.width = '100%';
-        musicModal.style.height = '100%';
-        musicModal.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
-        musicModal.style.display = 'flex';
-        musicModal.style.justifyContent = 'center';
-        musicModal.style.alignItems = 'center';
-        musicModal.style.zIndex = '10000';
-        musicModal.style.display = 'none';
 
         const modalContent = document.createElement('div');
-        modalContent.style.background = '#FFF9F3';
-        modalContent.style.border = '2px solid #D4B08C';
-        modalContent.style.borderRadius = '0';
-        modalContent.style.padding = '20px';
-        modalContent.style.width = '80%';
-        modalContent.style.maxWidth = '500px';
-        modalContent.style.boxShadow = '8px 8px 0 #D4B08C';
-        modalContent.style.position = 'relative';
-        modalContent.style.textAlign = 'center';
+        modalContent.className = 'music-modal-content';
 
         const closeBtn = document.createElement('span');
-        closeBtn.className = 'close-btn';
+        closeBtn.className = 'modal-close-btn';
         closeBtn.innerHTML = '&times;';
-        closeBtn.style.position = 'absolute';
-        closeBtn.style.top = '10px';
-        closeBtn.style.right = '10px';
-        closeBtn.style.fontSize = '30px';
-        closeBtn.style.cursor = 'pointer';
-        closeBtn.style.color = '#854D27';
         closeBtn.addEventListener('click', () => {
-            musicModal.style.display = 'none';
+            musicModal.classList.remove('show');
         });
 
         const title = document.createElement('h2');
         title.textContent = '背景音選択';
-        title.style.color = '#854D27';
-        title.style.marginBottom = '20px';
-        title.style.fontFamily = '\'DM Serif Display\', serif';
+        title.className = 'music-modal-title';
 
         const trackList = document.createElement('div');
         trackList.id = 'trackList';
-        trackList.style.marginBottom = '20px';
-        trackList.style.textAlign = 'left';
-        trackList.style.maxHeight = '200px';
-        trackList.style.overflowY = 'scroll';
+        trackList.className = 'music-track-list';
 
         const tracks = [
             { url: 'happy-birthday.mp3', name: 'Happy Birthday Song (Default)' },
@@ -1524,14 +1142,11 @@ function openMusicSelectionModal() {
 
         tracks.forEach(track => {
             const trackItem = document.createElement('div');
-            trackItem.style.padding = '10px';
-            trackItem.style.borderBottom = '1px solid #D4B08C';
-            trackItem.style.cursor = 'pointer';
-            trackItem.style.color = '#2C1810';
+            trackItem.className = 'music-track-item';
             trackItem.textContent = track.name;
             trackItem.addEventListener('click', () => {
                 window.changeMusicTrack(track.url, track.name);
-                musicModal.style.display = 'none';
+                musicModal.classList.remove('show');
             });
             trackList.appendChild(trackItem);
         });
@@ -1539,20 +1154,14 @@ function openMusicSelectionModal() {
         const uploadInput = document.createElement('input');
         uploadInput.type = 'file';
         uploadInput.accept = 'audio/mp3, audio/wav';
-        uploadInput.style.width = '100%';
-        uploadInput.style.padding = '10px 0';
-        uploadInput.style.marginTop = '10px';
-        uploadInput.style.border = '2px dashed #D4B08C';
-        uploadInput.style.background = '#FFF9F3';
-        uploadInput.style.color = '#2C1810';
-        uploadInput.style.cursor = 'pointer';
+        uploadInput.className = 'music-upload-input';
         uploadInput.addEventListener('change', (e) => {
             const file = e.target.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(event) {
                     window.changeMusicTrack(event.target.result, file.name);
-                    musicModal.style.display = 'none';
+                    musicModal.classList.remove('show');
                 };
                 reader.readAsDataURL(file);
             }
@@ -1560,10 +1169,7 @@ function openMusicSelectionModal() {
 
         const uploadLabel = document.createElement('label');
         uploadLabel.textContent = '背景音をアップロード (MP3/WAV)';
-        uploadLabel.style.display = 'block';
-        uploadLabel.style.marginTop = '15px';
-        uploadLabel.style.color = '#854D27';
-        uploadLabel.style.fontSize = '1em';
+        uploadLabel.className = 'music-upload-label';
 
         modalContent.appendChild(closeBtn);
         modalContent.appendChild(title);
@@ -1573,9 +1179,8 @@ function openMusicSelectionModal() {
         musicModal.appendChild(modalContent);
         document.body.appendChild(musicModal);
     }
-    musicModal.style.display = 'flex';
+    musicModal.classList.add('show');
 }
-
 function initCustomMessage() {
     const customMessageBtn = document.getElementById('customMessageBtn');
     const customMessageModal = document.getElementById('customMessageModal');
@@ -1602,15 +1207,7 @@ function initCustomMessage() {
         senderNameInput.id = 'senderNameInput';
         senderNameInput.type = 'text';
         senderNameInput.placeholder = '名前を入力してください...';
-        senderNameInput.style.width = '100%';
-        senderNameInput.style.padding = '10px';
-        senderNameInput.style.border = '2px solid #D4B08C';
-        senderNameInput.style.borderRadius = '0';
-        senderNameInput.style.marginBottom = '10px';
-        senderNameInput.style.fontFamily = '\'Old Standard TT\', serif';
-        senderNameInput.style.fontSize = '16px';
-        senderNameInput.style.background = '#FFF9F3';
-        senderNameInput.style.color = '#2C1810';
+        senderNameInput.className = 'custom-message-input';
         const modalContent = customMessageModal.querySelector('.modal-content');
         modalContent.insertBefore(senderNameInput, modalContent.children[2]);
     }
@@ -1638,29 +1235,10 @@ function initCustomMessage() {
         recordBtn = document.createElement('button');
         recordBtn.id = 'recordMessageBtn';
         recordBtn.textContent = '🎤 語声を録音';
-        recordBtn.style.padding = '10px 20px';
-        recordBtn.style.background = '#854D27';
-        recordBtn.style.color = '#FFF9F3';
-        recordBtn.style.border = '2px solid #D4B08C';
-        recordBtn.style.borderRadius = '0';
-        recordBtn.style.cursor = 'pointer';
-        recordBtn.style.fontSize = '1.1em';
-        recordBtn.style.transition = 'all 0.3s';
-        recordBtn.style.boxShadow = '4px 4px 0 #D4B08C';
-        recordBtn.style.textTransform = 'uppercase';
-        recordBtn.style.letterSpacing = '1px';
-        recordBtn.style.marginTop = '10px';
+        recordBtn.className = 'record-message-btn';
         recordBtn.addEventListener('click', () => {
             customMessageModal.style.display = 'none';
             openRecordMessageModal();
-        });
-        recordBtn.addEventListener('mouseover', () => {
-            recordBtn.style.transform = 'translate(-2px, -2px)';
-            recordBtn.style.boxShadow = '6px 6px 0 #D4B08C';
-        });
-        recordBtn.addEventListener('mouseout', () => {
-            recordBtn.style.transform = 'none';
-            recordBtn.style.boxShadow = '4px 4px 0 #D4B08C';
         });
         const modalContent = customMessageModal.querySelector('.modal-content');
         modalContent.appendChild(recordBtn);
@@ -1670,30 +1248,11 @@ function initCustomMessage() {
     if (!videoBtn) {
         videoBtn = document.createElement('button');
         videoBtn.id = 'videoMessageBtn';
-        videoBtn.textContent = '🎥 Video Chúc Mừng';
-        videoBtn.style.padding = '10px 20px';
-        videoBtn.style.background = '#854D27';
-        videoBtn.style.color = '#FFF9F3';
-        videoBtn.style.border = '2px solid #D4B08C';
-        videoBtn.style.borderRadius = '0';
-        videoBtn.style.cursor = 'pointer';
-        videoBtn.style.fontSize = '1.1em';
-        videoBtn.style.transition = 'all 0.3s';
-        videoBtn.style.boxShadow = '4px 4px 0 #D4B08C';
-        videoBtn.style.textTransform = 'uppercase';
-        videoBtn.style.letterSpacing = '1px';
-        videoBtn.style.marginTop = '10px';
+        videoBtn.textContent = '🎥 ビデオメッセージ';
+        videoBtn.className = 'video-message-btn';
         videoBtn.addEventListener('click', () => {
             customMessageModal.style.display = 'none';
             openVideoMessageModal();
-        });
-        videoBtn.addEventListener('mouseover', () => {
-            videoBtn.style.transform = 'translate(-2px, -2px)';
-            videoBtn.style.boxShadow = '6px 6px 0 #D4B08C';
-        });
-        videoBtn.addEventListener('mouseout', () => {
-            videoBtn.style.transform = 'none';
-            videoBtn.style.boxShadow = '4px 4px 0 #D4B08C';
         });
         const modalContent = customMessageModal.querySelector('.modal-content');
         modalContent.appendChild(videoBtn);
@@ -1704,122 +1263,50 @@ function initCustomMessage() {
 }
 
 function openRecordMessageModal() {
-    let recordModal = document.getElementById('recordMessageModal');
-    if (!recordModal) {
-        recordModal = document.createElement('div');
-        recordModal.id = 'recordMessageModal';
-        recordModal.style.position = 'fixed';
-        recordModal.style.top = '0';
-        recordModal.style.left = '0';
-        recordModal.style.width = '100%';
-        recordModal.style.height = '100%';
-        recordModal.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
-        recordModal.style.display = 'flex';
-        recordModal.style.justifyContent = 'center';
-        recordModal.style.alignItems = 'center';
-        recordModal.style.zIndex = '10000';
-        recordModal.style.display = 'none';
+let recordModal = document.getElementById('recordMessageModal');
+if (!recordModal) {
+    recordModal = document.createElement('div');
+    recordModal.id = 'recordMessageModal';
+    recordModal.className = 'record-message-modal';
 
-        const modalContent = document.createElement('div');
-        modalContent.style.background = '#FFF9F3';
-        modalContent.style.border = '2px solid #D4B08C';
-        modalContent.style.borderRadius = '0';
-        modalContent.style.padding = '20px';
-        modalContent.style.width = '80%';
-        modalContent.style.maxWidth = '500px';
-        modalContent.style.boxShadow = '8px 8px 0 #D4B08C';
-        modalContent.style.position = 'relative';
-        modalContent.style.textAlign = 'center';
+    const modalContent = document.createElement('div');
+    modalContent.className = 'record-modal-content';
 
-        const closeBtn = document.createElement('span');
-        closeBtn.className = 'close-btn';
-        closeBtn.innerHTML = '&times;';
-        closeBtn.style.position = 'absolute';
-        closeBtn.style.top = '10px';
-        closeBtn.style.right = '10px';
-        closeBtn.style.fontSize = '30px';
-        closeBtn.style.cursor = 'pointer';
-        closeBtn.style.color = '#854D27';
-        closeBtn.addEventListener('click', () => {
-            recordModal.style.display = 'none';
-        });
+    const closeBtn = document.createElement('span');
+    closeBtn.className = 'close-btn';
+    closeBtn.innerHTML = '&times;';
+    closeBtn.addEventListener('click', () => {
+        recordModal.classList.remove('show');
+    });
 
-        const title = document.createElement('h2');
-        title.textContent = '語声を録音';
-        title.style.color = '#854D27';
-        title.style.marginBottom = '20px';
-        title.style.fontFamily = '\'DM Serif Display\', serif';
+    const title = document.createElement('h2');
+    title.textContent = '';
+    title.className = 'record-modal-title';
 
-        const status = document.createElement('p');
-        status.id = 'recordStatus';
-        status.textContent = '録音を開始するには、ボタンを押してください...';
-        status.style.color = '#2C1810';
-        status.style.marginBottom = '20px';
-        status.style.fontSize = '1.1em';
+    const status = document.createElement('p');
+    status.id = 'recordStatus';
+    status.textContent = '';
+    status.className = 'record-status';
 
-        const senderNameInputRecord = document.createElement('input');
-        senderNameInputRecord.id = 'senderNameInputRecord';
-        senderNameInputRecord.type = 'text';
-        senderNameInputRecord.placeholder = '名前を入力してください...';
-        senderNameInputRecord.style.width = '100%';
-        senderNameInputRecord.style.padding = '10px';
-        senderNameInputRecord.style.border = '2px solid #D4B08C';
-        senderNameInputRecord.style.borderRadius = '0';
-        senderNameInputRecord.style.marginBottom = '20px';
-        senderNameInputRecord.style.fontFamily = '\'Old Standard TT\', serif';
-        senderNameInputRecord.style.fontSize = '16px';
-        senderNameInputRecord.style.background = '#FFF9F3';
-        senderNameInputRecord.style.color = '#2C1810';
+    const senderNameInputRecord = document.createElement('input');
+    senderNameInputRecord.id = 'senderNameInputRecord';
+    senderNameInputRecord.type = 'text';
+    senderNameInputRecord.placeholder = '';
+    senderNameInputRecord.className = 'custom-message-input';
 
-        const recordControl = document.createElement('button');
-        recordControl.id = 'recordControl';
-        recordControl.textContent = '🎤録音開始';
-        recordControl.style.padding = '10px 20px';
-        recordControl.style.background = '#854D27';
-        recordControl.style.color = '#FFF9F3';
-        recordControl.style.border = '2px solid #D4B08C';
-        recordControl.style.borderRadius = '0';
-        recordControl.style.cursor = 'pointer';
-        recordControl.style.fontSize = '1.1em';
-        recordControl.style.transition = 'all 0.3s';
-        recordControl.style.boxShadow = '4px 4px 0 #D4B08C';
-        recordControl.style.textTransform = 'uppercase';
-        recordControl.style.letterSpacing = '1px';
-        recordControl.addEventListener('click', toggleRecording);
-        recordControl.addEventListener('mouseover', () => {
-            recordControl.style.transform = 'translate(-2px, -2px)';
-            recordControl.style.boxShadow = '6px 6px 0 #D4B08C';
-        });
-        recordControl.addEventListener('mouseout', () => {
-            recordControl.style.transform = 'none';
-            recordControl.style.boxShadow = '4px 4px 0 #D4B08C';
-        });
+    const recordControl = document.createElement('button');
+    recordControl.id = 'recordControl';
+    recordControl.textContent = '';
+    recordControl.className = 'record-btn';
+    recordControl.addEventListener('click', toggleRecording);
+    // Hover effects handled by CSS
 
         const saveBtn = document.createElement('button');
         saveBtn.id = 'saveRecording';
         saveBtn.textContent = '保存する';
-        saveBtn.style.padding = '10px 20px';
-        saveBtn.style.background = '#854D27';
-        saveBtn.style.color = '#FFF9F3';
-        saveBtn.style.border = '2px solid #D4B08C';
-        saveBtn.style.borderRadius = '0';
-        saveBtn.style.cursor = 'pointer';
-        saveBtn.style.fontSize = '1.1em';
-        saveBtn.style.transition = 'all 0.3s';
-        saveBtn.style.boxShadow = '4px 4px 0 #D4B08C';
-        saveBtn.style.textTransform = 'uppercase';
-        saveBtn.style.letterSpacing = '1px';
-        saveBtn.style.marginTop = '10px';
-        saveBtn.style.display = 'none';
+        saveBtn.className = 'record-btn';
+        saveBtn.classList.add('hidden');
         saveBtn.addEventListener('click', saveAudioMessage);
-        saveBtn.addEventListener('mouseover', () => {
-            saveBtn.style.transform = 'translate(-2px, -2px)';
-            saveBtn.style.boxShadow = '6px 6px 0 #D4B08C';
-        });
-        saveBtn.addEventListener('mouseout', () => {
-            saveBtn.style.transform = 'none';
-            saveBtn.style.boxShadow = '4px 4px 0 #D4B08C';
-        });
 
         modalContent.appendChild(closeBtn);
         modalContent.appendChild(title);
@@ -1830,7 +1317,7 @@ function openRecordMessageModal() {
         recordModal.appendChild(modalContent);
         document.body.appendChild(recordModal);
     }
-    recordModal.style.display = 'flex';
+    recordModal.classList.add('show');
 }
 
 let mediaRecorder;
@@ -1888,7 +1375,7 @@ function stopRecording() {
             const saveBtn = document.getElementById('saveRecording');
             recordControl.textContent = '🎤録音再開';
             status.textContent = '録音中...';
-            saveBtn.style.display = 'block';
+            saveBtn.classList.remove('hidden');
 
             mediaRecorder.stream.getTracks().forEach(track => track.stop());
         });
@@ -1990,54 +1477,25 @@ async function openAudioMessagesModal(birthdayPerson) {
     if (!audioModal) {
         audioModal = document.createElement('div');
         audioModal.id = 'audioMessagesModal';
-        audioModal.style.position = 'fixed';
-        audioModal.style.top = '0';
-        audioModal.style.left = '0';
-        audioModal.style.width = '100%';
-        audioModal.style.height = '100%';
-        audioModal.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
-        audioModal.style.display = 'flex';
-        audioModal.style.justifyContent = 'center';
-        audioModal.style.alignItems = 'center';
-        audioModal.style.zIndex = '10000';
-        audioModal.style.display = 'none';
+        audioModal.className = 'audio-messages-modal';
 
         const modalContent = document.createElement('div');
-        modalContent.style.background = '#FFF9F3';
-        modalContent.style.border = '2px solid #D4B08C';
-        modalContent.style.borderRadius = '0';
-        modalContent.style.padding = '20px';
-        modalContent.style.width = '80%';
-        modalContent.style.maxWidth = '500px';
-        modalContent.style.boxShadow = '8px 8px 0 #D4B08C';
-        modalContent.style.position = 'relative';
-        modalContent.style.textAlign = 'center';
+        modalContent.className = 'audio-modal-content';
 
         const closeBtn = document.createElement('span');
         closeBtn.className = 'close-btn';
         closeBtn.innerHTML = '&times;';
-        closeBtn.style.position = 'absolute';
-        closeBtn.style.top = '10px';
-        closeBtn.style.right = '10px';
-        closeBtn.style.fontSize = '30px';
-        closeBtn.style.cursor = 'pointer';
-        closeBtn.style.color = '#854D27';
         closeBtn.addEventListener('click', () => {
-            audioModal.style.display = 'none';
+            audioModal.classList.remove('show');
         });
 
         const title = document.createElement('h2');
         title.textContent = '録音を聞く';
-        title.style.color = '#854D27';
-        title.style.marginBottom = '20px';
-        title.style.fontFamily = '\'DM Serif Display\', serif';
+        title.className = 'audio-modal-title';
 
         const audioList = document.createElement('div');
         audioList.id = 'audioMessagesList';
-        audioList.style.marginBottom = '20px';
-        audioList.style.textAlign = 'left';
-        audioList.style.maxHeight = '300px';
-        audioList.style.overflowY = 'scroll';
+        audioList.className = 'audio-messages-list';
 
         modalContent.appendChild(closeBtn);
         modalContent.appendChild(title);
@@ -2052,7 +1510,7 @@ async function openAudioMessagesModal(birthdayPerson) {
     
     const loadingMsg = document.createElement('p');
     loadingMsg.textContent = '録音を聞く...';
-    loadingMsg.style.color = '#2C1810';
+    loadingMsg.className = 'audio-loading-msg';
     audioList.appendChild(loadingMsg);
     
     let messagesLoaded = false;
@@ -2066,17 +1524,12 @@ async function openAudioMessagesModal(birthdayPerson) {
                 
                 const supabaseTitle = document.createElement('h3');
                 supabaseTitle.textContent = 'オンラインの声';
-                supabaseTitle.style.color = '#854D27';
-                supabaseTitle.style.marginBottom = '10px';
-                supabaseTitle.style.borderBottom = '1px solid #D4B08C';
+                supabaseTitle.className = 'audio-section-title';
                 audioList.appendChild(supabaseTitle);
                 
                 supabaseMessages.forEach((messageObj, index) => {
                     const audioItem = document.createElement('div');
-                    audioItem.style.padding = '10px';
-                    audioItem.style.borderBottom = '1px solid #D4B08C';
-                    audioItem.style.cursor = 'pointer';
-                    audioItem.style.color = '#2C1810';
+                    audioItem.className = 'audio-message-item';
                     audioItem.textContent = `メッセージ ${index + 1} - ${messageObj.sender}さんから`;
                     audioItem.addEventListener('click', () => {
                         playAudioMessage(messageObj.audio_data);
@@ -2098,10 +1551,7 @@ async function openAudioMessagesModal(birthdayPerson) {
 
             const localTitle = document.createElement('h3');
             localTitle.textContent = 'ローカルメッセージ';
-            localTitle.style.color = '#854D27';
-            localTitle.style.marginTop = '20px';
-            localTitle.style.marginBottom = '10px';
-            localTitle.style.borderBottom = '1px solid #D4B08C';
+            localTitle.className = 'audio-section-title local-section';
             audioList.appendChild(localTitle);
         } else {
 
@@ -2112,10 +1562,7 @@ async function openAudioMessagesModal(birthdayPerson) {
 
         localMessages.forEach((messageObj, index) => {
             const audioItem = document.createElement('div');
-            audioItem.style.padding = '10px';
-            audioItem.style.borderBottom = '1px solid #D4B08C';
-            audioItem.style.cursor = 'pointer';
-            audioItem.style.color = '#2C1810';
+            audioItem.className = 'audio-message-item';
             audioItem.textContent = `メッセージ ${index + 1} - ${messageObj.sender}さんから`;
             audioItem.addEventListener('click', () => {
                 playAudioMessage(messageObj.url);
@@ -2129,7 +1576,7 @@ async function openAudioMessagesModal(birthdayPerson) {
         audioList.innerHTML = '';
         const noMessages = document.createElement('p');
         noMessages.textContent = '音声メッセージがまだありません。';
-        noMessages.style.color = '#2C1810';
+        noMessages.className = 'audio-no-messages';
         audioList.appendChild(noMessages);
     }
 }
@@ -2139,14 +1586,10 @@ function displayCustomMessage(message) {
     const customMessageDisplay = document.getElementById('customMessageDisplay');
     if (customMessageDisplay) {
         customMessageDisplay.textContent = message;
-        customMessageDisplay.style.display = 'block';
-
-        customMessageDisplay.style.opacity = '0';
-        customMessageDisplay.style.width = '0';
-        setTimeout(() => {
-            customMessageDisplay.style.opacity = '1';
-            customMessageDisplay.style.width = '100%';
-        }, 100);
+        customMessageDisplay.classList.add('show');
+        
+        // Trigger animation
+        customMessageDisplay.classList.add('animate-in');
     }
 }
 
@@ -2164,10 +1607,10 @@ document.addEventListener('DOMContentLoaded', function() {
     if (micPermissionBtn) {
         micPermissionBtn.addEventListener('click', function() {
             setupAudioAnalysis();
-            this.style.display = 'none';
-            document.getElementById('blowButton').style.display = 'inline-block';
-            document.getElementById('audioFeedback').style.display = 'block';
-            document.getElementById('progressContainer').style.display = 'block';
+            this.classList.add('hidden');
+            document.getElementById('blowButton').classList.remove('hidden');
+            document.getElementById('audioFeedback').classList.remove('hidden');
+            document.getElementById('progressContainer').classList.remove('hidden');
         });
     }
 
@@ -2213,12 +1656,12 @@ function initVirtualGift() {
     let selectedGift = null;
     
     closeVirtualGift.addEventListener('click', () => {
-        virtualGiftModal.style.display = 'none';
+        virtualGiftModal.classList.remove('show');
     });
     
     virtualGiftModal.addEventListener('click', (e) => {
         if (e.target === virtualGiftModal) {
-            virtualGiftModal.style.display = 'none';
+            virtualGiftModal.classList.remove('show');
         }
     });
     
@@ -2229,7 +1672,7 @@ function initVirtualGift() {
         if (selectedGift) {
             saveVirtualGift(sender, selectedGift);
             if (senderInput) senderInput.value = '';
-            virtualGiftModal.style.display = 'none';
+            virtualGiftModal.classList.remove('show');
             alert('バーチャルギフトを送信しました！');
             displaySavedVirtualGifts();
         } else {
@@ -2254,23 +1697,14 @@ function loadGiftList() {
     gifts.forEach(gift => {
         const giftItem = document.createElement('div');
         giftItem.className = 'gift-item';
-        giftItem.style.padding = '10px';
-        giftItem.style.margin = '5px';
-        giftItem.style.border = '2px solid #D4B08C';
-        giftItem.style.background = 'rgba(255, 249, 243, 0.5)';
-        giftItem.style.cursor = 'pointer';
-        giftItem.style.textAlign = 'center';
-        giftItem.style.display = 'inline-block';
-        giftItem.style.width = 'calc(33.33% - 10px)';
-        giftItem.style.boxSizing = 'border-box';
         giftItem.innerHTML = `
-            <span style="font-size: 2em;">${gift.emoji}</span>
-            <p style="margin: 5px 0 0 0; font-size: 0.9em; color: #854D27;">${gift.name}</p>
+            <span class="gift-emoji">${gift.emoji}</span>
+            <p class="gift-name">${gift.name}</p>
         `;
         giftItem.dataset.giftId = gift.id;
         giftItem.addEventListener('click', function() {
-            document.querySelectorAll('.gift-item').forEach(item => item.style.background = 'rgba(255, 249, 243, 0.5)');
-            this.style.background = 'rgba(133, 77, 39, 0.3)';
+            document.querySelectorAll('.gift-item').forEach(item => item.classList.remove('selected'));
+            this.classList.add('selected');
             window.selectedGift = gift;
         });
         giftListContainer.appendChild(giftItem);
@@ -2327,7 +1761,7 @@ async function saveVirtualGift(sender, gift) {
         const selectedGiftDisplay = document.getElementById('selectedGiftDisplay');
         if (selectedGiftDisplay) {
             selectedGiftDisplay.innerHTML = `選択: ${gift.emoji} ${gift.name}`;
-            selectedGiftDisplay.style.display = 'block';
+            selectedGiftDisplay.classList.add('show');
             selectedGiftDisplay.dataset.giftId = gift.id;
         }
         
@@ -2349,7 +1783,7 @@ async function saveVirtualGift(sender, gift) {
         const selectedGiftDisplay = document.getElementById('selectedGiftDisplay');
         if (selectedGiftDisplay) {
             selectedGiftDisplay.innerHTML = `選択: ${gift.emoji} ${gift.name}`;
-            selectedGiftDisplay.style.display = 'block';
+            selectedGiftDisplay.classList.add('show');
             selectedGiftDisplay.dataset.giftId = gift.id;
         }
         
@@ -2383,9 +1817,9 @@ async function displaySavedVirtualGifts() {
             });
             customMessageContainer.appendChild(viewGiftsBtn);
         }
-        viewGiftsBtn.style.display = 'block';
+        viewGiftsBtn.classList.add('show');
     } else if (viewGiftsBtn) {
-        viewGiftsBtn.style.display = 'none';
+        viewGiftsBtn.classList.remove('show');
     }
     } catch (error) {
         console.error('ギフトの表示エラー:', error);
@@ -2407,9 +1841,9 @@ async function displaySavedVirtualGifts() {
             });
             customMessageContainer.appendChild(viewGiftsBtn);
         }
-        viewGiftsBtn.style.display = 'block';
+        viewGiftsBtn.classList.add('show');
     } else if (viewGiftsBtn) {
-        viewGiftsBtn.style.display = 'none';
+        viewGiftsBtn.classList.remove('show');
         }
     }
 }
@@ -2419,54 +1853,25 @@ async function openVirtualGiftsModal(birthdayPerson) {
     if (!giftsModal) {
         giftsModal = document.createElement('div');
         giftsModal.id = 'virtualGiftsModal';
-        giftsModal.style.position = 'fixed';
-        giftsModal.style.top = '0';
-        giftsModal.style.left = '0';
-        giftsModal.style.width = '100%';
-        giftsModal.style.height = '100%';
-        giftsModal.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
-        giftsModal.style.display = 'flex';
-        giftsModal.style.justifyContent = 'center';
-        giftsModal.style.alignItems = 'center';
-        giftsModal.style.zIndex = '10000';
-        giftsModal.style.display = 'none';
+        giftsModal.className = 'virtual-gifts-modal';
 
         const modalContent = document.createElement('div');
-        modalContent.style.background = '#FFF9F3';
-        modalContent.style.border = '2px solid #D4B08C';
-        modalContent.style.borderRadius = '0';
-        modalContent.style.padding = '20px';
-        modalContent.style.width = '80%';
-        modalContent.style.maxWidth = '500px';
-        modalContent.style.boxShadow = '8px 8px 0 #D4B08C';
-        modalContent.style.position = 'relative';
-        modalContent.style.textAlign = 'center';
+        modalContent.className = 'virtual-gifts-modal-content';
 
         const closeBtn = document.createElement('span');
         closeBtn.className = 'close-btn';
         closeBtn.innerHTML = '&times;';
-        closeBtn.style.position = 'absolute';
-        closeBtn.style.top = '10px';
-        closeBtn.style.right = '10px';
-        closeBtn.style.fontSize = '30px';
-        closeBtn.style.cursor = 'pointer';
-        closeBtn.style.color = '#854D27';
         closeBtn.addEventListener('click', () => {
-            giftsModal.style.display = 'none';
+            giftsModal.classList.remove('show');
         });
 
         const title = document.createElement('h2');
         title.textContent = '受け取ったバーチャルギフト';
-        title.style.color = '#854D27';
-        title.style.marginBottom = '20px';
-        title.style.fontFamily = "'DM Serif Display', serif";
+        title.className = 'virtual-gifts-modal-title';
 
         const giftsList = document.createElement('div');
         giftsList.id = 'virtualGiftsList';
-        giftsList.style.marginBottom = '20px';
-        giftsList.style.textAlign = 'left';
-        giftsList.style.maxHeight = '300px';
-        giftsList.style.overflowY = 'scroll';
+        giftsList.className = 'virtual-gifts-list';
 
         modalContent.appendChild(closeBtn);
         modalContent.appendChild(title);
@@ -2491,24 +1896,22 @@ async function openVirtualGiftsModal(birthdayPerson) {
         if (gifts && gifts.length > 0) {
             gifts.forEach((giftObj) => {
                 const giftItem = document.createElement('div');
-                giftItem.style.padding = '10px';
-                giftItem.style.borderBottom = '1px solid #D4B08C';
-                giftItem.style.color = '#2C1810';
+                giftItem.className = 'virtual-gift-display-item';
                 
                 const createdAt = new Date(giftObj.created_at);
                 const formattedTime = createdAt.toLocaleString('ja-JP');
                 
                 giftItem.innerHTML = `
-                    <span style="font-size: 1.5em;">${getGiftEmoji(giftObj.gift_id)}</span>
-                    <span>${getGiftName(giftObj.gift_id)} from ${giftObj.sender}</span>
-                    <small>(${formattedTime})</small>
+                    <span class="gift-display-emoji">${getGiftEmoji(giftObj.gift_id)}</span>
+                    <span class="gift-display-text">${getGiftName(giftObj.gift_id)} from ${giftObj.sender}</span>
+                    <small class="gift-display-time">(${formattedTime})</small>
                 `;
                 giftsList.appendChild(giftItem);
             });
         } else {
             const noGifts = document.createElement('p');
             noGifts.textContent = '受け取ったバーチャルギフトはありません。';
-            noGifts.style.color = '#2C1810';
+            noGifts.className = 'virtual-gifts-no-items';
             giftsList.appendChild(noGifts);
         }
     } catch (error) {
@@ -2552,24 +1955,8 @@ function initMusicPlayer() {
         selectMusicBtn = document.createElement('button');
         selectMusicBtn.id = 'selectMusicBtn';
         selectMusicBtn.textContent = '🎵 音楽を選ぶ';
-        selectMusicBtn.style.marginLeft = '10px';
-        selectMusicBtn.style.padding = '8px 12px';
-        selectMusicBtn.style.background = '#854D27';
-        selectMusicBtn.style.color = '#FFF9F3';
-        selectMusicBtn.style.border = '2px solid #D4B08C';
-        selectMusicBtn.style.borderRadius = '0';
-        selectMusicBtn.style.cursor = 'pointer';
-        selectMusicBtn.style.boxShadow = '2px 2px 0 #D4B08C';
-        selectMusicBtn.style.transition = 'transform 0.3s';
+        selectMusicBtn.className = 'music-select-btn';
         selectMusicBtn.addEventListener('click', openMusicSelectionModal);
-        selectMusicBtn.addEventListener('mouseover', () => {
-            selectMusicBtn.style.transform = 'translate(-2px, -2px)';
-            selectMusicBtn.style.boxShadow = '4px 4px 0 #D4B08C';
-        });
-        selectMusicBtn.addEventListener('mouseout', () => {
-            selectMusicBtn.style.transform = 'none';
-            selectMusicBtn.style.boxShadow = '2px 2px 0 #D4B08C';
-        });
         musicPlayer.appendChild(selectMusicBtn);
     }
 
@@ -2614,54 +2001,25 @@ function openMusicSelectionModal() {
     if (!musicModal) {
         musicModal = document.createElement('div');
         musicModal.id = 'musicSelectionModal';
-        musicModal.style.position = 'fixed';
-        musicModal.style.top = '0';
-        musicModal.style.left = '0';
-        musicModal.style.width = '100%';
-        musicModal.style.height = '100%';
-        musicModal.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
-        musicModal.style.display = 'flex';
-        musicModal.style.justifyContent = 'center';
-        musicModal.style.alignItems = 'center';
-        musicModal.style.zIndex = '10000';
-        musicModal.style.display = 'none';
+        musicModal.className = 'music-selection-modal';
 
         const modalContent = document.createElement('div');
-        modalContent.style.background = '#FFF9F3';
-        modalContent.style.border = '2px solid #D4B08C';
-        modalContent.style.borderRadius = '0';
-        modalContent.style.padding = '20px';
-        modalContent.style.width = '80%';
-        modalContent.style.maxWidth = '500px';
-        modalContent.style.boxShadow = '8px 8px 0 #D4B08C';
-        modalContent.style.position = 'relative';
-        modalContent.style.textAlign = 'center';
+        modalContent.className = 'music-modal-content';
 
         const closeBtn = document.createElement('span');
         closeBtn.className = 'close-btn';
         closeBtn.innerHTML = '&times;';
-        closeBtn.style.position = 'absolute';
-        closeBtn.style.top = '10px';
-        closeBtn.style.right = '10px';
-        closeBtn.style.fontSize = '30px';
-        closeBtn.style.cursor = 'pointer';
-        closeBtn.style.color = '#854D27';
         closeBtn.addEventListener('click', () => {
-            musicModal.style.display = 'none';
+            musicModal.classList.remove('show');
         });
 
         const title = document.createElement('h2');
         title.textContent = '音楽を選ぶ';
-        title.style.color = '#854D27';
-        title.style.marginBottom = '20px';
-        title.style.fontFamily = '\'DM Serif Display\', serif';
+        title.className = 'music-modal-title';
 
         const trackList = document.createElement('div');
         trackList.id = 'trackList';
-        trackList.style.marginBottom = '20px';
-        trackList.style.textAlign = 'left';
-        trackList.style.maxHeight = '200px';
-        trackList.style.overflowY = 'scroll';
+        trackList.className = 'music-track-list';
 
         const tracks = [
             { url: 'happy-birthday.mp3', name: 'Happy Birthday Song (Default)' },
@@ -2671,14 +2029,11 @@ function openMusicSelectionModal() {
 
         tracks.forEach(track => {
             const trackItem = document.createElement('div');
-            trackItem.style.padding = '10px';
-            trackItem.style.borderBottom = '1px solid #D4B08C';
-            trackItem.style.cursor = 'pointer';
-            trackItem.style.color = '#2C1810';
+            trackItem.className = 'music-track-item';
             trackItem.textContent = track.name;
             trackItem.addEventListener('click', () => {
                 window.changeMusicTrack(track.url, track.name);
-                musicModal.style.display = 'none';
+                musicModal.classList.remove('show');
             });
             trackList.appendChild(trackItem);
         });
@@ -2686,20 +2041,14 @@ function openMusicSelectionModal() {
         const uploadInput = document.createElement('input');
         uploadInput.type = 'file';
         uploadInput.accept = 'audio/mp3, audio/wav';
-        uploadInput.style.width = '100%';
-        uploadInput.style.padding = '10px 0';
-        uploadInput.style.marginTop = '10px';
-        uploadInput.style.border = '2px dashed #D4B08C';
-        uploadInput.style.background = '#FFF9F3';
-        uploadInput.style.color = '#2C1810';
-        uploadInput.style.cursor = 'pointer';
+        uploadInput.className = 'music-upload-input';
         uploadInput.addEventListener('change', (e) => {
             const file = e.target.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(event) {
                     window.changeMusicTrack(event.target.result, file.name);
-                    musicModal.style.display = 'none';
+                    musicModal.classList.remove('show');
                 };
                 reader.readAsDataURL(file);
             }
@@ -2707,10 +2056,7 @@ function openMusicSelectionModal() {
 
         const uploadLabel = document.createElement('label');
         uploadLabel.textContent = '背景音をアップロード (MP3/WAV)';
-        uploadLabel.style.display = 'block';
-        uploadLabel.style.marginTop = '15px';
-        uploadLabel.style.color = '#854D27';
-        uploadLabel.style.fontSize = '1em';
+        uploadLabel.className = 'music-upload-label';
 
         modalContent.appendChild(closeBtn);
         modalContent.appendChild(title);
@@ -2720,7 +2066,7 @@ function openMusicSelectionModal() {
         musicModal.appendChild(modalContent);
         document.body.appendChild(musicModal);
     }
-    musicModal.style.display = 'flex';
+    musicModal.classList.add('show');
 }
 
 function initInviteFriends() {
@@ -2766,102 +2112,42 @@ function openInviteModal() {
     if (!inviteModal) {
         inviteModal = document.createElement('div');
         inviteModal.id = 'inviteModal';
-        inviteModal.style.position = 'fixed';
-        inviteModal.style.top = '0';
-        inviteModal.style.left = '0';
-        inviteModal.style.width = '100%';
-        inviteModal.style.height = '100%';
-        inviteModal.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
-        inviteModal.style.display = 'flex';
-        inviteModal.style.justifyContent = 'center';
-        inviteModal.style.alignItems = 'center';
-        inviteModal.style.zIndex = '10000';
-        inviteModal.style.display = 'none';
+        inviteModal.className = 'invite-modal';
 
         const modalContent = document.createElement('div');
-        modalContent.style.background = '#FFF9F3';
-        modalContent.style.border = '2px solid #D4B08C';
-        modalContent.style.borderRadius = '0';
-        modalContent.style.padding = '20px';
-        modalContent.style.width = '80%';
-        modalContent.style.maxWidth = '500px';
-        modalContent.style.boxShadow = '8px 8px 0 #D4B08C';
-        modalContent.style.position = 'relative';
-        modalContent.style.textAlign = 'center';
+        modalContent.className = 'invite-modal-content';
 
         const closeBtn = document.createElement('span');
-        closeBtn.className = 'close-btn';
+        closeBtn.className = 'invite-close-btn';
         closeBtn.innerHTML = '&times;';
-        closeBtn.style.position = 'absolute';
-        closeBtn.style.top = '10px';
-        closeBtn.style.right = '10px';
-        closeBtn.style.fontSize = '30px';
-        closeBtn.style.cursor = 'pointer';
-        closeBtn.style.color = '#854D27';
         closeBtn.addEventListener('click', () => {
-            inviteModal.style.display = 'none';
+            inviteModal.classList.remove('show');
         });
 
         const title = document.createElement('h2');
         title.textContent = '友人を招待してください';
-        title.style.color = '#854D27';
-        title.style.marginBottom = '20px';
-        title.style.fontFamily = '\'DM Serif Display\', serif';
+        title.className = 'invite-modal-title';
 
         const inviteLink = document.createElement('input');
         inviteLink.id = 'inviteLink';
         inviteLink.type = 'text';
         inviteLink.readOnly = true;
-        inviteLink.style.width = '100%';
-        inviteLink.style.padding = '10px';
-        inviteLink.style.border = '2px solid #D4B08C';
-        inviteLink.style.borderRadius = '0';
-        inviteLink.style.marginBottom = '10px';
-        inviteLink.style.fontFamily = '\'Old Standard TT\', serif';
-        inviteLink.style.fontSize = '14px';
-        inviteLink.style.background = '#FFF9F3';
-        inviteLink.style.color = '#2C1810';
+        inviteLink.className = 'invite-link-input';
         inviteLink.value = generateInviteLink();
 
         const copyBtn = document.createElement('button');
         copyBtn.textContent = '友人を招待してください';
-        copyBtn.style.padding = '8px 15px';
-        copyBtn.style.background = '#854D27';
-        copyBtn.style.color = '#FFF9F3';
-        copyBtn.style.border = '2px solid #D4B08C';
-        copyBtn.style.borderRadius = '0';
-        copyBtn.style.cursor = 'pointer';
-        copyBtn.style.fontSize = '1em';
-        copyBtn.style.transition = 'all 0.3s';
-        copyBtn.style.boxShadow = '3px 3px 0 #D4B08C';
-        copyBtn.style.marginBottom = '20px';
+        copyBtn.className = 'invite-copy-btn';
         copyBtn.addEventListener('click', () => {
             inviteLink.select();
             document.execCommand('copy');
             alert('友人を招待してください');
         });
-        copyBtn.addEventListener('mouseover', () => {
-            copyBtn.style.transform = 'translate(-2px, -2px)';
-            copyBtn.style.boxShadow = '5px 5px 0 #D4B08C';
-        });
-        copyBtn.addEventListener('mouseout', () => {
-            copyBtn.style.transform = 'none';
-            copyBtn.style.boxShadow = '3px 3px 0 #D4B08C';
-        });
 
         const inviteMessage = document.createElement('textarea');
         inviteMessage.id = 'inviteMessage';
         inviteMessage.placeholder = '友人を招待してください';
-        inviteMessage.style.width = '100%';
-        inviteMessage.style.height = '100px';
-        inviteMessage.style.padding = '10px';
-        inviteMessage.style.border = '2px solid #D4B08C';
-        inviteMessage.style.borderRadius = '0';
-        inviteMessage.style.marginBottom = '10px';
-        inviteMessage.style.fontFamily = '\'Old Standard TT\', serif';
-        inviteMessage.style.fontSize = '16px';
-        inviteMessage.style.background = '#FFF9F3';
-        inviteMessage.style.color = '#2C1810';
+        inviteMessage.className = 'invite-message-textarea';
         const birthdayPerson = localStorage.getItem('currentBirthday') || getNextBirthdayPerson();
         inviteMessage.value = `${birthdayPerson}の誕生日パーティーに友達を招待しましょう！`;
 
@@ -2869,35 +2155,17 @@ function openInviteModal() {
         emailInput.id = 'emailInput';
         emailInput.type = 'email';
         emailInput.placeholder = '友人を招待してください';
-        emailInput.style.width = '100%';
-        emailInput.style.padding = '10px';
-        emailInput.style.border = '2px solid #D4B08C';
-        emailInput.style.borderRadius = '0';
-        emailInput.style.marginBottom = '20px';
-        emailInput.style.fontFamily = '\'Old Standard TT\', serif';
-        emailInput.style.fontSize = '16px';
-        emailInput.style.background = '#FFF9F3';
-        emailInput.style.color = '#2C1810';
+        emailInput.className = 'invite-email-input';
 
         const sendBtn = document.createElement('button');
         sendBtn.textContent = 'Gửi Lời Mời';
-        sendBtn.style.padding = '10px 20px';
-        sendBtn.style.background = '#854D27';
-        sendBtn.style.color = '#FFF9F3';
-        sendBtn.style.border = '2px solid #D4B08C';
-        sendBtn.style.borderRadius = '0';
-        sendBtn.style.cursor = 'pointer';
-        sendBtn.style.fontSize = '1.1em';
-        sendBtn.style.transition = 'all 0.3s';
-        sendBtn.style.boxShadow = '4px 4px 0 #D4B08C';
-        sendBtn.style.textTransform = 'uppercase';
-        sendBtn.style.letterSpacing = '1px';
+        sendBtn.className = 'invite-send-btn';
         sendBtn.addEventListener('click', () => {
             const email = emailInput.value.trim();
             const message = inviteMessage.value.trim();
             if (email && message) {
                 sendInviteEmail(email, message);
-                inviteModal.style.display = 'none';
+                inviteModal.classList.remove('show');
                 emailInput.value = '';
                 const birthdayPerson = localStorage.getItem('currentBirthday') || getNextBirthdayPerson();
                 inviteMessage.value = `${birthdayPerson}の誕生日パーティーに友達を招待しましょう！`;
@@ -2905,20 +2173,10 @@ function openInviteModal() {
                 alert('友人を招待してください');
             }
         });
-        sendBtn.addEventListener('mouseover', () => {
-            sendBtn.style.transform = 'translate(-2px, -2px)';
-            sendBtn.style.boxShadow = '6px 6px 0 #D4B08C';
-        });
-        sendBtn.addEventListener('mouseout', () => {
-            sendBtn.style.transform = 'none';
-            sendBtn.style.boxShadow = '4px 4px 0 #D4B08C';
-        });
 
         const stats = document.createElement('p');
         stats.id = 'inviteStats';
-        stats.style.marginTop = '20px';
-        stats.style.color = '#854D27';
-        stats.style.fontSize = '1.1em';
+        stats.className = 'invite-stats';
         stats.textContent = `友人を招待してください: ${localStorage.getItem('inviteCount') || '0'}`;
 
         modalContent.appendChild(closeBtn);
@@ -2932,7 +2190,7 @@ function openInviteModal() {
         inviteModal.appendChild(modalContent);
         document.body.appendChild(inviteModal);
     }
-    inviteModal.style.display = 'flex';
+    inviteModal.classList.add('show');
     document.getElementById('inviteStats').textContent = `友人を招待してください: ${localStorage.getItem('inviteCount') || '0'}`;
 }
 
@@ -2964,6 +2222,7 @@ function createBalloons() {
     for (let i = 0; i < totalBalloons; i++) {
         const balloon = document.createElement('div');
         balloon.className = 'balloon';
+        // Dynamic styles that need to be inline for randomization
         balloon.style.background = colors[Math.floor(Math.random() * colors.length)];
         balloon.style.left = `${Math.random() * 100}%`;
         balloon.style.animationDuration = `${Math.random() * 5 + 5}s`;
@@ -2980,12 +2239,12 @@ document.addEventListener('DOMContentLoaded', function() {
         if (typeof initSocialShare === 'function') initSocialShare();
         if (typeof initMusicPlayer === 'function') initMusicPlayer();
     
-    if (typeof initCustomMessage === 'function') initCustomMessage();
-    if (typeof initCommunityFeatures === 'function') initCommunityFeatures();
-    if (typeof initInviteFriends === 'function') initInviteFriends();
+        if (typeof initCustomMessage === 'function') initCustomMessage();
+        if (typeof initCommunityFeatures === 'function') initCommunityFeatures();
+        if (typeof initInviteFriends === 'function') initInviteFriends();
     
-    if (typeof displaySavedCustomMessage === 'function') displaySavedCustomMessage();
-    if (typeof displaySavedCustomMessage === 'function') displaySavedCustomMessage();
+        if (typeof displaySavedCustomMessage === 'function') displaySavedCustomMessage();
+        if (typeof displaySavedCustomMessage === 'function') displaySavedCustomMessage();
     } catch (error) {
         console.error('機能の初期化中にエラーが発生しました:', error);
     }
@@ -3009,8 +2268,7 @@ function playAudioMessage(audioUrl) {
         audioPlayer = document.createElement('audio');
         audioPlayer.id = 'audioMessagePlayer';
         audioPlayer.controls = true;
-        audioPlayer.style.width = '100%';
-        audioPlayer.style.marginTop = '10px';
+        audioPlayer.className = 'audio-message-player';
         const audioList = document.getElementById('audioMessagesList');
         audioList.appendChild(audioPlayer);
     }
