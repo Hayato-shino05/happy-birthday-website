@@ -10,6 +10,7 @@
   <img src="https://img.shields.io/badge/Version-1.2.0-brightgreen" alt="Version 1.2.0">
   <img src="https://img.shields.io/badge/Database-Supabase-green" alt="Supabase">
   <img src="https://img.shields.io/badge/Framework-Vanilla_JS-yellow" alt="Vanilla JS">
+   <img src="https://visitor-badge.laobi.icu/badge?page_id=hayato-shino05.happy-birthday-website&left_color=gray&right_color=blue&left_text=Repository%20Views" alt="Repository Views">
 </p>
 
 ## Key Features
