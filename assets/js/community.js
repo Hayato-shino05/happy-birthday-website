@@ -175,7 +175,9 @@ function initCustomMessage() {
     if (!recordBtn) {
         recordBtn = document.createElement('button');
         recordBtn.id = 'recordMessageBtn';
-        recordBtn.textContent = '🎤 お祝いメッセージを録音';
+        const currentLang = localStorage.getItem('language') || 'ja';
+        const t = translations && translations[currentLang] ? translations[currentLang] : translations['ja'];
+        recordBtn.textContent = t.recordMessage || '🎤 お祝いメッセージを録音';
         recordBtn.className = 'record-message-btn';
         recordBtn.addEventListener('click', () => {
             customMessageModal.classList.remove('show');
@@ -189,7 +191,9 @@ function initCustomMessage() {
     if (!videoBtn) {
         videoBtn = document.createElement('button');
         videoBtn.id = 'videoMessageBtn';
-        videoBtn.textContent = '🎥 お祝いビデオ';
+        const currentLang2 = localStorage.getItem('language') || 'ja';
+        const t2 = translations && translations[currentLang2] ? translations[currentLang2] : translations['ja'];
+        videoBtn.textContent = t2.recordVideo || '🎥 お祝いビデオ';
         videoBtn.className = 'video-message-btn';
         videoBtn.addEventListener('click', () => {
             customMessageModal.classList.remove('show');
@@ -224,7 +228,9 @@ function openRecordMessageModal() {
         });
         
         const title = document.createElement('h2');
-        title.textContent = 'お祝いメッセージを録音';
+        const currentLang3 = localStorage.getItem('language') || 'ja';
+        const t3 = translations && translations[currentLang3] ? translations[currentLang3] : translations['ja'];
+        title.textContent = t3.recordMessageTitle || 'お祝いメッセージを録音';
         title.className = 'modal-title';
         
         const recordControls = document.createElement('div');
@@ -605,7 +611,9 @@ function openVideoMessageModal() {
         });
         
         const title = document.createElement('h2');
-        title.textContent = 'お祝いビデオを録画';
+        const currentLang4 = localStorage.getItem('language') || 'ja';
+        const t4 = translations && translations[currentLang4] ? translations[currentLang4] : translations['ja'];
+        title.textContent = t4.recordVideoTitle || 'お祝いビデオを録画';
         title.className = 'modal-title';
         
         const videoContainer = document.createElement('div');
@@ -703,7 +711,9 @@ function openVideoMessageModal() {
         saveBtn.className = 'video-save-btn';
         saveBtn.addEventListener('click', () => {
             const senderName = document.getElementById('videoMessageSender').value.trim() || '匿名';
-            const videoName = `${senderName}からのお祝いビデオ`;
+            const currentLang5 = localStorage.getItem('language') || 'ja';
+            const t5 = translations && translations[currentLang5] ? translations[currentLang5] : translations['ja'];
+            const videoName = (t5.videoFromSender || '{sender}からのお祝いビデオ').replace('{sender}', senderName);
             
             saveVideoMessage(videoBlob, videoName, senderName);
         });
@@ -770,7 +780,9 @@ function saveVideoMessage(videoData, videoName, senderName) {
         .then(success => {
             if (success) {
         document.getElementById('videoMessageModal').classList.remove('show');
-        alert('お祝いビデオが正常に保存されました！');
+        const currentLang6 = localStorage.getItem('language') || 'ja';
+        const t6 = translations && translations[currentLang6] ? translations[currentLang6] : translations['ja'];
+        alert(t6.videoSavedAlert || 'お祝いビデオが正常に保存されました！');
         
         displaySavedVideoMessages();
             } else {
@@ -801,7 +813,9 @@ function displaySavedVideoMessages() {
         if (!videoBtn && document.getElementById('customMessageDisplay')) {
             videoBtn = document.createElement('button');
             videoBtn.id = 'viewVideoMessagesBtn';
-            videoBtn.textContent = '🎥 お祝いビデオを見る';
+            const currentLang7 = localStorage.getItem('language') || 'ja';
+            const t7 = translations && translations[currentLang7] ? translations[currentLang7] : translations['ja'];
+            videoBtn.textContent = t7.viewVideoMessages || '🎥 お祝いビデオを見る';
             videoBtn.className = 'view-video-messages-btn';
             
             videoBtn.addEventListener('click', () => {
@@ -844,7 +858,9 @@ function openVideoMessagesModal(birthdayPerson) {
         });
         
         const title = document.createElement('h2');
-        title.textContent = birthdayPerson ? `${birthdayPerson}へのお祝いビデオ` : 'お祝いビデオ';
+        const currentLang8 = localStorage.getItem('language') || 'ja';
+        const t8 = translations && translations[currentLang8] ? translations[currentLang8] : translations['ja'];
+        title.textContent = birthdayPerson ? (t8.birthdayVideoTitle || '{person}へのお祝いビデオ').replace('{person}', birthdayPerson) : (t8.recordVideo || 'お祝いビデオ');
         title.className = 'modal-title';
         
         const messagesList = document.createElement('div');
@@ -877,7 +893,9 @@ function openVideoMessagesModal(birthdayPerson) {
                 
                 if (!messages || messages.length === 0) {
                 const noMessages = document.createElement('p');
-                noMessages.textContent = 'まだお祝いビデオがありません。';
+                const currentLang9 = localStorage.getItem('language') || 'ja';
+                const t9 = translations && translations[currentLang9] ? translations[currentLang9] : translations['ja'];
+                noMessages.textContent = t9.noVideoMessages || 'まだお祝いビデオがありません。';
                 noMessages.className = 'video-no-messages';
                 messagesList.appendChild(noMessages);
             } else {
@@ -965,12 +983,20 @@ function initCommunityFeatures() {
     if (container) {
         const chatButton = document.createElement('button');
         chatButton.id = 'openChatBtn';
-        chatButton.textContent = '💬 グループチャット';
+        const currentLang = localStorage.getItem('language') || 'ja';
+        const t = translations && translations[currentLang] ? translations[currentLang] : translations['ja'];
+        chatButton.textContent = t.groupChat || '💬 グループチャット';
         chatButton.classList.add('feature-button', 'chat-button-fixed');
         
         chatButton.addEventListener('click', checkUserNameAndOpenChat);
         
         document.body.appendChild(chatButton);
+        
+        // Apply current language to the new button
+        const savedLang = localStorage.getItem('language') || 'ja';
+        if (typeof updateDynamicButtonsLanguage !== 'undefined') {
+            updateDynamicButtonsLanguage(savedLang);
+        }
     }
 }
 
@@ -1296,12 +1322,20 @@ function initInviteFriends() {
     if (container) {
         const inviteButton = document.createElement('button');
         inviteButton.id = 'inviteFriendsBtn';
-        inviteButton.textContent = '👥 友達を招待';
+        const currentLang = localStorage.getItem('language') || 'ja';
+        const t = translations && translations[currentLang] ? translations[currentLang] : translations['ja'];
+        inviteButton.textContent = t.inviteFriends || '👥 友達を招待';
         inviteButton.classList.add('feature-button', 'invite-button-fixed');
         
         inviteButton.addEventListener('click', openInviteModal);
         
         document.body.appendChild(inviteButton);
+        
+        // Apply current language to the new button
+        const savedLang = localStorage.getItem('language') || 'ja';
+        if (typeof updateDynamicButtonsLanguage !== 'undefined') {
+            updateDynamicButtonsLanguage(savedLang);
+        }
     }
 }
 
@@ -1324,7 +1358,9 @@ function openInviteModal() {
         });
         
         const title = document.createElement('h2');
-        title.textContent = '友達を招待して参加してもらいましょう';
+        const currentLang = localStorage.getItem('language') || 'ja';
+        const t = translations && translations[currentLang] ? translations[currentLang] : translations['ja'];
+        title.textContent = t.inviteModalTitle || '友達を招待して参加してもらいましょう';
         title.className = 'modal-title';
         
         const description = document.createElement('p');
@@ -1359,7 +1395,7 @@ function openInviteModal() {
         linkSection.className = 'invite-link-section';
         
         const linkLabel = document.createElement('div');
-        linkLabel.textContent = '招待リンク：';
+        linkLabel.textContent = t.inviteLink || '招待リンク：';
         linkLabel.className = 'invite-link-label';
         
         const linkDisplay = document.createElement('div');
@@ -1373,14 +1409,14 @@ function openInviteModal() {
         linkInput.className = 'invite-link-input';
         
         const copyBtn = document.createElement('button');
-        copyBtn.textContent = '📋 コピー';
+        copyBtn.textContent = t.copyButton || '📋 コピー';
         copyBtn.className = 'invite-copy-btn';
         copyBtn.addEventListener('click', () => {
             linkInput.select();
             document.execCommand('copy');
-            copyBtn.textContent = '✓ コピー完了';
+            copyBtn.textContent = t.copyComplete || '✓ コピー完了';
             setTimeout(() => {
-                copyBtn.textContent = '📋 コピー';
+                copyBtn.textContent = t.copyButton || '📋 コピー';
             }, 2000);
         });
         
@@ -1388,7 +1424,7 @@ function openInviteModal() {
         linkDisplay.appendChild(copyBtn);
         
         const shareLabel = document.createElement('div');
-        shareLabel.textContent = 'シェアする：';
+        shareLabel.textContent = t.shareLabel || 'シェアする：';
         shareLabel.className = 'social-share-label';
         
         const socialShare = document.createElement('div');
@@ -1432,22 +1468,22 @@ function openInviteModal() {
         emailSection.className = 'email-invite-section';
         
         const emailLabel = document.createElement('div');
-        emailLabel.textContent = 'メールで招待状を送る：';
+        emailLabel.textContent = t.emailInviteLabel || 'メールで招待状を送る：';
         emailLabel.className = 'email-invite-label';
         
         const emailInput = document.createElement('input');
         emailInput.id = 'inviteEmailInput';
         emailInput.type = 'email';
-        emailInput.placeholder = '受信者のメールアドレス...';
+        emailInput.placeholder = t.emailPlaceholder || '受信者のメールアドレス...';
         emailInput.className = 'email-invite-input';
         
         const messageInput = document.createElement('textarea');
         messageInput.id = 'inviteMessageInput';
-        messageInput.placeholder = '個人メッセージ（任意）...';
+        messageInput.placeholder = t.messagePlaceholder2 || '個人メッセージ（任意）...';
         messageInput.className = 'email-invite-message';
         
         const sendEmailBtn = document.createElement('button');
-        sendEmailBtn.textContent = '📧 招待状を送る';
+        sendEmailBtn.textContent = t.sendInvite || '📧 招待状を送る';
         sendEmailBtn.className = 'email-send-btn';
         
         sendEmailBtn.addEventListener('click', () => {
@@ -1459,7 +1495,7 @@ function openInviteModal() {
                 emailInput.value = '';
                 messageInput.value = '';
             } else {
-                alert('受信者のメールアドレスを入力してください！');
+                alert(t.enterEmailAlert || '受信者のメールアドレスを入力してください！');
             }
         });
         

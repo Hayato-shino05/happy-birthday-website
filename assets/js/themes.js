@@ -151,6 +151,7 @@ const translations = {
     ja: {
         title: "お誕生日おめでとうございます",
         countdownTitle: "誕生日までのカウントダウン",
+        countdownTemplate: "の誕生日までのカウントダウン",
         days: "日",
         hours: "時間",
         minutes: "分",
@@ -159,14 +160,100 @@ const translations = {
         micPermission: "マイクの使用を許可する",
         birthdayMessageDefault: "お誕生日おめでとうございます！喜びと幸せに満ちた一日になりますように！",
         birthdayMessageSuccess: "お誕生日おめでとうございます！🎉<br>ろうそくを吹き消しました！<br>すべての願いが叶いますように！",
+        
         albumButton: "📸 思い出のアルバムを見る",
-        memoryGame: "🎮 記憶ゲーム",
-        puzzleGame: "🧩 パズルゲーム",
-        songTitle: "ハッピーバースデーソング"
+        memoryGame: "🎮 神経衰弱",
+        puzzleGame: "🧩 パズル",
+        birthdayCalendar: "📅 誕生日カレンダー",
+        birthdayQuiz: "❓ 誕生日クイズ",
+        customMessage: "✍️ お祝いメッセージ",
+        bulletinBoard: "📋 お祝い掲示板",
+        groupChat: "💬 グループチャット",
+        inviteFriends: "👥 友達を招待",
+        selectMusic: "🎵 音楽を選ぶ",
+        
+        songTitle: "ハッピーバースデーソング",
+        
+        searchPlaceholder: "タグで検索...",
+        slideshow: "▶️ スライドショー",
+        closeslideshow: "スライドショーを閉じる",
+        
+        bulletinBoardTitle: "お誕生日お祝い掲示板",
+        selectVirtualGift: "🎁 バーチャルギフトを選ぶ",
+        sendGift: "ギフトを送る",
+        sendMessage: "メッセージを送る",
+        namePlaceholder: "お名前...",
+        messagePlaceholder: "メッセージを入力してください...",
+        
+        languageJapanese: "日本語",
+        languageEnglish: "English",
+        
+        inviteModalTitle: "Invite Friends to Join the Celebration",
+        inviteModalDescription: "Invite friends to celebrate {person}'s birthday{date} together! Let's create wonderful memories and send heartfelt birthday messages.",
+        inviteLink: "Invitation Link:",
+        copyButton: "📋 Copy",
+        copyComplete: "✓ Copied",
+        shareLabel: "Share:",
+        emailInviteLabel: "Send invitation by email:",
+        emailPlaceholder: "Recipient's email address...",
+        messagePlaceholder2: "Personal message (optional)...",
+        sendInvite: "📧 Send Invitation",
+        enterEmailAlert: "Please enter recipient's email address!",
+        
+        countdownNotification: "{days} days, {hours} hours, {minutes} minutes, {seconds} seconds until birthday!",
+        
+        closeAlbum: "Close Album",
+        
+        customMessageTitle: "Enter Birthday Message",
+        recordMessage: "🎤 Record Message",
+        recordVideo: "🎥 Record Video", 
+        recordMessageTitle: "Record Birthday Message",
+        recordVideoTitle: "Record Birthday Video",
+        viewVideoMessages: "🎥 View Video Messages",
+        videoSavedAlert: "Birthday video saved successfully!",
+        noVideoMessages: "No video messages yet.",
+        videoFromSender: "Birthday Video from {sender}",
+        birthdayVideoTitle: "Birthday Videos for {person}",
+        
+        shareECardText: "Copy link to share birthday card:",
+        copyLinkButton: "Copy Link",
+        linkCopied: "✓ Link Copied",
+        
+        inviteModalTitle: "Invite Friends to Join the Celebration",
+        inviteModalDescription: "Invite friends to celebrate {person}'s birthday{date} together! Let's create wonderful memories and send heartfelt birthday messages.",
+        inviteLink: "Invitation Link:",
+        copyButton: "📋 Copy",
+        copyComplete: "✓ Copied",
+        shareLabel: "Share:",
+        emailInviteLabel: "Send invitation by email:",
+        emailPlaceholder: "Recipient's email address...",
+        messagePlaceholder2: "Personal message (optional)...",
+        sendInvite: "📧 Send Invitation", 
+        enterEmailAlert: "Please enter recipient's email address!",
+        
+        countdownNotification: "{days} days, {hours} hours, {minutes} minutes, {seconds} seconds until birthday!",
+        
+        closeAlbum: "Close Album",
+        
+        customMessageTitle: "Enter Birthday Message",
+        recordMessage: "🎤 Record Message",
+        recordVideo: "🎥 Record Video",
+        recordMessageTitle: "Record Birthday Message",
+        recordVideoTitle: "Record Birthday Video",
+        viewVideoMessages: "🎥 View Video Messages",
+        videoSavedAlert: "Birthday video saved successfully!",
+        noVideoMessages: "No video messages yet.",
+        videoFromSender: "Birthday Video from {sender}",
+        birthdayVideoTitle: "Birthday Videos for {person}",
+        
+        shareECardText: "Copy link to share birthday card:",
+        copyLinkButton: "Copy Link",
+        linkCopied: "✓ Link Copied"
     },
     en: {
         title: "Happy Birthday",
         countdownTitle: "Countdown to Birthday",
+        countdownTemplate: "'s Birthday Countdown",
         days: "Days",
         hours: "Hours",
         minutes: "Minutes",
@@ -175,10 +262,33 @@ const translations = {
         micPermission: "Allow Microphone Access",
         birthdayMessageDefault: "Happy Birthday! Wishing you a day full of joy and happiness!",
         birthdayMessageSuccess: "Happy Birthday! 🎉<br>You've successfully blown out the candles!<br>May all your wishes come true!",
+        
         albumButton: "📸 View Memory Album",
         memoryGame: "🎮 Memory Game",
         puzzleGame: "🧩 Puzzle Game",
-        songTitle: "Happy Birthday Song"
+        birthdayCalendar: "📅 Birthday Calendar",
+        birthdayQuiz: "❓ Birthday Quiz",
+        customMessage: "✍️ Birthday Message",
+        bulletinBoard: "📋 Birthday Board",
+        groupChat: "💬 Group Chat",
+        inviteFriends: "👥 Invite Friends",
+        selectMusic: "🎵 Select Music",
+        
+        songTitle: "Happy Birthday Song",
+        
+        searchPlaceholder: "Search by tags...",
+        slideshow: "▶️ Slideshow",
+        closeslideshow: "Close Slideshow",
+        
+        bulletinBoardTitle: "Birthday Celebration Board",
+        selectVirtualGift: "🎁 Select Virtual Gift",
+        sendGift: "Send Gift",
+        sendMessage: "Send Message",
+        namePlaceholder: "Your name...",
+        messagePlaceholder: "Enter your message...",
+        
+        languageJapanese: "日本語",
+        languageEnglish: "English"
     }
 };
 
@@ -194,32 +304,143 @@ function applyLanguage(lang) {
         lang = 'ja'; 
     }
     
-    const elements = {
-        birthdayTitle: document.getElementById('birthdayTitle'),
-        countdown: document.getElementById('countdown'),
-        blowButton: document.getElementById('blowButton'),
-        micPermissionBtn: document.getElementById('micPermissionBtn'),
-        birthdayMessage: document.getElementById('birthdayMessage'),
-        openAlbum: document.getElementById('openAlbum'),
-        startMemoryGame: document.getElementById('startMemoryGame'),
-        startPuzzleGame: document.getElementById('startPuzzleGame'),
-        songTitle: document.querySelector('.song-title')
-    };
+    const t = translations[lang];
     
-    // translationsオブジェクトからbirthdayTitleのコンテンツを更新
-    if (elements.birthdayTitle) elements.birthdayTitle.textContent = translations[lang].title;
-    if (elements.blowButton) elements.blowButton.textContent = translations[lang].blowButton;
-    if (elements.micPermissionBtn) elements.micPermissionBtn.textContent = translations[lang].micPermission;
-    if (elements.birthdayMessage && !elements.birthdayMessage.innerHTML.includes('<br>')) {
-        elements.birthdayMessage.textContent = translations[lang].birthdayMessageDefault;
+    const birthdayTitle = document.getElementById('birthdayTitle');
+    const blowButton = document.getElementById('blowButton');
+    const micPermissionBtn = document.getElementById('micPermissionBtn');
+    const birthdayMessage = document.getElementById('birthdayMessage');
+    const songTitle = document.querySelector('.song-title');
+    
+    if (birthdayTitle) birthdayTitle.textContent = t.title;
+    if (blowButton) blowButton.textContent = t.blowButton;
+    if (micPermissionBtn) micPermissionBtn.textContent = t.micPermission;
+    if (birthdayMessage && !birthdayMessage.innerHTML.includes('<br>')) {
+        birthdayMessage.textContent = t.birthdayMessageDefault;
     }
-    if (elements.openAlbum) elements.openAlbum.textContent = translations[lang].albumButton;
-    if (elements.startMemoryGame) elements.startMemoryGame.textContent = translations[lang].memoryGame;
-    if (elements.startPuzzleGame) elements.startPuzzleGame.textContent = translations[lang].puzzleGame;
-    if (elements.songTitle) elements.songTitle.textContent = translations[lang].songTitle;
+    if (songTitle) songTitle.textContent = t.songTitle;
+    
+    const openAlbum = document.getElementById('openAlbum');
+    const startMemoryGame = document.getElementById('startMemoryGame');
+    const startPuzzleGame = document.getElementById('startPuzzleGame');
+    const openCalendar = document.getElementById('openCalendar');
+    const startBirthdayQuiz = document.getElementById('startBirthdayQuiz');
+    const customMessageBtn = document.getElementById('customMessageBtn');
+    const bulletinBoardBtn = document.getElementById('bulletinBoardBtn');
+    
+    if (openAlbum) openAlbum.textContent = t.albumButton;
+    if (startMemoryGame) startMemoryGame.textContent = t.memoryGame;
+    if (startPuzzleGame) startPuzzleGame.textContent = t.puzzleGame;
+    if (openCalendar) openCalendar.textContent = t.birthdayCalendar;
+    if (startBirthdayQuiz) startBirthdayQuiz.textContent = t.birthdayQuiz;
+    if (customMessageBtn) customMessageBtn.textContent = t.customMessage;
+    if (bulletinBoardBtn) bulletinBoardBtn.textContent = t.bulletinBoard;
+    
+    const openChatBtn = document.getElementById('openChatBtn');
+    const inviteFriendsBtn = document.getElementById('inviteFriendsBtn');
+    const musicSelectionBtn = document.getElementById('musicSelectionBtn');
+    
+    if (openChatBtn) openChatBtn.textContent = t.groupChat;
+    if (inviteFriendsBtn) inviteFriendsBtn.textContent = t.inviteFriends;
+    if (musicSelectionBtn) musicSelectionBtn.textContent = t.selectMusic;
+    
+    const searchTags = document.getElementById('searchTags');
+    const slideshowBtn = document.getElementById('slideshowBtn');
+    const closeSlideshow = document.getElementById('closeSlideshow');
+    
+    if (searchTags) searchTags.placeholder = t.searchPlaceholder;
+    if (slideshowBtn) slideshowBtn.textContent = t.slideshow;
+    if (closeSlideshow) closeSlideshow.textContent = t.closeslideshow;
+    
+    const bulletinBoardTitle = document.querySelector('.bulletin-board-modal h2');
+    const selectGiftBtn = document.getElementById('selectGiftBtn');
+    const submitPost = document.getElementById('submitPost');
+    const submitGift = document.getElementById('submitGift');
+    const submitCustomMessage = document.getElementById('submitCustomMessage');
+    const customMessageTitle = document.getElementById('customMessageTitle');
+    
+    if (bulletinBoardTitle) bulletinBoardTitle.textContent = t.bulletinBoardTitle;
+    if (selectGiftBtn) selectGiftBtn.textContent = t.selectVirtualGift;
+    if (submitPost) submitPost.textContent = t.sendGift;
+    if (submitGift) submitGift.textContent = t.sendGift;
+    if (submitCustomMessage) submitCustomMessage.textContent = t.sendMessage;
+    if (customMessageTitle) customMessageTitle.textContent = t.customMessageTitle;
+    
+    const giftSender = document.getElementById('giftSender');
+    const customMessageInput = document.getElementById('customMessageInput');
+    
+    if (giftSender) giftSender.placeholder = t.namePlaceholder;
+    if (customMessageInput) customMessageInput.placeholder = t.messagePlaceholder;
+    
+    const languageSelect = document.getElementById('languageSelect');
+    if (languageSelect) {
+        const jaOption = languageSelect.querySelector('option[value="ja"]');
+        const enOption = languageSelect.querySelector('option[value="en"]');
+        if (jaOption) jaOption.textContent = t.languageJapanese;
+        if (enOption) enOption.textContent = t.languageEnglish;
+    }
+    
+    updateCountdownLanguage(lang);
+    
+    updateDynamicButtonsLanguage(lang);
+    
+    updateInviteModalLanguage(lang);
+    updateCustomMessageModalLanguage(lang);
+    updateAlbumLanguage(lang);
     
     localStorage.setItem('language', lang);
     console.log(`適用された言語: ${lang}`);
+}
+
+/**
+ * カウントダウンのテキストを現在の言語で更新します
+ * @param {string} lang - 言語コード
+ */
+function updateCountdownLanguage(lang) {
+    const countdownElement = document.getElementById('countdown');
+    if (!countdownElement || !translations[lang]) return;
+    
+    const t = translations[lang];
+    
+    const titleElement = countdownElement.querySelector('h1');
+    if (titleElement) {
+        const personName = titleElement.dataset.person;
+        if (personName) {
+            titleElement.textContent = personName + t.countdownTemplate;
+        }
+    }
+    
+    const timeDiv = countdownElement.querySelector('.time');
+    if (timeDiv) {
+        const unitDivs = timeDiv.querySelectorAll('div > div:last-child');
+        if (unitDivs.length >= 4) {
+            unitDivs[0].textContent = t.days;
+            unitDivs[1].textContent = t.hours;
+            unitDivs[2].textContent = t.minutes;
+            unitDivs[3].textContent = t.seconds;
+        }
+    }
+}
+
+/**
+ * 動的に作成されたボタンのテキストを更新します
+ * @param {string} lang - 言語コード
+ */
+function updateDynamicButtonsLanguage(lang) {
+    if (!translations[lang]) return;
+    
+    const t = translations[lang];
+    
+    const openChatBtn = document.getElementById('openChatBtn');
+    const inviteFriendsBtn = document.getElementById('inviteFriendsBtn');
+    const selectMusicBtn = document.getElementById('selectMusicBtn');
+    
+    if (openChatBtn) openChatBtn.textContent = t.groupChat;
+    if (inviteFriendsBtn) inviteFriendsBtn.textContent = t.inviteFriends;
+    if (selectMusicBtn) selectMusicBtn.textContent = t.selectMusic;
+    
+    const musicModalTitle = document.querySelector('.music-modal-title');
+    if (musicModalTitle) musicModalTitle.textContent = t.selectMusic;
 }
 
 /**
@@ -534,4 +755,75 @@ function createGhosts(count, theme) {
         document.body.appendChild(ghost);
     }
     console.log('おばけエフェクトを作成:', theme);
+}
+
+/**
+ * Invite modalのテキストを更新します
+ * @param {string} lang - 言語コード
+ */
+function updateInviteModalLanguage(lang) {
+    if (!translations[lang]) return;
+    
+    const t = translations[lang];
+    
+    const inviteModalTitle = document.querySelector('.invite-modal h2, #inviteModal h2');
+    if (inviteModalTitle) inviteModalTitle.textContent = t.inviteModalTitle;
+    
+    const linkLabel = document.querySelector('.invite-link-label');
+    if (linkLabel) linkLabel.textContent = t.inviteLink;
+    
+    const copyBtn = document.querySelector('.invite-copy-btn');
+    if (copyBtn && !copyBtn.textContent.includes('✓')) {
+        copyBtn.textContent = t.copyButton;
+    }
+    
+    const shareLabel = document.querySelector('.social-share-label');
+    if (shareLabel) shareLabel.textContent = t.shareLabel;
+    
+    const emailLabel = document.querySelector('.email-invite-label');
+    if (emailLabel) emailLabel.textContent = t.emailInviteLabel;
+    
+    const emailInput = document.getElementById('inviteEmailInput');
+    if (emailInput) emailInput.placeholder = t.emailPlaceholder;
+    
+    const messageInput = document.getElementById('inviteMessageInput');
+    if (messageInput) messageInput.placeholder = t.messagePlaceholder2;
+    
+    const sendBtn = document.querySelector('.email-send-btn');
+    if (sendBtn) sendBtn.textContent = t.sendInvite;
+}
+
+/**
+ * Custom Message modalのテキストを更新します
+ * @param {string} lang - 言語コード
+ */
+function updateCustomMessageModalLanguage(lang) {
+    if (!translations[lang]) return;
+    
+    const t = translations[lang];
+    
+    const customModalTitle = document.getElementById('customMessageTitle');
+    if (customModalTitle) customModalTitle.textContent = t.customMessageTitle;
+    
+    const recordBtn = document.getElementById('recordMessageBtn');
+    if (recordBtn) recordBtn.textContent = t.recordMessage;
+    
+    const videoBtn = document.getElementById('videoMessageBtn');
+    if (videoBtn) videoBtn.textContent = t.recordVideo;
+    
+    const viewVideoBtn = document.getElementById('viewVideoMessagesBtn');
+    if (viewVideoBtn) viewVideoBtn.textContent = t.viewVideoMessages;
+}
+
+/**
+ * Albumのテキストを更新します
+ * @param {string} lang - 言語コード
+ */
+function updateAlbumLanguage(lang) {
+    if (!translations[lang]) return;
+    
+    const t = translations[lang];
+    
+    const closeAlbumBtn = document.getElementById('closeAlbum');
+    if (closeAlbumBtn) closeAlbumBtn.textContent = t.closeAlbum;
 }

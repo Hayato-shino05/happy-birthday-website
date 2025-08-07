@@ -131,24 +131,27 @@ function displayCountdown(targetDate, person) {
             
             // HTMLが存在しないか、別の人の誕生日が表示されている場合、HTML全体を再生成
             if (!titleElement || titleElement.dataset.person !== person.name) {
+                const currentLang = localStorage.getItem('language') || 'ja';
+                const t = translations && translations[currentLang] ? translations[currentLang] : translations['ja'];
+                
                 countdownElement.innerHTML = `
-                    <h1 data-person="${person.name}">${person.name}の誕生日までのカウントダウン</h1>
+                    <h1 data-person="${person.name}">${person.name}${t.countdownTemplate}</h1>
                     <div class="time">
                         <div>
                             <span id="days">${days}</span>
-                            <div>日</div>
+                            <div>${t.days}</div>
                         </div>
                         <div>
                             <span id="hours">${hours}</span>
-                            <div>時間</div>
+                            <div>${t.hours}</div>
                         </div>
                         <div>
                             <span id="minutes">${minutes}</span>
-                            <div>分</div>
+                            <div>${t.minutes}</div>
                         </div>
                         <div>
                             <span id="seconds">${seconds}</span>
-                            <div>秒</div>
+                            <div>${t.seconds}</div>
                         </div>
                     </div>
                 `;

@@ -6,7 +6,11 @@
   "private": false,
   "scripts": {
     "lint": "eslint . --ext .js --max-warnings=0",
-    "format": "prettier --write \"**/*.{js,json,css,html,md}\""
+    "format": "prettier --write \"**/*.{js,json,css,html,md}\"",
+    "build": "node build.js",
+    "dev-build": "node dev-build.js",
+    "dev": "npm run dev-build && python -m http.server 8000",
+    "preview": "python -m http.server 4173"
   },
   "devDependencies": {
     "eslint": "^8.57.0",

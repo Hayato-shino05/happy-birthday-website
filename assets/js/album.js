@@ -1,6 +1,6 @@
 
 const AlbumConfig = {
-    supabaseStorageUrl: 'your-supabase-link/storage/v1/object/public/media/',
+    supabaseStorageUrl: '${SUPABASE_URL}/storage/v1/object/public/media/',
     mediaBucket: 'media',
     itemLimit: 100,
     itemOffset: 0,
@@ -60,10 +60,10 @@ function cleanupResources() {
 let swiperInstance = null;
 
 /**
- * Lấy thống kê từ Supabase - có thể tùy chỉnh để lọc các file
- * @param {string} bucket Tên bucket lưu trữ
- * @param {boolean} useCache Sử dụng cache hay không
- * @returns {Promise<Object>} Thống kê media
+ * Supabaseから統計を取得する - ファイルをフィルタリングできる
+ * @param {string} bucket ストレージバケット名
+ * @param {boolean} useCache キャッシュを使うかどうか
+ * @returns {Promise<Object>} メディア統計
  */
 async function getMediaStats(bucket = AlbumConfig.mediaBucket, useCache = true) {
     try {
@@ -109,13 +109,13 @@ async function getMediaStats(bucket = AlbumConfig.mediaBucket, useCache = true) 
         
         return stats;
     } catch (error) {
-        handleError(error, "Lỗi khi lấy thống kê media");
+        handleError(error, "メディア統計の取得エラー");
         throw error;
     }
 }
 
 /**
- * Làm mới cache
+ * キャッシュをクリアする
  */
 function invalidateCache() {
     AlbumState.cacheTime = 0;
@@ -270,7 +270,7 @@ function hideLoadingProgress() {
 
 function checkSupabaseInitialized() {
     if (typeof supabase === 'undefined') {
-        handleError(new Error('Supabase chưa được khởi tạo'), 'Lỗi kết nối cơ sở dữ liệu', true);
+        handleError(new Error('Supabaseが初期化されていません'), 'データベース接続エラー', true);
         return false;
     }
     return true;
@@ -294,7 +294,7 @@ async function loadAlbumMedia(forceRefresh = false) {
     const slideshowWrapper = document.getElementById('slideshowWrapper');
     
 
-    showLoadingProgress('Đang tải dữ liệu album...', 10);
+    showLoadingProgress('アルバムデータを読み込み中...', 10);
     
 
     if (forceRefresh) {
@@ -305,7 +305,7 @@ async function loadAlbumMedia(forceRefresh = false) {
     try {
 
         const stats = await getMediaStats(AlbumConfig.mediaBucket, !forceRefresh);
-        showLoadingProgress('Đã nhận dữ liệu...', 40);
+        showLoadingProgress('データを受け取りました...', 40);
         
 
         let statsInfo = document.getElementById('mediaStatsInfo');
@@ -314,7 +314,7 @@ async function loadAlbumMedia(forceRefresh = false) {
                 id: 'mediaStatsInfo',
                 className: 'media-stats-info'
             });
-            statsInfo.innerHTML = `<strong>Thông kê Album:</strong> Tổng cộng ${stats.total} file (${stats.images} ảnh, ${stats.videos} video)`;
+            statsInfo.innerHTML = `<strong>アルバム統計:</strong> 合計 ${stats.total} ファイル (${stats.images} 画像, ${stats.videos} 動画)`;
             
             if (gallery.firstChild) {
                 gallery.insertBefore(statsInfo, gallery.firstChild);
@@ -322,7 +322,7 @@ async function loadAlbumMedia(forceRefresh = false) {
                 gallery.appendChild(statsInfo);
             }
         } else {
-            statsInfo.innerHTML = `<strong>Thông kê Album:</strong> Tổng cộng ${stats.total} file (${stats.images} ảnh, ${stats.videos} video)`;
+            statsInfo.innerHTML = `<strong>アルバム統計:</strong> 合計 ${stats.total} ファイル (${stats.images} 画像, ${stats.videos} 動画)`;
         }
         
 
@@ -331,7 +331,7 @@ async function loadAlbumMedia(forceRefresh = false) {
         if (!mediaFiles || mediaFiles.length === 0) {
             const noDataMsg = createElementWithStyles('div', {}, {
                 className: 'no-data-message'
-            }, 'Không có hình ảnh hoặc video nào.');
+            }, '画像や動画がありません。');
             
             gallery.appendChild(noDataMsg);
             hideLoadingProgress();
@@ -343,7 +343,7 @@ async function loadAlbumMedia(forceRefresh = false) {
         AlbumState.mediaFiles = mediaFiles.map(file => file.name);
         AlbumState.mediaFilesLoaded = true;
         
-        showLoadingProgress('Đang hiển thị media...', 70);
+        showLoadingProgress('メディアを表示中...', 70);
         
 
         const mediaItemsExist = gallery.querySelectorAll('.photo-item').length > 0;
@@ -358,7 +358,7 @@ async function loadAlbumMedia(forceRefresh = false) {
                         
 
                         const progress = 70 + Math.floor(30 * (index + 1) / mediaFiles.length);
-                        showLoadingProgress(`Đang hiển thị media (${index+1}/${mediaFiles.length})...`, progress);
+                        showLoadingProgress(`メディアを表示中 (${index+1}/${mediaFiles.length})...`, progress);
                         
 
                         if (index === mediaFiles.length - 1) {
@@ -378,11 +378,11 @@ async function loadAlbumMedia(forceRefresh = false) {
             renderSlideshow();
         }
     } catch (error) {
-        handleError(error, 'Lỗi khi tải ảnh từ Supabase', true);
+        handleError(error, 'Supabaseから画像読み込みエラー', true);
         
         const errorMsg = createElementWithStyles('div', {}, {
             className: 'error-message-inline'
-        }, 'Không thể tải dữ liệu từ Supabase. Vui lòng thử lại sau.');
+        }, 'Supabaseからデータを読み込めません。しばらくしてからもう一度お試しください。');
         
         gallery.innerHTML = '';
         gallery.appendChild(errorMsg);
@@ -426,9 +426,9 @@ function createMediaElement(mediaPath, fileName, mediaType) {
         
 
         img.onerror = function() {
-            console.error(`Không thể tải ảnh: ${mediaPath}`);
+            console.error(`画像を読み込めません: ${mediaPath}`);
 
-            img.src = 'data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%20preserveAspectRatio%3D%22none%22%3E%3Cpath%20fill%3D%22%23EEEEEE%22%20d%3D%22M0%200h400v300H0z%22%2F%3E%3Ctext%20fill%3D%22%23999999%22%20font-family%3D%22Arial%2CSans-serif%22%20font-size%3D%2230%22%20font-weight%3D%22bold%22%20dy%3D%22.3em%22%20x%3D%22200%22%20y%3D%22150%22%20text-anchor%3D%22middle%22%3EKhông%20tải%20được%20ảnh%3C%2Ftext%3E%3C%2Fsvg%3E';
+            img.src = 'data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%20preserveAspectRatio%3D%22none%22%3E%3Cpath%20fill%3D%22%23EEEEEE%22%20d%3D%22M0%200h400v300H0z%22%2F%3E%3Ctext%20fill%3D%22%23999999%22%20font-family%3D%22Arial%2CSans-serif%22%20font-size%3D%2230%22%20font-weight%3D%22bold%22%20dy%3D%22.3em%22%20x%3D%22200%22%20y%3D%22150%22%20text-anchor%3D%22middle%22%3E画像読込失敗%3C%2Ftext%3E%3C%2Fsvg%3E';
         };
         
         return img;
@@ -458,7 +458,7 @@ async function getMediaTags(mediaPath) {
         
         return data?.tags || [];
     } catch (error) {
-        handleError(error, `Lỗi khi lấy tags cho media ${mediaPath}`);
+        handleError(error, `メディア ${mediaPath} のタグ取得エラー`);
         return [];
     }
 }
@@ -507,7 +507,7 @@ async function saveMediaTags(mediaPath, tagsInput) {
         
         return result;
     } catch (error) {
-        handleError(error, `Lỗi khi lưu tags cho media ${mediaPath}`, true);
+        handleError(error, `メディア ${mediaPath} のタグ保存エラー`, true);
         return false;
     }
 }
@@ -536,7 +536,7 @@ async function displayTags(container, mediaPath) {
             container.appendChild(tagsContainer);
         }
     } catch (error) {
-        handleError(error, `Lỗi khi hiển thị tags cho media ${mediaPath}`);
+        handleError(error, `メディア ${mediaPath} のタグ表示エラー`);
     }
 }
 
@@ -587,7 +587,7 @@ function renderPhotoItem(index, gallery) {
         photoContainer.appendChild(playIcon);
         
         photoContainer.addEventListener('mouseenter', () => {
-            video.play().catch(e => console.log('Video autoplay failed'));
+            video.play().catch(e => console.log('動画の自動再生が失敗しました'));
         });
         
         photoContainer.addEventListener('mouseleave', () => {
@@ -632,7 +632,7 @@ function toggleSlideshowMode(enabled) {
         if (AlbumState.mediaFilesLoaded && AlbumState.mediaFiles.length > 0) {
             renderSlideshow();
         } else {
-            showLoadingProgress("Đang tải dữ liệu slideshow...");
+            showLoadingProgress("スライドショーのデータを読み込み中...");
             loadAlbumMedia(false, () => {
                 hideLoadingProgress();
                 renderSlideshow();
@@ -656,14 +656,14 @@ function toggleSlideshowMode(enabled) {
 function renderSlideshow() {
     const slideshowContainer = document.getElementById('slideshowContainer');
     if (!slideshowContainer) {
-        handleError(new Error("Không tìm thấy container slideshow"), "Lỗi hiển thị slideshow");
+        handleError(new Error("スライドショーのコンテナが見つかりません"), "スライドショー表示エラー");
         return;
     }
 
     slideshowContainer.innerHTML = '';
     
     if (!AlbumState.mediaFilesLoaded || !AlbumState.mediaFiles || AlbumState.mediaFiles.length === 0) {
-        slideshowContainer.innerHTML = '<div class="error-message">Không có dữ liệu để hiển thị slideshow</div>';
+        slideshowContainer.innerHTML = '<div class="error-message">スライドショーで表示するデータがありません</div>';
         return;
     }
 
@@ -711,12 +711,12 @@ function renderSlideshow() {
     
     const playPauseBtn = document.createElement('button');
     playPauseBtn.className = 'slideshow-button';
-    playPauseBtn.textContent = 'Tạm dừng';
+    playPauseBtn.textContent = '一時停止';
     playPauseBtn.addEventListener('click', togglePlayPause);
     
     const closeBtn = document.createElement('button');
     closeBtn.className = 'slideshow-button';
-    closeBtn.textContent = 'Đóng Slideshow';
+    closeBtn.textContent = 'スライドショーを終了';
     closeBtn.addEventListener('click', () => toggleSlideshowMode(false));
     
     controls.appendChild(playPauseBtn);
@@ -730,9 +730,6 @@ function renderSlideshow() {
 }
 
 function renderSlideItem(fileName, slide) {
-    if (!fileName || fileName === '.emptyFolderPlaceholder') {
-        return;
-    }
     if (!fileName || fileName === '.emptyFolderPlaceholder') {
         return;
     }
@@ -755,7 +752,7 @@ function renderSlideItem(fileName, slide) {
         
         slide.addEventListener('transitionend', () => {
             if (slide.classList.contains('active')) {
-                video.play().catch(e => console.log('Video autoplay failed'));
+                video.play().catch(e => console.log('動画の自動再生が失敗しました'));
             } else {
                 video.pause();
                 video.currentTime = 0;
@@ -778,9 +775,6 @@ function renderSlideItem(fileName, slide) {
 function startSlideshow() {
     AlbumState.slideshow.isPlaying = true;
     
-    if (AlbumState.slideshow.timer) {
-        clearTimeout(AlbumState.slideshow.timer);
-    }
     if (AlbumState.slideshow.timer) {
         clearTimeout(AlbumState.slideshow.timer);
     }
@@ -810,10 +804,10 @@ function togglePlayPause() {
     
     if (AlbumState.slideshow.isPlaying) {
         stopSlideshow();
-        if (playPauseBtn) playPauseBtn.textContent = 'Tiếp tục';
+        if (playPauseBtn) playPauseBtn.textContent = '再開';
     } else {
         startSlideshow();
-        if (playPauseBtn) playPauseBtn.textContent = 'Tạm dừng';
+        if (playPauseBtn) playPauseBtn.textContent = '一時停止';
     }
 }
 
@@ -855,7 +849,7 @@ function goToSlide(index) {
     videos.forEach((video, i) => {
         const slide = video.closest('.slideshow-slide');
         if (slide && slide.classList.contains('active')) {
-            video.play().catch(e => console.log('Video autoplay failed'));
+            video.play().catch(e => console.log('動画の自動再生が失敗しました'));
         } else {
             video.pause();
             video.currentTime = 0;
@@ -891,7 +885,6 @@ function createModal(id, styles = {}) {
         ...styles
     }, { id: id, className: 'modal-base' });
     
-    document.body.appendChild(modal);
     document.body.appendChild(modal);
     
     return modal;
@@ -1219,9 +1212,9 @@ async function handleFileUpload(event) {
             }
         }
         
-        let message = `${successCount}ファイルのアップロードが完了しました！`;
+        let message = `${successCount}ファイルのアップロードが完了したよ！`;
         if (failedCount > 0) {
-            message += ` (${failedCount}ファイルが失敗)`;
+            message += ` (${failedCount}ファイルは失敗したよ)`;
         }
         
         updateUploadStatus(uploadId, message, 'success');
@@ -1229,7 +1222,7 @@ async function handleFileUpload(event) {
         invalidateCache();
         loadAlbumMedia(true);
     } catch (error) {
-        updateUploadStatus(uploadId, `エラー: ${error.message || 'ファイルをアップロードできません'}`, 'error');
+        updateUploadStatus(uploadId, `エラー: ${error.message || 'ファイルをアップロードできないよ'}`, 'error');
     }
 }
 
@@ -1347,7 +1340,9 @@ function initPhotoAlbum() {
 function setupCloseButton() {
     const memoryWall = document.getElementById('memoryWall');
     if (memoryWall && !document.getElementById('closeAlbum')) {
-        const closeAlbumBtn = createButton('アルバムを閉じる', {}, hidePhotoAlbum, {
+        const currentLang = localStorage.getItem('language') || 'ja';
+        const t = translations && translations[currentLang] ? translations[currentLang] : translations['ja'];
+        const closeAlbumBtn = createButton(t.closeAlbum || 'アルバムを閉じる', {}, hidePhotoAlbum, {
             id: 'closeAlbum',
             className: 'close-album-btn'
         });
@@ -1395,7 +1390,7 @@ function debounce(func, wait) {
 function showPhotoAlbum() {
     const memoryWall = document.getElementById('memoryWall');
     if (!memoryWall) {
-        console.error('#memoryWall要素が見つかりません');
+        console.error('メモリーウォールが見つからないよ');
         return;
     }
     

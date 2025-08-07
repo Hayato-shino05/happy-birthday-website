@@ -778,7 +778,7 @@ function initPuzzleGame() {
     if (window.useLocalMedia) {
         imageUrl = `memory/${imageFile}`;
     } else {
-        const baseUrl = 'your-supabase-link/storage/v1/object/public/media/';
+        const baseUrl = `${SUPABASE_URL}/storage/v1/object/public/media/`;
         imageUrl = `${baseUrl}${imageFile}`;
     }
     
@@ -1065,10 +1065,18 @@ function initMusicPlayer() {
     if (!selectMusicBtn) {
         selectMusicBtn = document.createElement('button');
         selectMusicBtn.id = 'selectMusicBtn';
-        selectMusicBtn.textContent = '🎵 音楽選択';
+        const currentLang = localStorage.getItem('language') || 'ja';
+        const t = translations && translations[currentLang] ? translations[currentLang] : translations['ja'];
+        selectMusicBtn.textContent = t.selectMusic || '🎵 音楽選択';
         selectMusicBtn.className = 'music-select-btn';
         selectMusicBtn.addEventListener('click', openMusicSelectionModal);
         musicPlayer.appendChild(selectMusicBtn);
+        
+        // Apply current language to the new button
+        const savedLang = localStorage.getItem('language') || 'ja';
+        if (typeof updateDynamicButtonsLanguage !== 'undefined') {
+            updateDynamicButtonsLanguage(savedLang);
+        }
     }
 
     playButton.addEventListener('click', () => {
@@ -1185,16 +1193,16 @@ function initCustomMessage() {
     const submitCustomMessage = document.getElementById('submitCustomMessage');
     
     customMessageBtn.addEventListener('click', () => {
-        customMessageModal.style.display = 'flex';
+        customMessageModal.classList.add('show');
     });
     
     closeCustomMessage.addEventListener('click', () => {
-        customMessageModal.style.display = 'none';
+        customMessageModal.classList.remove('show');
     });
     
     customMessageModal.addEventListener('click', (e) => {
         if (e.target === customMessageModal) {
-            customMessageModal.style.display = 'none';
+            customMessageModal.classList.remove('show');
         }
     });
     
@@ -1219,7 +1227,7 @@ function initCustomMessage() {
             const messageWithSender = `${messageText} - ${senderName}`;
             localStorage.setItem('customBirthdayMessage', messageWithSender);
             displayCustomMessage(messageWithSender);
-            customMessageModal.style.display = 'none';
+            customMessageModal.classList.remove('show');
             customMessageInput.value = '';
             senderNameInput.value = '';
         } else {
@@ -1234,7 +1242,7 @@ function initCustomMessage() {
         recordBtn.textContent = '🎤 語声を録音';
         recordBtn.className = 'record-message-btn';
         recordBtn.addEventListener('click', () => {
-            customMessageModal.style.display = 'none';
+            customMessageModal.classList.remove('show');
             openRecordMessageModal();
         });
         const modalContent = customMessageModal.querySelector('.modal-content');
@@ -1248,7 +1256,7 @@ function initCustomMessage() {
         videoBtn.textContent = '🎥 ビデオメッセージ';
         videoBtn.className = 'video-message-btn';
         videoBtn.addEventListener('click', () => {
-            customMessageModal.style.display = 'none';
+            customMessageModal.classList.remove('show');
             openVideoMessageModal();
         });
         const modalContent = customMessageModal.querySelector('.modal-content');
@@ -1949,10 +1957,18 @@ function initMusicPlayer() {
     if (!selectMusicBtn) {
         selectMusicBtn = document.createElement('button');
         selectMusicBtn.id = 'selectMusicBtn';
-        selectMusicBtn.textContent = '🎵 音楽を選ぶ';
+        const currentLang = localStorage.getItem('language') || 'ja';
+        const t = translations && translations[currentLang] ? translations[currentLang] : translations['ja'];
+        selectMusicBtn.textContent = t.selectMusic || '🎵 音楽を選ぶ';
         selectMusicBtn.className = 'music-select-btn';
         selectMusicBtn.addEventListener('click', openMusicSelectionModal);
         musicPlayer.appendChild(selectMusicBtn);
+        
+        // Apply current language to the new button
+        const savedLang = localStorage.getItem('language') || 'ja';
+        if (typeof updateDynamicButtonsLanguage !== 'undefined') {
+            updateDynamicButtonsLanguage(savedLang);
+        }
     }
 
     playButton.addEventListener('click', () => {
@@ -2009,7 +2025,9 @@ function openMusicSelectionModal() {
         });
 
         const title = document.createElement('h2');
-        title.textContent = '音楽を選ぶ';
+        const currentLang = localStorage.getItem('language') || 'ja';
+        const t = translations && translations[currentLang] ? translations[currentLang] : translations['ja'];
+        title.textContent = t.selectMusic || '音楽を選ぶ';
         title.className = 'music-modal-title';
 
         const trackList = document.createElement('div');

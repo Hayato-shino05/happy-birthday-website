@@ -1,13 +1,22 @@
 // 基本的なSupabase設定ファイル
 
 // Supabase接続情報 - クライアントサイドJavaScriptで使用する固定値
-const SUPABASE_URL = 'your-supabase-link';
-const SUPABASE_KEY = 'your-supabase-key';
+// Environment variables configuration  
+const SUPABASE_URL = "${SUPABASE_URL}";
+const SUPABASE_KEY = "${SUPABASE_ANON_KEY}";
 // Supabaseクライアントの初期化
 let supabase;
 
 // ドキュメントの準備ができたらSupabaseを初期化
 document.addEventListener('DOMContentLoaded', () => {
+    // Environment variables validation
+    if (SUPABASE_URL === '${SUPABASE_URL}' || SUPABASE_KEY === '${SUPABASE_ANON_KEY}') {
+        console.warn('⚠️ Supabase configuration not set! Make sure environment variables are configured.');
+        console.warn('📋 Required environment variables:');
+        console.warn('   • SUPABASE_URL - Your Supabase project URL');
+        console.warn('   • SUPABASE_ANON_KEY - Your Supabase anonymous key');
+        console.warn('🔧 Set these in Vercel dashboard: Project Settings → Environment Variables');
+    }
     initSupabase();
 });
 

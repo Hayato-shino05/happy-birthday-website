@@ -995,6 +995,15 @@
     box-shadow: 6px 6px 0 #D4B08C;
 }
 
+/* Fix centering when using .show class */
+.custom-message-modal.show {
+    display: flex !important;
+}
+
+.bulletin-board-modal.show {
+    display: flex !important;
+}
+
 .custom-message-display {
     margin-top: 20px;
     font-size: 1.5em;

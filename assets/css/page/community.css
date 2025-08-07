@@ -68,7 +68,7 @@
 }
 
 .modal-header {
-  display: flex;
+  display: flex !important;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
@@ -178,23 +178,23 @@
 }
 
 .u-flex {
-  display: flex;
+  display: flex !important;
 }
 
 .u-flex-center {
-  display: flex;
+  display: flex !important;
   justify-content: center;
   align-items: center;
 }
 
 .u-flex-between {
-  display: flex;
+  display: flex !important;
   justify-content: space-between;
   align-items: center;
 }
 
 .u-flex-column {
-  display: flex;
+  display: flex !important;
   flex-direction: column;
 }
 
@@ -252,7 +252,7 @@
 }
 
 .username-modal.show {
-  display: flex;
+  display: flex !important;
 }
 
 .username-modal .modal-content {
@@ -340,7 +340,7 @@
 }
 
 .chat-modal.show {
-  display: flex;
+  display: flex !important;
 }
 
 /* チャットヘッダー */
@@ -348,7 +348,7 @@
   background: var(--community-primary);
   color: var(--community-background);
   padding: 10px;
-  display: flex;
+  display: flex !important;
   justify-content: space-between;
   align-items: center;
 }
@@ -360,7 +360,7 @@
 }
 
 .chat-controls {
-  display: flex;
+  display: flex !important;
   gap: 10px;
 }
 
@@ -388,14 +388,14 @@
   flex: 1;
   padding: 10px;
   overflow-y: auto;
-  display: flex;
+  display: flex !important;
   flex-direction: column;
   gap: 10px;
 }
 
 /* チャット入力エリア */
 .chat-input-area {
-  display: flex;
+  display: flex !important;
   padding: 10px;
   border-top: var(--border-width) solid var(--community-secondary);
 }
@@ -480,7 +480,7 @@
 }
 
 .invite-modal.show {
-  display: flex;
+  display: flex !important;
 }
 
 .invite-modal .modal-content {
@@ -505,7 +505,7 @@
 }
 
 .invite-link-display {
-  display: flex;
+  display: flex !important;
   margin-bottom: 10px;
 }
 
@@ -546,7 +546,7 @@
 }
 
 .social-share-container {
-  display: flex;
+  display: flex !important;
   gap: 10px;
   margin-bottom: 20px;
 }
@@ -558,7 +558,7 @@
   background: #fff;
   cursor: pointer;
   font-size: 1.2em;
-  display: flex;
+  display: flex !important;
   justify-content: center;
   align-items: center;
   transition: transform 0.2s;
@@ -728,7 +728,7 @@
 }
 
 .record-modal.show {
-  display: flex;
+  display: flex !important;
 }
 
 .record-modal .modal-content {
@@ -745,7 +745,7 @@
 
 /* 録音コントロール */
 .record-controls {
-  display: flex;
+  display: flex !important;
   justify-content: center;
   gap: 10px;
   margin-bottom: 20px;
@@ -887,7 +887,7 @@
 }
 
 .audio-messages-modal.show {
-  display: flex;
+  display: flex !important;
 }
 
 .audio-messages-modal .modal-content {
@@ -904,7 +904,7 @@
 
 /* 音声メッセージリスト */
 .audio-messages-list {
-  display: flex;
+  display: flex !important;
   flex-direction: column;
   gap: 15px;
 }
@@ -927,7 +927,7 @@
 
 /* 音声メッセージヘッダー */
 .audio-message-header {
-  display: flex;
+  display: flex !important;
   justify-content: space-between;
   margin-bottom: 10px;
 }
@@ -985,7 +985,7 @@
 }
 
 .video-message-modal.show {
-  display: flex;
+  display: flex !important;
 }
 
 /* ビデオコンテナ */
@@ -1005,7 +1005,7 @@
 
 /* ビデオ録画コントロール */
 .video-record-controls {
-  display: flex;
+  display: flex !important;
   justify-content: center;
   gap: 10px;
   margin-top: 20px;
@@ -1065,11 +1065,11 @@
 }
 
 .video-messages-modal.show {
-  display: flex;
+  display: flex !important;
 }
 
 .video-messages-list {
-  display: flex;
+  display: flex !important;
   flex-direction: column;
   gap: 20px;
 }
@@ -1098,7 +1098,7 @@
 }
 
 .video-message-header {
-  display: flex;
+  display: flex !important;
   justify-content: space-between;
   margin-bottom: 15px;
 }
@@ -1156,7 +1156,7 @@
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.9);
-  display: flex;
+  display: flex !important;
   justify-content: center;
   align-items: center;
   z-index: 1100;
@@ -1279,7 +1279,7 @@
 }
 
 .video-messages-modal.show {
-  display: flex;
+  display: flex !important;
 }
 
 .video-messages-modal .modal-content {
@@ -1289,7 +1289,7 @@
 
 /* ビデオメッセージ一覧 */
 .video-messages-list {
-  display: flex;
+  display: flex !important;
   flex-direction: column;
   gap: 20px;
 }
@@ -1304,7 +1304,7 @@
 
 /* ビデオメッセージヘッダー */
 .video-message-header {
-  display: flex;
+  display: flex !important;
   justify-content: space-between;
   margin-bottom: 15px;
 }

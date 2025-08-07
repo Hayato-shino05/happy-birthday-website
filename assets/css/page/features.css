@@ -444,7 +444,7 @@
 }
 
 #puzzleGameModal.show {
-    display: flex;
+    display: flex !important;
 }
 
 .puzzle-container {
@@ -570,7 +570,7 @@
 }
 
 #eCardModal.show {
-    display: flex;
+    display: flex !important;
 }
 
 .ecard-container {
@@ -752,7 +752,7 @@ z-index: 10000;
 }
 
 #musicSelectionModal.show {
-display: flex;
+display: flex !important;
 }
 
 .music-modal-content {
@@ -870,7 +870,7 @@ z-index: 10000;
 }
 
 #recordMessageModal.show {
-display: flex;
+display: flex !important;
 }
 
 .record-modal-content {
@@ -1019,7 +1019,7 @@ animation: fadeIn 0.5s ease-in;
 }
 
 .audio-messages-modal.show {
-    display: flex;
+    display: flex !important;
 }
 
 .audio-modal-content {
@@ -1129,7 +1129,7 @@ animation: fadeIn 0.5s ease-in;
 }
 
 .virtual-gifts-modal.show {
-    display: flex;
+    display: flex !important;
 }
 
 .virtual-gifts-modal-content {
@@ -1200,7 +1200,7 @@ animation: fadeIn 0.5s ease-in;
 }
 
 .music-selection-modal.show {
-    display: flex;
+    display: flex !important;
 }
 
 .music-modal-content {
@@ -1335,7 +1335,7 @@ animation: fadeIn 0.5s ease-in;
 }
 
 .invite-modal.show {
-    display: flex;
+    display: flex !important;
 }
 
 .invite-modal-content {
