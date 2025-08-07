@@ -7,10 +7,11 @@
 <p align="center">
   <img src="https://img.shields.io/badge/Made%20with-❤️-ff69b4" alt="Made with Love">
   <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT">
-  <img src="https://img.shields.io/badge/Version-1.2.0-brightgreen" alt="Version 1.2.0">
+  <img src="https://img.shields.io/badge/Version-1.3.0-brightgreen" alt="Version 1.3.0">
   <img src="https://img.shields.io/badge/Database-Supabase-green" alt="Supabase">
   <img src="https://img.shields.io/badge/Framework-Vanilla_JS-yellow" alt="Vanilla JS">
-   <img src="https://visitor-badge.laobi.icu/badge?page_id=hayato-shino05.happy-birthday-website&left_color=gray&right_color=blue&left_text=Repository%20Views" alt="Repository Views">
+  <img src="https://img.shields.io/badge/Deploy-Vercel-black" alt="Deploy with Vercel">
+  <img src="https://visitor-badge.laobi.icu/badge?page_id=hayato-shino05.happy-birthday-website&left_color=gray&right_color=blue&left_text=Repository%20Views" alt="Repository Views">
 </p>
 
 ## Key Features
@@ -91,6 +92,7 @@
 - **JavaScript (Pure)**: Creates smooth interactive features.
 - **MediaDevices API**: Supports video message functionality.
 - **LocalStorage**: Saves user information and application state.
+- **Build System**: Node.js build scripts for environment variable injection.
 - **Supabase (Backend as a Service)**:
   - Database for managing birthday information and messages.
   - Storage for photos, videos, and multimedia files.
@@ -105,44 +107,81 @@
 
 2. **Supabase Setup**:
    - Create an account and project on [Supabase](https://supabase.io/).
-   - Update the connection information in the `js/supabase-config.js` file:
-   ```javascript
-   const SUPABASE_URL = 'your-supabase-url';
-   const SUPABASE_KEY = 'your-supabase-key';
+   - Set environment variables (Vercel deployment recommended):
+   ```
+   SUPABASE_URL=https://your-project.supabase.co
+   SUPABASE_ANON_KEY=your_anon_key_here
    ```
 
 3. **Database Setup**:
    - Create the necessary tables: `birthdays`, `custom_messages`, `audio_messages`, `video_messages`.
    - Create storage buckets: `media`, `audio`, `video`.
 
-4. **Open the Website**:
-   - Open the `index.html` file in your browser or use a simple web server.
+4. **Deployment**:
+
+   ### Vercel Deployment (Recommended)
+   
+   [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fyourusername%2Fhappy-birthday-website&env=SUPABASE_URL,SUPABASE_ANON_KEY&envDescription=Supabase%20configuration%20required&envLink=https%3A%2F%2Fsupabase.io%2F)
+   
+   **Manual Deployment:**
+   1. Import your project to [Vercel](https://vercel.com/)
+   2. Set Environment Variables:
+      - `SUPABASE_URL`: Your Supabase project URL
+      - `SUPABASE_ANON_KEY`: Your Supabase anonymous key
+   3. Auto-build and deploy complete!
+
+   ### Local Development
+   - Open the `index.html` file in your browser or use a simple web server
+   - Build script: `npm run build`
+   - Development server: `npm run dev`
+
+## Environment Variables & Security
+
+### Required Environment Variables
+| Variable Name | Description | Example |
+|---------------|-------------|---------|
+| `SUPABASE_URL` | Your Supabase project URL | `https://abc123.supabase.co` |
+| `SUPABASE_ANON_KEY` | Your Supabase anonymous key | `eyJhbGciOiJIUzI1NiI...` |
+
+### Security Notes
+- ✅ **Safe**: Anonymous keys are meant to be public
+- ✅ **Safe**: URLs are public information  
+- ❌ **Never expose**: Service role keys or passwords
+- ✅ **RLS**: Enable Row Level Security in Supabase
+
+### Build Process
+1. **Environment Variable Reading**: From Vercel or local environment
+2. **Template Replacement**: `${SUPABASE_URL}` → actual URL
+3. **Static File Generation**: For secure distribution
 
 ## Project Structure 💻
 
 ```
 happy-birthday-website/
   ├── assets/         # Images and static resources
-  ├── css/            # CSS files
-  │   ├── base.css    # Basic CSS
-  │   ├── components.css # UI components
-  │   ├── themes.css  # Theme-specific CSS
-  │   ├── mobile.css  # Mobile responsive
-  │   ├── autumn-leaves.css # Autumn leaves effects
-  │   └── page/       # Page-specific CSS
-  │       ├── core.css     # Core functionality CSS
-  │       ├── album.css    # Album management CSS
-  │       ├── community.css # Community features CSS
-  │       ├── features.css # Interactive features CSS
-  │       └── themes.css   # Theme management CSS
-  ├── js/             # JavaScript files
-  │   ├── core.js     # Core functionality
-  │   ├── album.js    # Album management
-  │   ├── community.js # Community features
-  │   ├── features.js # Interactive features
-  │   ├── themes.js   # Theme management
-  │   └── supabase-config.js # Supabase configuration
+  │   ├── css/        # CSS files
+  │   │   ├── base.css    # Basic CSS
+  │   │   ├── components.css # UI components
+  │   │   ├── themes.css  # Theme-specific CSS
+  │   │   ├── mobile.css  # Mobile responsive
+  │   │   ├── autumn-leaves.css # Autumn leaves effects
+  │   │   └── page/       # Page-specific CSS
+  │   │       ├── core.css     # Core functionality CSS
+  │   │       ├── album.css    # Album management CSS
+  │   │       ├── community.css # Community features CSS
+  │   │       ├── features.css # Interactive features CSS
+  │   │       └── themes.css   # Theme management CSS
+  │   ├── js/         # JavaScript files
+  │   │   ├── core.js     # Core functionality
+  │   │   ├── album.js    # Album management
+  │   │   ├── community.js # Community features
+  │   │   ├── features.js # Interactive features
+  │   │   ├── themes.js   # Theme management
+  │   │   └── supabase-config.js # Supabase configuration
+  │   └── icon/       # Icon files
   ├── video/          # Background videos for themes
+  ├── build.js        # Build script (environment variable injection)
+  ├── vercel.json     # Vercel deployment configuration
   ├── package.json    # Node.js dependencies
   └── index.html      # Main page
 ```

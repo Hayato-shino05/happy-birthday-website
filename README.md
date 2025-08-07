@@ -7,9 +7,10 @@
 <p align="center">
   <img src="https://img.shields.io/badge/Made%20with-❤️-ff69b4" alt="Made with Love">
   <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT">
-  <img src="https://img.shields.io/badge/Version-1.2.0-brightgreen" alt="Version 1.2.0">
+  <img src="https://img.shields.io/badge/Version-1.3.0-brightgreen" alt="Version 1.3.0">
   <img src="https://img.shields.io/badge/Database-Supabase-green" alt="Supabase">
   <img src="https://img.shields.io/badge/Framework-Vanilla_JS-yellow" alt="Vanilla JS">
+  <img src="https://img.shields.io/badge/Deploy-Vercel-black" alt="Deploy with Vercel">
   <img src="https://visitor-badge.laobi.icu/badge?page_id=hayato-shino05.happy-birthday-website&left_color=gray&right_color=blue&left_text=Repository%20Views" alt="Repository Views">
 </p>
 
@@ -91,6 +92,7 @@
 - **JavaScript (純粋)**: スムーズなインタラクティブ機能を作成。
 - **MediaDevices API**: ビデオメッセージ機能をサポート。
 - **LocalStorage**: ユーザー情報とアプリケーション状態を保存。
+- **Build System**: Node.jsビルドスクリプトで環境変数注入。
 - **Supabase (Backend as a Service)**:
   - 誕生日情報とメッセージを管理するデータベース。
   - 写真、ビデオ、多メディアファイルのストレージ。
@@ -105,44 +107,81 @@
 
 2. **Supabaseの設定**:
    - [Supabase](https://supabase.io/)でアカウントとプロジェクトを作成。
-   - `js/supabase-config.js`ファイルに接続情報を更新:
-   ```javascript
-   const SUPABASE_URL = 'your-supabase-url';
-   const SUPABASE_KEY = 'your-supabase-key';
+   - 環境変数を設定（Vercel deployment推奨）:
+   ```
+   SUPABASE_URL=https://your-project.supabase.co
+   SUPABASE_ANON_KEY=your_anon_key_here
    ```
 
 3. **データベースのセットアップ**:
    - 必要なテーブルを作成: `birthdays`, `custom_messages`, `audio_messages`, `video_messages`。
    - ストレージバケットを作成: `media`, `audio`, `video`。
 
-4. **ウェブサイトを開く**:
-   - `index.html`ファイルをブラウザで開くか、シンプルなウェブサーバーを使用。
+4. **デプロイメント**:
+
+   ### Vercelデプロイメント (推奨)
+   
+   [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fyourusername%2Fhappy-birthday-website&env=SUPABASE_URL,SUPABASE_ANON_KEY&envDescription=Supabase%20configuration%20required&envLink=https%3A%2F%2Fsupabase.io%2F)
+   
+   **手動デプロイ:**
+   1. [Vercel](https://vercel.com/)にプロジェクトをインポート
+   2. Environment Variablesを設定:
+      - `SUPABASE_URL`: Supabaseプロジェクト URL
+      - `SUPABASE_ANON_KEY`: Supabase anonymous key
+   3. 自動ビルド・デプロイ完了！
+
+   ### ローカル開発
+   - `index.html`ファイルをブラウザで開くか、シンプルなウェブサーバーを使用
+   - Build script: `npm run build`
+   - Development server: `npm run dev`
+
+## 環境変数とセキュリティ
+
+### 必要な環境変数
+| 変数名 | 説明 | 例 |
+|--------|------|-----|
+| `SUPABASE_URL` | Supabaseプロジェクト URL | `https://abc123.supabase.co` |
+| `SUPABASE_ANON_KEY` | Supabase anonymous key | `eyJhbGciOiJIUzI1NiI...` |
+
+### セキュリティノート
+- ✅ **安全**: Anonymous keysは公開用です
+- ✅ **安全**: URLは公開情報です  
+- ❌ **危険**: Service role keyやパスワードは絶対に公開しない
+- ✅ **RLS**: SupabaseでRow Level Securityを有効にする
+
+### ビルドプロセス
+1. **環境変数読み取り**: Vercelまたはローカル環境から
+2. **テンプレート置換**: `${SUPABASE_URL}` → 実際のURL
+3. **静的ファイル生成**: セキュアな配信用
 
 ## プロジェクト構造 💻
 
 ```
 happy-birthday-website/
   ├── assets/         # 画像と静的リソース
-  ├── css/            # CSSファイル
-  │   ├── base.css    # 基本CSS
-  │   ├── components.css # UI コンポーネント
-  │   ├── themes.css  # テーマ別CSS
-  │   ├── mobile.css  # モバイル対応
-  │   ├── autumn-leaves.css # 秋の葉エフェクト
-  │   └── page/       # ページ別CSS
-  │       ├── core.css     # コア機能CSS
-  │       ├── album.css    # アルバム管理CSS
-  │       ├── community.css # コミュニティ機能CSS
-  │       ├── features.css # インタラクティブ機能CSS
-  │       └── themes.css   # テーマ管理CSS
-  ├── js/             # JavaScriptファイル
-  │   ├── core.js     # コア機能
-  │   ├── album.js    # アルバム管理
-  │   ├── community.js # コミュニティ機能
-  │   ├── features.js # インタラクティブ機能
-  │   ├── themes.js   # テーマ管理
-  │   └── supabase-config.js # Supabase設定
+  │   ├── css/        # CSSファイル
+  │   │   ├── base.css    # 基本CSS
+  │   │   ├── components.css # UI コンポーネント
+  │   │   ├── themes.css  # テーマ別CSS
+  │   │   ├── mobile.css  # モバイル対応
+  │   │   ├── autumn-leaves.css # 秋の葉エフェクト
+  │   │   └── page/       # ページ別CSS
+  │   │       ├── core.css     # コア機能CSS
+  │   │       ├── album.css    # アルバム管理CSS
+  │   │       ├── community.css # コミュニティ機能CSS
+  │   │       ├── features.css # インタラクティブ機能CSS
+  │   │       └── themes.css   # テーマ管理CSS
+  │   ├── js/         # JavaScriptファイル
+  │   │   ├── core.js     # コア機能
+  │   │   ├── album.js    # アルバム管理
+  │   │   ├── community.js # コミュニティ機能
+  │   │   ├── features.js # インタラクティブ機能
+  │   │   ├── themes.js   # テーマ管理
+  │   │   └── supabase-config.js # Supabase設定
+  │   └── icon/       # アイコンファイル
   ├── video/          # テーマ用背景ビデオ
+  ├── build.js        # ビルドスクリプト（環境変数注入）
+  ├── vercel.json     # Vercelデプロイ設定
   ├── package.json    # Node.js依存関係
   └── index.html      # メインページ
 ```
