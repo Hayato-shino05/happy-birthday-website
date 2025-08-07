@@ -1,7 +1,7 @@
 {
   "name": "happy-birthday-website",
   "version": "1.0.0",
-  "description": "Interactive birthday celebration website",
+  "description": "インタラクティブ誕生日お祝いウェブサイト",
   "license": "MIT",
   "private": false,
   "scripts": {

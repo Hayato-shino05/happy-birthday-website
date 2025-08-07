@@ -992,7 +992,7 @@ function initCommunityFeatures() {
         
         document.body.appendChild(chatButton);
         
-        // Apply current language to the new button
+        // 新しいボタンに現在の言語を適用
         const savedLang = localStorage.getItem('language') || 'ja';
         if (typeof updateDynamicButtonsLanguage !== 'undefined') {
             updateDynamicButtonsLanguage(savedLang);
@@ -1331,7 +1331,7 @@ function initInviteFriends() {
         
         document.body.appendChild(inviteButton);
         
-        // Apply current language to the new button
+        // 新しいボタンに現在の言語を適用
         const savedLang = localStorage.getItem('language') || 'ja';
         if (typeof updateDynamicButtonsLanguage !== 'undefined') {
             updateDynamicButtonsLanguage(savedLang);

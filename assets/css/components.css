@@ -995,7 +995,7 @@
     box-shadow: 6px 6px 0 #D4B08C;
 }
 
-/* Fix centering when using .show class */
+/* .showクラス使用時のセンタリング修正 */
 .custom-message-modal.show {
     display: flex !important;
 }

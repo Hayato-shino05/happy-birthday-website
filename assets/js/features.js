@@ -1072,7 +1072,7 @@ function initMusicPlayer() {
         selectMusicBtn.addEventListener('click', openMusicSelectionModal);
         musicPlayer.appendChild(selectMusicBtn);
         
-        // Apply current language to the new button
+        // 新しいボタンに現在の言語を適用
         const savedLang = localStorage.getItem('language') || 'ja';
         if (typeof updateDynamicButtonsLanguage !== 'undefined') {
             updateDynamicButtonsLanguage(savedLang);
@@ -1964,7 +1964,7 @@ function initMusicPlayer() {
         selectMusicBtn.addEventListener('click', openMusicSelectionModal);
         musicPlayer.appendChild(selectMusicBtn);
         
-        // Apply current language to the new button
+        // 新しいボタンに現在の言語を適用
         const savedLang = localStorage.getItem('language') || 'ja';
         if (typeof updateDynamicButtonsLanguage !== 'undefined') {
             updateDynamicButtonsLanguage(savedLang);

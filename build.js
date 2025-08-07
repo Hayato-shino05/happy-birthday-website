@@ -3,13 +3,13 @@
 const fs = require('fs');
 const path = require('path');
 
-// Build script để inject environment variables vào Supabase config
+// 環境変数をSupabase設定に注入するビルドスクリプト
 function injectEnvironmentVariables() {
     const supabaseUrl = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL;
     const supabaseKey = process.env.SUPABASE_ANON_KEY || process.env.VITE_SUPABASE_ANON_KEY;
     
     if (supabaseUrl && supabaseKey) {
-        // Inject vào supabase-config.js
+        // supabase-config.jsに注入
         const configPath = path.join(__dirname, 'assets/js/supabase-config.js');
         let configContent = fs.readFileSync(configPath, 'utf8');
         
@@ -24,7 +24,7 @@ function injectEnvironmentVariables() {
         
         fs.writeFileSync(configPath, configContent);
         
-        // Inject vào album.js
+        // album.jsに注入
         const albumPath = path.join(__dirname, 'assets/js/album.js');
         let albumContent = fs.readFileSync(albumPath, 'utf8');
         
@@ -35,15 +35,14 @@ function injectEnvironmentVariables() {
         
         fs.writeFileSync(albumPath, albumContent);
         
-        console.log('✅ Environment variables injected successfully!');
+        console.log('✅ 環境変数の注入が完了しました！');
         console.log('🔗 SUPABASE_URL:', supabaseUrl.substring(0, 30) + '...');
         console.log('🔑 SUPABASE_KEY:', supabaseKey.substring(0, 20) + '...');
         console.log('📸 Storage URL:', `${supabaseUrl}/storage/v1/object/public/media/`.substring(0, 50) + '...');
     } else {
-        console.log('⚠️  Environment variables not found, keeping default values');
-        console.log('Make sure to set SUPABASE_URL and SUPABASE_ANON_KEY in Vercel dashboard');
+        console.log('⚠️  環境変数が見つかりません。デフォルト値を保持します');
+        console.log('VercelダッシュボードでSUPABASE_URLとSUPABASE_ANON_KEYを設定してください');
     }
 }
 
-// Chạy build script
 injectEnvironmentVariables();
