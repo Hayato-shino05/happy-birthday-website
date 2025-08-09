@@ -391,7 +391,7 @@ function loadThreeJS(callback) {
 }
 
 function playBirthdayMusic() {
-    const audio = new Audio('happy-birthday.mp3');
+    const audio = new Audio('assets/audio/happy-birthday.mp3');
     audio.play().catch(e => {
         console.log('自動再生が防止されました:', e);
         const playButton = document.getElementById('playMusic');

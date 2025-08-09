@@ -131,14 +131,14 @@ const THEME_CONFIG = {
         const festivalConfig = this.festivalDates[festivalKey];
         if (!festivalConfig) return false;
         
-        // 日付範囲の配列を処理します（複数月にまたがる祭り）
+        // 複数月にまたがる祭りの配列を処理
         if (Array.isArray(festivalConfig)) {
             return festivalConfig.some(range => 
                 month === range.month && date >= range.startDate && date <= range.endDate
             );
         }
         
-        // 単一の日付範囲を処理します
+        // 単一月の祭り期間を処理
         return month === festivalConfig.month && 
                date >= festivalConfig.startDate && 
                date <= festivalConfig.endDate;
@@ -269,8 +269,15 @@ function applyTheme(theme) {
     const body = document.body;
     const countdown = document.querySelector('.countdown');
     
-    const themeEffects = document.querySelectorAll('.theme-effect');
+    const themeEffects = document.querySelectorAll('.theme-effect, .falling-leaf');
     themeEffects.forEach(effect => effect.remove());
+    
+    // メモリリークを防ぐため葉の落下インターバルをクリア
+    if (window.leafFallIntervals) {
+        window.leafFallIntervals.forEach(interval => clearInterval(interval));
+        window.leafFallIntervals = [];
+        console.log('🧹 葉の落下インターバルをクリアしました');
+    }
     
     const balloonContainer = document.getElementById('balloonContainer');
     if (balloonContainer) {
@@ -436,30 +443,115 @@ function createFallingPetals(count, theme) {
 }
 
 function createFallingLeaves(count, theme) {
-    const autumnColors = ['#FF4500', '#FF8C00', '#A52A2A', '#8B0000', '#CD5C5C', '#B22222', '#FF6347', '#DC143C', '#E25822', '#D2691E'];
-    const leafShapes = ['0 50% 0 50%', '50% 0 50% 50%', '50% 50% 0 50%', '30% 70% 70% 30%'];
+    console.log(`🍂 ${theme}テーマの継続的な葉の落下システムを開始`);
     
-    for (let i = 0; i < count; i++) {
-        const leaf = document.createElement('div');
-        leaf.className = 'theme-effect leaf';
-        leaf.style.left = `${Math.random() * 100}vw`;
-        leaf.style.top = `${Math.random() * -50}vh`;
-        
-        const size = Math.random() * 15 + 5;
-        leaf.style.width = `${size}px`;
-        leaf.style.height = `${size * 0.8}px`;
-        
-        leaf.style.backgroundColor = autumnColors[Math.floor(Math.random() * autumnColors.length)];
-        leaf.style.borderRadius = leafShapes[Math.floor(Math.random() * leafShapes.length)];
-        
-        const fallDuration = Math.random() * 8 + 7;
-        const swayDuration = Math.random() * 3 + 2;
-        leaf.style.animationDuration = `${fallDuration}s, ${swayDuration}s, ${swayDuration * 1.5}s`;
-        leaf.style.animationDelay = `${Math.random() * 5}s, ${Math.random() * 2}s, ${Math.random() * 3}s`;
-        
-        document.body.appendChild(leaf);
+    // 既存の葉の落下間隔をクリア
+    if (window.leafFallIntervals) {
+        window.leafFallIntervals.forEach(interval => clearInterval(interval));
+        window.leafFallIntervals = [];
+        console.log('🧹 以前の葉の落下インターバルをクリアしました');
     }
-    console.log('落ち葉エフェクトを作成:', theme);
+    
+    // CSSアニメーションを作成（未作成の場合）
+    if (!document.querySelector('#leafFallStyle')) {
+        const style = document.createElement('style');
+        style.id = 'leafFallStyle';
+        style.textContent = `
+            @keyframes leafFall {
+                0% {
+                    transform: translateY(-50px) translateX(0) rotate(0deg);
+                    opacity: 0;
+                }
+                10% {
+                    opacity: 0.9;
+                }
+                100% {
+                    transform: translateY(110vh) translateX(-80vw) rotate(360deg);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+    
+    // 葉のバッチを作成する関数
+    function createLeafBatch() {
+        const batchSize = 2 + Math.floor(Math.random() * 2);
+        
+        for (let i = 0; i < batchSize; i++) {
+            setTimeout(() => {
+                const leaf = document.createElement('div');
+                leaf.className = 'falling-leaf';
+                
+                // 初期位置設定（右上から開始）
+                leaf.style.position = 'fixed';
+                leaf.style.left = (80 + Math.random() * 20) + 'vw';
+                leaf.style.top = '-50px';
+                leaf.style.zIndex = '5';
+                leaf.style.pointerEvents = 'none';
+                
+                // ランダムサイズ設定
+                const size = 15 + Math.random() * 20;
+                leaf.style.width = size + 'px';
+                leaf.style.height = size + 'px';
+                
+                // 葉のアイコンを設定
+                const leafIcons = ['assets/icon/laphong.png', 'assets/icon/pngegg.png'];
+                const iconPath = leafIcons[Math.floor(Math.random() * leafIcons.length)];
+                leaf.style.backgroundImage = `url('${iconPath}')`;
+                leaf.style.backgroundSize = 'contain';
+                leaf.style.backgroundRepeat = 'no-repeat';
+                leaf.style.backgroundPosition = 'center';
+                leaf.style.backgroundColor = 'transparent';
+                leaf.style.opacity = '0.9';
+                
+                // アニメーション時間設定
+                const duration = 6 + Math.random() * 8;
+                const delay = Math.random() * 2;
+                
+                leaf.style.animation = `leafFall ${duration}s linear ${delay}s forwards`;
+                
+                // アニメーション終了後に要素を削除
+                setTimeout(() => {
+                    if (leaf.parentNode) {
+                        leaf.remove();
+                    }
+                }, (duration + delay + 1) * 1000);
+        
+                document.body.appendChild(leaf);
+            }, Math.random() * 1500);
+        }
+        
+        console.log(`🍂 ${batchSize}枚の葉のバッチを作成しました`);
+    }
+    
+    // 最初のバッチを即座に作成
+    createLeafBatch();
+    
+    // 継続的に葉を生成するインターバル設定
+    const leafInterval = setInterval(() => {
+        // 秋テーマが継続中かを確認
+        const body = document.body;
+        const isAutumnTheme = body.classList.contains('autumn') || 
+                             body.classList.contains('tsukimi') || 
+                             body.classList.contains('bunka');
+        
+        if (isAutumnTheme) {
+            createLeafBatch();
+        } else {
+            clearInterval(leafInterval);
+            console.log('🍂 テーマが変更されたため葉の継続生成を停止しました');
+            return;
+        }
+    }, 4500);
+    
+    // インターバルを保存してクリーンアップ可能にする
+    if (!window.leafFallIntervals) {
+        window.leafFallIntervals = [];
+    }
+    window.leafFallIntervals.push(leafInterval);
+    
+    console.log(`✅ 継続的な葉の落下システムが開始されました！`);
 }
 
 function createFallingSnow(count, theme) {

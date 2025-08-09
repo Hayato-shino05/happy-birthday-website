@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>お誕生日おめでとうウェブサイト</title>
+    <title>🎨 Theme Tester - お誕生日おめでとうウェブサイト</title>
     <link rel="stylesheet" href="assets/css/base.css">
     <link rel="stylesheet" href="assets/css/themes.css">
     <link rel="stylesheet" href="assets/css/components.css">
@@ -78,6 +78,47 @@
     </style>
 </head>
 <body>
+    <!-- テーマテスターパネル -->
+    <div id="theme-tester" style="position: fixed; top: 20px; right: 20px; background: rgba(0, 0, 0, 0.9); border-radius: 15px; padding: 20px; z-index: 2000; max-height: 85vh; overflow-y: auto; min-width: 300px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1);">
+        <h2 style="color: #fff; margin: 0 0 15px 0; font-size: 18px; text-align: center;">🎨 Theme Tester</h2>
+        
+        <div style="background: rgba(255, 255, 255, 0.1); padding: 10px; border-radius: 8px; margin-bottom: 15px; text-align: center;">
+            <strong id="current-theme" style="color: #00ff88; font-size: 16px;">Current Theme</strong>
+        </div>
+        
+        <div style="margin-bottom: 20px;">
+            <h3 style="color: #ffd700; margin: 0 0 10px 0; font-size: 14px;">🌸 Seasons</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                <button onclick="testTheme('spring')" style="padding: 8px 12px; border: none; border-radius: 8px; cursor: pointer; font-size: 12px; font-weight: bold; color: white; background: linear-gradient(135deg, #ffb6c1, #ff69b4);">春 Spring</button>
+                <button onclick="testTheme('summer')" style="padding: 8px 12px; border: none; border-radius: 8px; cursor: pointer; font-size: 12px; font-weight: bold; color: white; background: linear-gradient(135deg, #ffd700, #ff8c00);">夏 Summer</button>
+                <button onclick="testTheme('autumn')" style="padding: 8px 12px; border: none; border-radius: 8px; cursor: pointer; font-size: 12px; font-weight: bold; color: white; background: linear-gradient(135deg, #d2691e, #8b4513);">秋 Autumn</button>
+                <button onclick="testTheme('winter')" style="padding: 8px 12px; border: none; border-radius: 8px; cursor: pointer; font-size: 12px; font-weight: bold; color: white; background: linear-gradient(135deg, #87ceeb, #4682b4);">冬 Winter</button>
+            </div>
+        </div>
+        
+        <div style="margin-bottom: 20px;">
+            <h3 style="color: #ffd700; margin: 0 0 10px 0; font-size: 14px;">🎋 Japanese Festivals</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                <button onclick="testTheme('hanami')" style="padding: 8px 12px; border: none; border-radius: 8px; cursor: pointer; font-size: 12px; font-weight: bold; color: white; background: linear-gradient(135deg, #ffb6c1, #ff1493);">花見</button>
+                <button onclick="testTheme('tanabata')" style="padding: 8px 12px; border: none; border-radius: 8px; cursor: pointer; font-size: 12px; font-weight: bold; color: white; background: linear-gradient(135deg, #9370db, #4b0082);">七夕</button>
+                <button onclick="testTheme('obon')" style="padding: 8px 12px; border: none; border-radius: 8px; cursor: pointer; font-size: 12px; font-weight: bold; color: white; background: linear-gradient(135deg, #ff6347, #dc143c);">お盆</button>
+                <button onclick="testTheme('tsukimi')" style="padding: 8px 12px; border: none; border-radius: 8px; cursor: pointer; font-size: 12px; font-weight: bold; color: white; background: linear-gradient(135deg, #f0e68c, #daa520);">月見</button>
+            </div>
+        </div>
+        
+        <div style="margin-bottom: 20px;">
+            <h3 style="color: #ffd700; margin: 0 0 10px 0; font-size: 14px;">🎉 International</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                <button onclick="testTheme('christmas')" style="padding: 8px 12px; border: none; border-radius: 8px; cursor: pointer; font-size: 12px; font-weight: bold; color: white; background: linear-gradient(135deg, #228b22, #dc143c);">🎄</button>
+                <button onclick="testTheme('newyear')" style="padding: 8px 12px; border: none; border-radius: 8px; cursor: pointer; font-size: 12px; font-weight: bold; color: white; background: linear-gradient(135deg, #ffd700, #ff4500);">🎊</button>
+                <button onclick="testTheme('valentine')" style="padding: 8px 12px; border: none; border-radius: 8px; cursor: pointer; font-size: 12px; font-weight: bold; color: white; background: linear-gradient(135deg, #ff69b4, #ff1493);">💕</button>
+                <button onclick="testTheme('halloween')" style="padding: 8px 12px; border: none; border-radius: 8px; cursor: pointer; font-size: 12px; font-weight: bold; color: white; background: linear-gradient(135deg, #ff8c00, #8b0000);">🎃</button>
+            </div>
+        </div>
+        
+        <button onclick="clearAllEffects()" style="width: 100%; padding: 10px; border: none; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: bold; background: linear-gradient(135deg, #e17055, #d63031); color: white;">🧹 Clear Effects</button>
+    </div>
+
     <!-- フォトアルバムボタン -->
     <button class="feature-button" id="openAlbum">
         📸 思い出アルバム
@@ -258,5 +299,69 @@
       })
     </script>
     <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
+    <script>
+        // テーマテスター JavaScript
+        const themeNames = {
+            spring: '春 (Spring)',
+            summer: '夏 (Summer)', 
+            autumn: '秋 (Autumn)',
+            winter: '冬 (Winter)',
+            hanami: '花見 (Hanami)',
+            tanabata: '七夕 (Tanabata)',
+            obon: 'お盆 (Obon)',
+            tsukimi: '月見 (Tsukimi)',
+            christmas: '🎄 (Christmas)',
+            newyear: '🎊 (New Year)',
+            valentine: '💕 (Valentine)',
+            halloween: '🎃 (Halloween)',
+            bunka: '文化の日 (Bunka)'
+        };
+        
+        function testTheme(themeName) {
+            console.log(`🎨 テーマをテスト中: ${themeName}`);
+            
+            // 現在のテーマ表示を更新
+            const currentThemeEl = document.getElementById('current-theme');
+            if (currentThemeEl) {
+                currentThemeEl.textContent = themeNames[themeName] || themeName;
+            }
+            
+            // 既存の関数を使用してテーマを適用
+            if (window.applyTheme) {
+                window.applyTheme(themeName);
+            } else {
+                console.warn('⚠️ applyTheme関数が見つかりません');
+            }
+        }
+        
+        function clearAllEffects() {
+            console.log('🧹 すべてのテーマエフェクトをクリア中...');
+            
+            // テーマエフェクトをクリア
+            const effects = document.querySelectorAll('.theme-effect, .falling-leaf');
+            effects.forEach(effect => effect.remove());
+            
+            // 葉の落下インターバルをクリア
+            if (window.leafFallIntervals) {
+                window.leafFallIntervals.forEach(interval => clearInterval(interval));
+                window.leafFallIntervals = [];
+                console.log('🧹 葉の落下インターバルをクリアしました');
+            }
+            
+            console.log(`🧹 ${effects.length}個のエフェクトを削除しました`);
+        }
+        
+        // ページ読み込み時に初期化
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🎨 テーマテスターが初期化されました');
+            
+            // 初期テーマ表示を設定
+            const currentThemeEl = document.getElementById('current-theme');
+            if (currentThemeEl) {
+                currentThemeEl.textContent = 'spring (春)';
+            }
+        });
+    </script>
+
 </body>
 </html>

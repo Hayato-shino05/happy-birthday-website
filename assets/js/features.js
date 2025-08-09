@@ -1058,8 +1058,8 @@ function initMusicPlayer() {
     const playButton = document.getElementById('playMusic');
     const musicPlayer = document.querySelector('.music-player');
     let isPlaying = false;
-    let audio = new Audio('happy-birthday.mp3');
-    let currentTrack = 'happy-birthday.mp3';
+    let audio = new Audio('assets/audio/happy-birthday.mp3');
+    let currentTrack = 'assets/audio/happy-birthday.mp3';
 
     let selectMusicBtn = document.getElementById('selectMusicBtn');
     if (!selectMusicBtn) {
@@ -1140,7 +1140,7 @@ function openMusicSelectionModal() {
         trackList.className = 'music-track-list';
 
         const tracks = [
-            { url: 'happy-birthday.mp3', name: 'Happy Birthday Song (Default)' },
+            { url: 'assets/audio/happy-birthday.mp3', name: 'Happy Birthday Song (Default)' },
             { url: 'https://www.bensound.com/bensound-music/bensound-slowmotion.mp3', name: 'Slow Motion' },
             { url: 'https://www.bensound.com/bensound-music/bensound-sunny.mp3', name: 'Sunny' }
         ];
@@ -1950,8 +1950,8 @@ function initMusicPlayer() {
     const playButton = document.getElementById('playMusic');
     const musicPlayer = document.querySelector('.music-player');
     let isPlaying = false;
-    let audio = new Audio('happy-birthday.mp3');
-    let currentTrack = 'happy-birthday.mp3';
+    let audio = new Audio('assets/audio/happy-birthday.mp3');
+    let currentTrack = 'assets/audio/happy-birthday.mp3';
 
     let selectMusicBtn = document.getElementById('selectMusicBtn');
     if (!selectMusicBtn) {
@@ -2035,7 +2035,7 @@ function openMusicSelectionModal() {
         trackList.className = 'music-track-list';
 
         const tracks = [
-            { url: 'happy-birthday.mp3', name: 'Happy Birthday Song (Default)' },
+            { url: 'assets/audio/happy-birthday.mp3', name: 'Happy Birthday Song (Default)' },
             { url: 'https://www.bensound.com/bensound-music/bensound-slowmotion.mp3', name: 'Slow Motion' },
             { url: 'https://www.bensound.com/bensound-music/bensound-sunny.mp3', name: 'Sunny' }
         ];
