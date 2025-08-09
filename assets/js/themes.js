@@ -151,6 +151,7 @@ const translations = {
     ja: {
         title: "お誕生日おめでとうございます",
         countdownTitle: "誕生日までのカウントダウン",
+        countdownTemplate: "の誕生日まであと",
         days: "日",
         hours: "時間",
         minutes: "分",
@@ -167,6 +168,7 @@ const translations = {
     en: {
         title: "Happy Birthday",
         countdownTitle: "Countdown to Birthday",
+        countdownTemplate: "'s Birthday Countdown",
         days: "Days",
         hours: "Hours",
         minutes: "Minutes",
